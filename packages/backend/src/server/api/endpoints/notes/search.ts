@@ -45,7 +45,6 @@ export const paramDef = {
 			description: 'The local host is represented with `.`.',
 		},
 		userId: { type: 'string', format: 'misskey:id', nullable: true, default: null },
-		channelId: { type: 'string', format: 'misskey:id', nullable: true, default: null },
 	},
 	required: ['query'],
 } as const;
@@ -71,7 +70,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 
 			const notes = await this.searchService.searchNote(ps.query, me, {
 				userId: ps.userId,
-				channelId: ps.channelId,
 				host: ps.host,
 			}, {
 				untilId: ps.untilId,

@@ -9,7 +9,7 @@ import { extractCustomEmojisFromMfm } from '@/misc/extract-custom-emojis-from-mf
 import { extractHashtags } from '@/misc/extract-hashtags.js';
 import type { IMentionedRemoteUsers } from '@/models/entities/Note.js';
 import { Note } from '@/models/entities/Note.js';
-import type { ChannelFollowingsRepository, ChannelsRepository, InstancesRepository, MutedNotesRepository, MutingsRepository, NotesRepository, NoteThreadMutingsRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
+import type { InstancesRepository, MutedNotesRepository, MutingsRepository, NotesRepository, NoteThreadMutingsRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
 import type { DriveFile } from '@/models/entities/DriveFile.js';
 import type { App } from '@/models/entities/App.js';
 import { concat } from '@/misc/prelude/array.js';
@@ -19,7 +19,6 @@ import type { IPoll } from '@/models/entities/Poll.js';
 import { Poll } from '@/models/entities/Poll.js';
 import { isDuplicateKeyValueError } from '@/misc/is-duplicate-key-value-error.js';
 import { checkWordMute } from '@/misc/check-word-mute.js';
-import type { Channel } from '@/models/entities/Channel.js';
 import { normalizeForSearch } from '@/misc/normalize-for-search.js';
 import { MemorySingleCache } from '@/misc/cache.js';
 import type { UserProfile } from '@/models/entities/UserProfile.js';
@@ -133,7 +132,6 @@ type Option = {
 	cw?: string | null;
 	visibility?: string;
 	visibleUsers?: MinimumUser[] | null;
-	channel?: Channel | null;
 	apMentions?: MinimumUser[] | null;
 	apHashtags?: string[] | null;
 	apEmojis?: string[] | null;
@@ -174,12 +172,6 @@ export class NoteCreateService implements OnApplicationShutdown {
 		@Inject(DI.mutedNotesRepository)
 		private mutedNotesRepository: MutedNotesRepository,
 
-		@Inject(DI.channelsRepository)
-		private channelsRepository: ChannelsRepository,
-
-		@Inject(DI.channelFollowingsRepository)
-		private channelFollowingsRepository: ChannelFollowingsRepository,
-
 		@Inject(DI.noteThreadMutingsRepository)
 		private noteThreadMutingsRepository: NoteThreadMutingsRepository,
 
@@ -215,30 +207,11 @@ export class NoteCreateService implements OnApplicationShutdown {
 		createdAt: User['createdAt'];
 		isBot: User['isBot'];
 	}, data: Option, silent = false): Promise<Note> {
-		// チャンネル外にリプライしたら対象のスコープに合わせる
-		// (クライアントサイドでやっても良い処理だと思うけどとりあえずサーバーサイドで)
-		if (data.reply && data.channel && data.reply.channelId !== data.channel.id) {
-			if (data.reply.channelId) {
-				data.channel = await this.channelsRepository.findOneBy({ id: data.reply.channelId });
-			} else {
-				data.channel = null;
-			}
-		}
-
-		// チャンネル内にリプライしたら対象のスコープに合わせる
-		// (クライアントサイドでやっても良い処理だと思うけどとりあえずサーバーサイドで)
-		if (data.reply && (data.channel == null) && data.reply.channelId) {
-			data.channel = await this.channelsRepository.findOneBy({ id: data.reply.channelId });
-		}
-
 		if (data.createdAt == null) data.createdAt = new Date();
 		if (data.visibility == null) data.visibility = 'public';
 		if (data.localOnly == null) data.localOnly = false;
-		if (data.channel != null) data.visibility = 'public';
-		if (data.channel != null) data.visibleUsers = [];
-		if (data.channel != null) data.localOnly = true;
 
-		if (data.visibility === 'public' && data.channel == null) {
+		if (data.visibility === 'public') {
 			const sensitiveWords = (await this.metaService.fetch()).sensitiveWords;
 			if (this.isSensitive(data, sensitiveWords)) {
 				data.visibility = 'home';
@@ -268,12 +241,12 @@ export class NoteCreateService implements OnApplicationShutdown {
 		}
 
 		// ローカルのみをRenoteしたらローカルのみにする
-		if (data.renote && data.renote.localOnly && data.channel == null) {
+		if (data.renote && data.renote.localOnly) {
 			data.localOnly = true;
 		}
 
 		// ローカルのみにリプライしたらローカルのみにする
-		if (data.reply && data.reply.localOnly && data.channel == null) {
+		if (data.reply && data.reply.localOnly) {
 			data.localOnly = true;
 		}
 
@@ -329,14 +302,6 @@ export class NoteCreateService implements OnApplicationShutdown {
 
 		const note = await this.insertNote(user, data, tags, emojis, mentionedUsers);
 
-		if (data.channel) {
-			this.redisClient.xadd(
-				`channelTimeline:${data.channel.id}`,
-				'MAXLEN', '~', '1000',
-				'*',
-				'note', note.id);
-		}
-
 		setImmediate('post created', { signal: this.#shutdownController.signal }).then(
 			() => this.postNoteCreated(note, user, data, silent, tags!, mentionedUsers!),
 			() => { /* aborted, ignore this */ },
@@ -353,7 +318,6 @@ export class NoteCreateService implements OnApplicationShutdown {
 			fileIds: data.files ? data.files.map(file => file.id) : [],
 			replyId: data.reply ? data.reply.id : null,
 			renoteId: data.renote ? data.renote.id : null,
-			channelId: data.channel ? data.channel.id : null,
 			threadId: data.reply
 				? data.reply.threadId
 					? data.reply.threadId
@@ -669,24 +633,6 @@ export class NoteCreateService implements OnApplicationShutdown {
 				})();
 			}
 			//#endregion
-		}
-
-		if (data.channel) {
-			this.channelsRepository.increment({ id: data.channel.id }, 'notesCount', 1);
-			this.channelsRepository.update(data.channel.id, {
-				lastNotedAt: new Date(),
-			});
-
-			this.notesRepository.countBy({
-				userId: user.id,
-				channelId: data.channel.id,
-			}).then(count => {
-				// この処理が行われるのはノート作成後なので、ノートが一つしかなかったら最初の投稿だと判断できる
-				// TODO: とはいえノートを削除して何回も投稿すればその分だけインクリメントされる雑さもあるのでどうにかしたい
-				if (count === 1) {
-					this.channelsRepository.increment({ id: data.channel!.id }, 'usersCount', 1);
-				}
-			});
 		}
 
 		// Register to search database

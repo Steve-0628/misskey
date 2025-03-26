@@ -33,7 +33,7 @@ import { definePageMetadata } from '@/scripts/page-metadata';
 
 const masterVolume = computed(soundConfigStore.makeGetterSetter('sound_masterVolume'));
 
-const soundsKeys = ['note', 'noteMy', 'notification', 'chat', 'chatBg', 'antenna', 'channel'] as const;
+const soundsKeys = ['note', 'noteMy', 'notification', 'chat', 'chatBg', 'antenna'] as const;
 
 const sounds = ref<Record<typeof soundsKeys[number], Ref<any>>>({
 	note: soundConfigStore.reactiveState.sound_note,
@@ -42,7 +42,6 @@ const sounds = ref<Record<typeof soundsKeys[number], Ref<any>>>({
 	chat: soundConfigStore.reactiveState.sound_chat,
 	chatBg: soundConfigStore.reactiveState.sound_chatBg,
 	antenna: soundConfigStore.reactiveState.sound_antenna,
-	channel: soundConfigStore.reactiveState.sound_channel,
 });
 
 async function updated(type: keyof typeof sounds.value, sound) {

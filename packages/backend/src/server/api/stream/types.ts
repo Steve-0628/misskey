@@ -1,4 +1,3 @@
-import type { Channel } from '@/models/entities/Channel.js';
 import type { User } from '@/models/entities/User.js';
 import type { UserProfile } from '@/models/entities/UserProfile.js';
 import type { Note } from '@/models/entities/Note.js';
@@ -38,8 +37,6 @@ export interface InternalStreamTypes {
 	antennaDeleted: Antenna;
 	antennaUpdated: Antenna;
 	metaUpdated: Meta;
-	followChannel: { userId: User['id']; channelId: Channel['id']; };
-	unfollowChannel: { userId: User['id']; channelId: Channel['id']; };
 	updateUserProfile: UserProfile;
 	mute: { muterId: User['id']; muteeId: User['id']; };
 	unmute: { muterId: User['id']; muteeId: User['id']; };

@@ -32,12 +32,8 @@ class HomeTimelineChannel extends Channel {
 
 	@bindThis
 	private async onNote(note: Packed<'Note'>) {
-		if (note.channelId) {
-			if (!this.followingChannels.has(note.channelId)) return;
-		} else {
-			// その投稿のユーザーをフォローしていなかったら弾く
-			if ((this.user!.id !== note.userId) && !this.following.has(note.userId)) return;
-		}
+		// その投稿のユーザーをフォローしていなかったら弾く
+		if ((this.user!.id !== note.userId) && !this.following.has(note.userId)) return;
 
 		// Ignore notes from instances the user has muted
 		if (isInstanceMuted(note, new Set<string>(this.userProfile!.mutedInstances ?? []))) return;

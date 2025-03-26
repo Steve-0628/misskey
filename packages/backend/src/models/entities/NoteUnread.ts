@@ -2,7 +2,6 @@ import { PrimaryColumn, Entity, Index, JoinColumn, Column, ManyToOne } from 'typ
 import { id } from '../id.js';
 import { User } from './User.js';
 import { Note } from './Note.js';
-import type { Channel } from './Channel.js';
 
 @Entity()
 @Index(['userId', 'noteId'], { unique: true })
@@ -51,13 +50,5 @@ export class NoteUnread {
 		comment: '[Denormalized]',
 	})
 	public noteUserId: User['id'];
-
-	@Index()
-	@Column({
-		...id(),
-		nullable: true,
-		comment: '[Denormalized]',
-	})
-	public noteChannelId: Channel['id'] | null;
 	//#endregion
 }

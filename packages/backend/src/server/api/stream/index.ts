@@ -47,10 +47,9 @@ export default class Connection {
 	@bindThis
 	public async fetch() {
 		if (this.user == null) return;
-		const [userProfile, following, followingChannels, userIdsWhoMeMuting, userIdsWhoBlockingMe, userIdsWhoMeMutingRenotes] = await Promise.all([
+		const [userProfile, following, followingChannels, userIdsWhoMeMuting, userIdsWhoBlockingMe] = await Promise.all([
 			this.cacheService.userProfileCache.fetch(this.user.id),
 			this.cacheService.userFollowingsCache.fetch(this.user.id),
-			this.cacheService.userFollowingChannelsCache.fetch(this.user.id),
 			this.cacheService.userMutingsCache.fetch(this.user.id),
 			this.cacheService.userBlockedCache.fetch(this.user.id),
 			this.cacheService.renoteMutingsCache.fetch(this.user.id),
@@ -60,7 +59,6 @@ export default class Connection {
 		this.followingChannels = followingChannels;
 		this.userIdsWhoMeMuting = userIdsWhoMeMuting;
 		this.userIdsWhoBlockingMe = userIdsWhoBlockingMe;
-		this.userIdsWhoMeMutingRenotes = userIdsWhoMeMutingRenotes;
 	}
 
 	@bindThis

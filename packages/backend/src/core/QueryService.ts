@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Brackets, ObjectLiteral } from 'typeorm';
 import { DI } from '@/di-symbols.js';
 import type { User } from '@/models/entities/User.js';
-import type { UserProfilesRepository, FollowingsRepository, ChannelFollowingsRepository, MutedNotesRepository, BlockingsRepository, NoteThreadMutingsRepository, MutingsRepository, RenoteMutingsRepository } from '@/models/index.js';
+import type { UserProfilesRepository, FollowingsRepository, MutedNotesRepository, BlockingsRepository, NoteThreadMutingsRepository, MutingsRepository, RenoteMutingsRepository } from '@/models/index.js';
 import { bindThis } from '@/decorators.js';
 import type { SelectQueryBuilder } from 'typeorm';
 
@@ -14,9 +14,6 @@ export class QueryService {
 
 		@Inject(DI.followingsRepository)
 		private followingsRepository: FollowingsRepository,
-
-		@Inject(DI.channelFollowingsRepository)
-		private channelFollowingsRepository: ChannelFollowingsRepository,
 
 		@Inject(DI.mutedNotesRepository)
 		private mutedNotesRepository: MutedNotesRepository,
@@ -101,28 +98,6 @@ export class QueryService {
 
 		q.andWhere(`user.id NOT IN (${ blockedQuery.getQuery() })`);
 		q.setParameters(blockedQuery.getParameters());
-	}
-
-	@bindThis
-	public generateChannelQuery(q: SelectQueryBuilder<any>, me?: { id: User['id'] } | null): void {
-		if (me == null) {
-			q.andWhere('note.channelId IS NULL');
-		} else {
-			q.leftJoinAndSelect('note.channel', 'channel');
-
-			const channelFollowingQuery = this.channelFollowingsRepository.createQueryBuilder('channelFollowing')
-				.select('channelFollowing.followeeId')
-				.where('channelFollowing.followerId = :followerId', { followerId: me.id });
-
-			q.andWhere(new Brackets(qb => { qb
-				// チャンネルのノートではない
-				.where('note.channelId IS NULL')
-				// または自分がフォローしているチャンネルのノート
-				.orWhere(`note.channelId IN (${ channelFollowingQuery.getQuery() })`);
-			}));
-
-			q.setParameters(channelFollowingQuery.getParameters());
-		}
 	}
 
 	@bindThis

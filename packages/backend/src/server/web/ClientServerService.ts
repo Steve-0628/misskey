@@ -25,8 +25,7 @@ import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { PageEntityService } from '@/core/entities/PageEntityService.js';
 import { GalleryPostEntityService } from '@/core/entities/GalleryPostEntityService.js';
 import { ClipEntityService } from '@/core/entities/ClipEntityService.js';
-import { ChannelEntityService } from '@/core/entities/ChannelEntityService.js';
-import type { ChannelsRepository, ClipsRepository, FlashsRepository, GalleryPostsRepository, Meta, NotesRepository, PagesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
+import type { ClipsRepository, FlashsRepository, GalleryPostsRepository, Meta, NotesRepository, PagesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
 import type Logger from '@/logger.js';
 import { deepClone } from '@/misc/clone.js';
 import { bindThis } from '@/decorators.js';
@@ -67,9 +66,6 @@ export class ClientServerService {
 		@Inject(DI.galleryPostsRepository)
 		private galleryPostsRepository: GalleryPostsRepository,
 
-		@Inject(DI.channelsRepository)
-		private channelsRepository: ChannelsRepository,
-
 		@Inject(DI.clipsRepository)
 		private clipsRepository: ClipsRepository,
 
@@ -85,7 +81,6 @@ export class ClientServerService {
 		private pageEntityService: PageEntityService,
 		private galleryPostEntityService: GalleryPostEntityService,
 		private clipEntityService: ClipEntityService,
-		private channelEntityService: ChannelEntityService,
 		private metaService: MetaService,
 		private urlPreviewService: UrlPreviewService,
 		private feedService: FeedService,
@@ -612,26 +607,6 @@ export class ClientServerService {
 				return await renderBase(reply);
 			}
 		});
-
-		// Channel
-		fastify.get<{ Params: { channel: string; } }>('/channels/:channel', async (request, reply) => {
-			const channel = await this.channelsRepository.findOneBy({
-				id: request.params.channel,
-			});
-
-			if (channel) {
-				const _channel = await this.channelEntityService.pack(channel);
-				const meta = await this.metaService.fetch();
-				reply.header('Cache-Control', 'public, max-age=15');
-				return await reply.view('channel', {
-					channel: _channel,
-					...this.generateCommonPugData(meta),
-				});
-			} else {
-				return await renderBase(reply);
-			}
-		});
-		//#endregion
 
 		fastify.get('/_info_card_', async (request, reply) => {
 			const meta = await this.metaService.fetch(true);

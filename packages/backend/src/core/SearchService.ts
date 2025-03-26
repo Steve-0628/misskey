@@ -82,7 +82,6 @@ export class SearchService {
 					'createdAt',
 					'userId',
 					'userHost',
-					'channelId',
 					'tags',
 				],
 				typoTolerance: {
@@ -125,7 +124,6 @@ export class SearchService {
 				createdAt: note.createdAt.getTime(),
 				userId: note.userId,
 				userHost: note.userHost,
-				channelId: note.channelId,
 				cw: note.cw,
 				text: note.text,
 				tags: note.tags,
@@ -147,7 +145,6 @@ export class SearchService {
 	@bindThis
 	public async searchNote(q: string, me: User | null, opts: {
 		userId?: Note['userId'] | null;
-		channelId?: Note['channelId'] | null;
 		host?: string | null;
 	}, pagination: {
 		untilId?: Note['id'];
@@ -162,7 +159,6 @@ export class SearchService {
 			if (pagination.untilId) filter.qs.push({ op: '<', k: 'createdAt', v: this.idService.parse(pagination.untilId).date.getTime() });
 			if (pagination.sinceId) filter.qs.push({ op: '>', k: 'createdAt', v: this.idService.parse(pagination.sinceId).date.getTime() });
 			if (opts.userId) filter.qs.push({ op: '=', k: 'userId', v: opts.userId });
-			if (opts.channelId) filter.qs.push({ op: '=', k: 'channelId', v: opts.channelId });
 			if (opts.host) {
 				if (opts.host === '.') {
 					// TODO: Meilisearchが2023/05/07現在値がNULLかどうかのクエリが書けない
@@ -185,7 +181,7 @@ export class SearchService {
 			const fastNotes: Note[] = [];
 			for (const [, v] of Object.entries(res.hits)) {
 				const query = this.notesRepository.createQueryBuilder('note');
-				query.andWhere('note.id = :id', { id: v.id })				
+				query.andWhere('note.id = :id', { id: v.id })
 					.innerJoinAndSelect('note.user', 'user')
 					.leftJoinAndSelect('note.reply', 'reply')
 					.leftJoinAndSelect('note.renote', 'renote')
@@ -209,8 +205,6 @@ export class SearchService {
 
 			if (opts.userId) {
 				query.andWhere('note.userId = :userId', { userId: opts.userId });
-			} else if (opts.channelId) {
-				query.andWhere('note.channelId = :channelId', { channelId: opts.channelId });
 			}
 
 			query

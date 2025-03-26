@@ -12,7 +12,6 @@
 	<!--<div v-if="appearNote._prId_" class="tip"><i class="ti ti-speakerphone"></i> {{ i18n.ts.promotion }}<button class="_textButton hide" @click="readPromo()">{{ i18n.ts.hideThisNote }} <i class="ti ti-x"></i></button></div>-->
 	<!--<div v-if="appearNote._featuredId_" class="tip"><i class="ti ti-bolt"></i> {{ i18n.ts.featured }}</div>-->
 	<div v-if="isRenote" :class="$style.renote">
-		<div v-if="note.channel" :class="$style.colorBar" :style="{ background: note.channel.color }"></div>
 		<MkAvatar :class="$style.renoteAvatar" :user="note.user" link preview/>
 		<i class="ti ti-repeat" style="margin-right: 4px;"></i>
 		<I18n :src="i18n.ts.renotedBy" tag="span" :class="$style.renoteText">
@@ -33,7 +32,6 @@
 				<i v-else-if="note.visibility === 'specified'" ref="specified" class="ti ti-mail"></i>
 			</span>
 			<span v-if="note.localOnly" style="margin-left: 0.5em;" :title="i18n.ts._visibility['disableFederation']"><i class="ti ti-rocket-off"></i></span>
-			<span v-if="note.channel" style="margin-left: 0.5em;" :title="note.channel.name"><i class="ti ti-device-tv"></i></span>
 		</div>
 	</div>
 	<div v-if="renoteCollapsed" :class="$style.collapsedRenoteTarget">
@@ -41,7 +39,6 @@
 		<Mfm :text="getNoteSummary(appearNote)" :plain="true" :nowrap="true" :author="appearNote.user" :class="$style.collapsedRenoteTargetText" @click="renoteCollapsed = false"/>
 	</div>
 	<article v-else :class="$style.article" @contextmenu.stop="onContextmenu">
-		<div v-if="appearNote.channel" :class="$style.colorBar" :style="{ background: appearNote.channel.color }"></div>
 		<MkAvatar :class="$style.avatar" :user="appearNote.user" link preview/>
 		<div :class="$style.main">
 			<MkNoteHeader :note="appearNote" :mini="true"/>
@@ -67,7 +64,7 @@
 					<div v-if="appearNote.files.length > 0">
 						<MkMediaList :mediaList="appearNote.files"/>
 					</div>
-					<MkPoll v-if="appearNote.poll" :note="appearNote" :class="$style.poll"  :author="appearNote.user" :emojiUrls="appearNote.emojis"/>
+					<MkPoll v-if="appearNote.poll" :note="appearNote" :class="$style.poll" :author="appearNote.user" :emojiUrls="appearNote.emojis"/>
 					<MkUrlPreview v-for="url in urls" :key="url" :url="url" :compact="true" :detail="false" :class="$style.urlPreview"/>
 					<div v-if="appearNote.renote" :class="$style.quote"><MkNoteSimple :note="appearNote.renote" :class="$style.quoteNote"/></div>
 					<button v-if="isLong && collapsed" :class="$style.collapsed" class="_button" @click="collapsed = false">
@@ -77,7 +74,6 @@
 						<span :class="$style.showLessLabel">{{ i18n.ts.showLess }}</span>
 					</button>
 				</div>
-				<MkA v-if="appearNote.channel && !inChannel" :class="$style.channel" :to="`/channels/${appearNote.channel.id}`"><i class="ti ti-device-tv"></i> {{ appearNote.channel.name }}</MkA>
 			</div>
 			<MkReactionsViewer :note="appearNote" :maxNumber="16">
 				<template #more>
@@ -172,7 +168,6 @@ const props = defineProps<{
 	pinned?: boolean;
 }>();
 
-const inChannel = inject('inChannel', null);
 const currentClip = inject<Ref<misskey.entities.Clip> | null>('currentClip', null);
 
 let note = $ref(deepClone(props.note));
@@ -267,38 +262,6 @@ function renote(viaKeyboard = false) {
 
 	let items = [] as MenuItem[];
 
-	if (appearNote.channel) {
-		items = items.concat([{
-			text: i18n.ts.inChannelRenote,
-			icon: 'ti ti-repeat',
-			action: () => {
-				const el = renoteButton.value as HTMLElement | null | undefined;
-				if (el) {
-					const rect = el.getBoundingClientRect();
-					const x = rect.left + (el.offsetWidth / 2);
-					const y = rect.top + (el.offsetHeight / 2);
-					os.popup(MkRippleEffect, { x, y }, {}, 'end');
-				}
-
-				os.api('notes/create', {
-					renoteId: appearNote.id,
-					channelId: appearNote.channelId,
-				}).then(() => {
-					os.toast(i18n.ts.renoted);
-				});
-			},
-		}, {
-			text: i18n.ts.inChannelQuote,
-			icon: 'ti ti-quote',
-			action: () => {
-				os.post({
-					renote: appearNote,
-					channel: appearNote.channel,
-				});
-			},
-		}, null]);
-	}
-
 	items = items.concat([{
 		text: i18n.ts.renote,
 		icon: 'ti ti-repeat',
@@ -344,7 +307,6 @@ function reply(viaKeyboard = false): void {
 	pleaseLogin();
 	os.post({
 		reply: appearNote,
-		channel: appearNote.channel,
 		animation: !viaKeyboard,
 	}, () => {
 		focus();
@@ -763,11 +725,6 @@ function showReactions(): void {
 	border: dashed 1px var(--renote);
 	border-radius: 8px;
 	overflow: clip;
-}
-
-.channel {
-	opacity: 0.7;
-	font-size: 80%;
 }
 
 .footer {

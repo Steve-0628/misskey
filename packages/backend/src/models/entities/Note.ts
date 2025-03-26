@@ -2,7 +2,6 @@ import { Entity, Index, JoinColumn, Column, PrimaryColumn, ManyToOne } from 'typ
 import { id } from '../id.js';
 import { noteVisibilities } from '../../types.js';
 import { User } from './User.js';
-import { Channel } from './Channel.js';
 import type { DriveFile } from './DriveFile.js';
 
 @Entity()
@@ -181,20 +180,6 @@ export class Note {
 		default: false,
 	})
 	public hasPoll: boolean;
-
-	@Index()
-	@Column({
-		...id(),
-		nullable: true,
-		comment: 'The ID of source channel.',
-	})
-	public channelId: Channel['id'] | null;
-
-	@ManyToOne(type => Channel, {
-		onDelete: 'CASCADE',
-	})
-	@JoinColumn()
-	public channel: Channel | null;
 
 	//#region Denormalized fields
 	@Index()

@@ -9,7 +9,7 @@ import { awaitAll } from '@/misc/prelude/await-all.js';
 import type { User } from '@/models/entities/User.js';
 import type { Note } from '@/models/entities/Note.js';
 import type { NoteReaction } from '@/models/entities/NoteReaction.js';
-import type { UsersRepository, NotesRepository, FollowingsRepository, PollsRepository, PollVotesRepository, NoteReactionsRepository, ChannelsRepository, DriveFilesRepository } from '@/models/index.js';
+import type { UsersRepository, NotesRepository, FollowingsRepository, PollsRepository, PollVotesRepository, NoteReactionsRepository, DriveFilesRepository } from '@/models/index.js';
 import { bindThis } from '@/decorators.js';
 import { isNotNull } from '@/misc/is-not-null.js';
 import type { OnModuleInit } from '@nestjs/common';
@@ -48,9 +48,6 @@ export class NoteEntityService implements OnModuleInit {
 
 		@Inject(DI.noteReactionsRepository)
 		private noteReactionsRepository: NoteReactionsRepository,
-
-		@Inject(DI.channelsRepository)
-		private channelsRepository: ChannelsRepository,
 
 		@Inject(DI.driveFilesRepository)
 		private driveFilesRepository: DriveFilesRepository,
@@ -295,12 +292,6 @@ export class NoteEntityService implements OnModuleInit {
 			text = `【${note.name}】\n${(note.text ?? '').trim()}\n\n${note.url ?? note.uri}`;
 		}
 
-		const channel = note.channelId
-			? note.channel
-				? note.channel
-				: await this.channelsRepository.findOneBy({ id: note.channelId })
-			: null;
-
 		const reactionEmojiNames = Object.keys(note.reactions)
 			.filter(x => x.startsWith(':') && x.includes('@') && !x.includes('@.')) // リモートカスタム絵文字のみ
 			.map(x => this.reactionService.decodeReaction(x).reaction.replaceAll(':', ''));
@@ -329,12 +320,6 @@ export class NoteEntityService implements OnModuleInit {
 			files: packedFiles != null ? this.packAttachedFiles(note.fileIds, packedFiles) : this.driveFileEntityService.packManyByIds(note.fileIds),
 			replyId: note.replyId,
 			renoteId: note.renoteId,
-			channelId: note.channelId ?? undefined,
-			channel: channel ? {
-				id: channel.id,
-				name: channel.name,
-				color: channel.color,
-			} : undefined,
 			mentions: note.mentions.length > 0 ? note.mentions : undefined,
 			uri: note.uri ?? undefined,
 			url: note.url ?? undefined,

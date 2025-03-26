@@ -41,7 +41,6 @@ class GlobalTimelineChannel extends Channel {
 	@bindThis
 	private async onNote(note: Packed<'Note'>) {
 		if (note.visibility !== 'public') return;
-		if (note.channelId != null) return;
 
 		// リプライなら再pack
 		if (note.replyId != null) {

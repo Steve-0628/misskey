@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import { User, Note, Announcement, AnnouncementRead, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, Page, PageLike, GalleryPost, GalleryLike, ModerationLog, Clip, ClipNote, Antenna, PromoNote, PromoRead, Relay, MutedNote, Channel, ChannelFollowing, ChannelFavorite, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, ClipFavorite, UserMemo, UserListFavorite } from './index.js';
+import { User, Note, Announcement, AnnouncementRead, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, Page, PageLike, GalleryPost, GalleryLike, ModerationLog, Clip, ClipNote, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, ClipFavorite, UserMemo, UserListFavorite } from './index.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
 
@@ -322,24 +322,6 @@ const $mutedNotesRepository: Provider = {
 	inject: [DI.db],
 };
 
-const $channelsRepository: Provider = {
-	provide: DI.channelsRepository,
-	useFactory: (db: DataSource) => db.getRepository(Channel),
-	inject: [DI.db],
-};
-
-const $channelFollowingsRepository: Provider = {
-	provide: DI.channelFollowingsRepository,
-	useFactory: (db: DataSource) => db.getRepository(ChannelFollowing),
-	inject: [DI.db],
-};
-
-const $channelFavoritesRepository: Provider = {
-	provide: DI.channelFavoritesRepository,
-	useFactory: (db: DataSource) => db.getRepository(ChannelFavorite),
-	inject: [DI.db],
-};
-
 const $registryItemsRepository: Provider = {
 	provide: DI.registryItemsRepository,
 	useFactory: (db: DataSource) => db.getRepository(RegistryItem),
@@ -457,9 +439,6 @@ const $userMemosRepository: Provider = {
 		$promoReadsRepository,
 		$relaysRepository,
 		$mutedNotesRepository,
-		$channelsRepository,
-		$channelFollowingsRepository,
-		$channelFavoritesRepository,
 		$registryItemsRepository,
 		$webhooksRepository,
 		$adsRepository,
@@ -525,9 +504,6 @@ const $userMemosRepository: Provider = {
 		$promoReadsRepository,
 		$relaysRepository,
 		$mutedNotesRepository,
-		$channelsRepository,
-		$channelFollowingsRepository,
-		$channelFavoritesRepository,
 		$registryItemsRepository,
 		$webhooksRepository,
 		$adsRepository,

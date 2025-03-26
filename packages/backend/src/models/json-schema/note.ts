@@ -113,30 +113,6 @@ export const packedNoteSchema = {
 			type: 'object',
 			optional: true, nullable: true,
 		},
-		channelId: {
-			type: 'string',
-			optional: true, nullable: true,
-			format: 'id',
-			example: 'xxxxxxxxxx',
-		},
-		channel: {
-			type: 'object',
-			optional: true, nullable: true,
-			items: {
-				type: 'object',
-				optional: false, nullable: false,
-				properties: {
-					id: {
-						type: 'string',
-						optional: false, nullable: false,
-					},
-					name: {
-						type: 'string',
-						optional: false, nullable: true,
-					},
-				},
-			},
-		},
 		localOnly: {
 			type: 'boolean',
 			optional: true, nullable: false,

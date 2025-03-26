@@ -8,8 +8,6 @@ import { App } from '@/models/entities/App.js';
 import { AttestationChallenge } from '@/models/entities/AttestationChallenge.js';
 import { AuthSession } from '@/models/entities/AuthSession.js';
 import { Blocking } from '@/models/entities/Blocking.js';
-import { ChannelFollowing } from '@/models/entities/ChannelFollowing.js';
-import { ChannelFavorite } from '@/models/entities/ChannelFavorite.js';
 import { Clip } from '@/models/entities/Clip.js';
 import { ClipNote } from '@/models/entities/ClipNote.js';
 import { ClipFavorite } from '@/models/entities/ClipFavorite.js';
@@ -57,7 +55,6 @@ import { UserPublickey } from '@/models/entities/UserPublickey.js';
 import { UserSecurityKey } from '@/models/entities/UserSecurityKey.js';
 import { UserMemo } from '@/models/entities/UserMemo.js';
 import { Webhook } from '@/models/entities/Webhook.js';
-import { Channel } from '@/models/entities/Channel.js';
 import { RetentionAggregation } from '@/models/entities/RetentionAggregation.js';
 import { Role } from '@/models/entities/Role.js';
 import { RoleAssignment } from '@/models/entities/RoleAssignment.js';
@@ -77,8 +74,6 @@ export {
 	AttestationChallenge,
 	AuthSession,
 	Blocking,
-	ChannelFollowing,
-	ChannelFavorite,
 	Clip,
 	ClipNote,
 	ClipFavorite,
@@ -126,7 +121,6 @@ export {
 	UserPublickey,
 	UserSecurityKey,
 	Webhook,
-	Channel,
 	RetentionAggregation,
 	Role,
 	RoleAssignment,
@@ -145,8 +139,6 @@ export type AppsRepository = Repository<App>;
 export type AttestationChallengesRepository = Repository<AttestationChallenge>;
 export type AuthSessionsRepository = Repository<AuthSession>;
 export type BlockingsRepository = Repository<Blocking>;
-export type ChannelFollowingsRepository = Repository<ChannelFollowing>;
-export type ChannelFavoritesRepository = Repository<ChannelFavorite>;
 export type ClipsRepository = Repository<Clip>;
 export type ClipNotesRepository = Repository<ClipNote>;
 export type ClipFavoritesRepository = Repository<ClipFavorite>;
@@ -194,7 +186,6 @@ export type UserProfilesRepository = Repository<UserProfile>;
 export type UserPublickeysRepository = Repository<UserPublickey>;
 export type UserSecurityKeysRepository = Repository<UserSecurityKey>;
 export type WebhooksRepository = Repository<Webhook>;
-export type ChannelsRepository = Repository<Channel>;
 export type RetentionAggregationsRepository = Repository<RetentionAggregation>;
 export type RolesRepository = Repository<Role>;
 export type RoleAssignmentsRepository = Repository<RoleAssignment>;

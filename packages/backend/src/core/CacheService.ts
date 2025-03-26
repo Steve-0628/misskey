@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import * as Redis from 'ioredis';
-import type { BlockingsRepository, ChannelFollowingsRepository, FollowingsRepository, MutingsRepository, RenoteMutingsRepository, UserProfile, UserProfilesRepository, UsersRepository } from '@/models/index.js';
+import type { BlockingsRepository, FollowingsRepository, MutingsRepository, RenoteMutingsRepository, UserProfile, UserProfilesRepository, UsersRepository } from '@/models/index.js';
 import { MemoryKVCache, RedisKVCache } from '@/misc/cache.js';
 import type { LocalUser, User } from '@/models/entities/User.js';
 import { DI } from '@/di-symbols.js';
@@ -21,7 +21,6 @@ export class CacheService implements OnApplicationShutdown {
 	public userBlockedCache: RedisKVCache<Set<string>>; // NOTE: 「被」Blockキャッシュ
 	public renoteMutingsCache: RedisKVCache<Set<string>>;
 	public userFollowingsCache: RedisKVCache<Set<string>>;
-	public userFollowingChannelsCache: RedisKVCache<Set<string>>;
 
 	constructor(
 		@Inject(DI.redis)
@@ -47,9 +46,6 @@ export class CacheService implements OnApplicationShutdown {
 
 		@Inject(DI.followingsRepository)
 		private followingsRepository: FollowingsRepository,
-
-		@Inject(DI.channelFollowingsRepository)
-		private channelFollowingsRepository: ChannelFollowingsRepository,
 
 		private userEntityService: UserEntityService,
 	) {
@@ -139,14 +135,6 @@ export class CacheService implements OnApplicationShutdown {
 			fromRedisConverter: (value) => new Set(JSON.parse(value)),
 		});
 
-		this.userFollowingChannelsCache = new RedisKVCache<Set<string>>(this.redisClient, 'userFollowingChannels', {
-			lifetime: 1000 * 60 * 30, // 30m
-			memoryCacheLifetime: 1000 * 60, // 1m
-			fetcher: (key) => this.channelFollowingsRepository.find({ where: { followerId: key }, select: ['followeeId'] }).then(xs => new Set(xs.map(x => x.followeeId))),
-			toRedisConverter: (value) => JSON.stringify(Array.from(value)),
-			fromRedisConverter: (value) => new Set(JSON.parse(value)),
-		});
-
 		this.redisForSub.on('message', this.onMessage);
 	}
 
@@ -209,7 +197,6 @@ export class CacheService implements OnApplicationShutdown {
 		this.userBlockedCache.dispose();
 		this.renoteMutingsCache.dispose();
 		this.userFollowingsCache.dispose();
-		this.userFollowingChannelsCache.dispose();
 	}
 
 	@bindThis

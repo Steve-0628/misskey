@@ -80,7 +80,6 @@
 				<MkUrlPreview v-for="url in urls" :key="url" :url="url" :compact="true" :detail="true" style="margin-top: 6px;"/>
 				<div v-if="appearNote.renote" :class="$style.quote"><MkNoteSimple :note="appearNote.renote" :class="$style.quoteNote"/></div>
 			</div>
-			<MkA v-if="appearNote.channel && !inChannel" :class="$style.channel" :to="`/channels/${appearNote.channel.id}`"><i class="ti ti-device-tv"></i> {{ appearNote.channel.name }}</MkA>
 		</div>
 		<footer>
 			<div :class="$style.noteFooterInfo">
@@ -171,8 +170,6 @@ const props = defineProps<{
 	pinned?: boolean;
 }>();
 
-const inChannel = inject('inChannel', null);
-
 let note = $ref(deepClone(props.note));
 
 // plugin
@@ -262,38 +259,6 @@ function renote(viaKeyboard = false) {
 
 	let items = [] as MenuItem[];
 
-	if (appearNote.channel) {
-		items = items.concat([{
-			text: i18n.ts.inChannelRenote,
-			icon: 'ti ti-repeat',
-			action: () => {
-				const el = renoteButton.value as HTMLElement | null | undefined;
-				if (el) {
-					const rect = el.getBoundingClientRect();
-					const x = rect.left + (el.offsetWidth / 2);
-					const y = rect.top + (el.offsetHeight / 2);
-					os.popup(MkRippleEffect, { x, y }, {}, 'end');
-				}
-
-				os.api('notes/create', {
-					renoteId: appearNote.id,
-					channelId: appearNote.channelId,
-				}).then(() => {
-					os.toast(i18n.ts.renoted);
-				});
-			},
-		}, {
-			text: i18n.ts.inChannelQuote,
-			icon: 'ti ti-quote',
-			action: () => {
-				os.post({
-					renote: appearNote,
-					channel: appearNote.channel,
-				});
-			},
-		}, null]);
-	}
-
 	items = items.concat([{
 		text: i18n.ts.renote,
 		icon: 'ti ti-repeat',
@@ -337,7 +302,6 @@ function reply(viaKeyboard = false): void {
 	showMovedDialog();
 	os.post({
 		reply: appearNote,
-		channel: appearNote.channel,
 		animation: !viaKeyboard,
 	}, () => {
 		focus();
@@ -614,11 +578,6 @@ if (appearNote.replyId) {
 	border: dashed 1px var(--renote);
 	border-radius: 8px;
 	overflow: clip;
-}
-
-.channel {
-	opacity: 0.7;
-	font-size: 80%;
 }
 
 .noteFooterInfo {

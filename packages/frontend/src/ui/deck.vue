@@ -88,7 +88,6 @@ import { deckStore, addColumn as addColumnToStore, loadDeck, getProfiles, delete
 import XSidebar from '@/ui/_common_/navbar.vue';
 import XDrawerMenu from '@/ui/_common_/navbar-for-mobile.vue';
 import MkButton from '@/components/MkButton.vue';
-import { getScrollContainer } from '@/scripts/scroll';
 import * as os from '@/os';
 import { navbarItemDef } from '@/navbar';
 import { $i } from '@/account';
@@ -101,7 +100,6 @@ import XMainColumn from '@/ui/deck/main-column.vue';
 import XTlColumn from '@/ui/deck/tl-column.vue';
 import XAntennaColumn from '@/ui/deck/antenna-column.vue';
 import XListColumn from '@/ui/deck/list-column.vue';
-import XChannelColumn from '@/ui/deck/channel-column.vue';
 import XNotificationsColumn from '@/ui/deck/notifications-column.vue';
 import XWidgetsColumn from '@/ui/deck/widgets-column.vue';
 import XMentionsColumn from '@/ui/deck/mentions-column.vue';
@@ -115,7 +113,6 @@ const columnComponents = {
 	notifications: XNotificationsColumn,
 	tl: XTlColumn,
 	list: XListColumn,
-	channel: XChannelColumn,
 	antenna: XAntennaColumn,
 	mentions: XMentionsColumn,
 	direct: XDirectColumn,
@@ -169,7 +166,6 @@ const addColumn = async (ev) => {
 		'tl',
 		'antenna',
 		'list',
-		'channel',
 		'mentions',
 		'direct',
 		'roleTimeline',

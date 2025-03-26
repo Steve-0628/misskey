@@ -80,7 +80,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				query.andWhere('note.userId = :meId', { meId: me.id });
 			}
 
-			this.queryService.generateChannelQuery(query, me);
 			this.queryService.generateRepliesQuery(query, ps.withReplies, me);
 			this.queryService.generateVisibilityQuery(query, me);
 			this.queryService.generateMutedUserQuery(query, me);
