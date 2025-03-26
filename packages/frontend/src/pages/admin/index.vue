@@ -126,11 +126,6 @@ const menuDef = $computed(() => [{
 		to: '/admin/files',
 		active: currentPage?.route.name === 'files',
 	}, {
-		icon: 'ti ti-speakerphone',
-		text: i18n.ts.announcements,
-		to: '/admin/announcements',
-		active: currentPage?.route.name === 'announcements',
-	}, {
 		icon: 'ti ti-ad',
 		text: i18n.ts.ads,
 		to: '/admin/ads',

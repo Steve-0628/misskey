@@ -74,7 +74,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				autoSensitive: profile.autoSensitive,
 				carefulBot: profile.carefulBot,
 				injectFeaturedNote: profile.injectFeaturedNote,
-				receiveAnnouncementEmail: profile.receiveAnnouncementEmail,
 				mutedWords: profile.mutedWords,
 				mutedInstances: profile.mutedInstances,
 				mutingNotificationTypes: profile.mutingNotificationTypes,

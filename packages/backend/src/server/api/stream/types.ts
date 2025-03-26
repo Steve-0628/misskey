@@ -78,7 +78,6 @@ export interface MainStreamTypes {
 	readAllUnreadSpecifiedNotes: undefined;
 	readAllAntennas: undefined;
 	unreadAntenna: Antenna;
-	readAllAnnouncements: undefined;
 	myTokenRegenerated: undefined;
 	signin: Signin;
 	registryUpdated: {

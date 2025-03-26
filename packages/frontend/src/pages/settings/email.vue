@@ -10,12 +10,6 @@
 	</FormSection>
 
 	<FormSection>
-		<MkSwitch :modelValue="$i.receiveAnnouncementEmail" @update:modelValue="onChangeReceiveAnnouncementEmail">
-			{{ i18n.ts.receiveAnnouncementFromInstance }}
-		</MkSwitch>
-	</FormSection>
-
-	<FormSection>
 		<template #label>{{ i18n.ts.emailNotification }}</template>
 
 		<div class="_gaps_s">
@@ -55,12 +49,6 @@ import { definePageMetadata } from '@/scripts/page-metadata';
 import { instance } from '@/instance';
 
 const emailAddress = ref($i!.email);
-
-const onChangeReceiveAnnouncementEmail = (v) => {
-	os.api('i/update', {
-		receiveAnnouncementEmail: v,
-	});
-};
 
 const saveEmailAddress = () => {
 	os.inputText({

@@ -9,10 +9,6 @@ import * as ep___admin_ad_create from './endpoints/admin/ad/create.js';
 import * as ep___admin_ad_delete from './endpoints/admin/ad/delete.js';
 import * as ep___admin_ad_list from './endpoints/admin/ad/list.js';
 import * as ep___admin_ad_update from './endpoints/admin/ad/update.js';
-import * as ep___admin_announcements_create from './endpoints/admin/announcements/create.js';
-import * as ep___admin_announcements_delete from './endpoints/admin/announcements/delete.js';
-import * as ep___admin_announcements_list from './endpoints/admin/announcements/list.js';
-import * as ep___admin_announcements_update from './endpoints/admin/announcements/update.js';
 import * as ep___admin_deleteAllFilesOfAUser from './endpoints/admin/delete-all-files-of-a-user.js';
 import * as ep___admin_drive_cleanRemoteFiles from './endpoints/admin/drive/clean-remote-files.js';
 import * as ep___admin_drive_cleanup from './endpoints/admin/drive/cleanup.js';
@@ -70,7 +66,6 @@ import * as ep___admin_roles_assign from './endpoints/admin/roles/assign.js';
 import * as ep___admin_roles_unassign from './endpoints/admin/roles/unassign.js';
 import * as ep___admin_roles_updateDefaultPolicies from './endpoints/admin/roles/update-default-policies.js';
 import * as ep___admin_roles_users from './endpoints/admin/roles/users.js';
-import * as ep___announcements from './endpoints/announcements.js';
 import * as ep___antennas_create from './endpoints/antennas/create.js';
 import * as ep___antennas_delete from './endpoints/antennas/delete.js';
 import * as ep___antennas_list from './endpoints/antennas/list.js';
@@ -173,7 +168,6 @@ import * as ep___i_importAntennas from './endpoints/i/import-antennas.js';
 import * as ep___i_notifications from './endpoints/i/notifications.js';
 import * as ep___i_pin from './endpoints/i/pin.js';
 import * as ep___i_readAllUnreadNotes from './endpoints/i/read-all-unread-notes.js';
-import * as ep___i_readAnnouncement from './endpoints/i/read-announcement.js';
 import * as ep___i_regenerateToken from './endpoints/i/regenerate-token.js';
 import * as ep___i_registry_getAll from './endpoints/i/registry/get-all.js';
 import * as ep___i_registry_getDetail from './endpoints/i/registry/get-detail.js';
@@ -304,10 +298,6 @@ const eps = [
 	['admin/ad/delete', ep___admin_ad_delete],
 	['admin/ad/list', ep___admin_ad_list],
 	['admin/ad/update', ep___admin_ad_update],
-	['admin/announcements/create', ep___admin_announcements_create],
-	['admin/announcements/delete', ep___admin_announcements_delete],
-	['admin/announcements/list', ep___admin_announcements_list],
-	['admin/announcements/update', ep___admin_announcements_update],
 	['admin/delete-all-files-of-a-user', ep___admin_deleteAllFilesOfAUser],
 	['admin/drive/clean-remote-files', ep___admin_drive_cleanRemoteFiles],
 	['admin/drive/cleanup', ep___admin_drive_cleanup],
@@ -365,7 +355,6 @@ const eps = [
 	['admin/roles/unassign', ep___admin_roles_unassign],
 	['admin/roles/update-default-policies', ep___admin_roles_updateDefaultPolicies],
 	['admin/roles/users', ep___admin_roles_users],
-	['announcements', ep___announcements],
 	['antennas/create', ep___antennas_create],
 	['antennas/delete', ep___antennas_delete],
 	['antennas/list', ep___antennas_list],
@@ -468,7 +457,6 @@ const eps = [
 	['i/notifications', ep___i_notifications],
 	['i/pin', ep___i_pin],
 	['i/read-all-unread-notes', ep___i_readAllUnreadNotes],
-	['i/read-announcement', ep___i_readAnnouncement],
 	['i/regenerate-token', ep___i_regenerateToken],
 	['i/registry/get-all', ep___i_registry_getAll],
 	['i/registry/get-detail', ep___i_registry_getDetail],

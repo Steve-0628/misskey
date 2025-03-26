@@ -271,10 +271,6 @@ export const packedMeDetailedOnlySchema = {
 			type: 'boolean',
 			nullable: true, optional: false,
 		},
-		receiveAnnouncementEmail: {
-			type: 'boolean',
-			nullable: true, optional: false,
-		},
 		alwaysMarkNsfw: {
 			type: 'boolean',
 			nullable: true, optional: false,
@@ -316,10 +312,6 @@ export const packedMeDetailedOnlySchema = {
 			nullable: false, optional: false,
 		},
 		hasUnreadMentions: {
-			type: 'boolean',
-			nullable: false, optional: false,
-		},
-		hasUnreadAnnouncement: {
 			type: 'boolean',
 			nullable: false, optional: false,
 		},

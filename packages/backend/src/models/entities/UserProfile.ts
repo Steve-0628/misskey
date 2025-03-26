@@ -171,11 +171,6 @@ export class UserProfile {
 	})
 	public injectFeaturedNote: boolean;
 
-	@Column('boolean', {
-		default: true,
-	})
-	public receiveAnnouncementEmail: boolean;
-
 	@Index()
 	@Column('boolean', {
 		default: false, select: false,

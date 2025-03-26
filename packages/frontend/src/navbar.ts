@@ -35,12 +35,6 @@ export const navbarItemDef = reactive({
 		icon: 'ti ti-hash',
 		to: '/explore',
 	},
-	announcements: {
-		title: i18n.ts.announcements,
-		icon: 'ti ti-speakerphone',
-		indicated: computed(() => $i != null && $i.hasUnreadAnnouncement),
-		to: '/announcements',
-	},
 	search: {
 		title: i18n.ts.search,
 		icon: 'ti ti-search',

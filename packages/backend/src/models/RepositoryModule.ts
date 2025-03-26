@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import { User, Note, Announcement, AnnouncementRead, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, UserMemo, UserListFavorite } from './index.js';
+import { User, Note, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, UserMemo, UserListFavorite } from './index.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
 
@@ -13,18 +13,6 @@ const $usersRepository: Provider = {
 const $notesRepository: Provider = {
 	provide: DI.notesRepository,
 	useFactory: (db: DataSource) => db.getRepository(Note),
-	inject: [DI.db],
-};
-
-const $announcementsRepository: Provider = {
-	provide: DI.announcementsRepository,
-	useFactory: (db: DataSource) => db.getRepository(Announcement),
-	inject: [DI.db],
-};
-
-const $announcementReadsRepository: Provider = {
-	provide: DI.announcementReadsRepository,
-	useFactory: (db: DataSource) => db.getRepository(AnnouncementRead),
 	inject: [DI.db],
 };
 
@@ -346,8 +334,6 @@ const $userMemosRepository: Provider = {
 	providers: [
 		$usersRepository,
 		$notesRepository,
-		$announcementsRepository,
-		$announcementReadsRepository,
 		$appsRepository,
 		$noteFavoritesRepository,
 		$noteThreadMutingsRepository,
@@ -404,8 +390,6 @@ const $userMemosRepository: Provider = {
 	exports: [
 		$usersRepository,
 		$notesRepository,
-		$announcementsRepository,
-		$announcementReadsRepository,
 		$appsRepository,
 		$noteFavoritesRepository,
 		$noteThreadMutingsRepository,

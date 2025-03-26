@@ -138,7 +138,6 @@ describe('ユーザー', () => {
 			isModerator: user.isModerator,
 			isAdmin: user.isAdmin,
 			injectFeaturedNote: user.injectFeaturedNote,
-			receiveAnnouncementEmail: user.receiveAnnouncementEmail,
 			alwaysMarkNsfw: user.alwaysMarkNsfw,
 			autoSensitive: user.autoSensitive,
 			carefulBot: user.carefulBot,
@@ -150,7 +149,6 @@ describe('ユーザー', () => {
 			hideOnlineStatus: user.hideOnlineStatus,
 			hasUnreadSpecifiedNotes: user.hasUnreadSpecifiedNotes,
 			hasUnreadMentions: user.hasUnreadMentions,
-			hasUnreadAnnouncement: user.hasUnreadAnnouncement,
 			hasUnreadAntenna: user.hasUnreadAntenna,
 			hasUnreadChannel: user.hasUnreadChannel,
 			hasUnreadNotification: user.hasUnreadNotification,
@@ -383,7 +381,6 @@ describe('ユーザー', () => {
 		assert.strictEqual(response.isModerator, false);
 		assert.strictEqual(response.isAdmin, false);
 		assert.strictEqual(response.injectFeaturedNote, true);
-		assert.strictEqual(response.receiveAnnouncementEmail, true);
 		assert.strictEqual(response.alwaysMarkNsfw, false);
 		assert.strictEqual(response.autoSensitive, false);
 		assert.strictEqual(response.carefulBot, false);
@@ -395,7 +392,6 @@ describe('ユーザー', () => {
 		assert.strictEqual(response.hideOnlineStatus, false);
 		assert.strictEqual(response.hasUnreadSpecifiedNotes, false);
 		assert.strictEqual(response.hasUnreadMentions, false);
-		assert.strictEqual(response.hasUnreadAnnouncement, false);
 		assert.strictEqual(response.hasUnreadAntenna, false);
 		assert.strictEqual(response.hasUnreadChannel, false);
 		assert.strictEqual(response.hasUnreadNotification, false);
@@ -469,8 +465,6 @@ describe('ユーザー', () => {
 		{ parameters: (): object => ({ isCat: false }) },
 		{ parameters: (): object => ({ injectFeaturedNote: true }) },
 		{ parameters: (): object => ({ injectFeaturedNote: false }) },
-		{ parameters: (): object => ({ receiveAnnouncementEmail: true }) },
-		{ parameters: (): object => ({ receiveAnnouncementEmail: false }) },
 		{ parameters: (): object => ({ alwaysMarkNsfw: true }) },
 		{ parameters: (): object => ({ alwaysMarkNsfw: false }) },
 		{ parameters: (): object => ({ autoSensitive: true }) },

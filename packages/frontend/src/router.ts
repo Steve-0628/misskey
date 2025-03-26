@@ -199,9 +199,6 @@ export const routes = [{
 	path: '/signup-complete/:code',
 	component: page(() => import('./pages/signup-complete.vue')),
 }, {
-	path: '/announcements',
-	component: page(() => import('./pages/announcements.vue')),
-}, {
 	path: '/about',
 	component: page(() => import('./pages/about.vue')),
 	hash: 'initialTab',
@@ -323,10 +320,6 @@ export const routes = [{
 		path: '/federation',
 		name: 'federation',
 		component: page(() => import('./pages/admin/federation.vue')),
-	}, {
-		path: '/announcements',
-		name: 'announcements',
-		component: page(() => import('./pages/admin/announcements.vue')),
 	}, {
 		path: '/ads',
 		name: 'ads',

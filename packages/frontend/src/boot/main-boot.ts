@@ -223,10 +223,6 @@ export async function mainBoot() {
 			sound.play('antenna');
 		});
 
-		main.on('readAllAnnouncements', () => {
-			updateAccount({ hasUnreadAnnouncement: false });
-		});
-
 		// トークンが再生成されたとき
 		// このままではMisskeyが利用できないので強制的にサインアウトさせる
 		main.on('myTokenRegenerated', () => {

@@ -1,8 +1,6 @@
 import { AbuseUserReport } from '@/models/entities/AbuseUserReport.js';
 import { AccessToken } from '@/models/entities/AccessToken.js';
 import { Ad } from '@/models/entities/Ad.js';
-import { Announcement } from '@/models/entities/Announcement.js';
-import { AnnouncementRead } from '@/models/entities/AnnouncementRead.js';
 import { Antenna } from '@/models/entities/Antenna.js';
 import { App } from '@/models/entities/App.js';
 import { AttestationChallenge } from '@/models/entities/AttestationChallenge.js';
@@ -60,8 +58,6 @@ export {
 	AbuseUserReport,
 	AccessToken,
 	Ad,
-	Announcement,
-	AnnouncementRead,
 	Antenna,
 	App,
 	AttestationChallenge,
@@ -118,8 +114,6 @@ export {
 export type AbuseUserReportsRepository = Repository<AbuseUserReport>;
 export type AccessTokensRepository = Repository<AccessToken>;
 export type AdsRepository = Repository<Ad>;
-export type AnnouncementsRepository = Repository<Announcement>;
-export type AnnouncementReadsRepository = Repository<AnnouncementRead>;
 export type AntennasRepository = Repository<Antenna>;
 export type AppsRepository = Repository<App>;
 export type AttestationChallengesRepository = Repository<AttestationChallenge>;
