@@ -47,8 +47,6 @@ export const DI = {
 	authSessionsRepository: Symbol('authSessionsRepository'),
 	accessTokensRepository: Symbol('accessTokensRepository'),
 	signinsRepository: Symbol('signinsRepository'),
-	pagesRepository: Symbol('pagesRepository'),
-	pageLikesRepository: Symbol('pageLikesRepository'),
 	moderationLogsRepository: Symbol('moderationLogsRepository'),
 	clipsRepository: Symbol('clipsRepository'),
 	clipNotesRepository: Symbol('clipNotesRepository'),

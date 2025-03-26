@@ -2,7 +2,6 @@ import { Entity, Column, Index, OneToOne, JoinColumn, PrimaryColumn } from 'type
 import { obsoleteNotificationTypes, ffVisibility, notificationTypes } from '@/types.js';
 import { id } from '../id.js';
 import { User } from './User.js';
-import { Page } from './Page.js';
 
 // TODO: このテーブルで管理している情報すべてレジストリで管理するようにしても良いかも
 //       ただ、「emailVerified が true なユーザーを find する」のようなクエリは書けなくなるからウーン
@@ -176,18 +175,6 @@ export class UserProfile {
 		default: true,
 	})
 	public receiveAnnouncementEmail: boolean;
-
-	@Column({
-		...id(),
-		nullable: true,
-	})
-	public pinnedPageId: Page['id'] | null;
-
-	@OneToOne(type => Page, {
-		onDelete: 'SET NULL',
-	})
-	@JoinColumn()
-	public pinnedPage: Page | null;
 
 	@Index()
 	@Column('boolean', {

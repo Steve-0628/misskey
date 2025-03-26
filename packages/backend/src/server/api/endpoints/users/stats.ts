@@ -3,7 +3,7 @@ import { awaitAll } from '@/misc/prelude/await-all.js';
 import { Endpoint } from '@/server/api/endpoint-base.js';
 import { DriveFileEntityService } from '@/core/entities/DriveFileEntityService.js';
 import { DI } from '@/di-symbols.js';
-import type { UsersRepository, NotesRepository, FollowingsRepository, DriveFilesRepository, NoteReactionsRepository, PageLikesRepository, NoteFavoritesRepository, PollVotesRepository } from '@/models/index.js';
+import type { UsersRepository, NotesRepository, FollowingsRepository, DriveFilesRepository, NoteReactionsRepository, NoteFavoritesRepository, PollVotesRepository } from '@/models/index.js';
 import { ApiError } from '../../error.js';
 
 export const meta = {
@@ -89,14 +89,6 @@ export const meta = {
 				type: 'integer',
 				optional: false, nullable: false,
 			},
-			pageLikesCount: {
-				type: 'integer',
-				optional: false, nullable: false,
-			},
-			pageLikedCount: {
-				type: 'integer',
-				optional: false, nullable: false,
-			},
 			driveFilesCount: {
 				type: 'integer',
 				optional: false, nullable: false,
@@ -136,9 +128,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 
 		@Inject(DI.noteReactionsRepository)
 		private noteReactionsRepository: NoteReactionsRepository,
-
-		@Inject(DI.pageLikesRepository)
-		private pageLikesRepository: PageLikesRepository,
 
 		@Inject(DI.noteFavoritesRepository)
 		private noteFavoritesRepository: NoteFavoritesRepository,
@@ -204,13 +193,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					.getCount(),
 				noteFavoritesCount: this.noteFavoritesRepository.createQueryBuilder('favorite')
 					.where('favorite.userId = :userId', { userId: user.id })
-					.getCount(),
-				pageLikesCount: this.pageLikesRepository.createQueryBuilder('like')
-					.where('like.userId = :userId', { userId: user.id })
-					.getCount(),
-				pageLikedCount: this.pageLikesRepository.createQueryBuilder('like')
-					.innerJoin('like.page', 'page')
-					.where('page.userId = :userId', { userId: user.id })
 					.getCount(),
 				driveFilesCount: this.driveFilesRepository.createQueryBuilder('file')
 					.where('file.userId = :userId', { userId: user.id })

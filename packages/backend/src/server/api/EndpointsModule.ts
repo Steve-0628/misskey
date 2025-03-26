@@ -182,8 +182,6 @@ import * as ep___i_importMuting from './endpoints/i/import-muting.js';
 import * as ep___i_importUserLists from './endpoints/i/import-user-lists.js';
 import * as ep___i_importAntennas from './endpoints/i/import-antennas.js';
 import * as ep___i_notifications from './endpoints/i/notifications.js';
-import * as ep___i_pageLikes from './endpoints/i/page-likes.js';
-import * as ep___i_pages from './endpoints/i/pages.js';
 import * as ep___i_pin from './endpoints/i/pin.js';
 import * as ep___i_readAllUnreadNotes from './endpoints/i/read-all-unread-notes.js';
 import * as ep___i_readAnnouncement from './endpoints/i/read-announcement.js';
@@ -254,14 +252,6 @@ import * as ep___notes_unrenote from './endpoints/notes/unrenote.js';
 import * as ep___notes_userListTimeline from './endpoints/notes/user-list-timeline.js';
 import * as ep___notifications_create from './endpoints/notifications/create.js';
 import * as ep___notifications_markAllAsRead from './endpoints/notifications/mark-all-as-read.js';
-import * as ep___pagePush from './endpoints/page-push.js';
-import * as ep___pages_create from './endpoints/pages/create.js';
-import * as ep___pages_delete from './endpoints/pages/delete.js';
-import * as ep___pages_featured from './endpoints/pages/featured.js';
-import * as ep___pages_like from './endpoints/pages/like.js';
-import * as ep___pages_show from './endpoints/pages/show.js';
-import * as ep___pages_unlike from './endpoints/pages/unlike.js';
-import * as ep___pages_update from './endpoints/pages/update.js';
 import * as ep___flash_create from './endpoints/flash/create.js';
 import * as ep___flash_delete from './endpoints/flash/delete.js';
 import * as ep___flash_featured from './endpoints/flash/featured.js';
@@ -305,7 +295,6 @@ import * as ep___users_lists_favorite from './endpoints/users/lists/favorite.js'
 import * as ep___users_lists_unfavorite from './endpoints/users/lists/unfavorite.js';
 import * as ep___users_lists_create_from_public from './endpoints/users/lists/create-from-public.js';
 import * as ep___users_notes from './endpoints/users/notes.js';
-import * as ep___users_pages from './endpoints/users/pages.js';
 import * as ep___users_reactions from './endpoints/users/reactions.js';
 import * as ep___users_recommendation from './endpoints/users/recommendation.js';
 import * as ep___users_relation from './endpoints/users/relation.js';
@@ -504,8 +493,6 @@ const $i_importMuting: Provider = { provide: 'ep:i/import-muting', useClass: ep_
 const $i_importUserLists: Provider = { provide: 'ep:i/import-user-lists', useClass: ep___i_importUserLists.default };
 const $i_importAntennas: Provider = { provide: 'ep:i/import-antennas', useClass: ep___i_importAntennas.default };
 const $i_notifications: Provider = { provide: 'ep:i/notifications', useClass: ep___i_notifications.default };
-const $i_pageLikes: Provider = { provide: 'ep:i/page-likes', useClass: ep___i_pageLikes.default };
-const $i_pages: Provider = { provide: 'ep:i/pages', useClass: ep___i_pages.default };
 const $i_pin: Provider = { provide: 'ep:i/pin', useClass: ep___i_pin.default };
 const $i_readAllUnreadNotes: Provider = { provide: 'ep:i/read-all-unread-notes', useClass: ep___i_readAllUnreadNotes.default };
 const $i_readAnnouncement: Provider = { provide: 'ep:i/read-announcement', useClass: ep___i_readAnnouncement.default };
@@ -576,14 +563,6 @@ const $notes_unrenote: Provider = { provide: 'ep:notes/unrenote', useClass: ep__
 const $notes_userListTimeline: Provider = { provide: 'ep:notes/user-list-timeline', useClass: ep___notes_userListTimeline.default };
 const $notifications_create: Provider = { provide: 'ep:notifications/create', useClass: ep___notifications_create.default };
 const $notifications_markAllAsRead: Provider = { provide: 'ep:notifications/mark-all-as-read', useClass: ep___notifications_markAllAsRead.default };
-const $pagePush: Provider = { provide: 'ep:page-push', useClass: ep___pagePush.default };
-const $pages_create: Provider = { provide: 'ep:pages/create', useClass: ep___pages_create.default };
-const $pages_delete: Provider = { provide: 'ep:pages/delete', useClass: ep___pages_delete.default };
-const $pages_featured: Provider = { provide: 'ep:pages/featured', useClass: ep___pages_featured.default };
-const $pages_like: Provider = { provide: 'ep:pages/like', useClass: ep___pages_like.default };
-const $pages_show: Provider = { provide: 'ep:pages/show', useClass: ep___pages_show.default };
-const $pages_unlike: Provider = { provide: 'ep:pages/unlike', useClass: ep___pages_unlike.default };
-const $pages_update: Provider = { provide: 'ep:pages/update', useClass: ep___pages_update.default };
 const $flash_create: Provider = { provide: 'ep:flash/create', useClass: ep___flash_create.default };
 const $flash_delete: Provider = { provide: 'ep:flash/delete', useClass: ep___flash_delete.default };
 const $flash_featured: Provider = { provide: 'ep:flash/featured', useClass: ep___flash_featured.default };
@@ -627,7 +606,6 @@ const $users_lists_favorite: Provider = { provide: 'ep:users/lists/favorite', us
 const $users_lists_unfavorite: Provider = { provide: 'ep:users/lists/unfavorite', useClass: ep___users_lists_unfavorite.default };
 const $users_lists_create_from_public: Provider = { provide: 'ep:users/lists/create-from-public', useClass: ep___users_lists_create_from_public.default };
 const $users_notes: Provider = { provide: 'ep:users/notes', useClass: ep___users_notes.default };
-const $users_pages: Provider = { provide: 'ep:users/pages', useClass: ep___users_pages.default };
 const $users_reactions: Provider = { provide: 'ep:users/reactions', useClass: ep___users_reactions.default };
 const $users_recommendation: Provider = { provide: 'ep:users/recommendation', useClass: ep___users_recommendation.default };
 const $users_relation: Provider = { provide: 'ep:users/relation', useClass: ep___users_relation.default };
@@ -829,8 +807,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$i_importUserLists,
 		$i_importAntennas,
 		$i_notifications,
-		$i_pageLikes,
-		$i_pages,
 		$i_pin,
 		$i_readAllUnreadNotes,
 		$i_readAnnouncement,
@@ -901,14 +877,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$notes_userListTimeline,
 		$notifications_create,
 		$notifications_markAllAsRead,
-		$pagePush,
-		$pages_create,
-		$pages_delete,
-		$pages_featured,
-		$pages_like,
-		$pages_show,
-		$pages_unlike,
-		$pages_update,
 		$flash_create,
 		$flash_delete,
 		$flash_featured,
@@ -952,7 +920,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$users_lists_unfavorite,
 		$users_lists_create_from_public,
 		$users_notes,
-		$users_pages,
 		$users_reactions,
 		$users_recommendation,
 		$users_relation,
@@ -1148,8 +1115,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$i_importUserLists,
 		$i_importAntennas,
 		$i_notifications,
-		$i_pageLikes,
-		$i_pages,
 		$i_pin,
 		$i_readAllUnreadNotes,
 		$i_readAnnouncement,
@@ -1220,14 +1185,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$notes_userListTimeline,
 		$notifications_create,
 		$notifications_markAllAsRead,
-		$pagePush,
-		$pages_create,
-		$pages_delete,
-		$pages_featured,
-		$pages_like,
-		$pages_show,
-		$pages_unlike,
-		$pages_update,
 		$flash_create,
 		$flash_delete,
 		$flash_featured,
@@ -1269,7 +1226,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$users_lists_unfavorite,
 		$users_lists_create_from_public,
 		$users_notes,
-		$users_pages,
 		$users_reactions,
 		$users_recommendation,
 		$users_relation,

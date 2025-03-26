@@ -4,7 +4,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { extractCustomEmojisFromMfm } from '@/misc/extract-custom-emojis-from-mfm.js';
 import { extractHashtags } from '@/misc/extract-hashtags.js';
 import * as Acct from '@/misc/acct.js';
-import type { UsersRepository, DriveFilesRepository, UserProfilesRepository, PagesRepository } from '@/models/index.js';
+import type { UsersRepository, DriveFilesRepository, UserProfilesRepository } from '@/models/index.js';
 import type { User } from '@/models/entities/User.js';
 import { birthdaySchema, descriptionSchema, locationSchema, nameSchema } from '@/models/entities/User.js';
 import type { UserProfile } from '@/models/entities/UserProfile.js';
@@ -56,12 +56,6 @@ export const meta = {
 			message: 'The file specified as a banner is not an image.',
 			code: 'BANNER_NOT_AN_IMAGE',
 			id: '75aedb19-2afd-4e6d-87fc-67941256fa60',
-		},
-
-		noSuchPage: {
-			message: 'No such page.',
-			code: 'NO_SUCH_PAGE',
-			id: '8e01b590-7eb9-431b-a239-860e086c408e',
 		},
 
 		invalidRegexp: {
@@ -146,7 +140,6 @@ export const paramDef = {
 		alwaysMarkNsfw: { type: 'boolean' },
 		autoSensitive: { type: 'boolean' },
 		ffVisibility: { type: 'string', enum: ['public', 'followers', 'private'] },
-		pinnedPageId: { type: 'string', format: 'misskey:id', nullable: true },
 		mutedWords: { type: 'array' },
 		mutedInstances: { type: 'array', items: {
 			type: 'string',
@@ -178,9 +171,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 
 		@Inject(DI.driveFilesRepository)
 		private driveFilesRepository: DriveFilesRepository,
-
-		@Inject(DI.pagesRepository)
-		private pagesRepository: PagesRepository,
 
 		private userEntityService: UserEntityService,
 		private driveFileEntityService: DriveFileEntityService,
@@ -280,16 +270,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				updates.bannerId = null;
 				updates.bannerUrl = null;
 				updates.bannerBlurhash = null;
-			}
-
-			if (ps.pinnedPageId) {
-				const page = await this.pagesRepository.findOneBy({ id: ps.pinnedPageId });
-
-				if (page == null || page.userId !== user.id) throw new ApiError(meta.errors.noSuchPage);
-
-				profileUpdates.pinnedPageId = page.id;
-			} else if (ps.pinnedPageId === null) {
-				profileUpdates.pinnedPageId = null;
 			}
 
 			if (ps.fields) {

@@ -36,8 +36,6 @@ import { NoteFavorite } from '@/models/entities/NoteFavorite.js';
 import { NoteReaction } from '@/models/entities/NoteReaction.js';
 import { NoteThreadMuting } from '@/models/entities/NoteThreadMuting.js';
 import { NoteUnread } from '@/models/entities/NoteUnread.js';
-import { Page } from '@/models/entities/Page.js';
-import { PageLike } from '@/models/entities/PageLike.js';
 import { PasswordResetRequest } from '@/models/entities/PasswordResetRequest.js';
 import { Poll } from '@/models/entities/Poll.js';
 import { PollVote } from '@/models/entities/PollVote.js';
@@ -144,8 +142,6 @@ export const entities = [
 	NoteReaction,
 	NoteThreadMuting,
 	NoteUnread,
-	Page,
-	PageLike,
 	DriveFile,
 	DriveFolder,
 	Poll,

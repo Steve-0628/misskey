@@ -22,9 +22,8 @@ import { MetaService } from '@/core/MetaService.js';
 import type { DbQueue, DeliverQueue, EndedPollNotificationQueue, InboxQueue, ObjectStorageQueue, SystemQueue, WebhookDeliverQueue } from '@/core/QueueModule.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
-import { PageEntityService } from '@/core/entities/PageEntityService.js';
 import { ClipEntityService } from '@/core/entities/ClipEntityService.js';
-import type { ClipsRepository, FlashsRepository, Meta, NotesRepository, PagesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
+import type { ClipsRepository, FlashsRepository, Meta, NotesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
 import type Logger from '@/logger.js';
 import { deepClone } from '@/misc/clone.js';
 import { bindThis } from '@/decorators.js';
@@ -65,16 +64,12 @@ export class ClientServerService {
 		@Inject(DI.clipsRepository)
 		private clipsRepository: ClipsRepository,
 
-		@Inject(DI.pagesRepository)
-		private pagesRepository: PagesRepository,
-
 		@Inject(DI.flashsRepository)
 		private flashsRepository: FlashsRepository,
 
 		private flashEntityService: FlashEntityService,
 		private userEntityService: UserEntityService,
 		private noteEntityService: NoteEntityService,
-		private pageEntityService: PageEntityService,
 		private clipEntityService: ClipEntityService,
 		private metaService: MetaService,
 		private urlPreviewService: UrlPreviewService,
@@ -481,45 +476,6 @@ export class ClientServerService {
 					avatarUrl: _note.user.avatarUrl,
 					// TODO: Let locale changeable by instance setting
 					summary: getNoteSummary(_note),
-					...this.generateCommonPugData(meta),
-				});
-			} else {
-				return await renderBase(reply);
-			}
-		});
-
-		// Page
-		fastify.get<{ Params: { user: string; page: string; } }>('/@:user/pages/:page', async (request, reply) => {
-			const { username, host } = Acct.parse(request.params.user);
-			const user = await this.usersRepository.findOneBy({
-				usernameLower: username.toLowerCase(),
-				host: host ?? IsNull(),
-			});
-
-			if (user == null) return;
-
-			const page = await this.pagesRepository.findOneBy({
-				name: request.params.page,
-				userId: user.id,
-			});
-
-			if (page) {
-				const _page = await this.pageEntityService.pack(page);
-				const profile = await this.userProfilesRepository.findOneByOrFail({ userId: page.userId });
-				const meta = await this.metaService.fetch();
-				if (['public'].includes(page.visibility)) {
-					reply.header('Cache-Control', 'public, max-age=15');
-				} else {
-					reply.header('Cache-Control', 'private, max-age=0, must-revalidate');
-				}
-				if (profile.preventAiLearning) {
-					reply.header('X-Robots-Tag', 'noimageai');
-					reply.header('X-Robots-Tag', 'noai');
-				}
-				return await reply.view('page', {
-					page: _page,
-					profile,
-					avatarUrl: _page.user.avatarUrl,
 					...this.generateCommonPugData(meta),
 				});
 			} else {

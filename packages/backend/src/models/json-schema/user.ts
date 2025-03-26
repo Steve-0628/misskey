@@ -194,15 +194,6 @@ export const packedUserDetailedNotMeOnlySchema = {
 				ref: 'Note',
 			},
 		},
-		pinnedPageId: {
-			type: 'string',
-			nullable: true, optional: false,
-		},
-		pinnedPage: {
-			type: 'object',
-			nullable: true, optional: false,
-			ref: 'Page',
-		},
 		publicReactions: {
 			type: 'boolean',
 			nullable: false, optional: false,
