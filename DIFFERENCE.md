@@ -33,3 +33,4 @@
 - 新UI(wip)
 - 投票がリモート絵文字を使わないのを修正
 - リモートに配送されていない鍵投稿をRNしたときにRNも元投稿もう配送されない問題を修正
+- kill channel, gallery, pages, clip, announcement
