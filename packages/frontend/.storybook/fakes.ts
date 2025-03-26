@@ -17,25 +17,6 @@ export function abuseUserReport() {
 	};
 }
 
-export function galleryPost(isSensitive = false) {
-	return {
-		id: 'somepostid',
-		createdAt: '2016-12-28T22:49:51.000Z',
-		updatedAt: '2016-12-28T22:49:51.000Z',
-		userid: 'someuserid',
-		user: userDetailed(),
-		title: 'Some post title',
-		description: 'Some post description',
-		fileIds: ['somefileid'],
-		files: [
-			file(isSensitive),
-		],
-		isSensitive,
-		likedCount: 0,
-		isLiked: false,
-	}
-}
-
 export function file(isSensitive = false) {
 	return {
 		id: 'somefileid',

@@ -147,15 +147,6 @@ import * as ep___following_requests_accept from './endpoints/following/requests/
 import * as ep___following_requests_cancel from './endpoints/following/requests/cancel.js';
 import * as ep___following_requests_list from './endpoints/following/requests/list.js';
 import * as ep___following_requests_reject from './endpoints/following/requests/reject.js';
-import * as ep___gallery_featured from './endpoints/gallery/featured.js';
-import * as ep___gallery_popular from './endpoints/gallery/popular.js';
-import * as ep___gallery_posts from './endpoints/gallery/posts.js';
-import * as ep___gallery_posts_create from './endpoints/gallery/posts/create.js';
-import * as ep___gallery_posts_delete from './endpoints/gallery/posts/delete.js';
-import * as ep___gallery_posts_like from './endpoints/gallery/posts/like.js';
-import * as ep___gallery_posts_show from './endpoints/gallery/posts/show.js';
-import * as ep___gallery_posts_unlike from './endpoints/gallery/posts/unlike.js';
-import * as ep___gallery_posts_update from './endpoints/gallery/posts/update.js';
 import * as ep___getOnlineUsersCount from './endpoints/get-online-users-count.js';
 import * as ep___hashtags_list from './endpoints/hashtags/list.js';
 import * as ep___hashtags_search from './endpoints/hashtags/search.js';
@@ -184,8 +175,6 @@ import * as ep___i_exportFavorites from './endpoints/i/export-favorites.js';
 import * as ep___i_exportUserLists from './endpoints/i/export-user-lists.js';
 import * as ep___i_exportAntennas from './endpoints/i/export-antennas.js';
 import * as ep___i_favorites from './endpoints/i/favorites.js';
-import * as ep___i_gallery_likes from './endpoints/i/gallery/likes.js';
-import * as ep___i_gallery_posts from './endpoints/i/gallery/posts.js';
 import * as ep___i_getWordMutedNotesCount from './endpoints/i/get-word-muted-notes-count.js';
 import * as ep___i_importBlocking from './endpoints/i/import-blocking.js';
 import * as ep___i_importFollowing from './endpoints/i/import-following.js';
@@ -304,7 +293,6 @@ import * as ep___users from './endpoints/users.js';
 import * as ep___users_clips from './endpoints/users/clips.js';
 import * as ep___users_followers from './endpoints/users/followers.js';
 import * as ep___users_following from './endpoints/users/following.js';
-import * as ep___users_gallery_posts from './endpoints/users/gallery/posts.js';
 import * as ep___users_getFrequentlyRepliedUsers from './endpoints/users/get-frequently-replied-users.js';
 import * as ep___users_lists_create from './endpoints/users/lists/create.js';
 import * as ep___users_lists_delete from './endpoints/users/lists/delete.js';
@@ -481,15 +469,6 @@ const $following_requests_accept: Provider = { provide: 'ep:following/requests/a
 const $following_requests_cancel: Provider = { provide: 'ep:following/requests/cancel', useClass: ep___following_requests_cancel.default };
 const $following_requests_list: Provider = { provide: 'ep:following/requests/list', useClass: ep___following_requests_list.default };
 const $following_requests_reject: Provider = { provide: 'ep:following/requests/reject', useClass: ep___following_requests_reject.default };
-const $gallery_featured: Provider = { provide: 'ep:gallery/featured', useClass: ep___gallery_featured.default };
-const $gallery_popular: Provider = { provide: 'ep:gallery/popular', useClass: ep___gallery_popular.default };
-const $gallery_posts: Provider = { provide: 'ep:gallery/posts', useClass: ep___gallery_posts.default };
-const $gallery_posts_create: Provider = { provide: 'ep:gallery/posts/create', useClass: ep___gallery_posts_create.default };
-const $gallery_posts_delete: Provider = { provide: 'ep:gallery/posts/delete', useClass: ep___gallery_posts_delete.default };
-const $gallery_posts_like: Provider = { provide: 'ep:gallery/posts/like', useClass: ep___gallery_posts_like.default };
-const $gallery_posts_show: Provider = { provide: 'ep:gallery/posts/show', useClass: ep___gallery_posts_show.default };
-const $gallery_posts_unlike: Provider = { provide: 'ep:gallery/posts/unlike', useClass: ep___gallery_posts_unlike.default };
-const $gallery_posts_update: Provider = { provide: 'ep:gallery/posts/update', useClass: ep___gallery_posts_update.default };
 const $getOnlineUsersCount: Provider = { provide: 'ep:get-online-users-count', useClass: ep___getOnlineUsersCount.default };
 const $hashtags_list: Provider = { provide: 'ep:hashtags/list', useClass: ep___hashtags_list.default };
 const $hashtags_search: Provider = { provide: 'ep:hashtags/search', useClass: ep___hashtags_search.default };
@@ -518,8 +497,6 @@ const $i_exportFavorites: Provider = { provide: 'ep:i/export-favorites', useClas
 const $i_exportUserLists: Provider = { provide: 'ep:i/export-user-lists', useClass: ep___i_exportUserLists.default };
 const $i_exportAntennas: Provider = { provide: 'ep:i/export-antennas', useClass: ep___i_exportAntennas.default };
 const $i_favorites: Provider = { provide: 'ep:i/favorites', useClass: ep___i_favorites.default };
-const $i_gallery_likes: Provider = { provide: 'ep:i/gallery/likes', useClass: ep___i_gallery_likes.default };
-const $i_gallery_posts: Provider = { provide: 'ep:i/gallery/posts', useClass: ep___i_gallery_posts.default };
 const $i_getWordMutedNotesCount: Provider = { provide: 'ep:i/get-word-muted-notes-count', useClass: ep___i_getWordMutedNotesCount.default };
 const $i_importBlocking: Provider = { provide: 'ep:i/import-blocking', useClass: ep___i_importBlocking.default };
 const $i_importFollowing: Provider = { provide: 'ep:i/import-following', useClass: ep___i_importFollowing.default };
@@ -638,7 +615,6 @@ const $users: Provider = { provide: 'ep:users', useClass: ep___users.default };
 const $users_clips: Provider = { provide: 'ep:users/clips', useClass: ep___users_clips.default };
 const $users_followers: Provider = { provide: 'ep:users/followers', useClass: ep___users_followers.default };
 const $users_following: Provider = { provide: 'ep:users/following', useClass: ep___users_following.default };
-const $users_gallery_posts: Provider = { provide: 'ep:users/gallery/posts', useClass: ep___users_gallery_posts.default };
 const $users_getFrequentlyRepliedUsers: Provider = { provide: 'ep:users/get-frequently-replied-users', useClass: ep___users_getFrequentlyRepliedUsers.default };
 const $users_lists_create: Provider = { provide: 'ep:users/lists/create', useClass: ep___users_lists_create.default };
 const $users_lists_delete: Provider = { provide: 'ep:users/lists/delete', useClass: ep___users_lists_delete.default };
@@ -818,15 +794,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$following_requests_cancel,
 		$following_requests_list,
 		$following_requests_reject,
-		$gallery_featured,
-		$gallery_popular,
-		$gallery_posts,
-		$gallery_posts_create,
-		$gallery_posts_delete,
-		$gallery_posts_like,
-		$gallery_posts_show,
-		$gallery_posts_unlike,
-		$gallery_posts_update,
 		$getOnlineUsersCount,
 		$hashtags_list,
 		$hashtags_search,
@@ -855,8 +822,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$i_exportUserLists,
 		$i_exportAntennas,
 		$i_favorites,
-		$i_gallery_likes,
-		$i_gallery_posts,
 		$i_getWordMutedNotesCount,
 		$i_importBlocking,
 		$i_importFollowing,
@@ -975,7 +940,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$users_clips,
 		$users_followers,
 		$users_following,
-		$users_gallery_posts,
 		$users_getFrequentlyRepliedUsers,
 		$users_lists_create,
 		$users_lists_delete,
@@ -1149,15 +1113,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$following_requests_cancel,
 		$following_requests_list,
 		$following_requests_reject,
-		$gallery_featured,
-		$gallery_popular,
-		$gallery_posts,
-		$gallery_posts_create,
-		$gallery_posts_delete,
-		$gallery_posts_like,
-		$gallery_posts_show,
-		$gallery_posts_unlike,
-		$gallery_posts_update,
 		$getOnlineUsersCount,
 		$hashtags_list,
 		$hashtags_search,
@@ -1186,8 +1141,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$i_exportUserLists,
 		$i_exportAntennas,
 		$i_favorites,
-		$i_gallery_likes,
-		$i_gallery_posts,
 		$i_getWordMutedNotesCount,
 		$i_importBlocking,
 		$i_importFollowing,
@@ -1304,7 +1257,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$users_clips,
 		$users_followers,
 		$users_following,
-		$users_gallery_posts,
 		$users_getFrequentlyRepliedUsers,
 		$users_lists_create,
 		$users_lists_delete,

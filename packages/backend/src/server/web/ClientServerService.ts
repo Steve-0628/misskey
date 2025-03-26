@@ -23,9 +23,8 @@ import type { DbQueue, DeliverQueue, EndedPollNotificationQueue, InboxQueue, Obj
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { PageEntityService } from '@/core/entities/PageEntityService.js';
-import { GalleryPostEntityService } from '@/core/entities/GalleryPostEntityService.js';
 import { ClipEntityService } from '@/core/entities/ClipEntityService.js';
-import type { ClipsRepository, FlashsRepository, GalleryPostsRepository, Meta, NotesRepository, PagesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
+import type { ClipsRepository, FlashsRepository, Meta, NotesRepository, PagesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
 import type Logger from '@/logger.js';
 import { deepClone } from '@/misc/clone.js';
 import { bindThis } from '@/decorators.js';
@@ -63,9 +62,6 @@ export class ClientServerService {
 		@Inject(DI.notesRepository)
 		private notesRepository: NotesRepository,
 
-		@Inject(DI.galleryPostsRepository)
-		private galleryPostsRepository: GalleryPostsRepository,
-
 		@Inject(DI.clipsRepository)
 		private clipsRepository: ClipsRepository,
 
@@ -79,7 +75,6 @@ export class ClientServerService {
 		private userEntityService: UserEntityService,
 		private noteEntityService: NoteEntityService,
 		private pageEntityService: PageEntityService,
-		private galleryPostEntityService: GalleryPostEntityService,
 		private clipEntityService: ClipEntityService,
 		private metaService: MetaService,
 		private urlPreviewService: UrlPreviewService,
@@ -577,30 +572,6 @@ export class ClientServerService {
 					clip: _clip,
 					profile,
 					avatarUrl: _clip.user.avatarUrl,
-					...this.generateCommonPugData(meta),
-				});
-			} else {
-				return await renderBase(reply);
-			}
-		});
-
-		// Gallery post
-		fastify.get<{ Params: { post: string; } }>('/gallery/:post', async (request, reply) => {
-			const post = await this.galleryPostsRepository.findOneBy({ id: request.params.post });
-
-			if (post) {
-				const _post = await this.galleryPostEntityService.pack(post);
-				const profile = await this.userProfilesRepository.findOneByOrFail({ userId: post.userId });
-				const meta = await this.metaService.fetch();
-				reply.header('Cache-Control', 'public, max-age=15');
-				if (profile.preventAiLearning) {
-					reply.header('X-Robots-Tag', 'noimageai');
-					reply.header('X-Robots-Tag', 'noai');
-				}
-				return await reply.view('gallery-post', {
-					post: _post,
-					profile,
-					avatarUrl: _post.user.avatarUrl,
 					...this.generateCommonPugData(meta),
 				});
 			} else {

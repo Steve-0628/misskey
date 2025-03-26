@@ -50,7 +50,6 @@
 			<div class="divider"></div>
 			<MkA to="/pages" class="link" activeClass="active"><i class="ti ti-news icon"></i>{{ i18n.ts.pages }}</MkA>
 			<MkA to="/play" class="link" activeClass="active"><i class="ti ti-player-play icon"></i>Play</MkA>
-			<MkA to="/gallery" class="link" activeClass="active"><i class="ti ti-icons icon"></i>{{ i18n.ts.gallery }}</MkA>
 			<div class="action">
 				<button class="_buttonPrimary" @click="signup()">{{ i18n.ts.signup }}</button>
 				<button class="_button" @click="signin()">{{ i18n.ts.login }}</button>

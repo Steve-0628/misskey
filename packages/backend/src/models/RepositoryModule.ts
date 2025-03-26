@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import { User, Note, Announcement, AnnouncementRead, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, Page, PageLike, GalleryPost, GalleryLike, ModerationLog, Clip, ClipNote, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, ClipFavorite, UserMemo, UserListFavorite } from './index.js';
+import { User, Note, Announcement, AnnouncementRead, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, Page, PageLike, ModerationLog, Clip, ClipNote, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, ClipFavorite, UserMemo, UserListFavorite } from './index.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
 
@@ -256,18 +256,6 @@ const $pageLikesRepository: Provider = {
 	inject: [DI.db],
 };
 
-const $galleryPostsRepository: Provider = {
-	provide: DI.galleryPostsRepository,
-	useFactory: (db: DataSource) => db.getRepository(GalleryPost),
-	inject: [DI.db],
-};
-
-const $galleryLikesRepository: Provider = {
-	provide: DI.galleryLikesRepository,
-	useFactory: (db: DataSource) => db.getRepository(GalleryLike),
-	inject: [DI.db],
-};
-
 const $moderationLogsRepository: Provider = {
 	provide: DI.moderationLogsRepository,
 	useFactory: (db: DataSource) => db.getRepository(ModerationLog),
@@ -428,8 +416,6 @@ const $userMemosRepository: Provider = {
 		$signinsRepository,
 		$pagesRepository,
 		$pageLikesRepository,
-		$galleryPostsRepository,
-		$galleryLikesRepository,
 		$moderationLogsRepository,
 		$clipsRepository,
 		$clipNotesRepository,
@@ -493,8 +479,6 @@ const $userMemosRepository: Provider = {
 		$signinsRepository,
 		$pagesRepository,
 		$pageLikesRepository,
-		$galleryPostsRepository,
-		$galleryLikesRepository,
 		$moderationLogsRepository,
 		$clipsRepository,
 		$clipNotesRepository,

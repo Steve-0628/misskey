@@ -11,7 +11,6 @@
 			<XClips v-else-if="tab === 'clips'" :user="user"/>
 			<XLists v-else-if="tab === 'lists'" :user="user"/>
 			<XPages v-else-if="tab === 'pages'" :user="user"/>
-			<XGallery v-else-if="tab === 'gallery'" :user="user"/>
 		</div>
 		<MkError v-else-if="error" @retry="fetchUser()"/>
 		<MkLoading v-else/>
@@ -37,7 +36,6 @@ const XReactions = defineAsyncComponent(() => import('./reactions.vue'));
 const XClips = defineAsyncComponent(() => import('./clips.vue'));
 const XLists = defineAsyncComponent(() => import('./lists.vue'));
 const XPages = defineAsyncComponent(() => import('./pages.vue'));
-const XGallery = defineAsyncComponent(() => import('./gallery.vue'));
 
 const props = withDefaults(defineProps<{
 	acct: string;
@@ -98,10 +96,6 @@ const headerTabs = $computed(() => user ? [{
 	key: 'pages',
 	title: i18n.ts.pages,
 	icon: 'ti ti-news',
-}, {
-	key: 'gallery',
-	title: i18n.ts.gallery,
-	icon: 'ti ti-icons',
 }] : []);
 
 definePageMetadata(computed(() => user ? {

@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 import * as assert from 'assert';
-import { startServer, channel, clip, cookie, galleryPost, signup, page, play, post, simpleGet, uploadFile } from '../utils.js';
+import { startServer, channel, clip, cookie, signup, page, play, post, simpleGet, uploadFile } from '../utils.js';
 import type { SimpleGetResponse } from '../utils.js';
 import type { INestApplicationContext } from '@nestjs/common';
 import type * as misskey from 'misskey-js';
@@ -26,8 +26,6 @@ describe('Webリソース', () => {
 	let alicePage: any;
 	let alicePlay: any;
 	let aliceClip: any;
-	let aliceGalleryPost: any;
-	let aliceChannel: any;
 
 	type Request = {
 		path: string,
@@ -81,10 +79,6 @@ describe('Webリソース', () => {
 		alicePage = await page(alice, {});
 		alicePlay = await play(alice, {});
 		aliceClip = await clip(alice, {});
-		aliceGalleryPost = await galleryPost(alice, {
-			fileIds: [aliceUploadedFile.body.id],
-		});
-		aliceChannel = await channel(alice, {});
 	}, 1000 * 60 * 2);
 
 	afterAll(async () => {
@@ -232,7 +226,6 @@ describe('Webリソース', () => {
 		{ sub: 'reactions' },
 		{ sub: 'clips' },
 		{ sub: 'pages' },
-		{ sub: 'gallery' },
 	])('/@:username/$sub', ({ sub }) => {
 		const path = (username: string): string => `/@${username}/${sub}`;
 
@@ -416,43 +409,6 @@ describe('Webリソース', () => {
 
 			// TODO ogタグの検証
 			// TODO profile.noCrawleの検証
-		});
-
-		test('がGETできる。(存在しないIDでも。)', async () => await ok({
-			path: path('xxxxxxxxxx'),
-		}));
-	});
-
-	describe('/gallery/:post', () => {
-		const path = (post: string): string => `/gallery/${post}`;
-
-		test('がGETできる。', async () => {
-			const res = await ok({
-				path: path(aliceGalleryPost.id),
-			});
-			assert.strictEqual(metaTag(res, 'misskey:user-username'), alice.username);
-			assert.strictEqual(metaTag(res, 'misskey:user-id'), alice.id);
-
-			// FIXME: misskey:gallery-post-idみたいなmetaタグの設定がない
-			// TODO profile.noCrawleの検証
-			// TODO twitter:creatorの検証
-		});
-
-		test('がGETできる。(存在しないIDでも。)', async () => await ok({
-			path: path('xxxxxxxxxx'),
-		}));
-	});
-
-	describe('/channels/:channel', () => {
-		const path = (channel: string): string => `/channels/${channel}`;
-
-		test('はGETできる。', async () => {
-			const res = await ok({
-				path: path(aliceChannel.id),
-			});
-
-			// FIXME: misskey関連のmetaタグの設定がない
-			// TODO ogタグの検証
 		});
 
 		test('がGETできる。(存在しないIDでも。)', async () => await ok({

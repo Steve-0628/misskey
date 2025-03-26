@@ -16,8 +16,6 @@ import { DriveFolder } from '@/models/entities/DriveFolder.js';
 import { Emoji } from '@/models/entities/Emoji.js';
 import { Following } from '@/models/entities/Following.js';
 import { FollowRequest } from '@/models/entities/FollowRequest.js';
-import { GalleryLike } from '@/models/entities/GalleryLike.js';
-import { GalleryPost } from '@/models/entities/GalleryPost.js';
 import { Hashtag } from '@/models/entities/Hashtag.js';
 import { Instance } from '@/models/entities/Instance.js';
 import { Meta } from '@/models/entities/Meta.js';
@@ -82,8 +80,6 @@ export {
 	Emoji,
 	Following,
 	FollowRequest,
-	GalleryLike,
-	GalleryPost,
 	Hashtag,
 	Instance,
 	Meta,
@@ -147,8 +143,6 @@ export type DriveFoldersRepository = Repository<DriveFolder>;
 export type EmojisRepository = Repository<Emoji>;
 export type FollowingsRepository = Repository<Following>;
 export type FollowRequestsRepository = Repository<FollowRequest>;
-export type GalleryLikesRepository = Repository<GalleryLike>;
-export type GalleryPostsRepository = Repository<GalleryPost>;
 export type HashtagsRepository = Repository<Hashtag>;
 export type InstancesRepository = Repository<Instance>;
 export type MetasRepository = Repository<Meta>;

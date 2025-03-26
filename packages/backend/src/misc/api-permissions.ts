@@ -25,9 +25,5 @@ export const kinds = [
 	'read:page-likes',
 	'read:user-groups',
 	'write:user-groups',
-	'read:gallery',
-	'write:gallery',
-	'read:gallery-likes',
-	'write:gallery-likes',
 ];
 // IF YOU ADD KINDS(PERMISSIONS), YOU MUST ADD TRANSLATIONS (under _permissions).

@@ -186,17 +186,6 @@ export const clip = async (user: UserToken, clip: any = {}): Promise<any> => {
 	return res.body;
 };
 
-export const galleryPost = async (user: UserToken, channel: any = {}): Promise<any> => {
-	const res = await api('gallery/posts/create', {
-		description: null,
-		fileIds: [],
-		isSensitive: false,
-		title: 'test',
-		...channel,
-	}, user);
-	return res.body;
-};
-
 export const channel = async (user: UserToken, channel: any = {}): Promise<any> => {
 	const res = await api('channels/create', {
 		bannerId: null,

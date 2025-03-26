@@ -302,20 +302,6 @@ export const routes = [{
 	path: '/play',
 	component: page(() => import('./pages/flash/flash-index.vue')),
 }, {
-	path: '/gallery/:postId/edit',
-	component: page(() => import('./pages/gallery/edit.vue')),
-	loginRequired: true,
-}, {
-	path: '/gallery/new',
-	component: page(() => import('./pages/gallery/edit.vue')),
-	loginRequired: true,
-}, {
-	path: '/gallery/:postId',
-	component: page(() => import('./pages/gallery/post.vue')),
-}, {
-	path: '/gallery',
-	component: page(() => import('./pages/gallery/index.vue')),
-}, {
 	path: '/custom-emojis-manager',
 	component: page(() => import('./pages/custom-emojis-manager.vue')),
 }, {

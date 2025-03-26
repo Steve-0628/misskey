@@ -24,8 +24,6 @@ import { DriveFolder } from '@/models/entities/DriveFolder.js';
 import { Emoji } from '@/models/entities/Emoji.js';
 import { Following } from '@/models/entities/Following.js';
 import { FollowRequest } from '@/models/entities/FollowRequest.js';
-import { GalleryLike } from '@/models/entities/GalleryLike.js';
-import { GalleryPost } from '@/models/entities/GalleryPost.js';
 import { Hashtag } from '@/models/entities/Hashtag.js';
 import { Instance } from '@/models/entities/Instance.js';
 import { Meta } from '@/models/entities/Meta.js';
@@ -148,8 +146,6 @@ export const entities = [
 	NoteUnread,
 	Page,
 	PageLike,
-	GalleryPost,
-	GalleryLike,
 	DriveFile,
 	DriveFolder,
 	Poll,
