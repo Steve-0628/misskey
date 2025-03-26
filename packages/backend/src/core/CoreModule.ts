@@ -70,7 +70,6 @@ import { AntennaEntityService } from './entities/AntennaEntityService.js';
 import { AppEntityService } from './entities/AppEntityService.js';
 import { AuthSessionEntityService } from './entities/AuthSessionEntityService.js';
 import { BlockingEntityService } from './entities/BlockingEntityService.js';
-import { ClipEntityService } from './entities/ClipEntityService.js';
 import { DriveFileEntityService } from './entities/DriveFileEntityService.js';
 import { DriveFolderEntityService } from './entities/DriveFolderEntityService.js';
 import { EmojiEntityService } from './entities/EmojiEntityService.js';
@@ -190,7 +189,6 @@ const $AntennaEntityService: Provider = { provide: 'AntennaEntityService', useEx
 const $AppEntityService: Provider = { provide: 'AppEntityService', useExisting: AppEntityService };
 const $AuthSessionEntityService: Provider = { provide: 'AuthSessionEntityService', useExisting: AuthSessionEntityService };
 const $BlockingEntityService: Provider = { provide: 'BlockingEntityService', useExisting: BlockingEntityService };
-const $ClipEntityService: Provider = { provide: 'ClipEntityService', useExisting: ClipEntityService };
 const $DriveFileEntityService: Provider = { provide: 'DriveFileEntityService', useExisting: DriveFileEntityService };
 const $DriveFolderEntityService: Provider = { provide: 'DriveFolderEntityService', useExisting: DriveFolderEntityService };
 const $EmojiEntityService: Provider = { provide: 'EmojiEntityService', useExisting: EmojiEntityService };
@@ -310,7 +308,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		AppEntityService,
 		AuthSessionEntityService,
 		BlockingEntityService,
-		ClipEntityService,
 		DriveFileEntityService,
 		DriveFolderEntityService,
 		EmojiEntityService,
@@ -425,7 +422,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$AppEntityService,
 		$AuthSessionEntityService,
 		$BlockingEntityService,
-		$ClipEntityService,
 		$DriveFileEntityService,
 		$DriveFolderEntityService,
 		$EmojiEntityService,
@@ -540,7 +536,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		AppEntityService,
 		AuthSessionEntityService,
 		BlockingEntityService,
-		ClipEntityService,
 		DriveFileEntityService,
 		DriveFolderEntityService,
 		EmojiEntityService,
@@ -654,7 +649,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$AppEntityService,
 		$AuthSessionEntityService,
 		$BlockingEntityService,
-		$ClipEntityService,
 		$DriveFileEntityService,
 		$DriveFolderEntityService,
 		$EmojiEntityService,

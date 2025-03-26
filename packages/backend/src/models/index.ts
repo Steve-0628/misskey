@@ -8,9 +8,6 @@ import { App } from '@/models/entities/App.js';
 import { AttestationChallenge } from '@/models/entities/AttestationChallenge.js';
 import { AuthSession } from '@/models/entities/AuthSession.js';
 import { Blocking } from '@/models/entities/Blocking.js';
-import { Clip } from '@/models/entities/Clip.js';
-import { ClipNote } from '@/models/entities/ClipNote.js';
-import { ClipFavorite } from '@/models/entities/ClipFavorite.js';
 import { DriveFile } from '@/models/entities/DriveFile.js';
 import { DriveFolder } from '@/models/entities/DriveFolder.js';
 import { Emoji } from '@/models/entities/Emoji.js';
@@ -70,9 +67,6 @@ export {
 	AttestationChallenge,
 	AuthSession,
 	Blocking,
-	Clip,
-	ClipNote,
-	ClipFavorite,
 	DriveFile,
 	DriveFolder,
 	Emoji,
@@ -131,9 +125,6 @@ export type AppsRepository = Repository<App>;
 export type AttestationChallengesRepository = Repository<AttestationChallenge>;
 export type AuthSessionsRepository = Repository<AuthSession>;
 export type BlockingsRepository = Repository<Blocking>;
-export type ClipsRepository = Repository<Clip>;
-export type ClipNotesRepository = Repository<ClipNote>;
-export type ClipFavoritesRepository = Repository<ClipFavorite>;
 export type DriveFilesRepository = Repository<DriveFile>;
 export type DriveFoldersRepository = Repository<DriveFolder>;
 export type EmojisRepository = Repository<Emoji>;

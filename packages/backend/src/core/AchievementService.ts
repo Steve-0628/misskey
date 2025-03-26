@@ -42,7 +42,6 @@ export const ACHIEVEMENT_TYPES = [
 	'passedSinceAccountCreated3',
 	'loggedInOnBirthday',
 	'loggedInOnNewYearsDay',
-	'noteClipped1',
 	'noteFavorited1',
 	'myNoteFavorited1',
 	'profileFilled',

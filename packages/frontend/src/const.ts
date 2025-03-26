@@ -69,8 +69,6 @@ export const ROLE_POLICIES = [
 	'antennaLimit',
 	'wordMuteLimit',
 	'webhookLimit',
-	'clipLimit',
-	'noteEachClipsLimit',
 	'userListLimit',
 	'userEachUserListsLimit',
 	'rateLimitFactor',

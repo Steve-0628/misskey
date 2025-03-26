@@ -1,7 +1,7 @@
 <template>
 <MkSpacer :contentMax="700">
 	<MkPagination v-slot="{items}" ref="list" :pagination="pagination">
-		<div v-for="item in items" :key="item.id" :to="`/clips/${item.id}`" class="_panel _margin">
+		<div v-for="item in items" :key="item.id" class="_panel _margin">
 			<div :class="$style.header">
 				<MkAvatar :class="$style.avatar" :user="user"/>
 				<MkReactionIcon :class="$style.reaction" :reaction="item.type" :noStyle="true"/>

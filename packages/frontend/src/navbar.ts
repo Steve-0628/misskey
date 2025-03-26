@@ -76,12 +76,6 @@ export const navbarItemDef = reactive({
 		icon: 'ti ti-player-play',
 		to: '/play',
 	},
-	clips: {
-		title: i18n.ts.clip,
-		icon: 'ti ti-paperclip',
-		show: computed(() => $i != null),
-		to: '/my/clips',
-	},
 	achievements: {
 		title: i18n.ts.achievements,
 		icon: 'ti ti-medal',

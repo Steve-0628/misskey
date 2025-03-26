@@ -16,9 +16,6 @@ import { App } from '@/models/entities/App.js';
 import { AttestationChallenge } from '@/models/entities/AttestationChallenge.js';
 import { AuthSession } from '@/models/entities/AuthSession.js';
 import { Blocking } from '@/models/entities/Blocking.js';
-import { Clip } from '@/models/entities/Clip.js';
-import { ClipNote } from '@/models/entities/ClipNote.js';
-import { ClipFavorite } from '@/models/entities/ClipFavorite.js';
 import { DriveFile } from '@/models/entities/DriveFile.js';
 import { DriveFolder } from '@/models/entities/DriveFolder.js';
 import { Emoji } from '@/models/entities/Emoji.js';
@@ -153,9 +150,6 @@ export const entities = [
 	RegistrationTicket,
 	Signin,
 	ModerationLog,
-	Clip,
-	ClipNote,
-	ClipFavorite,
 	Antenna,
 	PromoNote,
 	PromoRead,

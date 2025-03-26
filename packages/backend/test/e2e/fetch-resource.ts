@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 import * as assert from 'assert';
-import { startServer, channel, clip, cookie, signup, page, play, post, simpleGet, uploadFile } from '../utils.js';
+import { startServer, cookie, signup, page, play, post, simpleGet, uploadFile } from '../utils.js';
 import type { SimpleGetResponse } from '../utils.js';
 import type { INestApplicationContext } from '@nestjs/common';
 import type * as misskey from 'misskey-js';
@@ -25,7 +25,6 @@ describe('Webリソース', () => {
 	let alicesPost: any;
 	let alicePage: any;
 	let alicePlay: any;
-	let aliceClip: any;
 
 	type Request = {
 		path: string,
@@ -78,7 +77,6 @@ describe('Webリソース', () => {
 		});
 		alicePage = await page(alice, {});
 		alicePlay = await play(alice, {});
-		aliceClip = await clip(alice, {});
 	}, 1000 * 60 * 2);
 
 	afterAll(async () => {
@@ -224,7 +222,6 @@ describe('Webリソース', () => {
 		{ sub: 'activity' },
 		{ sub: 'achievements' },
 		{ sub: 'reactions' },
-		{ sub: 'clips' },
 		{ sub: 'pages' },
 	])('/@:username/$sub', ({ sub }) => {
 		const path = (username: string): string => `/@${username}/${sub}`;
@@ -389,26 +386,6 @@ describe('Webリソース', () => {
 			// TODO ogタグの検証
 			// TODO profile.noCrawleの検証
 			// TODO twitter:creatorの検証
-		});
-
-		test('がGETできる。(存在しないIDでも。)', async () => await ok({
-			path: path('xxxxxxxxxx'),
-		}));
-	});
-
-	describe('/clips/:clip', () => {
-		const path = (clip: string): string => `/clips/${clip}`;
-
-		test('がGETできる。', async () => {
-			const res = await ok({
-				path: path(aliceClip.id),
-			});
-			assert.strictEqual(metaTag(res, 'misskey:user-username'), alice.username);
-			assert.strictEqual(metaTag(res, 'misskey:user-id'), alice.id);
-			assert.strictEqual(metaTag(res, 'misskey:clip-id'), aliceClip.id);
-
-			// TODO ogタグの検証
-			// TODO profile.noCrawleの検証
 		});
 
 		test('がGETできる。(存在しないIDでも。)', async () => await ok({

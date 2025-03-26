@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import { User, Note, Announcement, AnnouncementRead, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Clip, ClipNote, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, ClipFavorite, UserMemo, UserListFavorite } from './index.js';
+import { User, Note, Announcement, AnnouncementRead, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, Ad, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, UserMemo, UserListFavorite } from './index.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
 
@@ -250,24 +250,6 @@ const $moderationLogsRepository: Provider = {
 	inject: [DI.db],
 };
 
-const $clipsRepository: Provider = {
-	provide: DI.clipsRepository,
-	useFactory: (db: DataSource) => db.getRepository(Clip),
-	inject: [DI.db],
-};
-
-const $clipNotesRepository: Provider = {
-	provide: DI.clipNotesRepository,
-	useFactory: (db: DataSource) => db.getRepository(ClipNote),
-	inject: [DI.db],
-};
-
-const $clipFavoritesRepository: Provider = {
-	provide: DI.clipFavoritesRepository,
-	useFactory: (db: DataSource) => db.getRepository(ClipFavorite),
-	inject: [DI.db],
-};
-
 const $antennasRepository: Provider = {
 	provide: DI.antennasRepository,
 	useFactory: (db: DataSource) => db.getRepository(Antenna),
@@ -403,9 +385,6 @@ const $userMemosRepository: Provider = {
 		$accessTokensRepository,
 		$signinsRepository,
 		$moderationLogsRepository,
-		$clipsRepository,
-		$clipNotesRepository,
-		$clipFavoritesRepository,
 		$antennasRepository,
 		$promoNotesRepository,
 		$promoReadsRepository,
@@ -464,9 +443,6 @@ const $userMemosRepository: Provider = {
 		$accessTokensRepository,
 		$signinsRepository,
 		$moderationLogsRepository,
-		$clipsRepository,
-		$clipNotesRepository,
-		$clipFavoritesRepository,
 		$antennasRepository,
 		$promoNotesRepository,
 		$promoReadsRepository,

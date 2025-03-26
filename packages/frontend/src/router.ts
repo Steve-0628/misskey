@@ -29,9 +29,6 @@ export const routes = [{
 	path: '/list/:listId',
 	component: page(() => import('./pages/list.vue')),
 }, {
-	path: '/clips/:clipId',
-	component: page(() => import('./pages/clip.vue')),
-}, {
 	path: '/user-info/:userId',
 	component: page(() => import('./pages/user-info.vue')),
 	hash: 'initialTab',
@@ -441,10 +438,6 @@ export const routes = [{
 }, {
 	path: '/my/lists',
 	component: page(() => import('./pages/my-lists/index.vue')),
-	loginRequired: true,
-}, {
-	path: '/my/clips',
-	component: page(() => import('./pages/my-clips/index.vue')),
 	loginRequired: true,
 }, {
 	path: '/my/antennas/create',

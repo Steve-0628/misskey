@@ -22,8 +22,7 @@ import { MetaService } from '@/core/MetaService.js';
 import type { DbQueue, DeliverQueue, EndedPollNotificationQueue, InboxQueue, ObjectStorageQueue, SystemQueue, WebhookDeliverQueue } from '@/core/QueueModule.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
-import { ClipEntityService } from '@/core/entities/ClipEntityService.js';
-import type { ClipsRepository, FlashsRepository, Meta, NotesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
+import type { FlashsRepository, Meta, NotesRepository, UserProfilesRepository, UsersRepository } from '@/models/index.js';
 import type Logger from '@/logger.js';
 import { deepClone } from '@/misc/clone.js';
 import { bindThis } from '@/decorators.js';
@@ -61,16 +60,12 @@ export class ClientServerService {
 		@Inject(DI.notesRepository)
 		private notesRepository: NotesRepository,
 
-		@Inject(DI.clipsRepository)
-		private clipsRepository: ClipsRepository,
-
 		@Inject(DI.flashsRepository)
 		private flashsRepository: FlashsRepository,
 
 		private flashEntityService: FlashEntityService,
 		private userEntityService: UserEntityService,
 		private noteEntityService: NoteEntityService,
-		private clipEntityService: ClipEntityService,
 		private metaService: MetaService,
 		private urlPreviewService: UrlPreviewService,
 		private feedService: FeedService,
@@ -502,32 +497,6 @@ export class ClientServerService {
 					flash: _flash,
 					profile,
 					avatarUrl: _flash.user.avatarUrl,
-					...this.generateCommonPugData(meta),
-				});
-			} else {
-				return await renderBase(reply);
-			}
-		});
-
-		// Clip
-		fastify.get<{ Params: { clip: string; } }>('/clips/:clip', async (request, reply) => {
-			const clip = await this.clipsRepository.findOneBy({
-				id: request.params.clip,
-			});
-
-			if (clip && clip.isPublic) {
-				const _clip = await this.clipEntityService.pack(clip);
-				const profile = await this.userProfilesRepository.findOneByOrFail({ userId: clip.userId });
-				const meta = await this.metaService.fetch();
-				reply.header('Cache-Control', 'public, max-age=15');
-				if (profile.preventAiLearning) {
-					reply.header('X-Robots-Tag', 'noimageai');
-					reply.header('X-Robots-Tag', 'noai');
-				}
-				return await reply.view('clip', {
-					clip: _clip,
-					profile,
-					avatarUrl: _clip.user.avatarUrl,
 					...this.generateCommonPugData(meta),
 				});
 			} else {

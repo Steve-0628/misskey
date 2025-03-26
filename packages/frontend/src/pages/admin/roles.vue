@@ -57,7 +57,7 @@
 							<MkInput v-model="policies.inviteLimit" type="number">
 							</MkInput>
 						</MkFolder>
-						
+
 						<MkFolder v-if="matchQuery([i18n.ts._role._options.inviteLimitCycle, 'inviteLimitCycle'])">
 							<template #label>{{ i18n.ts._role._options.inviteLimitCycle }}</template>
 							<template #suffix>{{ policies.inviteLimitCycle + i18n.ts._time.minute }}</template>
@@ -132,20 +132,6 @@
 							<template #label>{{ i18n.ts._role._options.webhookMax }}</template>
 							<template #suffix>{{ policies.webhookLimit }}</template>
 							<MkInput v-model="policies.webhookLimit" type="number">
-							</MkInput>
-						</MkFolder>
-
-						<MkFolder v-if="matchQuery([i18n.ts._role._options.clipMax, 'clipLimit'])">
-							<template #label>{{ i18n.ts._role._options.clipMax }}</template>
-							<template #suffix>{{ policies.clipLimit }}</template>
-							<MkInput v-model="policies.clipLimit" type="number">
-							</MkInput>
-						</MkFolder>
-
-						<MkFolder v-if="matchQuery([i18n.ts._role._options.noteEachClipsMax, 'noteEachClipsLimit'])">
-							<template #label>{{ i18n.ts._role._options.noteEachClipsMax }}</template>
-							<template #suffix>{{ policies.noteEachClipsLimit }}</template>
-							<MkInput v-model="policies.noteEachClipsLimit" type="number">
 							</MkInput>
 						</MkFolder>
 

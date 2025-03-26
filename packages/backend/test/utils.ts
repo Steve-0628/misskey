@@ -176,16 +176,6 @@ export const play = async (user: UserToken, play: any = {}): Promise<any> => {
 	return res.body;
 };
 
-export const clip = async (user: UserToken, clip: any = {}): Promise<any> => {
-	const res = await api('clips/create', {
-		description: null,
-		isPublic: true,
-		name: 'test',
-		...clip,
-	}, user);
-	return res.body;
-};
-
 export const channel = async (user: UserToken, channel: any = {}): Promise<any> => {
 	const res = await api('channels/create', {
 		bannerId: null,

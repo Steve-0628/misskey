@@ -8,7 +8,6 @@
 			<XActivity v-else-if="tab === 'activity'" :user="user"/>
 			<XAchievements v-else-if="tab === 'achievements'" :user="user"/>
 			<XReactions v-else-if="tab === 'reactions'" :user="user"/>
-			<XClips v-else-if="tab === 'clips'" :user="user"/>
 			<XLists v-else-if="tab === 'lists'" :user="user"/>
 		</div>
 		<MkError v-else-if="error" @retry="fetchUser()"/>
@@ -32,7 +31,6 @@ const XTimeline = defineAsyncComponent(() => import('./index.timeline.vue'));
 const XActivity = defineAsyncComponent(() => import('./activity.vue'));
 const XAchievements = defineAsyncComponent(() => import('./achievements.vue'));
 const XReactions = defineAsyncComponent(() => import('./reactions.vue'));
-const XClips = defineAsyncComponent(() => import('./clips.vue'));
 const XLists = defineAsyncComponent(() => import('./lists.vue'));
 
 const props = withDefaults(defineProps<{
@@ -83,10 +81,6 @@ const headerTabs = $computed(() => user ? [{
 	title: i18n.ts.reaction,
 	icon: 'ti ti-mood-happy',
 }] : [], {
-	key: 'clips',
-	title: i18n.ts.clips,
-	icon: 'ti ti-paperclip',
-}, {
 	key: 'lists',
 	title: i18n.ts.lists,
 	icon: 'ti ti-list',

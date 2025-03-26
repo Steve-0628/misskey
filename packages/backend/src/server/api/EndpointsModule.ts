@@ -100,17 +100,6 @@ import * as ep___charts_user_notes from './endpoints/charts/user/notes.js';
 import * as ep___charts_user_pv from './endpoints/charts/user/pv.js';
 import * as ep___charts_user_reactions from './endpoints/charts/user/reactions.js';
 import * as ep___charts_users from './endpoints/charts/users.js';
-import * as ep___clips_addNote from './endpoints/clips/add-note.js';
-import * as ep___clips_removeNote from './endpoints/clips/remove-note.js';
-import * as ep___clips_create from './endpoints/clips/create.js';
-import * as ep___clips_delete from './endpoints/clips/delete.js';
-import * as ep___clips_list from './endpoints/clips/list.js';
-import * as ep___clips_notes from './endpoints/clips/notes.js';
-import * as ep___clips_show from './endpoints/clips/show.js';
-import * as ep___clips_update from './endpoints/clips/update.js';
-import * as ep___clips_favorite from './endpoints/clips/favorite.js';
-import * as ep___clips_unfavorite from './endpoints/clips/unfavorite.js';
-import * as ep___clips_myFavorites from './endpoints/clips/my-favorites.js';
 import * as ep___drive from './endpoints/drive.js';
 import * as ep___drive_files from './endpoints/drive/files.js';
 import * as ep___drive_files_attachedNotes from './endpoints/drive/files/attached-notes.js';
@@ -222,7 +211,6 @@ import * as ep___renoteMute_list from './endpoints/renote-mute/list.js';
 import * as ep___my_apps from './endpoints/my/apps.js';
 import * as ep___notes from './endpoints/notes.js';
 import * as ep___notes_children from './endpoints/notes/children.js';
-import * as ep___notes_clips from './endpoints/notes/clips.js';
 import * as ep___notes_conversation from './endpoints/notes/conversation.js';
 import * as ep___notes_create from './endpoints/notes/create.js';
 import * as ep___notes_delete from './endpoints/notes/delete.js';
@@ -280,7 +268,6 @@ import * as ep___sw_unregister from './endpoints/sw/unregister.js';
 import * as ep___test from './endpoints/test.js';
 import * as ep___username_available from './endpoints/username/available.js';
 import * as ep___users from './endpoints/users.js';
-import * as ep___users_clips from './endpoints/users/clips.js';
 import * as ep___users_followers from './endpoints/users/followers.js';
 import * as ep___users_following from './endpoints/users/following.js';
 import * as ep___users_getFrequentlyRepliedUsers from './endpoints/users/get-frequently-replied-users.js';
@@ -411,17 +398,6 @@ const $charts_user_notes: Provider = { provide: 'ep:charts/user/notes', useClass
 const $charts_user_pv: Provider = { provide: 'ep:charts/user/pv', useClass: ep___charts_user_pv.default };
 const $charts_user_reactions: Provider = { provide: 'ep:charts/user/reactions', useClass: ep___charts_user_reactions.default };
 const $charts_users: Provider = { provide: 'ep:charts/users', useClass: ep___charts_users.default };
-const $clips_addNote: Provider = { provide: 'ep:clips/add-note', useClass: ep___clips_addNote.default };
-const $clips_removeNote: Provider = { provide: 'ep:clips/remove-note', useClass: ep___clips_removeNote.default };
-const $clips_create: Provider = { provide: 'ep:clips/create', useClass: ep___clips_create.default };
-const $clips_delete: Provider = { provide: 'ep:clips/delete', useClass: ep___clips_delete.default };
-const $clips_list: Provider = { provide: 'ep:clips/list', useClass: ep___clips_list.default };
-const $clips_notes: Provider = { provide: 'ep:clips/notes', useClass: ep___clips_notes.default };
-const $clips_show: Provider = { provide: 'ep:clips/show', useClass: ep___clips_show.default };
-const $clips_update: Provider = { provide: 'ep:clips/update', useClass: ep___clips_update.default };
-const $clips_favorite: Provider = { provide: 'ep:clips/favorite', useClass: ep___clips_favorite.default };
-const $clips_unfavorite: Provider = { provide: 'ep:clips/unfavorite', useClass: ep___clips_unfavorite.default };
-const $clips_myFavorites: Provider = { provide: 'ep:clips/my-favorites', useClass: ep___clips_myFavorites.default };
 const $drive: Provider = { provide: 'ep:drive', useClass: ep___drive.default };
 const $drive_files: Provider = { provide: 'ep:drive/files', useClass: ep___drive_files.default };
 const $drive_files_attachedNotes: Provider = { provide: 'ep:drive/files/attached-notes', useClass: ep___drive_files_attachedNotes.default };
@@ -533,7 +509,6 @@ const $renoteMute_list: Provider = { provide: 'ep:renote-mute/list', useClass: e
 const $my_apps: Provider = { provide: 'ep:my/apps', useClass: ep___my_apps.default };
 const $notes: Provider = { provide: 'ep:notes', useClass: ep___notes.default };
 const $notes_children: Provider = { provide: 'ep:notes/children', useClass: ep___notes_children.default };
-const $notes_clips: Provider = { provide: 'ep:notes/clips', useClass: ep___notes_clips.default };
 const $notes_conversation: Provider = { provide: 'ep:notes/conversation', useClass: ep___notes_conversation.default };
 const $notes_create: Provider = { provide: 'ep:notes/create', useClass: ep___notes_create.default };
 const $notes_delete: Provider = { provide: 'ep:notes/delete', useClass: ep___notes_delete.default };
@@ -591,7 +566,6 @@ const $sw_unregister: Provider = { provide: 'ep:sw/unregister', useClass: ep___s
 const $test: Provider = { provide: 'ep:test', useClass: ep___test.default };
 const $username_available: Provider = { provide: 'ep:username/available', useClass: ep___username_available.default };
 const $users: Provider = { provide: 'ep:users', useClass: ep___users.default };
-const $users_clips: Provider = { provide: 'ep:users/clips', useClass: ep___users_clips.default };
 const $users_followers: Provider = { provide: 'ep:users/followers', useClass: ep___users_followers.default };
 const $users_following: Provider = { provide: 'ep:users/following', useClass: ep___users_following.default };
 const $users_getFrequentlyRepliedUsers: Provider = { provide: 'ep:users/get-frequently-replied-users', useClass: ep___users_getFrequentlyRepliedUsers.default };
@@ -725,17 +699,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$charts_user_pv,
 		$charts_user_reactions,
 		$charts_users,
-		$clips_addNote,
-		$clips_removeNote,
-		$clips_create,
-		$clips_delete,
-		$clips_list,
-		$clips_notes,
-		$clips_show,
-		$clips_update,
-		$clips_favorite,
-		$clips_unfavorite,
-		$clips_myFavorites,
 		$drive,
 		$drive_files,
 		$drive_files_attachedNotes,
@@ -847,7 +810,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$my_apps,
 		$notes,
 		$notes_children,
-		$notes_clips,
 		$notes_conversation,
 		$notes_create,
 		$notes_delete,
@@ -905,7 +867,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$test,
 		$username_available,
 		$users,
-		$users_clips,
 		$users_followers,
 		$users_following,
 		$users_getFrequentlyRepliedUsers,
@@ -1033,17 +994,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$charts_user_pv,
 		$charts_user_reactions,
 		$charts_users,
-		$clips_addNote,
-		$clips_removeNote,
-		$clips_create,
-		$clips_delete,
-		$clips_list,
-		$clips_notes,
-		$clips_show,
-		$clips_update,
-		$clips_favorite,
-		$clips_unfavorite,
-		$clips_myFavorites,
 		$drive,
 		$drive_files,
 		$drive_files_attachedNotes,
@@ -1155,7 +1105,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$my_apps,
 		$notes,
 		$notes_children,
-		$notes_clips,
 		$notes_conversation,
 		$notes_create,
 		$notes_delete,
@@ -1211,7 +1160,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$test,
 		$username_available,
 		$users,
-		$users_clips,
 		$users_followers,
 		$users_following,
 		$users_getFrequentlyRepliedUsers,
