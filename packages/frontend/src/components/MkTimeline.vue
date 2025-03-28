@@ -1,5 +1,5 @@
 <template>
-<MkNotes ref="tlComponent" :noGap="!defaultStore.state.showGapBetweenNotesInTimeline" :pagination="pagination" @queue="emit('queue', $event)"/>
+<MkNotes ref="tlComponent" :pagination="pagination" @queue="emit('queue', $event)"/>
 </template>
 
 <script lang="ts" setup>

@@ -8,14 +8,13 @@
 	</template>
 
 	<template #default="{ items: notes }">
-		<div :class="[$style.root, { [$style.noGap]: noGap }]">
+		<div :class="[$style.root]">
 			<MkDateSeparatedList
 				ref="notes"
 				v-slot="{ item: note }"
 				:items="notes"
 				:direction="pagination.reversed ? 'up' : 'down'"
 				:reversed="pagination.reversed"
-				:noGap="noGap"
 				:ad="true"
 				:class="$style.notes"
 			>
@@ -36,7 +35,6 @@ import { infoImageUrl } from '@/instance';
 
 const props = defineProps<{
 	pagination: Paging;
-	noGap?: boolean;
 }>();
 
 const pagingComponent = shallowRef<InstanceType<typeof MkPagination>>();
@@ -48,21 +46,8 @@ defineExpose({
 
 <style lang="scss" module>
 .root {
-	&.noGap {
-		> .notes {
-			background: var(--panel);
-		}
-	}
-
-	&:not(.noGap) {
-		> .notes {
-			background: var(--bg);
-
-			.note {
-				background: var(--panel);
-				border-radius: var(--radius);
-			}
-		}
+	> .notes {
+		background: var(--panel);
 	}
 }
 </style>

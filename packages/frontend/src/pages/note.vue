@@ -6,7 +6,7 @@
 			<Transition :name="defaultStore.state.animation ? 'fade' : ''" mode="out-in">
 				<div v-if="note">
 					<div v-if="showNext" class="_margin">
-						<MkNotes class="" :pagination="nextPagination" :noGap="true"/>
+						<MkNotes class="" :pagination="nextPagination"/>
 					</div>
 
 					<div class="_margin">
@@ -19,7 +19,7 @@
 					</div>
 
 					<div v-if="showPrev" class="_margin">
-						<MkNotes class="" :pagination="prevPagination" :noGap="true"/>
+						<MkNotes class="" :pagination="prevPagination"/>
 					</div>
 				</div>
 				<MkError v-else-if="error" @retry="fetchNote()"/>

@@ -23,11 +23,6 @@ export default defineComponent({
 			required: false,
 			default: false,
 		},
-		noGap: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
 		ad: {
 			type: Boolean,
 			required: false,
@@ -126,7 +121,6 @@ export default defineComponent({
 			{
 				class: {
 					[$style['date-separated-list']]: true,
-					[$style['date-separated-list-nogap']]: props.noGap,
 					[$style['reversed']]: props.reversed,
 					[$style['direction-down']]: props.direction === 'down',
 					[$style['direction-up']]: props.direction === 'up',
@@ -148,29 +142,27 @@ export default defineComponent({
 	container-type: inline-size;
 
 	&:global {
-	> .list-move {
-		transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+		> .list-move {
+			transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+		}
+
+		&.deny-move-transition > .list-move {
+			transition: none !important;
+		}
+
+		> .list-enter-active {
+			transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+		}
+
+		> *:empty {
+			display: none;
+		}
+
+		> *:not(:last-child) {
+			margin-bottom: var(--margin);
+		}
 	}
 
-	&.deny-move-transition > .list-move {
-		transition: none !important;
-	}
-
-	> .list-enter-active {
-		transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-	}
-
-	> *:empty {
-		display: none;
-	}
-
-	> *:not(:last-child) {
-		margin-bottom: var(--margin);
-	}
-	}
-}
-
-.date-separated-list-nogap {
 	> * {
 		margin: 0 !important;
 		border: none;

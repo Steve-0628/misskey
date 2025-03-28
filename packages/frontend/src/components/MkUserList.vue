@@ -23,7 +23,6 @@ import { infoImageUrl } from '@/instance';
 
 const props = withDefaults(defineProps<{
 	pagination: Paging;
-	noGap?: boolean;
 	extractor?: (item: any) => any;
 }>(), {
 	extractor: (item) => item,

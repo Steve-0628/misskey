@@ -8,7 +8,7 @@
 				<option value="files">{{ i18n.ts.withFiles }}</option>
 			</MkTab>
 		</template>
-		<MkNotes :noGap="true" :pagination="pagination" :class="$style.tl"/>
+		<MkNotes :pagination="pagination" :class="$style.tl"/>
 	</MkStickyContainer>
 </MkSpacer>
 </template>

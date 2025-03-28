@@ -301,11 +301,6 @@ const _sfc_main = defineComponent({
       required: false,
       default: false
     },
-    noGap: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
     ad: {
       type: Boolean,
       required: false,
@@ -335,7 +330,7 @@ const _sfc_main = defineComponent({
       if (i !== props.items.length - 1 && new Date(item.createdAt).getDate() !== new Date(props.items[i + 1].createdAt).getDate()) {
         const separator = h("div", {
           class: $style["separator"],
-          key: item.id + ":separator"
+          UUU: item.id + ":separator"
         }, h("p", {
           class: $style["date"]
         }, [
@@ -395,7 +390,6 @@ const _sfc_main = defineComponent({
       {
         class: {
           [$style["date-separated-list"]]: true,
-          [$style["date-separated-list-nogap"]]: props.noGap,
           [$style["reversed"]]: props.reversed,
           [$style["direction-down"]]: props.direction === "down",
           [$style["direction-up"]]: props.direction === "up"
@@ -417,7 +411,6 @@ const separator = "xxeDx";
 const date = "xxawD";
 const style0 = {
         "date-separated-list": "xfKPa",
-        "date-separated-list-nogap": "xf9zr",
         "direction-up": "x7AeO",
         "direction-down": "xBIqc",
         reversed: reversed,
@@ -468,11 +461,6 @@ const _sfc_main = defineComponent({
       default: "down"
     },
     reversed: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    noGap: {
       type: Boolean,
       required: false,
       default: false
@@ -556,7 +544,6 @@ const _sfc_main = defineComponent({
     return () => h(defaultStore.state.animation ? TransitionGroup : "div", {
       class: {
         [$style["date-separated-list"]]: true,
-        [$style["date-separated-list-nogap"]]: props.noGap,
         [$style["reversed"]]: props.reversed,
         [$style["direction-down"]]: props.direction === "down",
         [$style["direction-up"]]: props.direction === "up"
@@ -577,7 +564,6 @@ const separator = "xxeDx";
 const date = "xxawD";
 const style0 = {
   "date-separated-list": "xfKPa",
-  "date-separated-list-nogap": "xf9zr",
   "direction-up": "x7AeO",
   "direction-down": "xBIqc",
   reversed: reversed,

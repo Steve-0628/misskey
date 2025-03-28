@@ -4,10 +4,10 @@
 	v-show="!isDeleted"
 	ref="el"
 	v-hotkey="keymap"
-	:class="[$style.root, { [$style.showActionsOnlyHover]: defaultStore.state.showNoteActionsOnlyHover }]"
+	:class="[$style.root]"
 	:tabindex="!isDeleted ? '-1' : undefined"
 >
-	<MkNoteSub v-if="appearNote.reply && !renoteCollapsed" :note="appearNote.reply" :class="$style.replyTo"/>
+	<MkNoteSub v-if="appearNote.reply" :note="appearNote.reply" :class="$style.replyTo"/>
 	<div v-if="pinned" :class="$style.tip"><i class="ti ti-pin"></i> {{ i18n.ts.pinnedNote }}</div>
 	<!--<div v-if="appearNote._prId_" class="tip"><i class="ti ti-speakerphone"></i> {{ i18n.ts.promotion }}<button class="_textButton hide" @click="readPromo()">{{ i18n.ts.hideThisNote }} <i class="ti ti-x"></i></button></div>-->
 	<!--<div v-if="appearNote._featuredId_" class="tip"><i class="ti ti-bolt"></i> {{ i18n.ts.featured }}</div>-->
@@ -34,11 +34,7 @@
 			<span v-if="note.localOnly" style="margin-left: 0.5em;" :title="i18n.ts._visibility['disableFederation']"><i class="ti ti-rocket-off"></i></span>
 		</div>
 	</div>
-	<div v-if="renoteCollapsed" :class="$style.collapsedRenoteTarget">
-		<MkAvatar :class="$style.collapsedRenoteTargetAvatar" :user="appearNote.user" link preview/>
-		<Mfm :text="getNoteSummary(appearNote)" :plain="true" :nowrap="true" :author="appearNote.user" :class="$style.collapsedRenoteTargetText" @click="renoteCollapsed = false"/>
-	</div>
-	<article v-else :class="$style.article" @contextmenu.stop="onContextmenu">
+	<article :class="$style.article" @contextmenu.stop="onContextmenu">
 		<MkAvatar :class="$style.avatar" :user="appearNote.user" link preview/>
 		<div :class="$style.main">
 			<MkNoteHeader :note="appearNote" :mini="true"/>
@@ -202,7 +198,6 @@ const translation = ref<any>(null);
 const translating = ref(false);
 const showTicker = (defaultStore.state.instanceTicker === 'always') || (defaultStore.state.instanceTicker === 'remote' && appearNote.user.instance);
 const canRenote = computed(() => ['public', 'home'].includes(appearNote.visibility) || appearNote.userId === $i.id);
-let renoteCollapsed = $ref(defaultStore.state.collapseRenotes && isRenote && (($i && ($i.id === note.userId || $i.id === appearNote.userId)) || (appearNote.myReaction != null)));
 
 const keymap = {
 	'r': () => reply(true),
@@ -467,33 +462,6 @@ function showReactions(): void {
 		opacity: 1;
 	}
 
-	&.showActionsOnlyHover {
-		.footer {
-			visibility: hidden;
-			position: absolute;
-			top: 12px;
-			right: 12px;
-			padding: 0 4px;
-			margin-bottom: 0 !important;
-			background: var(--popup);
-			border-radius: 8px;
-			box-shadow: 0px 4px 32px var(--shadow);
-		}
-
-		.footerButton {
-			font-size: 90%;
-
-			&:not(:last-child) {
-				margin-right: 0;
-			}
-		}
-	}
-
-	&.showActionsOnlyHover:hover {
-		.footer {
-			visibility: visible;
-		}
-	}
 }
 
 .tip {
@@ -807,7 +775,7 @@ function showReactions(): void {
 }
 
 @container (max-width: 400px) {
-	.root:not(.showActionsOnlyHover) {
+	.root {
 		.footerButton {
 			&:not(:last-child) {
 				margin-right: 18px;
@@ -817,7 +785,7 @@ function showReactions(): void {
 }
 
 @container (max-width: 350px) {
-	.root:not(.showActionsOnlyHover) {
+	.root {
 		.footerButton {
 			&:not(:last-child) {
 				margin-right: 12px;
@@ -839,7 +807,7 @@ function showReactions(): void {
 		height: 44px;
 	}
 
-	.root:not(.showActionsOnlyHover) {
+	.root {
 		.footerButton {
 			&:not(:last-child) {
 				margin-right: 8px;

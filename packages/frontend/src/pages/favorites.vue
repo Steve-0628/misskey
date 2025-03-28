@@ -11,7 +11,7 @@
 			</template>
 
 			<template #default="{ items }">
-				<MkDateSeparatedList v-slot="{ item }" :items="items" :direction="'down'" :noGap="false" :ad="false">
+				<MkDateSeparatedList v-slot="{ item }" :items="items" :direction="'down'" :ad="false">
 					<MkNote :key="item.id" :note="item.note" :class="$style.note"/>
 				</MkDateSeparatedList>
 			</template>
