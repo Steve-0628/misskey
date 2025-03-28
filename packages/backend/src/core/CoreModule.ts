@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { AccountMoveService } from './AccountMoveService.js';
 import { AccountUpdateService } from './AccountUpdateService.js';
-import { AiService } from './AiService.js';
 import { AntennaService } from './AntennaService.js';
 import { AppLockService } from './AppLockService.js';
 import { AchievementService } from './AchievementService.js';
@@ -117,7 +116,6 @@ import type { Provider } from '@nestjs/common';
 const $LoggerService: Provider = { provide: 'LoggerService', useExisting: LoggerService };
 const $AccountMoveService: Provider = { provide: 'AccountMoveService', useExisting: AccountMoveService };
 const $AccountUpdateService: Provider = { provide: 'AccountUpdateService', useExisting: AccountUpdateService };
-const $AiService: Provider = { provide: 'AiService', useExisting: AiService };
 const $AntennaService: Provider = { provide: 'AntennaService', useExisting: AntennaService };
 const $AppLockService: Provider = { provide: 'AppLockService', useExisting: AppLockService };
 const $AchievementService: Provider = { provide: 'AchievementService', useExisting: AchievementService };
@@ -237,7 +235,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		LoggerService,
 		AccountMoveService,
 		AccountUpdateService,
-		AiService,
 		AntennaService,
 		AppLockService,
 		AchievementService,
@@ -350,7 +347,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$LoggerService,
 		$AccountMoveService,
 		$AccountUpdateService,
-		$AiService,
 		$AntennaService,
 		$AppLockService,
 		$AchievementService,
@@ -464,7 +460,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		LoggerService,
 		AccountMoveService,
 		AccountUpdateService,
-		AiService,
 		AntennaService,
 		AppLockService,
 		AchievementService,
@@ -576,7 +571,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$LoggerService,
 		$AccountMoveService,
 		$AccountUpdateService,
-		$AiService,
 		$AntennaService,
 		$AppLockService,
 		$AchievementService,

@@ -187,8 +187,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				userId: file.userId,
 				userHost: file.userHost,
 				isLink: file.isLink,
-				maybePorn: file.maybePorn,
-				maybeSensitive: file.maybeSensitive,
 				isSensitive: file.isSensitive,
 				folderId: file.folderId,
 				src: file.src,

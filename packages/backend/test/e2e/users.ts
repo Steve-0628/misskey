@@ -139,7 +139,6 @@ describe('ユーザー', () => {
 			isAdmin: user.isAdmin,
 			injectFeaturedNote: user.injectFeaturedNote,
 			alwaysMarkNsfw: user.alwaysMarkNsfw,
-			autoSensitive: user.autoSensitive,
 			carefulBot: user.carefulBot,
 			autoAcceptFollowed: user.autoAcceptFollowed,
 			noCrawle: user.noCrawle,
@@ -382,7 +381,6 @@ describe('ユーザー', () => {
 		assert.strictEqual(response.isAdmin, false);
 		assert.strictEqual(response.injectFeaturedNote, true);
 		assert.strictEqual(response.alwaysMarkNsfw, false);
-		assert.strictEqual(response.autoSensitive, false);
 		assert.strictEqual(response.carefulBot, false);
 		assert.strictEqual(response.autoAcceptFollowed, true);
 		assert.strictEqual(response.noCrawle, false);
@@ -467,8 +465,6 @@ describe('ユーザー', () => {
 		{ parameters: (): object => ({ injectFeaturedNote: false }) },
 		{ parameters: (): object => ({ alwaysMarkNsfw: true }) },
 		{ parameters: (): object => ({ alwaysMarkNsfw: false }) },
-		{ parameters: (): object => ({ autoSensitive: true }) },
-		{ parameters: (): object => ({ autoSensitive: false }) },
 		{ parameters: (): object => ({ ffVisibility: 'private' }) },
 		{ parameters: (): object => ({ ffVisibility: 'followers' }) },
 		{ parameters: (): object => ({ ffVisibility: 'public' }) },
