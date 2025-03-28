@@ -198,28 +198,6 @@ export class Meta {
 	})
 	public turnstileSecretKey: string | null;
 
-	@Column('enum', {
-		enum: ['none', 'all', 'local', 'remote'],
-		default: 'none',
-	})
-	public sensitiveMediaDetection: 'none' | 'all' | 'local' | 'remote';
-
-	@Column('enum', {
-		enum: ['medium', 'low', 'high', 'veryLow', 'veryHigh'],
-		default: 'medium',
-	})
-	public sensitiveMediaDetectionSensitivity: 'medium' | 'low' | 'high' | 'veryLow' | 'veryHigh';
-
-	@Column('boolean', {
-		default: false,
-	})
-	public setSensitiveFlagAutomatically: boolean;
-
-	@Column('boolean', {
-		default: false,
-	})
-	public enableSensitiveMediaDetectionForVideos: boolean;
-
 	@Column('varchar', {
 		length: 1024,
 		nullable: true,
