@@ -70,14 +70,6 @@ function onclick() {
 	}
 }
 
-// Plugin:register_note_view_interruptor を使って書き換えられる可能性があるためwatchする
-watch(() => props.image, () => {
-	hide = (defaultStore.state.nsfw === 'force' || defaultStore.state.enableDataSaverMode) ? true : (props.image.isSensitive && defaultStore.state.nsfw !== 'ignore');
-}, {
-	deep: true,
-	immediate: true,
-});
-
 function showMenu(ev: MouseEvent) {
 	os.popupMenu([...(iAmModerator ? [{
 		text: i18n.ts.markAsSensitive,

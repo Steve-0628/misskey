@@ -7,7 +7,7 @@ import { instance } from '@/instance';
 import * as os from '@/os';
 import copyToClipboard from '@/scripts/copy-to-clipboard';
 import { url } from '@/config';
-import { defaultStore, noteActions } from '@/store';
+import { defaultStore } from '@/store';
 import { miLocalStorage } from '@/local-storage';
 import { getUserMenu } from '@/scripts/get-user-menu';
 
@@ -277,16 +277,6 @@ export function getNoteMenu(props: {
 			},
 		} : undefined]
 			.filter(x => x !== undefined);
-	}
-
-	if (noteActions.length > 0) {
-		menu = menu.concat([null, ...noteActions.map(action => ({
-			icon: 'ti ti-plug',
-			text: action.title,
-			action: () => {
-				action.handler(appearNote);
-			},
-		}))]);
 	}
 
 	if (defaultStore.state.devMode) {

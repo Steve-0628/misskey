@@ -5,7 +5,7 @@ import { i18n } from '@/i18n';
 import copyToClipboard from '@/scripts/copy-to-clipboard';
 import { host, url } from '@/config';
 import * as os from '@/os';
-import { defaultStore, userActions } from '@/store';
+import { defaultStore } from '@/store';
 import { $i, iAmModerator } from '@/account';
 import { mainRouter } from '@/router';
 import { Router } from '@/nirax';
@@ -294,16 +294,6 @@ export function getUserMenu(user: misskey.entities.UserDetailed, router: Router 
 				router.push('/settings/profile');
 			},
 		}]);
-	}
-
-	if (userActions.length > 0) {
-		menu = menu.concat([null, ...userActions.map(action => ({
-			icon: 'ti ti-plug',
-			text: action.title,
-			action: () => {
-				action.handler(user);
-			},
-		}))]);
 	}
 
 	return menu;

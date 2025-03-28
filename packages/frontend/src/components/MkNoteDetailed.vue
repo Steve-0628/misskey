@@ -148,7 +148,7 @@ import { checkWordMute } from '@/scripts/check-word-mute';
 import { userPage } from '@/filters/user';
 import { notePage } from '@/filters/note';
 import * as os from '@/os';
-import { defaultStore, noteViewInterruptors } from '@/store';
+import { defaultStore } from '@/store';
 import { reactionPicker } from '@/scripts/reaction-picker';
 import { extractUrlFromMfm } from '@/scripts/extract-url-from-mfm';
 import { $i } from '@/account';
@@ -168,17 +168,6 @@ const props = defineProps<{
 }>();
 
 let note = $ref(deepClone(props.note));
-
-// plugin
-if (noteViewInterruptors.length > 0) {
-	onMounted(async () => {
-		let result = deepClone(note);
-		for (const interruptor of noteViewInterruptors) {
-			result = await interruptor.handler(result);
-		}
-		note = result;
-	});
-}
 
 const isRenote = (
 	note.renote != null &&
