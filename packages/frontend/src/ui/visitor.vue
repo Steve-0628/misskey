@@ -14,7 +14,6 @@
 			<div v-if="narrow === false" class="wide">
 				<MkA to="/" class="link" activeClass="active"><i class="ti ti-home icon"></i> {{ i18n.ts.home }}</MkA>
 				<MkA v-if="isTimelineAvailable" to="/timeline" class="link" activeClass="active"><i class="ti ti-message icon"></i> {{ i18n.ts.timeline }}</MkA>
-				<MkA to="/explore" class="link" activeClass="active"><i class="ti ti-hash icon"></i> {{ i18n.ts.explore }}</MkA>
 			</div>
 			<div v-else-if="narrow === true" class="narrow">
 				<button class="menu _button" @click="showMenu = true">
@@ -45,7 +44,6 @@
 		<div v-if="showMenu" class="menu">
 			<MkA to="/" class="link" activeClass="active"><i class="ti ti-home icon"></i>{{ i18n.ts.home }}</MkA>
 			<MkA v-if="isTimelineAvailable" to="/timeline" class="link" activeClass="active"><i class="ti ti-message icon"></i>{{ i18n.ts.timeline }}</MkA>
-			<MkA to="/explore" class="link" activeClass="active"><i class="ti ti-hash icon"></i>{{ i18n.ts.explore }}</MkA>
 			<div class="divider"></div>
 			<MkA to="/play" class="link" activeClass="active"><i class="ti ti-player-play icon"></i>Play</MkA>
 			<div class="action">

@@ -58,7 +58,6 @@ import { instanceName } from '@/config';
 import * as os from '@/os';
 import { i18n } from '@/i18n';
 import { instance } from '@/instance';
-import number from '@/filters/number';
 import MkNumber from '@/components/MkNumber.vue';
 import XActiveUsersChart from '@/components/MkVisitorDashboard.ActiveUsersChart.vue';
 

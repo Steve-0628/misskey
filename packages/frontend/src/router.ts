@@ -223,10 +223,6 @@ export const routes = [{
 	path: '/user-tags/:tag',
 	component: page(() => import('./pages/user-tag.vue')),
 }, {
-	path: '/explore',
-	component: page(() => import('./pages/explore.vue')),
-	hash: 'initialTab',
-}, {
 	path: '/search',
 	component: page(() => import('./pages/search.vue')),
 	query: {
