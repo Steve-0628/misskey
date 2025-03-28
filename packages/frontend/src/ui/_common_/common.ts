@@ -47,11 +47,6 @@ export function openInstanceMenu(ev: MouseEvent) {
 			to: '/api-console',
 			text: 'API Console',
 			icon: 'ti ti-terminal-2',
-		}, {
-			type: 'link',
-			to: '/clicker',
-			text: '🍪👈',
-			icon: 'ti ti-cookie',
 		}, ($i && ($i.isAdmin || $i.policies.canManageCustomEmojis)) ? {
 			type: 'link',
 			to: '/custom-emojis-manager',
