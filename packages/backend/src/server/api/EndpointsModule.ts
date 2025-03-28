@@ -5,10 +5,6 @@ import * as ep___admin_meta from './endpoints/admin/meta.js';
 import * as ep___admin_abuseUserReports from './endpoints/admin/abuse-user-reports.js';
 import * as ep___admin_accounts_create from './endpoints/admin/accounts/create.js';
 import * as ep___admin_accounts_delete from './endpoints/admin/accounts/delete.js';
-import * as ep___admin_ad_create from './endpoints/admin/ad/create.js';
-import * as ep___admin_ad_delete from './endpoints/admin/ad/delete.js';
-import * as ep___admin_ad_list from './endpoints/admin/ad/list.js';
-import * as ep___admin_ad_update from './endpoints/admin/ad/update.js';
 import * as ep___admin_deleteAllFilesOfAUser from './endpoints/admin/delete-all-files-of-a-user.js';
 import * as ep___admin_drive_cleanRemoteFiles from './endpoints/admin/drive/clean-remote-files.js';
 import * as ep___admin_drive_cleanup from './endpoints/admin/drive/cleanup.js';
@@ -296,10 +292,6 @@ const $admin_meta: Provider = { provide: 'ep:admin/meta', useClass: ep___admin_m
 const $admin_abuseUserReports: Provider = { provide: 'ep:admin/abuse-user-reports', useClass: ep___admin_abuseUserReports.default };
 const $admin_accounts_create: Provider = { provide: 'ep:admin/accounts/create', useClass: ep___admin_accounts_create.default };
 const $admin_accounts_delete: Provider = { provide: 'ep:admin/accounts/delete', useClass: ep___admin_accounts_delete.default };
-const $admin_ad_create: Provider = { provide: 'ep:admin/ad/create', useClass: ep___admin_ad_create.default };
-const $admin_ad_delete: Provider = { provide: 'ep:admin/ad/delete', useClass: ep___admin_ad_delete.default };
-const $admin_ad_list: Provider = { provide: 'ep:admin/ad/list', useClass: ep___admin_ad_list.default };
-const $admin_ad_update: Provider = { provide: 'ep:admin/ad/update', useClass: ep___admin_ad_update.default };
 const $admin_deleteAllFilesOfAUser: Provider = { provide: 'ep:admin/delete-all-files-of-a-user', useClass: ep___admin_deleteAllFilesOfAUser.default };
 const $admin_drive_cleanRemoteFiles: Provider = { provide: 'ep:admin/drive/clean-remote-files', useClass: ep___admin_drive_cleanRemoteFiles.default };
 const $admin_drive_cleanup: Provider = { provide: 'ep:admin/drive/cleanup', useClass: ep___admin_drive_cleanup.default };
@@ -590,10 +582,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$admin_abuseUserReports,
 		$admin_accounts_create,
 		$admin_accounts_delete,
-		$admin_ad_create,
-		$admin_ad_delete,
-		$admin_ad_list,
-		$admin_ad_update,
 		$admin_deleteAllFilesOfAUser,
 		$admin_drive_cleanRemoteFiles,
 		$admin_drive_cleanup,
@@ -878,10 +866,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$admin_abuseUserReports,
 		$admin_accounts_create,
 		$admin_accounts_delete,
-		$admin_ad_create,
-		$admin_ad_delete,
-		$admin_ad_list,
-		$admin_ad_update,
 		$admin_deleteAllFilesOfAUser,
 		$admin_drive_cleanRemoteFiles,
 		$admin_drive_cleanup,

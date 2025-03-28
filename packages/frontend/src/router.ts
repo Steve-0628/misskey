@@ -210,9 +210,6 @@ export const routes = [{
 	name: 'invite',
 	component: page(() => import('./pages/invite.vue')),
 }, {
-	path: '/ads',
-	component: page(() => import('./pages/ads.vue')),
-}, {
 	path: '/theme-editor',
 	component: page(() => import('./pages/theme-editor.vue')),
 	loginRequired: true,
@@ -316,10 +313,6 @@ export const routes = [{
 		path: '/federation',
 		name: 'federation',
 		component: page(() => import('./pages/admin/federation.vue')),
-	}, {
-		path: '/ads',
-		name: 'ads',
-		component: page(() => import('./pages/admin/ads.vue')),
 	}, {
 		path: '/roles/:id/edit',
 		name: 'roles',

@@ -8,7 +8,6 @@ import { entities as charts } from '@/core/chart/entities.js';
 
 import { AbuseUserReport } from '@/models/entities/AbuseUserReport.js';
 import { AccessToken } from '@/models/entities/AccessToken.js';
-import { Ad } from '@/models/entities/Ad.js';
 import { Antenna } from '@/models/entities/Antenna.js';
 import { App } from '@/models/entities/App.js';
 import { AttestationChallenge } from '@/models/entities/AttestationChallenge.js';
@@ -152,7 +151,6 @@ export const entities = [
 	Relay,
 	MutedNote,
 	RegistryItem,
-	Ad,
 	PasswordResetRequest,
 	UserPending,
 	Webhook,

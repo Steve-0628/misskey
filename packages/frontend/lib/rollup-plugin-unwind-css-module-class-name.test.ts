@@ -266,7 +266,7 @@ export {index_photos as default};
 it('Composition API (with `useCssModule()`)', () => {
 	const ast = parse(`
 import { a7 as getCurrentInstance, b as defineComponent, G as useCssModule, a1 as h, H as TransitionGroup } from './!~{002}~.js';
-import { d as defaultStore, aK as toast, b5 as MkAd, i as i18n, _ as _export_sfc } from './app-!~{001}~.js';
+import { d as defaultStore, aK as toast, i as i18n, _ as _export_sfc } from './app-!~{001}~.js';
 
 function isDebuggerEnabled(id) {
   try {
@@ -353,14 +353,7 @@ const _sfc_main = defineComponent({
         ]));
         return [el, separator];
       } else {
-        if (props.ad && item._shouldInsertAd_) {
-          return [h(MkAd, {
-            key: item.id + ":ad",
-            prefer: ["horizontal", "horizontal-big"]
-          }), el];
-        } else {
-          return el;
-        }
+				return el;
       }
     });
     const renderChildren = () => {
@@ -432,7 +425,7 @@ export { MkDateSeparatedList as M };
 	unwindCssModuleClassName(ast);
 	expect(generate(ast)).toBe(`
 import {a7 as getCurrentInstance, b as defineComponent, G as useCssModule, a1 as h, H as TransitionGroup} from './!~{002}~.js';
-import {d as defaultStore, aK as toast, b5 as MkAd, i as i18n, _ as _export_sfc} from './app-!~{001}~.js';
+import {d as defaultStore, aK as toast, i as i18n, _ as _export_sfc} from './app-!~{001}~.js';
 function isDebuggerEnabled(id) {
   try {
     return localStorage.getItem(\`DEBUG_\${id}\`) !== null;
@@ -505,14 +498,7 @@ const _sfc_main = defineComponent({
         })])]));
         return [el, separator];
       } else {
-        if (props.ad && item._shouldInsertAd_) {
-          return [h(MkAd, {
-            key: item.id + ":ad",
-            prefer: ["horizontal", "horizontal-big"]
-          }), el];
-        } else {
-          return el;
-        }
+				return el;
       }
     });
     const renderChildren = () => {

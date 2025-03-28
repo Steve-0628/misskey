@@ -1,7 +1,7 @@
 import { IsNull, LessThanOrEqual, MoreThan, Brackets } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import JSON5 from 'json5';
-import type { AdsRepository, UsersRepository } from '@/models/index.js';
+import type { UsersRepository } from '@/models/index.js';
 import { MAX_NOTE_TEXT_LENGTH } from '@/const.js';
 import { Endpoint } from '@/server/api/endpoint-base.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
@@ -148,30 +148,6 @@ export const meta = {
 				type: 'number',
 				optional: false, nullable: false,
 			},
-			ads: {
-				type: 'array',
-				optional: false, nullable: false,
-				items: {
-					type: 'object',
-					optional: false, nullable: false,
-					properties: {
-						place: {
-							type: 'string',
-							optional: false, nullable: false,
-						},
-						url: {
-							type: 'string',
-							optional: false, nullable: false,
-							format: 'url',
-						},
-						imageUrl: {
-							type: 'string',
-							optional: false, nullable: false,
-							format: 'url',
-						},
-					},
-				},
-			},
 			requireSetup: {
 				type: 'boolean',
 				optional: false, nullable: false,
@@ -258,24 +234,11 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 		@Inject(DI.usersRepository)
 		private usersRepository: UsersRepository,
 
-		@Inject(DI.adsRepository)
-		private adsRepository: AdsRepository,
-
 		private userEntityService: UserEntityService,
 		private metaService: MetaService,
 	) {
 		super(meta, paramDef, async (ps, me) => {
 			const instance = await this.metaService.fetch(true);
-
-			const ads = await this.adsRepository.createQueryBuilder('ads')
-				.where('ads.expiresAt > :now', { now: new Date() })
-				.andWhere('ads.startsAt <= :now', { now: new Date() })
-				.andWhere(new Brackets(qb => {
-					// 曜日のビットフラグを確認する
-					qb.where('ads.dayOfWeek & :dayOfWeek > 0', { dayOfWeek: 1 << new Date().getDay() })
-						.orWhere('ads.dayOfWeek = 0');
-				}))
-				.getMany();
 
 			const response: any = {
 				maintainerName: instance.maintainerName,
@@ -312,14 +275,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				// クライアントの手間を減らすためあらかじめJSONに変換しておく
 				defaultLightTheme: instance.defaultLightTheme ? JSON.stringify(JSON5.parse(instance.defaultLightTheme)) : null,
 				defaultDarkTheme: instance.defaultDarkTheme ? JSON.stringify(JSON5.parse(instance.defaultDarkTheme)) : null,
-				ads: ads.map(ad => ({
-					id: ad.id,
-					url: ad.url,
-					place: ad.place,
-					ratio: ad.ratio,
-					imageUrl: ad.imageUrl,
-					dayOfWeek: ad.dayOfWeek,
-				})),
 				enableEmail: instance.enableEmail,
 				enableServiceWorker: instance.enableServiceWorker,
 

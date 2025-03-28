@@ -1,6 +1,5 @@
 import { AbuseUserReport } from '@/models/entities/AbuseUserReport.js';
 import { AccessToken } from '@/models/entities/AccessToken.js';
-import { Ad } from '@/models/entities/Ad.js';
 import { Antenna } from '@/models/entities/Antenna.js';
 import { App } from '@/models/entities/App.js';
 import { AttestationChallenge } from '@/models/entities/AttestationChallenge.js';
@@ -57,7 +56,6 @@ import type { Repository } from 'typeorm';
 export {
 	AbuseUserReport,
 	AccessToken,
-	Ad,
 	Antenna,
 	App,
 	AttestationChallenge,
@@ -113,7 +111,6 @@ export {
 
 export type AbuseUserReportsRepository = Repository<AbuseUserReport>;
 export type AccessTokensRepository = Repository<AccessToken>;
-export type AdsRepository = Repository<Ad>;
 export type AntennasRepository = Repository<Antenna>;
 export type AppsRepository = Repository<App>;
 export type AttestationChallengesRepository = Repository<AttestationChallenge>;

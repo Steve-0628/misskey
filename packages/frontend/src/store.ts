@@ -94,10 +94,6 @@ export const defaultStore = markRaw(new Storage('base', {
 		where: 'account',
 		default: [],
 	},
-	mutedAds: {
-		where: 'account',
-		default: [] as string[],
-	},
 	showTimelineReplies: {
 		where: 'account',
 		default: false,
@@ -285,10 +281,6 @@ export const defaultStore = markRaw(new Storage('base', {
 		default: 3,
 	},
 	largeNoteReactions: {
-		where: 'device',
-		default: false,
-	},
-	forceShowAds: {
 		where: 'device',
 		default: false,
 	},
