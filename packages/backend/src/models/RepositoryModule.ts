@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import { User, Note, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Antenna, PromoNote, PromoRead, Relay, MutedNote, RegistryItem, Webhook, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, UserMemo, UserListFavorite } from './index.js';
+import { User, Note, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Antenna, PromoNote, PromoRead, MutedNote, RegistryItem, Webhook, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, UserMemo, UserListFavorite } from './index.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
 
@@ -256,12 +256,6 @@ const $promoReadsRepository: Provider = {
 	inject: [DI.db],
 };
 
-const $relaysRepository: Provider = {
-	provide: DI.relaysRepository,
-	useFactory: (db: DataSource) => db.getRepository(Relay),
-	inject: [DI.db],
-};
-
 const $mutedNotesRepository: Provider = {
 	provide: DI.mutedNotesRepository,
 	useFactory: (db: DataSource) => db.getRepository(MutedNote),
@@ -368,7 +362,6 @@ const $userMemosRepository: Provider = {
 		$antennasRepository,
 		$promoNotesRepository,
 		$promoReadsRepository,
-		$relaysRepository,
 		$mutedNotesRepository,
 		$registryItemsRepository,
 		$webhooksRepository,
@@ -423,7 +416,6 @@ const $userMemosRepository: Provider = {
 		$antennasRepository,
 		$promoNotesRepository,
 		$promoReadsRepository,
-		$relaysRepository,
 		$mutedNotesRepository,
 		$registryItemsRepository,
 		$webhooksRepository,

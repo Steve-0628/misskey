@@ -7,7 +7,6 @@ import type { Config } from '@/config.js';
 import type { PartialLocalUser, LocalUser, PartialRemoteUser, RemoteUser, User } from '@/models/entities/User.js';
 import type { IMentionedRemoteUsers, Note } from '@/models/entities/Note.js';
 import type { Blocking } from '@/models/entities/Blocking.js';
-import type { Relay } from '@/models/entities/Relay.js';
 import type { DriveFile } from '@/models/entities/DriveFile.js';
 import type { NoteReaction } from '@/models/entities/NoteReaction.js';
 import type { Emoji } from '@/models/entities/Emoji.js';
@@ -190,16 +189,6 @@ export class ApRendererService {
 			actor: this.userEntityService.genLocalUserUri(user.id),
 			content,
 			object,
-		};
-	}
-
-	@bindThis
-	public renderFollowRelay(relay: Relay, relayActor: LocalUser): IFollow {
-		return {
-			id: `${this.config.url}/activities/follow-relay/${relay.id}`,
-			type: 'Follow',
-			actor: this.userEntityService.genLocalUserUri(relayActor.id),
-			object: 'https://www.w3.org/ns/activitystreams#Public',
 		};
 	}
 

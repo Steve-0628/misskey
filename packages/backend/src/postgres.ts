@@ -37,7 +37,6 @@ import { PromoNote } from '@/models/entities/PromoNote.js';
 import { PromoRead } from '@/models/entities/PromoRead.js';
 import { RegistrationTicket } from '@/models/entities/RegistrationTicket.js';
 import { RegistryItem } from '@/models/entities/RegistryItem.js';
-import { Relay } from '@/models/entities/Relay.js';
 import { Signin } from '@/models/entities/Signin.js';
 import { SwSubscription } from '@/models/entities/SwSubscription.js';
 import { UsedUsername } from '@/models/entities/UsedUsername.js';
@@ -148,7 +147,6 @@ export const entities = [
 	Antenna,
 	PromoNote,
 	PromoRead,
-	Relay,
 	MutedNote,
 	RegistryItem,
 	PasswordResetRequest,

@@ -11,7 +11,6 @@ import type { RelationshipJobData, ThinUser } from '@/queue/types.js';
 import { IdService } from '@/core/IdService.js';
 import { GlobalEventService } from '@/core/GlobalEventService.js';
 import { QueueService } from '@/core/QueueService.js';
-import { RelayService } from '@/core/RelayService.js';
 import { ApPersonService } from '@/core/activitypub/models/ApPersonService.js';
 import { ApDeliverManagerService } from '@/core/activitypub/ApDeliverManagerService.js';
 import { ApRendererService } from '@/core/activitypub/ApRendererService.js';
@@ -58,7 +57,6 @@ export class AccountMoveService {
 		private federatedInstanceService: FederatedInstanceService,
 		private instanceChart: InstanceChart,
 		private metaService: MetaService,
-		private relayService: RelayService,
 		private cacheService: CacheService,
 		private queueService: QueueService,
 	) {
@@ -88,7 +86,6 @@ export class AccountMoveService {
 		const srcPerson = await this.apRendererService.renderPerson(src);
 		const updateAct = this.apRendererService.addContext(this.apRendererService.renderUpdate(srcPerson, src));
 		await this.apDeliverManagerService.deliverToFollowers(src, updateAct);
-		this.relayService.deliverToRelays(src, updateAct);
 
 		// Deliver Move activity to the followers of the old account
 		const moveAct = this.apRendererService.addContext(this.apRendererService.renderMove(src, dst));

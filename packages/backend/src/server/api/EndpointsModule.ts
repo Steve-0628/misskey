@@ -38,9 +38,6 @@ import * as ep___admin_queue_deliverDelayed from './endpoints/admin/queue/delive
 import * as ep___admin_queue_inboxDelayed from './endpoints/admin/queue/inbox-delayed.js';
 import * as ep___admin_queue_promote from './endpoints/admin/queue/promote.js';
 import * as ep___admin_queue_stats from './endpoints/admin/queue/stats.js';
-import * as ep___admin_relays_add from './endpoints/admin/relays/add.js';
-import * as ep___admin_relays_list from './endpoints/admin/relays/list.js';
-import * as ep___admin_relays_remove from './endpoints/admin/relays/remove.js';
 import * as ep___admin_resetPassword from './endpoints/admin/reset-password.js';
 import * as ep___admin_resolveAbuseUserReport from './endpoints/admin/resolve-abuse-user-report.js';
 import * as ep___admin_sendEmail from './endpoints/admin/send-email.js';
@@ -325,9 +322,6 @@ const $admin_queue_deliverDelayed: Provider = { provide: 'ep:admin/queue/deliver
 const $admin_queue_inboxDelayed: Provider = { provide: 'ep:admin/queue/inbox-delayed', useClass: ep___admin_queue_inboxDelayed.default };
 const $admin_queue_promote: Provider = { provide: 'ep:admin/queue/promote', useClass: ep___admin_queue_promote.default };
 const $admin_queue_stats: Provider = { provide: 'ep:admin/queue/stats', useClass: ep___admin_queue_stats.default };
-const $admin_relays_add: Provider = { provide: 'ep:admin/relays/add', useClass: ep___admin_relays_add.default };
-const $admin_relays_list: Provider = { provide: 'ep:admin/relays/list', useClass: ep___admin_relays_list.default };
-const $admin_relays_remove: Provider = { provide: 'ep:admin/relays/remove', useClass: ep___admin_relays_remove.default };
 const $admin_resetPassword: Provider = { provide: 'ep:admin/reset-password', useClass: ep___admin_resetPassword.default };
 const $admin_resolveAbuseUserReport: Provider = { provide: 'ep:admin/resolve-abuse-user-report', useClass: ep___admin_resolveAbuseUserReport.default };
 const $admin_sendEmail: Provider = { provide: 'ep:admin/send-email', useClass: ep___admin_sendEmail.default };
@@ -615,9 +609,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$admin_queue_inboxDelayed,
 		$admin_queue_promote,
 		$admin_queue_stats,
-		$admin_relays_add,
-		$admin_relays_list,
-		$admin_relays_remove,
 		$admin_resetPassword,
 		$admin_resolveAbuseUserReport,
 		$admin_sendEmail,
@@ -899,9 +890,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$admin_queue_inboxDelayed,
 		$admin_queue_promote,
 		$admin_queue_stats,
-		$admin_relays_add,
-		$admin_relays_list,
-		$admin_relays_remove,
 		$admin_resetPassword,
 		$admin_resolveAbuseUserReport,
 		$admin_sendEmail,

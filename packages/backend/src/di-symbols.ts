@@ -49,7 +49,6 @@ export const DI = {
 	antennasRepository: Symbol('antennasRepository'),
 	promoNotesRepository: Symbol('promoNotesRepository'),
 	promoReadsRepository: Symbol('promoReadsRepository'),
-	relaysRepository: Symbol('relaysRepository'),
 	mutedNotesRepository: Symbol('mutedNotesRepository'),
 	registryItemsRepository: Symbol('registryItemsRepository'),
 	webhooksRepository: Symbol('webhooksRepository'),

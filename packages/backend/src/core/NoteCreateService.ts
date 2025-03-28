@@ -22,7 +22,6 @@ import { checkWordMute } from '@/misc/check-word-mute.js';
 import { normalizeForSearch } from '@/misc/normalize-for-search.js';
 import { MemorySingleCache } from '@/misc/cache.js';
 import type { UserProfile } from '@/models/entities/UserProfile.js';
-import { RelayService } from '@/core/RelayService.js';
 import { FederatedInstanceService } from '@/core/FederatedInstanceService.js';
 import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
@@ -182,7 +181,6 @@ export class NoteCreateService implements OnApplicationShutdown {
 		private queueService: QueueService,
 		private noteReadService: NoteReadService,
 		private notificationService: NotificationService,
-		private relayService: RelayService,
 		private federatedInstanceService: FederatedInstanceService,
 		private hashtagService: HashtagService,
 		private antennaService: AntennaService,
@@ -605,10 +603,6 @@ export class NoteCreateService implements OnApplicationShutdown {
 					// フォロワーに配送
 					if (['public', 'home', 'followers'].includes(note.visibility)) {
 						dm.addFollowersRecipe();
-					}
-
-					if (['public'].includes(note.visibility)) {
-						this.relayService.deliverToRelays(user, noteActivity);
 					}
 
 					if (data.renote && data.renote.userHost === null && ['followers'].includes(data.renote.visibility)) {

@@ -3,7 +3,6 @@ import { Injectable, Inject } from '@nestjs/common';
 import type { User, LocalUser, RemoteUser } from '@/models/entities/User.js';
 import type { Note, IMentionedRemoteUsers } from '@/models/entities/Note.js';
 import type { InstancesRepository, NotesRepository, UsersRepository } from '@/models/index.js';
-import { RelayService } from '@/core/RelayService.js';
 import { FederatedInstanceService } from '@/core/FederatedInstanceService.js';
 import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
@@ -37,7 +36,6 @@ export class NoteDeleteService {
 		private userEntityService: UserEntityService,
 		private noteEntityService: NoteEntityService,
 		private globalEventService: GlobalEventService,
-		private relayService: RelayService,
 		private federatedInstanceService: FederatedInstanceService,
 		private apRendererService: ApRendererService,
 		private apDeliverManagerService: ApDeliverManagerService,
@@ -180,7 +178,6 @@ export class NoteDeleteService {
 	@bindThis
 	private async deliverToConcerned(user: { id: LocalUser['id']; host: null; }, note: Note, content: any) {
 		this.apDeliverManagerService.deliverToFollowers(user, content);
-		this.relayService.deliverToRelays(user, content);
 		const remoteUsers = await this.getMentionedRemoteUsers(note);
 		for (const remoteUser of remoteUsers) {
 			this.apDeliverManagerService.deliverToUser(user, content, remoteUser);

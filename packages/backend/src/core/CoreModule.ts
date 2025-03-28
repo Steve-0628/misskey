@@ -33,7 +33,6 @@ import { PollService } from './PollService.js';
 import { PushNotificationService } from './PushNotificationService.js';
 import { QueryService } from './QueryService.js';
 import { ReactionService } from './ReactionService.js';
-import { RelayService } from './RelayService.js';
 import { RoleService } from './RoleService.js';
 import { S3Service } from './S3Service.js';
 import { SignupService } from './SignupService.js';
@@ -151,7 +150,6 @@ const $ProxyAccountService: Provider = { provide: 'ProxyAccountService', useExis
 const $PushNotificationService: Provider = { provide: 'PushNotificationService', useExisting: PushNotificationService };
 const $QueryService: Provider = { provide: 'QueryService', useExisting: QueryService };
 const $ReactionService: Provider = { provide: 'ReactionService', useExisting: ReactionService };
-const $RelayService: Provider = { provide: 'RelayService', useExisting: RelayService };
 const $RoleService: Provider = { provide: 'RoleService', useExisting: RoleService };
 const $S3Service: Provider = { provide: 'S3Service', useExisting: S3Service };
 const $SignupService: Provider = { provide: 'SignupService', useExisting: SignupService };
@@ -272,7 +270,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		PushNotificationService,
 		QueryService,
 		ReactionService,
-		RelayService,
 		RoleService,
 		S3Service,
 		SignupService,
@@ -386,7 +383,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$PushNotificationService,
 		$QueryService,
 		$ReactionService,
-		$RelayService,
 		$RoleService,
 		$S3Service,
 		$SignupService,
@@ -501,7 +497,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		PushNotificationService,
 		QueryService,
 		ReactionService,
-		RelayService,
 		RoleService,
 		S3Service,
 		SignupService,
@@ -614,7 +609,6 @@ const $ApQuestionService: Provider = { provide: 'ApQuestionService', useExisting
 		$PushNotificationService,
 		$QueryService,
 		$ReactionService,
-		$RelayService,
 		$RoleService,
 		$S3Service,
 		$SignupService,

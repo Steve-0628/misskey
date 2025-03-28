@@ -164,11 +164,6 @@ const menuDef = $computed(() => [{
 		to: '/admin/security',
 		active: currentPage?.route.name === 'security',
 	}, {
-		icon: 'ti ti-planet',
-		text: i18n.ts.relays,
-		to: '/admin/relays',
-		active: currentPage?.route.name === 'relays',
-	}, {
 		icon: 'ti ti-ban',
 		text: i18n.ts.instanceBlocking,
 		to: '/admin/instance-block',

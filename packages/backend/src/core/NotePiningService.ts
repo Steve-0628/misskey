@@ -6,7 +6,6 @@ import type { User } from '@/models/entities/User.js';
 import type { Note } from '@/models/entities/Note.js';
 import { IdService } from '@/core/IdService.js';
 import type { UserNotePining } from '@/models/entities/UserNotePining.js';
-import { RelayService } from '@/core/RelayService.js';
 import type { Config } from '@/config.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { ApDeliverManagerService } from '@/core/activitypub/ApDeliverManagerService.js';
@@ -32,7 +31,6 @@ export class NotePiningService {
 		private userEntityService: UserEntityService,
 		private idService: IdService,
 		private roleService: RoleService,
-		private relayService: RelayService,
 		private apDeliverManagerService: ApDeliverManagerService,
 		private apRendererService: ApRendererService,
 	) {
@@ -118,6 +116,5 @@ export class NotePiningService {
 		const content = this.apRendererService.addContext(isAddition ? this.apRendererService.renderAdd(user, target, item) : this.apRendererService.renderRemove(user, target, item));
 
 		this.apDeliverManagerService.deliverToFollowers(user, content);
-		this.relayService.deliverToRelays(user, content);
 	}
 }

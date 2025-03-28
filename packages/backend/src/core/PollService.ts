@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
 import type { NotesRepository, UsersRepository, PollsRepository, PollVotesRepository, User } from '@/models/index.js';
 import type { Note } from '@/models/entities/Note.js';
-import { RelayService } from '@/core/RelayService.js';
 import { IdService } from '@/core/IdService.js';
 import { GlobalEventService } from '@/core/GlobalEventService.js';
 import { ApRendererService } from '@/core/activitypub/ApRendererService.js';
@@ -28,7 +27,6 @@ export class PollService {
 
 		private userEntityService: UserEntityService,
 		private idService: IdService,
-		private relayService: RelayService,
 		private globalEventService: GlobalEventService,
 		private userBlockingService: UserBlockingService,
 		private apRendererService: ApRendererService,
@@ -97,7 +95,6 @@ export class PollService {
 		if (this.userEntityService.isLocalUser(user)) {
 			const content = this.apRendererService.addContext(this.apRendererService.renderUpdate(await this.apRendererService.renderNote(note, false), user));
 			this.apDeliverManagerService.deliverToFollowers(user, content);
-			this.relayService.deliverToRelays(user, content);
 		}
 	}
 }

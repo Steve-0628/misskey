@@ -4,7 +4,6 @@ import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
 import { UserFollowingService } from '@/core/UserFollowingService.js';
 import { ReactionService } from '@/core/ReactionService.js';
-import { RelayService } from '@/core/RelayService.js';
 import { NotePiningService } from '@/core/NotePiningService.js';
 import { UserBlockingService } from '@/core/UserBlockingService.js';
 import { NoteDeleteService } from '@/core/NoteDeleteService.js';
@@ -66,7 +65,6 @@ export class ApInboxService {
 		private userFollowingService: UserFollowingService,
 		private apAudienceService: ApAudienceService,
 		private reactionService: ReactionService,
-		private relayService: RelayService,
 		private notePiningService: NotePiningService,
 		private userBlockingService: UserBlockingService,
 		private noteCreateService: NoteCreateService,
@@ -215,12 +213,6 @@ export class ApInboxService {
 
 		if (follower.host != null) {
 			return 'skip: follower is not a local user';
-		}
-
-		// relay
-		const match = activity.id?.match(/follow-relay\/(\w+)/);
-		if (match) {
-			return await this.relayService.relayAccepted(match[1]);
 		}
 
 		await this.userFollowingService.acceptFollowRequest(actor, follower);
@@ -555,12 +547,6 @@ export class ApInboxService {
 
 		if (!this.userEntityService.isLocalUser(follower)) {
 			return 'skip: follower is not a local user';
-		}
-
-		// relay
-		const match = activity.id?.match(/follow-relay\/(\w+)/);
-		if (match) {
-			return await this.relayService.relayRejected(match[1]);
 		}
 
 		await this.userFollowingService.remoteReject(actor, follower);

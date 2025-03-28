@@ -362,10 +362,6 @@ export const routes = [{
 		name: 'security',
 		component: page(() => import('./pages/admin/security.vue')),
 	}, {
-		path: '/relays',
-		name: 'relays',
-		component: page(() => import('./pages/admin/relays.vue')),
-	}, {
 		path: '/instance-block',
 		name: 'instance-block',
 		component: page(() => import('./pages/admin/instance-block.vue')),
