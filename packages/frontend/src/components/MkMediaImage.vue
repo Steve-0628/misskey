@@ -39,7 +39,6 @@
 </template>
 
 <script lang="ts" setup>
-import { watch } from 'vue';
 import * as misskey from 'misskey-js';
 import { getStaticImageUrl } from '@/scripts/media-proxy';
 import bytes from '@/filters/bytes';
@@ -54,7 +53,7 @@ const props = defineProps<{
 	raw?: boolean;
 }>();
 
-let hide = $ref(true);
+let hide = $ref((defaultStore.state.nsfw === 'force' || defaultStore.state.enableDataSaverMode) ? true : (props.image.isSensitive && defaultStore.state.nsfw !== 'ignore') as boolean);
 let darkMode: boolean = $ref(defaultStore.state.darkMode);
 
 const url = $computed(() => (props.raw || defaultStore.state.loadRawImages)
