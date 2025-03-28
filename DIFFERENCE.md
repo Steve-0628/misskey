@@ -34,3 +34,7 @@
 - 投票がリモート絵文字を使わないのを修正
 - リモートに配送されていない鍵投稿をRNしたときにRNも元投稿もう配送されない問題を修正
 - kill channel, gallery, pages, clip, announcement
+- kill explore page, ads, cookie, relay, plugins, NSFW detection
+	- fix visibility button
+	- remove some client settings
+	- remove some widgets
