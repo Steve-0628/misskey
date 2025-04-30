@@ -1,4 +1,4 @@
-import type { Antenna, CustomEmoji, DriveFile, MeDetailed, MessagingMessage, Note, Notification, PageEvent, User, UserGroup } from './entities.js';
+import type { Antenna, CustomEmoji, DriveFile, MeDetailed, MessagingMessage, Note, Notification, User, UserGroup } from './entities.js';
 
 type FIXME = any;
 
@@ -14,7 +14,6 @@ export type Channels = {
 			followed: (payload: User) => void; // 他人が自分をフォローしたとき
 			unfollow: (payload: User) => void; // 自分が他人をフォロー解除したとき
 			meUpdated: (payload: MeDetailed) => void;
-			pageEvent: (payload: PageEvent) => void;
 			urlUploadFinished: (payload: { marker: string; file: DriveFile; }) => void;
 			readAllNotifications: () => void;
 			unreadNotification: (payload: Notification) => void;
