@@ -108,11 +108,6 @@ type Blocking = {
     blockee: UserDetailed;
 };
 
-// @public (undocumented)
-type Channel = {
-    id: ID;
-};
-
 // Warning: (ae-forgotten-export) The symbol "AnyOf" needs to be exported by the entry point index.d.ts
 //
 // @public (undocumented)
@@ -149,7 +144,6 @@ export type Channels = {
             followed: (payload: User) => void;
             unfollow: (payload: User) => void;
             meUpdated: (payload: MeDetailed) => void;
-            pageEvent: (payload: PageEvent) => void;
             urlUploadFinished: (payload: {
                 marker: string;
                 file: DriveFile;
@@ -268,7 +262,6 @@ type DateString = string;
 
 // @public (undocumented)
 type DetailedInstanceMetadata = LiteInstanceMetadata & {
-    pinnedPages: string[];
     pinnedClipId: string | null;
     cacheRemoteFiles: boolean;
     cacheRemoteSensitiveFiles: boolean;
@@ -658,46 +651,6 @@ export type Endpoints = {
             untilId?: Blocking['id'];
         };
         res: Blocking[];
-    };
-    'channels/create': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/featured': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/follow': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/followed': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/owned': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/pin-note': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/show': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/timeline': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/unfollow': {
-        req: TODO;
-        res: TODO;
-    };
-    'channels/update': {
-        req: TODO;
-        res: TODO;
     };
     'charts/active-users': {
         req: {
@@ -1392,10 +1345,6 @@ export type Endpoints = {
         req: TODO;
         res: TODO;
     };
-    'i/pages': {
-        req: TODO;
-        res: TODO;
-    };
     'i/pin': {
         req: {
             noteId: Note['id'];
@@ -1711,7 +1660,6 @@ export type Endpoints = {
             fileIds?: DriveFile['id'][];
             replyId?: null | Note['id'];
             renoteId?: null | Note['id'];
-            channelId?: null | Channel['id'];
             poll?: null | {
                 choices: string[];
                 multiple?: boolean;
@@ -1899,52 +1847,6 @@ export type Endpoints = {
     };
     'notifications/mark-all-as-read': {
         req: NoParams;
-        res: null;
-    };
-    'page-push': {
-        req: {
-            pageId: Page['id'];
-            event: string;
-            var?: any;
-        };
-        res: null;
-    };
-    'pages/create': {
-        req: TODO;
-        res: Page;
-    };
-    'pages/delete': {
-        req: {
-            pageId: Page['id'];
-        };
-        res: null;
-    };
-    'pages/featured': {
-        req: NoParams;
-        res: Page[];
-    };
-    'pages/like': {
-        req: {
-            pageId: Page['id'];
-        };
-        res: null;
-    };
-    'pages/show': {
-        req: {
-            pageId?: Page['id'];
-            name?: string;
-            username?: string;
-        };
-        res: Page;
-    };
-    'pages/unlike': {
-        req: {
-            pageId: Page['id'];
-        };
-        res: null;
-    };
-    'pages/update': {
-        req: TODO;
         res: null;
     };
     'ping': {
@@ -2159,10 +2061,6 @@ export type Endpoints = {
         };
         res: Note[];
     };
-    'users/pages': {
-        req: TODO;
-        res: TODO;
-    };
     'users/recommendation': {
         req: TODO;
         res: TODO;
@@ -2232,8 +2130,6 @@ declare namespace entities {
         InstanceMetadata,
         ServerInfo,
         Stats,
-        Page,
-        PageEvent,
         Announcement,
         Antenna,
         App,
@@ -2242,7 +2138,6 @@ declare namespace entities {
         Clip,
         NoteFavorite,
         FollowRequest,
-        Channel,
         Following,
         FollowingFolloweePopulated,
         FollowingFollowerPopulated,
@@ -2614,38 +2509,6 @@ export const notificationTypes: readonly ["follow", "mention", "reply", "renote"
 type OriginType = 'combined' | 'local' | 'remote';
 
 // @public (undocumented)
-type Page = {
-    id: ID;
-    createdAt: DateString;
-    updatedAt: DateString;
-    userId: User['id'];
-    user: User;
-    content: Record<string, any>[];
-    variables: Record<string, any>[];
-    title: string;
-    name: string;
-    summary: string | null;
-    hideTitleWhenPinned: boolean;
-    alignCenter: boolean;
-    font: string;
-    script: string;
-    eyeCatchingImageId: DriveFile['id'] | null;
-    eyeCatchingImage: DriveFile | null;
-    attachedFiles: any;
-    likedCount: number;
-    isLiked?: boolean;
-};
-
-// @public (undocumented)
-type PageEvent = {
-    pageId: Page['id'];
-    event: string;
-    var: any;
-    userId: User['id'];
-    user: User;
-};
-
-// @public (undocumented)
 export const permissions: string[];
 
 // @public (undocumented)
@@ -2763,8 +2626,6 @@ type UserDetailed = UserLite & {
     notesCount: number;
     pinnedNoteIds: ID[];
     pinnedNotes: Note[];
-    pinnedPage: Page | null;
-    pinnedPageId: string | null;
     publicReactions: boolean;
     securityKeys: boolean;
     twoFactorEnabled: boolean;
@@ -2814,8 +2675,8 @@ type UserSorting = '+follower' | '-follower' | '+createdAt' | '-createdAt' | '+u
 //
 // src/api.types.ts:16:32 - (ae-forgotten-export) The symbol "TODO" needs to be exported by the entry point index.d.ts
 // src/api.types.ts:18:25 - (ae-forgotten-export) The symbol "NoParams" needs to be exported by the entry point index.d.ts
-// src/api.types.ts:629:18 - (ae-forgotten-export) The symbol "ShowUserReq" needs to be exported by the entry point index.d.ts
-// src/streaming.types.ts:33:4 - (ae-forgotten-export) The symbol "FIXME" needs to be exported by the entry point index.d.ts
+// src/api.types.ts:602:18 - (ae-forgotten-export) The symbol "ShowUserReq" needs to be exported by the entry point index.d.ts
+// src/streaming.types.ts:32:4 - (ae-forgotten-export) The symbol "FIXME" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
 
