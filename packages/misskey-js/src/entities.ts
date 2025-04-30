@@ -61,8 +61,6 @@ export type UserDetailed = UserLite & {
 	notesCount: number;
 	pinnedNoteIds: ID[];
 	pinnedNotes: Note[];
-	pinnedPage: Page | null;
-	pinnedPageId: string | null;
 	publicReactions: boolean;
 	securityKeys: boolean;
 	twoFactorEnabled: boolean;
@@ -335,7 +333,6 @@ export type LiteInstanceMetadata = {
 };
 
 export type DetailedInstanceMetadata = LiteInstanceMetadata & {
-	pinnedPages: string[];
 	pinnedClipId: string | null;
 	cacheRemoteFiles: boolean;
 	cacheRemoteSensitiveFiles: boolean;
@@ -369,36 +366,6 @@ export type Stats = {
 	instances: number;
 	driveUsageLocal: number;
 	driveUsageRemote: number;
-};
-
-export type Page = {
-	id: ID;
-	createdAt: DateString;
-	updatedAt: DateString;
-	userId: User['id'];
-	user: User;
-	content: Record<string, any>[];
-	variables: Record<string, any>[];
-	title: string;
-	name: string;
-	summary: string | null;
-	hideTitleWhenPinned: boolean;
-	alignCenter: boolean;
-	font: string;
-	script: string;
-	eyeCatchingImageId: DriveFile['id'] | null;
-	eyeCatchingImage: DriveFile | null;
-	attachedFiles: any;
-	likedCount: number;
-	isLiked?: boolean;
-};
-
-export type PageEvent = {
-	pageId: Page['id'];
-	event: string;
-	var: any;
-	userId: User['id'];
-	user: User;
 };
 
 export type Announcement = {
@@ -451,11 +418,6 @@ export type FollowRequest = {
 	id: ID;
 	follower: User;
 	followee: User;
-};
-
-export type Channel = {
-	id: ID;
-	// TODO
 };
 
 export type Following = {

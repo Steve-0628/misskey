@@ -1,8 +1,8 @@
 import type {
-	Ad, Announcement, Antenna, App, AuthSession, Blocking, Channel, Clip, DateString, DetailedInstanceMetadata, DriveFile, DriveFolder, Following, FollowingFolloweePopulated, FollowingFollowerPopulated, FollowRequest, GalleryPost, Instance,
+	Ad, Announcement, Antenna, App, AuthSession, Blocking, Clip, DateString, DetailedInstanceMetadata, DriveFile, DriveFolder, Following, FollowingFolloweePopulated, FollowingFollowerPopulated, FollowRequest, GalleryPost, Instance,
 	LiteInstanceMetadata,
 	MeDetailed,
-	Note, NoteFavorite, OriginType, Page, ServerInfo, Stats, User, UserDetailed, MeSignup, UserGroup, UserList, UserSorting, Notification, NoteReaction, Signin, MessagingMessage, Invite, InviteLimit,
+	Note, NoteFavorite, OriginType, ServerInfo, Stats, User, UserDetailed, MeSignup, UserGroup, UserList, UserSorting, Notification, NoteReaction, Signin, MessagingMessage, Invite, InviteLimit,
 } from './entities.js';
 
 type TODO = Record<string, any> | null;
@@ -107,18 +107,6 @@ export type Endpoints = {
 	'blocking/create': { req: { userId: User['id'] }; res: UserDetailed; };
 	'blocking/delete': { req: { userId: User['id'] }; res: UserDetailed; };
 	'blocking/list': { req: { limit?: number; sinceId?: Blocking['id']; untilId?: Blocking['id']; }; res: Blocking[]; };
-
-	// channels
-	'channels/create': { req: TODO; res: TODO; };
-	'channels/featured': { req: TODO; res: TODO; };
-	'channels/follow': { req: TODO; res: TODO; };
-	'channels/followed': { req: TODO; res: TODO; };
-	'channels/owned': { req: TODO; res: TODO; };
-	'channels/pin-note': { req: TODO; res: TODO; };
-	'channels/show': { req: TODO; res: TODO; };
-	'channels/timeline': { req: TODO; res: TODO; };
-	'channels/unfollow': { req: TODO; res: TODO; };
-	'channels/update': { req: TODO; res: TODO; };
 
 	// charts
 	'charts/active-users': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; }; res: {
@@ -385,7 +373,6 @@ export type Endpoints = {
 		excludeTypes?: Notification['type'][];
 	}; res: Notification[]; };
 	'i/page-likes': { req: TODO; res: TODO; };
-	'i/pages': { req: TODO; res: TODO; };
 	'i/pin': { req: { noteId: Note['id']; }; res: MeDetailed; };
 	'i/read-all-messaging-messages': { req: TODO; res: TODO; };
 	'i/read-all-unread-notes': { req: TODO; res: TODO; };
@@ -499,7 +486,6 @@ export type Endpoints = {
 		fileIds?: DriveFile['id'][];
 		replyId?: null | Note['id'];
 		renoteId?: null | Note['id'];
-		channelId?: null | Channel['id'];
 		poll?: null | {
 			choices: string[];
 			multiple?: boolean;
@@ -535,18 +521,6 @@ export type Endpoints = {
 	// notifications
 	'notifications/create': { req: { body: string; header?: string | null; icon?: string | null; }; res: null; };
 	'notifications/mark-all-as-read': { req: NoParams; res: null; };
-
-	// page-push
-	'page-push': { req: { pageId: Page['id']; event: string; var?: any; }; res: null; };
-
-	// pages
-	'pages/create': { req: TODO; res: Page; };
-	'pages/delete': { req: { pageId: Page['id']; }; res: null; };
-	'pages/featured': { req: NoParams; res: Page[]; };
-	'pages/like': { req: { pageId: Page['id']; }; res: null; };
-	'pages/show': { req: { pageId?: Page['id']; name?: string; username?: string; }; res: Page; };
-	'pages/unlike': { req: { pageId: Page['id']; }; res: null; };
-	'pages/update': { req: TODO; res: null; };
 
 	// ping
 	'ping': { req: NoParams; res: { pong: number; }; };
@@ -620,7 +594,6 @@ export type Endpoints = {
 	'users/lists/show': { req: { listId: UserList['id']; }; res: UserList; };
 	'users/lists/update': { req: { listId: UserList['id']; name: string; }; res: UserList; };
 	'users/notes': { req: { userId: User['id']; limit?: number; sinceId?: Note['id']; untilId?: Note['id']; sinceDate?: number; untilDate?: number; }; res: Note[]; };
-	'users/pages': { req: TODO; res: TODO; };
 	'users/recommendation': { req: TODO; res: TODO; };
 	'users/relation': { req: TODO; res: TODO; };
 	'users/report-abuse': { req: TODO; res: TODO; };
