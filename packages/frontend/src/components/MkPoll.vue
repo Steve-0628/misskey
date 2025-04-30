@@ -34,7 +34,7 @@ const props = defineProps<{
 	note: misskey.entities.Note;
 	readOnly?: boolean;
 	emojiUrls?: Record<string, string>;
-	author?: Misskey.entities.UserLite;
+	author?: misskey.entities.UserLite;
 }>();
 
 const remaining = ref(-1);
