@@ -222,7 +222,6 @@ describe('Webリソース', () => {
 		{ sub: 'activity' },
 		{ sub: 'achievements' },
 		{ sub: 'reactions' },
-		{ sub: 'pages' },
 	])('/@:username/$sub', ({ sub }) => {
 		const path = (username: string): string => `/@${username}/${sub}`;
 
@@ -233,27 +232,6 @@ describe('Webリソース', () => {
 			assert.strictEqual(metaTag(res, 'misskey:user-username'), alice.username);
 			assert.strictEqual(metaTag(res, 'misskey:user-id'), alice.id);
 		});
-	});
-
-	describe('/@:user/pages/:page', () => {
-		const path = (username: string, pagename: string): string => `/@${username}/pages/${pagename}`;
-
-		test('はHTMLとしてGETできる。', async () => {
-			const res = await ok({
-				path: path(alice.username, alicePage.name),
-			});
-			assert.strictEqual(metaTag(res, 'misskey:user-username'), alice.username);
-			assert.strictEqual(metaTag(res, 'misskey:user-id'), alice.id);
-			assert.strictEqual(metaTag(res, 'misskey:page-id'), alicePage.id);
-
-			// TODO ogタグの検証
-			// TODO profile.noCrawleの検証
-			// TODO twitter:creatorの検証
-		});
-
-		test('はGETできる。(存在しないIDでも。)', async () => await ok({
-			path: path(alice.username, 'xxxxxxxxxx'),
-		}));
 	});
 
 	describe('/users/:id', () => {
