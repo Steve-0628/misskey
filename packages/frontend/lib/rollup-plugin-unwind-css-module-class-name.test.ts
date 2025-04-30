@@ -330,7 +330,7 @@ const _sfc_main = defineComponent({
       if (i !== props.items.length - 1 && new Date(item.createdAt).getDate() !== new Date(props.items[i + 1].createdAt).getDate()) {
         const separator = h("div", {
           class: $style["separator"],
-          UUU: item.id + ":separator"
+          key: item.id + ":separator"
         }, h("p", {
           class: $style["date"]
         }, [
@@ -498,7 +498,7 @@ const _sfc_main = defineComponent({
         })])]));
         return [el, separator];
       } else {
-				return el;
+        return el;
       }
     });
     const renderChildren = () => {
