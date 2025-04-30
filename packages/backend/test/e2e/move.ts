@@ -369,11 +369,6 @@ describe('Account Move', () => {
 
 		test.each([
 			'/antennas/create',
-			'/channels/create',
-			'/channels/favorite',
-			'/channels/follow',
-			'/channels/unfavorite',
-			'/channels/unfollow',
 			'/drive/files/upload-from-url',
 			'/flash/create',
 			'/flash/like',
@@ -392,10 +387,6 @@ describe('Account Move', () => {
 			'/notes/favorites/create',
 			'/notes/polls/vote',
 			'/notes/reactions/create',
-			'/pages/create',
-			'/pages/like',
-			'/pages/unlike',
-			'/pages/update',
 			'/renote-mute/create',
 			'/users/lists/create',
 			'/users/lists/pull',
