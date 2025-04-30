@@ -39,7 +39,7 @@ describe('Note', () => {
 	});
 
 	test('ファイルを添付できる', async () => {
-		const file = await uploadUrl(alice, 'https://raw.githubusercontent.com/misskey-dev/misskey/develop/packages/backend/test/resources/Lenna.jpg');
+		const file = await uploadUrl(alice, 'https://raw.githubusercontent.com/steve-0628/misskey/steskey/packages/backend/test/resources/Lenna.jpg');
 
 		const res = await api('/notes/create', {
 			fileIds: [file.id],
@@ -51,7 +51,7 @@ describe('Note', () => {
 	}, 1000 * 10);
 
 	test('他人のファイルで怒られる', async () => {
-		const file = await uploadUrl(bob, 'https://raw.githubusercontent.com/misskey-dev/misskey/develop/packages/backend/test/resources/Lenna.jpg');
+		const file = await uploadUrl(bob, 'https://raw.githubusercontent.com/steve-0628/misskey/steskey/packages/backend/test/resources/Lenna.jpg');
 
 		const res = await api('/notes/create', {
 			text: 'test',
