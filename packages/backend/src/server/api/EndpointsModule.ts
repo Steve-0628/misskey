@@ -247,10 +247,6 @@ import * as ep___resetDb from './endpoints/reset-db.js';
 import * as ep___resetPassword from './endpoints/reset-password.js';
 import * as ep___serverInfo from './endpoints/server-info.js';
 import * as ep___stats from './endpoints/stats.js';
-import * as ep___sw_show_registration from './endpoints/sw/show-registration.js';
-import * as ep___sw_update_registration from './endpoints/sw/update-registration.js';
-import * as ep___sw_register from './endpoints/sw/register.js';
-import * as ep___sw_unregister from './endpoints/sw/unregister.js';
 import * as ep___test from './endpoints/test.js';
 import * as ep___username_available from './endpoints/username/available.js';
 import * as ep___users from './endpoints/users.js';
@@ -531,10 +527,6 @@ const $resetDb: Provider = { provide: 'ep:reset-db', useClass: ep___resetDb.defa
 const $resetPassword: Provider = { provide: 'ep:reset-password', useClass: ep___resetPassword.default };
 const $serverInfo: Provider = { provide: 'ep:server-info', useClass: ep___serverInfo.default };
 const $stats: Provider = { provide: 'ep:stats', useClass: ep___stats.default };
-const $sw_show_registration: Provider = { provide: 'ep:sw/show-registration', useClass: ep___sw_show_registration.default };
-const $sw_update_registration: Provider = { provide: 'ep:sw/update-registration', useClass: ep___sw_update_registration.default };
-const $sw_register: Provider = { provide: 'ep:sw/register', useClass: ep___sw_register.default };
-const $sw_unregister: Provider = { provide: 'ep:sw/unregister', useClass: ep___sw_unregister.default };
 const $test: Provider = { provide: 'ep:test', useClass: ep___test.default };
 const $username_available: Provider = { provide: 'ep:username/available', useClass: ep___username_available.default };
 const $users: Provider = { provide: 'ep:users', useClass: ep___users.default };
@@ -818,10 +810,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$resetPassword,
 		$serverInfo,
 		$stats,
-		$sw_show_registration,
-		$sw_update_registration,
-		$sw_register,
-		$sw_unregister,
 		$test,
 		$username_available,
 		$users,
@@ -1099,8 +1087,6 @@ const $retention: Provider = { provide: 'ep:retention', useClass: ep___retention
 		$resetPassword,
 		$serverInfo,
 		$stats,
-		$sw_register,
-		$sw_unregister,
 		$test,
 		$username_available,
 		$users,

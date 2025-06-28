@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import { User, Note, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, SwSubscription, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Antenna, PromoNote, PromoRead, MutedNote, RegistryItem, Webhook, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, UserMemo, UserListFavorite } from './index.js';
+import { User, Note, App, NoteFavorite, NoteThreadMuting, NoteReaction, NoteUnread, Poll, PollVote, UserProfile, UserKeypair, UserPending, AttestationChallenge, UserSecurityKey, UserPublickey, UserList, UserListJoining, UserNotePining, UserIp, UsedUsername, Following, FollowRequest, Instance, Emoji, DriveFile, DriveFolder, Meta, Muting, RenoteMuting, Blocking, Hashtag, AbuseUserReport, RegistrationTicket, AuthSession, AccessToken, Signin, ModerationLog, Antenna, PromoNote, PromoRead, MutedNote, RegistryItem, Webhook, PasswordResetRequest, RetentionAggregation, FlashLike, Flash, Role, RoleAssignment, UserMemo, UserListFavorite } from './index.js';
 import type { DataSource } from 'typeorm';
 import type { Provider } from '@nestjs/common';
 
@@ -190,12 +190,6 @@ const $blockingsRepository: Provider = {
 	inject: [DI.db],
 };
 
-const $swSubscriptionsRepository: Provider = {
-	provide: DI.swSubscriptionsRepository,
-	useFactory: (db: DataSource) => db.getRepository(SwSubscription),
-	inject: [DI.db],
-};
-
 const $hashtagsRepository: Provider = {
 	provide: DI.hashtagsRepository,
 	useFactory: (db: DataSource) => db.getRepository(Hashtag),
@@ -351,7 +345,6 @@ const $userMemosRepository: Provider = {
 		$mutingsRepository,
 		$renoteMutingsRepository,
 		$blockingsRepository,
-		$swSubscriptionsRepository,
 		$hashtagsRepository,
 		$abuseUserReportsRepository,
 		$registrationTicketsRepository,
@@ -405,7 +398,6 @@ const $userMemosRepository: Provider = {
 		$mutingsRepository,
 		$renoteMutingsRepository,
 		$blockingsRepository,
-		$swSubscriptionsRepository,
 		$hashtagsRepository,
 		$abuseUserReportsRepository,
 		$registrationTicketsRepository,

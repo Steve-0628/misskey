@@ -38,7 +38,6 @@ import { PromoRead } from '@/models/entities/PromoRead.js';
 import { RegistrationTicket } from '@/models/entities/RegistrationTicket.js';
 import { RegistryItem } from '@/models/entities/RegistryItem.js';
 import { Signin } from '@/models/entities/Signin.js';
-import { SwSubscription } from '@/models/entities/SwSubscription.js';
 import { UsedUsername } from '@/models/entities/UsedUsername.js';
 import { User } from '@/models/entities/User.js';
 import { UserIp } from '@/models/entities/UserIp.js';
@@ -139,7 +138,6 @@ export const entities = [
 	PollVote,
 	Emoji,
 	Hashtag,
-	SwSubscription,
 	AbuseUserReport,
 	RegistrationTicket,
 	Signin,

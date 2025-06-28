@@ -562,9 +562,6 @@ export type Endpoints = {
 	// server-info
 	'server-info': { req: NoParams; res: ServerInfo; };
 
-	// sw
-	'sw/register': { req: TODO; res: TODO; };
-
 	// username
 	'username/available': { req: { username: string; }; res: { available: boolean; }; };
 

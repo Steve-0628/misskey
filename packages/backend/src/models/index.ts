@@ -30,7 +30,6 @@ import { PromoRead } from '@/models/entities/PromoRead.js';
 import { RegistrationTicket } from '@/models/entities/RegistrationTicket.js';
 import { RegistryItem } from '@/models/entities/RegistryItem.js';
 import { Signin } from '@/models/entities/Signin.js';
-import { SwSubscription } from '@/models/entities/SwSubscription.js';
 import { UsedUsername } from '@/models/entities/UsedUsername.js';
 import { User } from '@/models/entities/User.js';
 import { UserIp } from '@/models/entities/UserIp.js';
@@ -85,7 +84,6 @@ export {
 	RegistrationTicket,
 	RegistryItem,
 	Signin,
-	SwSubscription,
 	UsedUsername,
 	User,
 	UserIp,
@@ -139,7 +137,6 @@ export type PromoReadsRepository = Repository<PromoRead>;
 export type RegistrationTicketsRepository = Repository<RegistrationTicket>;
 export type RegistryItemsRepository = Repository<RegistryItem>;
 export type SigninsRepository = Repository<Signin>;
-export type SwSubscriptionsRepository = Repository<SwSubscription>;
 export type UsedUsernamesRepository = Repository<UsedUsername>;
 export type UsersRepository = Repository<User>;
 export type UserIpsRepository = Repository<UserIp>;

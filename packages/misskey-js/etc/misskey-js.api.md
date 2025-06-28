@@ -1904,10 +1904,6 @@ export type Endpoints = {
         req: NoParams;
         res: ServerInfo;
     };
-    'sw/register': {
-        req: TODO;
-        res: TODO;
-    };
     'username/available': {
         req: {
             username: string;
