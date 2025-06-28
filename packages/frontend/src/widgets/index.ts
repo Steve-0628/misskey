@@ -11,7 +11,6 @@ export default function(app: App) {
 	app.component('WidgetJobQueue', defineAsyncComponent(() => import('./WidgetJobQueue.vue')));
 	app.component('WidgetInstanceCloud', defineAsyncComponent(() => import('./WidgetInstanceCloud.vue')));
 	app.component('WidgetAichan', defineAsyncComponent(() => import('./WidgetAichan.vue')));
-	app.component('WidgetVrcUserList', defineAsyncComponent(() => import('./WidgetVrcUserList.vue')));
 }
 
 export const widgets = [
@@ -25,5 +24,4 @@ export const widgets = [
 	'onlineUsers',
 	'jobQueue',
 	'aichan',
-	'vrcUserList',
 ];

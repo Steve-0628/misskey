@@ -36,14 +36,6 @@ export const routes = [{
 	path: '/instance-info/:host',
 	component: page(() => import('./pages/instance-info.vue')),
 }, {
-	path: '/vrchat/user/:id?',
-	name: 'vrchat',
-	component: page(() => import('./pages/vrchat.vue')),
-}, {
-	path: '/vrchat/world/:id',
-	name: 'vrcWorld',
-	component: page(() => import('./pages/vrchat-world.vue')),
-}, {
 	name: 'settings',
 	path: '/settings',
 	component: page(() => import('./pages/settings/index.vue')),
@@ -176,10 +168,6 @@ export const routes = [{
 		path: '/other',
 		name: 'other',
 		component: page(() => import('./pages/settings/other.vue')),
-	}, {
-		path: '/vrchat',
-		name: 'VRChat',
-		component: page(() => import('./pages/settings/vrchat-settings.vue')),
 	}, {
 		path: '/',
 		component: page(() => import('./pages/_empty_.vue')),
