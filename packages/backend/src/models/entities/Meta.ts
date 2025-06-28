@@ -395,16 +395,6 @@ export class Meta {
 	})
 	public enableChartsForFederatedInstances: boolean;
 
-	@Column('boolean', {
-		default: false,
-	})
-	public enableServerMachineStats: boolean;
-
-	@Column('boolean', {
-		default: true,
-	})
-	public enableIdenticonGeneration: boolean;
-
 	@Column('jsonb', {
 		default: { },
 	})

@@ -166,13 +166,9 @@ export class ServerService implements OnApplicationShutdown {
 			reply.header('Content-Type', 'image/png');
 			reply.header('Cache-Control', 'public, max-age=86400');
 
-			if ((await this.metaService.fetch()).enableIdenticonGeneration) {
-				const [temp, cleanup] = await createTemp();
-				await genIdenticon(request.params.x, fs.createWriteStream(temp));
-				return fs.createReadStream(temp).on('close', () => cleanup());
-			} else {
-				return reply.redirect('/static-assets/avatar.png');
-			}
+			const [temp, cleanup] = await createTemp();
+			await genIdenticon(request.params.x, fs.createWriteStream(temp));
+			return fs.createReadStream(temp).on('close', () => cleanup());
 		});
 
 		fastify.get<{ Params: { code: string } }>('/verify-email/:code', async (request, reply) => {

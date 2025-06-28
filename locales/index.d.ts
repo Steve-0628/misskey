@@ -1074,8 +1074,6 @@ export interface Locale {
     "additionalEmojiDictionary": string;
     "installed": string;
     "branding": string;
-    "enableServerMachineStats": string;
-    "enableIdenticonGeneration": string;
     "turnOffToImprovePerformance": string;
     "createInviteCode": string;
     "createWithOptions": string;

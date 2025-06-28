@@ -25,21 +25,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 		private metaService: MetaService,
 	) {
 		super(meta, paramDef, async () => {
-			if (!(await this.metaService.fetch()).enableServerMachineStats) return {
-				machine: '?',
-				cpu: {
-					model: '?',
-					cores: 0,
-				},
-				mem: {
-					total: 0,
-				},
-				fs: {
-					total: 0,
-					used: 0,
-				},
-			};
-
 			const memStats = await si.mem();
 			const fsStats = await si.fsSize();
 

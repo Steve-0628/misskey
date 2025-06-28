@@ -295,7 +295,6 @@ interface Watcher {
 import { miLocalStorage } from './local-storage';
 import lightTheme from '@/themes/l-light.json5';
 import darkTheme from '@/themes/d-green-lime.json5';
-import { Note, UserDetailed, Page } from 'misskey-js/built/entities';
 
 export class ColdDeviceStorage {
 	public static default = {
@@ -344,7 +343,7 @@ export class ColdDeviceStorage {
 		}
 	}
 
-	public static watch(key, callback) {
+	public static watch(key, callback): void {
 		this.watchers.push({ key, callback });
 	}
 
@@ -370,7 +369,7 @@ export class ColdDeviceStorage {
 			get: () => {
 				return valueRef.value;
 			},
-			set: (value: unknown) => {
+			set: (value: any) => {
 				const val = value;
 				ColdDeviceStorage.set(key, val);
 			},

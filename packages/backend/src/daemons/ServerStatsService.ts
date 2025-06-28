@@ -27,8 +27,6 @@ export class ServerStatsService implements OnApplicationShutdown {
 	 */
 	@bindThis
 	public async start(): Promise<void> {
-		if (!(await this.metaService.fetch(true)).enableServerMachineStats) return;
-
 		const log = [] as any[];
 
 		ev.on('requestServerStatsLog', x => {

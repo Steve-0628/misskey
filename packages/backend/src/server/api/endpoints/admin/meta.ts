@@ -249,14 +249,6 @@ export const meta = {
 				type: 'boolean',
 				optional: false, nullable: false,
 			},
-			enableServerMachineStats: {
-				type: 'boolean',
-				optional: false, nullable: false,
-			},
-			enableIdenticonGeneration: {
-				type: 'boolean',
-				optional: false, nullable: false,
-			},
 			policies: {
 				type: 'object',
 				optional: false, nullable: false,
@@ -356,8 +348,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				enableActiveEmailValidation: instance.enableActiveEmailValidation,
 				enableChartsForRemoteUser: instance.enableChartsForRemoteUser,
 				enableChartsForFederatedInstances: instance.enableChartsForFederatedInstances,
-				enableServerMachineStats: instance.enableServerMachineStats,
-				enableIdenticonGeneration: instance.enableIdenticonGeneration,
 				policies: { ...DEFAULT_POLICIES, ...instance.policies },
 			};
 		});
