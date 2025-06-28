@@ -1,12 +1,12 @@
-import { computed, createApp, watch, markRaw, version as vueVersion, defineAsyncComponent } from 'vue';
+import { createApp, markRaw, defineAsyncComponent } from 'vue';
 import { common } from './common';
-import { version, ui, lang, updateLocale } from '@/config';
-import { i18n, updateI18n } from '@/i18n';
+import { ui } from '@/config';
+import { i18n } from '@/i18n';
 import { confirm, alert, post, popup, toast } from '@/os';
 import { useStream } from '@/stream';
 import * as sound from '@/scripts/sound';
-import { $i, refreshAccount, login, updateAccount, signout } from '@/account';
-import { defaultStore, ColdDeviceStorage } from '@/store';
+import { $i, updateAccount, signout } from '@/account';
+import { defaultStore } from '@/store';
 import { makeHotkey } from '@/scripts/hotkey';
 import { reactionPicker } from '@/scripts/reaction-picker';
 import { miLocalStorage } from '@/local-storage';
@@ -14,7 +14,7 @@ import { claimAchievement, claimedAchievements } from '@/scripts/achievements';
 import { mainRouter } from '@/router';
 import { deckStore } from '@/ui/deck/deck-store';
 
-export async function mainBoot() {
+export async function mainBoot(): Promise<void> {
 	const { isClientUpdated } = await common(() => createApp(
 		new URLSearchParams(window.location.search).has('zen') || (ui === 'deck' && deckStore.state.useSimpleUiForNonRootPages && location.pathname !== '/') ? defineAsyncComponent(() => import('@/ui/zen.vue')) :
 		!$i ? defineAsyncComponent(() => import('@/ui/visitor.vue')) :
