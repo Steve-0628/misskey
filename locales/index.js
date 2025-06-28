@@ -16,7 +16,6 @@ const merge = (...args) => args.reduce((a, c) => ({
 const languages = [
 	'en-US',
 	'ja-JP',
-	'ja-KS',
 ];
 
 const primaries = {
@@ -34,7 +33,6 @@ export default Object.entries(locales)
 		const [lang] = k.split('-');
 		switch (k) {
 			case 'ja-JP': return v;
-			case 'ja-KS':
 			case 'en-US': return merge(locales['ja-JP'], v);
 			default: return merge(
 				locales['ja-JP'],
