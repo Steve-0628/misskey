@@ -30,24 +30,6 @@
 					</MkTextarea>
 
 					<FormSection>
-						<template #label>{{ i18n.ts.files }}</template>
-
-						<div class="_gaps_m">
-							<MkSwitch v-model="cacheRemoteFiles">
-								<template #label>{{ i18n.ts.cacheRemoteFiles }}</template>
-								<template #caption>{{ i18n.ts.cacheRemoteFilesDescription }}</template>
-							</MkSwitch>
-
-							<template v-if="cacheRemoteFiles">
-								<MkSwitch v-model="cacheRemoteSensitiveFiles">
-									<template #label>{{ i18n.ts.cacheRemoteSensitiveFiles }}</template>
-									<template #caption>{{ i18n.ts.cacheRemoteSensitiveFilesDescription }}</template>
-								</MkSwitch>
-							</template>
-						</div>
-					</FormSection>
-
-					<FormSection>
 						<template #label>DeepL Translation</template>
 
 						<div class="_gaps_m">
@@ -94,8 +76,6 @@ let description: string | null = $ref(null);
 let maintainerName: string | null = $ref(null);
 let maintainerEmail: string | null = $ref(null);
 let pinnedUsers: string = $ref('');
-let cacheRemoteFiles: boolean = $ref(false);
-let cacheRemoteSensitiveFiles: boolean = $ref(false);
 let swPublicKey: any = $ref(null);
 let swPrivateKey: any = $ref(null);
 let deeplAuthKey: string = $ref('');
@@ -108,8 +88,6 @@ async function init(): Promise<void> {
 	maintainerName = meta.maintainerName;
 	maintainerEmail = meta.maintainerEmail;
 	pinnedUsers = meta.pinnedUsers.join('\n');
-	cacheRemoteFiles = meta.cacheRemoteFiles;
-	cacheRemoteSensitiveFiles = meta.cacheRemoteSensitiveFiles;
 	swPublicKey = meta.swPublickey;
 	swPrivateKey = meta.swPrivateKey;
 	deeplAuthKey = meta.deeplAuthKey;
@@ -123,8 +101,6 @@ function save(): void {
 		maintainerName,
 		maintainerEmail,
 		pinnedUsers: pinnedUsers.split('\n'),
-		cacheRemoteFiles,
-		cacheRemoteSensitiveFiles,
 		swPublicKey,
 		swPrivateKey,
 		deeplAuthKey,

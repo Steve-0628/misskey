@@ -333,8 +333,6 @@ export type LiteInstanceMetadata = {
 
 export type DetailedInstanceMetadata = LiteInstanceMetadata & {
 	pinnedClipId: string | null;
-	cacheRemoteFiles: boolean;
-	cacheRemoteSensitiveFiles: boolean;
 	requireSetup: boolean;
 	proxyAccountName: string | null;
 	features: Record<string, any>;

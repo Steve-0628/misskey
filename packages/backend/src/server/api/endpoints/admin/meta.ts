@@ -15,14 +15,6 @@ export const meta = {
 		type: 'object',
 		optional: false, nullable: false,
 		properties: {
-			cacheRemoteFiles: {
-				type: 'boolean',
-				optional: false, nullable: false,
-			},
-			cacheRemoteSensitiveFiles: {
-				type: 'boolean',
-				optional: false, nullable: false,
-			},
 			emailRequiredForSignup: {
 				type: 'boolean',
 				optional: false, nullable: false,
@@ -305,8 +297,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				defaultDarkTheme: instance.defaultDarkTheme,
 				enableEmail: instance.enableEmail,
 				translatorAvailable: instance.deeplAuthKey != null,
-				cacheRemoteFiles: instance.cacheRemoteFiles,
-				cacheRemoteSensitiveFiles: instance.cacheRemoteSensitiveFiles,
 				pinnedUsers: instance.pinnedUsers,
 				hiddenTags: instance.hiddenTags,
 				blockedHosts: instance.blockedHosts,

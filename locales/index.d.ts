@@ -157,10 +157,6 @@ export interface Locale {
     "emojiUrl": string;
     "addEmoji": string;
     "settingGuide": string;
-    "cacheRemoteFiles": string;
-    "cacheRemoteFilesDescription": string;
-    "cacheRemoteSensitiveFiles": string;
-    "cacheRemoteSensitiveFilesDescription": string;
     "flagAsBot": string;
     "flagAsBotDescription": string;
     "flagAsCat": string;

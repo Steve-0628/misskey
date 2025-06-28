@@ -263,8 +263,6 @@ type DateString = string;
 // @public (undocumented)
 type DetailedInstanceMetadata = LiteInstanceMetadata & {
     pinnedClipId: string | null;
-    cacheRemoteFiles: boolean;
-    cacheRemoteSensitiveFiles: boolean;
     requireSetup: boolean;
     proxyAccountName: string | null;
     features: Record<string, any>;
