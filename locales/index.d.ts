@@ -589,7 +589,6 @@ export interface Locale {
     "author": string;
     "leaveConfirm": string;
     "manage": string;
-    "plugins": string;
     "preferencesBackups": string;
     "deck": string;
     "undeck": string;
@@ -605,7 +604,6 @@ export interface Locale {
     "enableAll": string;
     "disableAll": string;
     "tokenRequested": string;
-    "pluginTokenRequestedDescription": string;
     "notificationType": string;
     "edit": string;
     "emailServer": string;
@@ -1564,11 +1562,6 @@ export interface Locale {
         "_receiveFollowRequest": {
             "title": string;
         };
-    };
-    "_plugin": {
-        "install": string;
-        "installWarn": string;
-        "manage": string;
     };
     "_preferencesBackups": {
         "list": string;

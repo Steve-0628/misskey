@@ -586,7 +586,6 @@ enterFileDescription: "キャプションを入力"
 author: "作者"
 leaveConfirm: "未保存の変更があります。破棄しますか？"
 manage: "管理"
-plugins: "プラグイン"
 preferencesBackups: "設定のバックアップ"
 deck: "デッキ"
 undeck: "デッキ解除"
@@ -602,7 +601,6 @@ permission: "権限"
 enableAll: "全て有効にする"
 disableAll: "全て無効にする"
 tokenRequested: "アカウントへのアクセス許可"
-pluginTokenRequestedDescription: "このプラグインはここで設定した権限を行使できるようになります。"
 notificationType: "通知の種類"
 edit: "編集"
 emailServer: "メールサーバー"
@@ -1482,11 +1480,6 @@ _email:
     title: "フォローされました"
   _receiveFollowRequest:
     title: "フォローリクエストを受け取りました"
-
-_plugin:
-  install: "プラグインのインストール"
-  installWarn: "信頼できないプラグインはインストールしないでください。"
-  manage: "プラグインの管理"
 
 _preferencesBackups:
   list: "作成したバックアップ"
