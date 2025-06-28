@@ -39,3 +39,7 @@
 	- fix visibility button
 	- remove some client settings
 	- remove some widgets
+- デフォルト言語を日本語に
+- サーバーメトリクスを非表示、Identiconを無効にするオプションを廃止
+- サービスワーカーを削除
+- リモートファイルをキャッシュするオプションを削除
