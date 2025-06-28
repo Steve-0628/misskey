@@ -157,10 +157,6 @@ export const meta = {
 				type: 'boolean',
 				optional: false, nullable: false,
 			},
-			enableServiceWorker: {
-				type: 'boolean',
-				optional: false, nullable: false,
-			},
 			translatorAvailable: {
 				type: 'boolean',
 				optional: false, nullable: false,
@@ -198,10 +194,6 @@ export const meta = {
 						optional: false, nullable: false,
 					},
 					objectStorage: {
-						type: 'boolean',
-						optional: false, nullable: false,
-					},
-					serviceWorker: {
 						type: 'boolean',
 						optional: false, nullable: false,
 					},
@@ -276,7 +268,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 				defaultLightTheme: instance.defaultLightTheme ? JSON.stringify(JSON5.parse(instance.defaultLightTheme)) : null,
 				defaultDarkTheme: instance.defaultDarkTheme ? JSON.stringify(JSON5.parse(instance.defaultDarkTheme)) : null,
 				enableEmail: instance.enableEmail,
-				enableServiceWorker: instance.enableServiceWorker,
 
 				translatorAvailable: instance.deeplAuthKey != null,
 
@@ -306,7 +297,6 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 					recaptcha: instance.enableRecaptcha,
 					turnstile: instance.enableTurnstile,
 					objectStorage: instance.useObjectStorage,
-					serviceWorker: instance.enableServiceWorker,
 					miauth: true,
 				};
 			}

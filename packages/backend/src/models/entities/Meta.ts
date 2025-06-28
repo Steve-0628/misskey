@@ -243,11 +243,6 @@ export class Meta {
 	})
 	public smtpPass: string | null;
 
-	@Column('boolean', {
-		default: false,
-	})
-	public enableServiceWorker: boolean;
-
 	@Column('varchar', {
 		length: 1024,
 		nullable: true,

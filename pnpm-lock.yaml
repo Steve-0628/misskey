@@ -966,7 +966,7 @@ importers:
         version: github.com/misskey-dev/storybook-addon-misskey-theme/cf583db098365b2ccc81a82f63ca9c93bc32b640(@storybook/blocks@7.0.27)(@storybook/components@7.6.6)(@storybook/core-events@7.0.27)(@storybook/manager-api@7.0.27)(@storybook/preview-api@7.0.27)(@storybook/theming@7.0.27)(@storybook/types@7.0.27)(react-dom@18.2.0)(react@18.2.0)
       summaly:
         specifier: github:misskey-dev/summaly
-        version: github.com/misskey-dev/summaly/1b93243ff9614d67e7f67ace5885d600af64e0fb
+        version: github.com/misskey-dev/summaly/56e1137113846edd1ef8ea961a7e3333900ad891
       vite-plugin-turbosnap:
         specifier: 1.0.2
         version: 1.0.2
@@ -1034,34 +1034,6 @@ importers:
       tsd:
         specifier: 0.28.1
         version: 0.28.1
-      typescript:
-        specifier: 5.1.6
-        version: 5.1.6
-
-  packages/sw:
-    dependencies:
-      esbuild:
-        specifier: 0.18.11
-        version: 0.18.11
-      idb-keyval:
-        specifier: 6.2.1
-        version: 6.2.1
-      misskey-js:
-        specifier: workspace:*
-        version: link:../misskey-js
-    devDependencies:
-      '@typescript-eslint/parser':
-        specifier: 5.61.0
-        version: 5.61.0(eslint@8.45.0)(typescript@5.1.6)
-      '@typescript/lib-webworker':
-        specifier: npm:@types/serviceworker@0.0.67
-        version: /@types/serviceworker@0.0.67
-      eslint:
-        specifier: 8.45.0
-        version: 8.45.0
-      eslint-plugin-import:
-        specifier: 2.27.5
-        version: 2.27.5(@typescript-eslint/parser@5.61.0)(eslint@8.45.0)
       typescript:
         specifier: 5.1.6
         version: 5.1.6
@@ -7813,7 +7785,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.3.4
-      vue-component-type-helpers: 2.2.8
+      vue-component-type-helpers: 2.2.10
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -8938,10 +8910,6 @@ packages:
       '@types/http-errors': 2.0.4
       '@types/mime': 3.0.4
       '@types/node': 20.4.2
-    dev: true
-
-  /@types/serviceworker@0.0.67:
-    resolution: {integrity: sha512-7TCH7iNsCSNb+aUD9M/36TekrWFSLCjNK8zw/3n5kOtRjbLtDfGYMXTrDnGhSfqXNwpqmt9Vd90w5C/ad1tX6Q==}
     dev: true
 
   /@types/set-cookie-parser@2.4.2:
@@ -22004,8 +21972,8 @@ packages:
     resolution: {integrity: sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==}
     engines: {node: '>=0.10.0'}
 
-  /vue-component-type-helpers@2.2.8:
-    resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
+  /vue-component-type-helpers@2.2.10:
+    resolution: {integrity: sha512-iDUO7uQK+Sab2tYuiP9D1oLujCWlhHELHMgV/cB13cuGbG4qwkLHvtfWb6FzvxrIOPDnU0oHsz2MlQjhYDeaHA==}
     dev: true
 
   /vue-docgen-api@4.64.1(vue@3.3.4):
@@ -22620,10 +22588,10 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: true
 
-  github.com/misskey-dev/summaly/1b93243ff9614d67e7f67ace5885d600af64e0fb:
-    resolution: {tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/1b93243ff9614d67e7f67ace5885d600af64e0fb}
+  github.com/misskey-dev/summaly/56e1137113846edd1ef8ea961a7e3333900ad891:
+    resolution: {tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/56e1137113846edd1ef8ea961a7e3333900ad891}
     name: '@misskey-dev/summaly'
-    version: 5.2.0
+    version: 5.2.1
     dependencies:
       cheerio: 1.0.0
       escape-regexp: 0.0.1

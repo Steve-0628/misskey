@@ -296,13 +296,6 @@ export class ClientServerService {
 			return buffer;
 		});
 
-		// ServiceWorker
-		fastify.get('/sw.js', async (request, reply) => {
-			return await reply.sendFile('/sw.js', swAssets, {
-				maxAge: ms('10 minutes'),
-			});
-		});
-
 		// Manifest
 		fastify.get('/manifest.json', async (request, reply) => await this.manifestHandler(reply));
 

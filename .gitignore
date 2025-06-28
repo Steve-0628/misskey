@@ -18,7 +18,6 @@ report.*.json
 !.yarn/versions
 packages/frontend/.yarn/cache
 packages/backend/.yarn/cache
-packages/sw/.yarn/cache
 
 # pnpm
 .pnpm-store

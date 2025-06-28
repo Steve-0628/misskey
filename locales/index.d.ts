@@ -389,7 +389,6 @@ export interface Locale {
     "antennaKeywordsDescription": string;
     "notifyAntenna": string;
     "withFileAntenna": string;
-    "enableServiceworker": string;
     "antennaUsersDescription": string;
     "caseSensitive": string;
     "withReplies": string;
@@ -578,7 +577,6 @@ export interface Locale {
     "addRelay": string;
     "inboxUrl": string;
     "addedRelays": string;
-    "serviceworkerInfo": string;
     "deletedNote": string;
     "invisibleNote": string;
     "enableInfiniteScroll": string;
@@ -938,13 +936,6 @@ export interface Locale {
     "shuffle": string;
     "account": string;
     "move": string;
-    "pushNotification": string;
-    "subscribePushNotification": string;
-    "unsubscribePushNotification": string;
-    "pushNotificationAlreadySubscribed": string;
-    "pushNotificationNotSupported": string;
-    "sendPushNotificationReadMessage": string;
-    "sendPushNotificationReadMessageCaption": string;
     "windowMaximize": string;
     "windowMinimize": string;
     "windowRestore": string;
@@ -1104,7 +1095,6 @@ export interface Locale {
         "theseSettingsCanEditLater": string;
         "youCanEditMoreSettingsInSettingsPageLater": string;
         "followUsers": string;
-        "pushNotificationDescription": string;
         "initialAccountSettingCompleted": string;
         "haveFun": string;
         "ifYouNeedLearnMore": string;
@@ -2097,7 +2087,6 @@ export interface Locale {
         "yourFollowRequestAccepted": string;
         "pollEnded": string;
         "unreadAntennaNote": string;
-        "emptyPushNotificationMessage": string;
         "achievementEarned": string;
         "_types": {
             "all": string;

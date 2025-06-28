@@ -81,11 +81,6 @@ function onNotification(notification) {
 if ($i) {
 	const connection = useStream().useChannel('main', null, 'UI');
 	connection.on('notification', onNotification);
-
-	//#region Listen message from SW
-	if ('serviceWorker' in navigator) {
-		swInject();
-	}
 }
 </script>
 

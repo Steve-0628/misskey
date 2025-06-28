@@ -2305,7 +2305,6 @@ type LiteInstanceMetadata = {
     enableTwitterIntegration: boolean;
     enableGithubIntegration: boolean;
     enableDiscordIntegration: boolean;
-    enableServiceWorker: boolean;
     emojis: CustomEmoji[];
     defaultDarkTheme: string | null;
     defaultLightTheme: string | null;

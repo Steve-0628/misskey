@@ -12,7 +12,6 @@ import { reactionPicker } from '@/scripts/reaction-picker';
 import { miLocalStorage } from '@/local-storage';
 import { claimAchievement, claimedAchievements } from '@/scripts/achievements';
 import { mainRouter } from '@/router';
-import { initializeSw } from '@/scripts/initialize-sw';
 import { deckStore } from '@/ui/deck/deck-store';
 
 export async function mainBoot() {
@@ -224,6 +223,4 @@ export async function mainBoot() {
 
 	// shortcut
 	document.addEventListener('keydown', makeHotkey(hotkeys));
-
-	initializeSw();
 }

@@ -7,7 +7,6 @@ import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { AntennaEntityService } from '@/core/entities/AntennaEntityService.js';
 import { IdService } from '@/core/IdService.js';
 import { GlobalEventService } from '@/core/GlobalEventService.js';
-import { PushNotificationService } from '@/core/PushNotificationService.js';
 import * as Acct from '@/misc/acct.js';
 import type { Packed } from '@/misc/json-schema.js';
 import { DI } from '@/di-symbols.js';
@@ -47,7 +46,6 @@ export class AntennaService implements OnApplicationShutdown {
 		private utilityService: UtilityService,
 		private idService: IdService,
 		private globalEventService: GlobalEventService,
-		private pushNotificationService: PushNotificationService,
 		private noteEntityService: NoteEntityService,
 		private antennaEntityService: AntennaEntityService,
 	) {

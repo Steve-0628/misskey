@@ -34,34 +34,6 @@ export async function signout() {
 	await removeAccount($i.id);
 	const accounts = await getAccounts();
 
-	//#region Remove service worker registration
-	try {
-		if (navigator.serviceWorker.controller) {
-			const registration = await navigator.serviceWorker.ready;
-			const push = await registration.pushManager.getSubscription();
-			if (push) {
-				await window.fetch(`${apiUrl}/sw/unregister`, {
-					method: 'POST',
-					body: JSON.stringify({
-						i: $i.token,
-						endpoint: push.endpoint,
-					}),
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				});
-			}
-		}
-
-		if (accounts.length === 0) {
-			await navigator.serviceWorker.getRegistrations()
-				.then(registrations => {
-					return Promise.all(registrations.map(registration => registration.unregister()));
-				});
-		}
-	} catch (err) {}
-	//#endregion
-
 	if (accounts.length > 0) login(accounts[0].token);
 	else unisonReload('/');
 }

@@ -7,21 +7,6 @@
 			<FormLink @click="readAllUnreadNotes">{{ i18n.ts.markAsReadAllUnreadNotes }}</FormLink>
 		</div>
 	</FormSection>
-	<FormSection>
-		<template #label>{{ i18n.ts.pushNotification }}</template>
-
-		<div class="_gaps_m">
-			<MkPushNotificationAllowButton ref="allowButton"/>
-			<MkSwitch :disabled="!pushRegistrationInServer" :modelValue="sendReadMessage" @update:modelValue="onChangeSendReadMessage">
-				<template #label>{{ i18n.ts.sendPushNotificationReadMessage }}</template>
-				<template #caption>
-					<I18n :src="i18n.ts.sendPushNotificationReadMessageCaption">
-						<template #emptyPushNotificationMessage>{{ i18n.ts._notification.emptyPushNotificationMessage }}</template>
-					</I18n>
-				</template>
-			</MkSwitch>
-		</div>
-	</FormSection>
 </div>
 </template>
 
@@ -29,23 +14,17 @@
 import { defineAsyncComponent } from 'vue';
 import FormLink from '@/components/form/link.vue';
 import FormSection from '@/components/form/section.vue';
-import MkSwitch from '@/components/MkSwitch.vue';
 import * as os from '@/os';
 import { $i } from '@/account';
 import { i18n } from '@/i18n';
 import { definePageMetadata } from '@/scripts/page-metadata';
-import MkPushNotificationAllowButton from '@/components/MkPushNotificationAllowButton.vue';
 import { notificationTypes } from '@/const';
 
-let allowButton = $shallowRef<InstanceType<typeof MkPushNotificationAllowButton>>();
-let pushRegistrationInServer = $computed(() => allowButton?.pushRegistrationInServer);
-let sendReadMessage = $computed(() => pushRegistrationInServer?.sendReadMessage || false);
-
-async function readAllUnreadNotes() {
+async function readAllUnreadNotes(): Promise<void> {
 	await os.api('i/read-all-unread-notes');
 }
 
-async function readAllNotifications() {
+async function readAllNotifications(): Promise<void> {
 	await os.api('notifications/mark-all-as-read');
 }
 
@@ -64,18 +43,6 @@ function configure() {
 			});
 		},
 	}, 'closed');
-}
-
-function onChangeSendReadMessage(v: boolean) {
-	if (!pushRegistrationInServer) return;
-
-	os.apiWithDialog('sw/update-registration', {
-		endpoint: pushRegistrationInServer.endpoint,
-		sendReadMessage: v,
-	}).then(res => {
-		if (!allowButton)	return;
-		allowButton.pushRegistrationInServer = res;
-	});
 }
 
 const headerActions = $computed(() => []);

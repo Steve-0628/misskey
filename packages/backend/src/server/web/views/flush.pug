@@ -21,15 +21,6 @@ html
 
 				await Promise.all(idbPromises);
 
-				if (navigator.serviceWorker.controller) {
-					navigator.serviceWorker.controller.postMessage('clear');
-					await navigator.serviceWorker.getRegistrations()
-						.then(registrations => {
-							return Promise.all(registrations.map(registration => registration.unregister()));
-						})
-						.catch(e => { throw new Error(e) });
-				}
-
 				message(successText);
 			} catch (e) {
 				message(`\n${e}\n\nFlush Failed. <a href="/flush">Please retry.</a>\n失敗しました。<a href="/flush">もう一度試してみてください。</a>`);

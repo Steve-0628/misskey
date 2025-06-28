@@ -9,8 +9,7 @@
 	"packageManager": "pnpm@8.6.10",
 	"workspaces": [
 		"packages/frontend",
-		"packages/backend",
-		"packages/sw"
+		"packages/backend"
 	],
 	"private": true,
 	"scripts": {
