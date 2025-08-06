@@ -148,7 +148,7 @@
 		"summaly": "github:misskey-dev/summaly#d7f6a88aee62510a0d3ba061f515e4688c34ca48",
 		"systeminformation": "5.21.22",
 		"tinycolor2": "1.6.0",
-		"tmp": "0.2.1",
+		"tmp": "0.2.4",
 		"tsc-alias": "1.8.8",
 		"tsconfig-paths": "4.2.0",
 		"twemoji-parser": "14.0.0",
