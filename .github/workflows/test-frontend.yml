@@ -5,6 +5,8 @@ on:
     branches:
       - steskey
   pull_request:
+    paths:
+      - '!packages/backend/**'
 
 jobs:
   vitest:
