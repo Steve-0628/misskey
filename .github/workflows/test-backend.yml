@@ -6,7 +6,8 @@ on:
       - steskey
   pull_request:
     paths:
-    - '!packages/frontend/**'
+      - '**'
+      - '!packages/frontend/**'
 
 jobs:
   jest:

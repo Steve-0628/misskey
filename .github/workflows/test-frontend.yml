@@ -6,6 +6,7 @@ on:
       - steskey
   pull_request:
     paths:
+      - '**'
       - '!packages/backend/**'
 
 jobs:
