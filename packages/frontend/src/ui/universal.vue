@@ -150,14 +150,8 @@ if (window.innerWidth > 1024) {
 defaultStore.loaded.then(() => {
 	if (defaultStore.state.widgets.length === 0) {
 		defaultStore.set('widgets', [{
-			name: 'calendar',
-			id: 'a', place: 'right', data: {},
-		}, {
 			name: 'notifications',
 			id: 'b', place: 'right', data: {},
-		}, {
-			name: 'trends',
-			id: 'c', place: 'right', data: {},
 		}]);
 	}
 });

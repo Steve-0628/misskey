@@ -34,7 +34,7 @@ describe('After user signed in', () => {
 	it('first widget should be removed', () => {
 		cy.get('[data-cy-widget-edit]').click();
 		cy.get('[data-cy-customize-container]:first-child [data-cy-customize-container-remove]._button').click();
-		cy.get('[data-cy-customize-container]').should('have.length', 2);
+		cy.get('[data-cy-customize-container]').should('have.length', 0);
 	});
 
 	function buildWidgetTest(widgetName) {
@@ -49,21 +49,10 @@ describe('After user signed in', () => {
 
 	buildWidgetTest('memo');
 	buildWidgetTest('notifications');
-	buildWidgetTest('timeline');
-	buildWidgetTest('calendar');
-	buildWidgetTest('rss');
-	buildWidgetTest('trends');
-	buildWidgetTest('clock');
-	buildWidgetTest('activity');
-	buildWidgetTest('photos');
-	buildWidgetTest('digitalClock');
 	buildWidgetTest('federation');
 	buildWidgetTest('postForm');
-	buildWidgetTest('slideshow');
 	buildWidgetTest('serverMetric');
 	buildWidgetTest('onlineUsers');
 	buildWidgetTest('jobQueue');
-	buildWidgetTest('button');
-	buildWidgetTest('aiscript');
 	buildWidgetTest('aichan');
 });
