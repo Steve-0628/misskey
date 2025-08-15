@@ -233,8 +233,8 @@ importers:
         specifier: 8.3.2
         version: 8.3.2(web-streams-polyfill@3.2.1)
       jsrsasign:
-        specifier: 10.8.6
-        version: 10.8.6
+        specifier: 11.0.0
+        version: 11.0.0
       meilisearch:
         specifier: 0.33.0
         version: 0.33.0(encoding@0.1.13)
@@ -8295,8 +8295,8 @@ packages:
     resolution: {integrity: sha512-gqXddjPqQ6G40VdnI6T6yObEC+pDNvyP95wdQhkWkg7crHH3km5qP1FsOXEkzEQwnz6gz5qGTn1c2Y52wP3OyQ==}
     engines: {'0': node >=0.6.0}
 
-  jsrsasign@10.8.6:
-    resolution: {integrity: sha512-bQmbVtsfbgaKBTWCKiDCPlUPbdlRIK/FzSwT3BzIgZl/cU6TqXu6pZJsCI/dJVrZ9Gir5GC4woqw9shH/v7MBw==}
+  jsrsasign@11.0.0:
+    resolution: {integrity: sha512-BtRwVKS+5dsgPpAtzJcpo5OoWjSs1/zllSBG0+8o8/aV0Ki76m6iZwHnwnsqoTdhfFZDN1XIdcaZr5ZkP+H2gg==}
 
   jssha@3.3.0:
     resolution: {integrity: sha512-w9OtT4ALL+fbbwG3gw7erAO0jvS5nfvrukGPMWIAoea359B26ALXGpzy4YJSp9yGnpUvuvOw1nSjSoHDfWSr1w==}
@@ -21891,7 +21891,7 @@ snapshots:
       json-schema: 0.4.0
       verror: 1.10.0
 
-  jsrsasign@10.8.6: {}
+  jsrsasign@11.0.0: {}
 
   jssha@3.3.0: {}
 
