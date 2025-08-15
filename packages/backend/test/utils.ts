@@ -327,11 +327,11 @@ export const waitFire = async (user: UserToken, channel: string, trgr: () => any
 	return new Promise<boolean>(async (res, rej) => {
 		let timer: NodeJS.Timeout | null = null;
 
-		let ws: WebSocket;
+		let ws: WebSocket | undefined;
 		try {
 			ws = await connectStream(user, channel, msg => {
 				if (cond(msg)) {
-					ws.close();
+					ws && ws.close();
 					if (timer) clearTimeout(timer);
 					res(true);
 				}
@@ -340,17 +340,17 @@ export const waitFire = async (user: UserToken, channel: string, trgr: () => any
 			rej(e);
 		}
 
-		if (!ws!) return;
+		if (!ws) rej('failed to initialize websocket');
 
 		timer = setTimeout(() => {
-			ws.close();
+			ws && ws.close();
 			res(false);
 		}, 3000);
 
 		try {
 			await trgr();
 		} catch (e) {
-			ws.close();
+			ws && ws.close();
 			if (timer) clearTimeout(timer);
 			rej(e);
 		}

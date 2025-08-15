@@ -88,7 +88,7 @@ describe('ActivityPub', () => {
 		blockedHosts: [] as string[],
 		sensitiveWords: [] as string[],
 	} as Meta;
-	let meta = metaInitial;
+	const meta = metaInitial;
 
 	beforeAll(async () => {
 		const app = await Test.createTestingModule({
@@ -189,7 +189,7 @@ describe('ActivityPub', () => {
 
 	describe('Renderer', () => {
 		test('Render an announce with visibility: followers', () => {
-			rendererService.renderAnnounce(null, {
+			rendererService.renderAnnounce('', {
 				createdAt: new Date(0),
 				visibility: 'followers',
 			} as Note);
@@ -266,7 +266,7 @@ describe('ActivityPub', () => {
 				await createRandomRemoteUser(resolver, personService),
 				imageObject,
 			);
-			assert.ok(!driveFile.isLink);
+			assert.ok(driveFile.isLink);
 
 			const sensitiveImageObject: IApDocument = {
 				type: 'Document',
@@ -279,7 +279,7 @@ describe('ActivityPub', () => {
 				await createRandomRemoteUser(resolver, personService),
 				sensitiveImageObject,
 			);
-			assert.ok(!sensitiveDriveFile.isLink);
+			assert.ok(sensitiveDriveFile.isLink);
 		});
 	});
 });

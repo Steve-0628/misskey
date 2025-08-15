@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 import * as assert from 'assert';
-import { signup, api, post, react, startServer, waitFire } from '../utils.js';
+import { signup, api, post, startServer, waitFire } from '../utils.js';
 import type { INestApplicationContext } from '@nestjs/common';
 import type * as misskey from 'misskey-js';
 
