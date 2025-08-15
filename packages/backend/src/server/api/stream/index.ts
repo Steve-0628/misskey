@@ -25,7 +25,6 @@ export default class Connection {
 	private cachedNotes: Packed<'Note'>[] = [];
 	public userProfile: UserProfile | null = null;
 	public following: Set<string> = new Set();
-	public followingChannels: Set<string> = new Set();
 	public userIdsWhoMeMuting: Set<string> = new Set();
 	public userIdsWhoBlockingMe: Set<string> = new Set();
 	public userIdsWhoMeMutingRenotes: Set<string> = new Set();
@@ -47,7 +46,7 @@ export default class Connection {
 	@bindThis
 	public async fetch() {
 		if (this.user == null) return;
-		const [userProfile, following, followingChannels, userIdsWhoMeMuting, userIdsWhoBlockingMe] = await Promise.all([
+		const [userProfile, following, userIdsWhoMeMuting, userIdsWhoBlockingMe, userIdsWhoMeMutingRenotes] = await Promise.all([
 			this.cacheService.userProfileCache.fetch(this.user.id),
 			this.cacheService.userFollowingsCache.fetch(this.user.id),
 			this.cacheService.userMutingsCache.fetch(this.user.id),
@@ -56,9 +55,9 @@ export default class Connection {
 		]);
 		this.userProfile = userProfile;
 		this.following = following;
-		this.followingChannels = followingChannels;
 		this.userIdsWhoMeMuting = userIdsWhoMeMuting;
 		this.userIdsWhoBlockingMe = userIdsWhoBlockingMe;
+		this.userIdsWhoMeMutingRenotes = userIdsWhoMeMutingRenotes;
 	}
 
 	@bindThis
