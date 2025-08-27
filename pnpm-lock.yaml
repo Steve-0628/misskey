@@ -4226,8 +4226,8 @@ packages:
   '@types/color-convert@2.0.0':
     resolution: {integrity: sha512-m7GG7IKKGuJUXvkZ1qqG3ChccdIM/qBBo913z+Xft0nKCX4hAU/IxKwZBU4cpRZ7GS5kV4vOblUkILtSShCPXQ==}
 
-  '@types/color-name@2.0.0':
-    resolution: {integrity: sha512-63mTjolMJv75upGaUbT6J3lRDWl6pETPQsaWni9w3dMArhNBpgtHkX8ISb9zLV3YYLPA/SMk8ZGALa3k9WY/aQ==}
+  '@types/color-name@1.1.1':
+    resolution: {integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==}
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
@@ -16815,9 +16815,9 @@ snapshots:
 
   '@types/color-convert@2.0.0':
     dependencies:
-      '@types/color-name': 2.0.0
+      '@types/color-name': 1.1.1
 
-  '@types/color-name@2.0.0': {}
+  '@types/color-name@1.1.1': {}
 
   '@types/connect@3.4.38':
     dependencies:
