@@ -552,6 +552,20 @@ const extension_context_definition = {
 	'isCat': 'misskey:isCat',
 	// vcard
 	vcard: 'http://www.w3.org/2006/vcard/ns#',
+	// GotoSocial
+	gts: 'https://gotosocial.org/ns#',
+	'interactionPolicy': {
+		'@id': 'gts:interactionPolicy',
+		'@type': '@id',
+	},
+	'canQuote': {
+		'@id': 'gts:canQuote',
+		'@type': '@id',
+	},
+	'automaticApproval': {
+		'@id': 'gts:automaticApproval',
+		'@type': '@id',
+	},
 } satisfies Context;
 
 export const CONTEXT: (string | Context)[] = [...context_iris, extension_context_definition];

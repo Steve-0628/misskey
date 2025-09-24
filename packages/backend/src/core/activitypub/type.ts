@@ -113,6 +113,14 @@ export interface IPost extends IObject {
 	_misskey_quote?: string;
 	_misskey_content?: string;
 	quoteUrl?: string;
+	quote?: string;
+	interactionPolicy?: {
+		canQuote?: {
+			automaticApproval: string[];
+			// manualApprovalは実装が面倒なので未対応
+		};
+		// 他のpolicyはなくても動くっぽいので未対応
+	};
 }
 
 export interface IQuestion extends IObject {

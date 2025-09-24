@@ -345,18 +345,23 @@ export class ApRendererService {
 
 		let to: string[] = [];
 		let cc: string[] = [];
+		let allowQuote = [];
 
 		if (note.visibility === 'public') {
 			to = ['https://www.w3.org/ns/activitystreams#Public'];
 			cc = [`${attributedTo}/followers`].concat(mentions);
+			allowQuote = ['https://www.w3.org/ns/activitystreams#Public'];
 		} else if (note.visibility === 'home') {
 			to = [`${attributedTo}/followers`];
 			cc = ['https://www.w3.org/ns/activitystreams#Public'].concat(mentions);
+			allowQuote = ['https://www.w3.org/ns/activitystreams#Public'];
 		} else if (note.visibility === 'followers') {
 			to = [`${attributedTo}/followers`];
 			cc = mentions;
+			allowQuote = to;
 		} else {
 			to = mentions;
+			allowQuote = to;
 		}
 
 		const mentionedUsers = note.mentions.length > 0 ? await this.usersRepository.findBy({
@@ -407,7 +412,7 @@ export class ApRendererService {
 				name: text,
 				replies: {
 					type: 'Collection',
-					totalItems: poll!.votes[i],
+					totalItems: poll.votes[i],
 				},
 			})),
 		} as const : {};
@@ -425,6 +430,12 @@ export class ApRendererService {
 			},
 			_misskey_quote: quote,
 			quoteUrl: quote,
+			quote,
+			interactionPolicy: {
+				canQuote: {
+					automaticApproval: allowQuote,
+				},
+			},
 			published: note.createdAt.toISOString(),
 			to,
 			cc,
