@@ -326,7 +326,7 @@ importers:
         specifier: 0.32.6
         version: 0.32.6
       sharp-read-bmp:
-        specifier: https://github.com/misskey-dev/sharp-read-bmp#02d9dc189fa7df0c4bea09330be26741772dac01
+        specifier: github:misskey-dev/sharp-read-bmp#02d9dc189fa7df0c4bea09330be26741772dac01
         version: https://codeload.github.com/misskey-dev/sharp-read-bmp/tar.gz/02d9dc189fa7df0c4bea09330be26741772dac01
       slacc:
         specifier: 0.0.10
@@ -338,7 +338,7 @@ importers:
         specifier: 2.1.0
         version: 2.1.0
       summaly:
-        specifier: https://github.com/misskey-dev/summaly#d7f6a88aee62510a0d3ba061f515e4688c34ca48
+        specifier: github:misskey-dev/summaly#d7f6a88aee62510a0d3ba061f515e4688c34ca48
         version: https://codeload.github.com/misskey-dev/summaly/tar.gz/d7f6a88aee62510a0d3ba061f515e4688c34ca48
       systeminformation:
         specifier: 5.23.8
