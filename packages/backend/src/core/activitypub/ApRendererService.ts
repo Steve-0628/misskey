@@ -412,7 +412,7 @@ export class ApRendererService {
 				name: text,
 				replies: {
 					type: 'Collection',
-					totalItems: poll.votes[i],
+					totalItems: poll!.votes[i],
 				},
 			})),
 		} as const : {};
