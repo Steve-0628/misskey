@@ -126,7 +126,7 @@
 		"eslint-plugin-vue": "9.15.1",
 		"fast-glob": "3.3.0",
 		"happy-dom": "15.10.2",
-		"micromatch": "4.0.5",
+		"micromatch": "4.0.8",
 		"msw": "1.2.2",
 		"msw-storybook-addon": "1.8.0",
 		"nodemon": "3.0.1",
