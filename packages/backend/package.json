@@ -150,7 +150,7 @@
 		"tsc-alias": "1.8.8",
 		"tsconfig-paths": "4.2.0",
 		"twemoji-parser": "14.0.0",
-		"typeorm": "0.3.17",
+		"typeorm": "0.3.26",
 		"typescript": "5.1.6",
 		"ulid": "2.3.0",
 		"unzipper": "0.10.14",
