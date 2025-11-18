@@ -48,6 +48,7 @@ export function getConfig(): UserConfig {
 
 		server: {
 			port: 5173,
+			host: true,
 		},
 
 		plugins: [
