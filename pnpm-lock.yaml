@@ -254,8 +254,8 @@ importers:
         specifier: 3.3.1
         version: 3.3.1
       nodemailer:
-        specifier: 6.9.3
-        version: 6.9.3
+        specifier: 7.0.11
+        version: 7.0.11
       oauth:
         specifier: 0.10.0
         version: 0.10.0
@@ -897,7 +897,7 @@ importers:
         version: 2.0.0
       summaly:
         specifier: github:misskey-dev/summaly
-        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/4280a4181e962435f5bd2dc4b6e435c5d67b189d'
+        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/40708599d3e6566a34e686365a5098defcf1f9d6'
       vite-plugin-turbosnap:
         specifier: 1.0.2
         version: 1.0.2
@@ -1880,8 +1880,8 @@ packages:
   '@microsoft/tsdoc@0.14.2':
     resolution: {integrity: sha512-9b8mPpKrfeGRuhFH5iO1iwCLeIIsV6+H1sRfxbkoGXIyQE2BTsPd9zqSqQJ+pv5sJ/hT5M1zvOFL02MnEezFug==}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/4280a4181e962435f5bd2dc4b6e435c5d67b189d':
-    resolution: {tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/4280a4181e962435f5bd2dc4b6e435c5d67b189d}
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/40708599d3e6566a34e686365a5098defcf1f9d6':
+    resolution: {tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/40708599d3e6566a34e686365a5098defcf1f9d6}
     version: 5.2.5
 
   '@mole-inc/bin-wrapper@8.0.1':
@@ -5266,8 +5266,8 @@ packages:
     resolution: {integrity: sha512-XfBk1CxOOScDcMr9O1yKkNaQyy865NbYs+F7dr4H0LZMVgCj2Le59k6PqbNHoL5ToeaEQUYh6c6yMfVcc6SJxA==}
     engines: {node: '>=16'}
 
-  got@14.6.4:
-    resolution: {integrity: sha512-DjsLab39NUMf5iYlK9asVCkHMhaA2hEhrlmf+qXRhjEivuuBHWYbjmty9DA3OORUwZgENTB+6vSmY2ZW8gFHVw==}
+  got@14.6.5:
+    resolution: {integrity: sha512-Su87c0NNeg97de1sO02gy9I8EmE7DCJ1gzcFLcgGpYeq2PnLg4xz73MWrp6HjqbSsjb6Glf4UBDW6JNyZA6uSg==}
     engines: {node: '>=20'}
 
   graceful-fs@4.2.11:
@@ -6908,8 +6908,8 @@ packages:
   node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
 
-  nodemailer@6.9.3:
-    resolution: {integrity: sha512-fy9v3NgTzBngrMFkDsKEj0r02U7jm6XfC3b52eoNV+GCrGj+s8pt5OqhiJdWKuw51zCTdiNR/IUD1z33LIIGpg==}
+  nodemailer@7.0.11:
+    resolution: {integrity: sha512-gnXhNRE0FNhD7wPSCGhdNh46Hs6nm+uTyg+Kq0cZukNQiYdnCsoQjodNP9BQVG9XrcK/v6/MgpAPBUFyzh9pvw==}
     engines: {node: '>=6.0.0'}
 
   nodemon@3.0.1:
@@ -11117,11 +11117,11 @@ snapshots:
 
   '@microsoft/tsdoc@0.14.2': {}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/4280a4181e962435f5bd2dc4b6e435c5d67b189d':
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/40708599d3e6566a34e686365a5098defcf1f9d6':
     dependencies:
       cheerio: 1.1.2
       escape-regexp: 0.0.1
-      got: 14.6.4
+      got: 14.6.5
       html-entities: 2.6.0
       iconv-lite: 0.7.0
       jschardet: 3.1.4
@@ -15182,7 +15182,7 @@ snapshots:
       p-cancelable: 3.0.0
       responselike: 3.0.0
 
-  got@14.6.4:
+  got@14.6.5:
     dependencies:
       '@sindresorhus/is': 7.1.1
       byte-counter: 0.1.0
@@ -17094,7 +17094,7 @@ snapshots:
 
   node-releases@2.0.13: {}
 
-  nodemailer@6.9.3: {}
+  nodemailer@7.0.11: {}
 
   nodemon@3.0.1:
     dependencies:
