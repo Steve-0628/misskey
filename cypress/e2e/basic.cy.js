@@ -200,10 +200,6 @@ describe('After user setup', () => {
 		cy.registerUser('alice', 'alice1234');
 
 		cy.login('alice', 'alice1234');
-
-		// アカウント初期設定ウィザード
-		cy.get('[data-cy-user-setup] [data-cy-modal-window-close]').click();
-		cy.get('[data-cy-modal-dialog-ok]').click();
 	});
 
 	afterEach(() => {

@@ -1041,7 +1041,6 @@ export interface Locale {
     "channelArchiveConfirmDescription": string;
     "thisChannelArchived": string;
     "displayOfNote": string;
-    "initialAccountSetting": string;
     "youFollowing": string;
     "preventAiLearning": string;
     "preventAiLearningDescription": string;
@@ -1080,21 +1079,6 @@ export interface Locale {
     "doYouAgree": string;
     "beSureToReadThisAsItIsImportant": string;
     "iHaveReadXCarefullyAndAgree": string;
-    "_initialAccountSetting": {
-        "accountCreated": string;
-        "letsStartAccountSetup": string;
-        "letsFillYourProfile": string;
-        "profileSetting": string;
-        "privacySetting": string;
-        "theseSettingsCanEditLater": string;
-        "youCanEditMoreSettingsInSettingsPageLater": string;
-        "followUsers": string;
-        "initialAccountSettingCompleted": string;
-        "haveFun": string;
-        "ifYouNeedLearnMore": string;
-        "skipAreYouSure": string;
-        "laterAreYouSure": string;
-    };
     "_serverRules": {
         "description": string;
     };

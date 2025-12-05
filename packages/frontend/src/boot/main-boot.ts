@@ -64,12 +64,6 @@ export async function mainBoot(): Promise<void> {
 		// only add post shortcuts if logged in
 		hotkeys['n'] = post;
 
-		defaultStore.loaded.then(() => {
-			if (defaultStore.state.accountSetupWizard !== -1) {
-				popup(defineAsyncComponent(() => import('@/components/MkUserSetupDialog.vue')), {}, {}, 'closed');
-			}
-		});
-
 		if ($i.isDeleted) {
 			alert({
 				type: 'warning',
