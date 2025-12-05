@@ -1736,17 +1736,6 @@ export interface Locale {
         "hour": string;
         "day": string;
     };
-    "_timelineTutorial": {
-        "title": string;
-        "step1_1": string;
-        "step1_2": string;
-        "step2_1": string;
-        "step2_2": string;
-        "step3_1": string;
-        "step3_2": string;
-        "step4_1": string;
-        "step4_2": string;
-    };
     "_2fa": {
         "alreadyRegistered": string;
         "registerTOTP": string;
