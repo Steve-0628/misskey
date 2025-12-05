@@ -44,17 +44,6 @@
 			</MkFolder>
 
 			<MkFolder>
-				<template #icon><i class="ti ti-flask"></i></template>
-				<template #label>{{ i18n.ts.experimentalFeatures }}</template>
-
-				<div class="_gaps_m">
-					<MkSwitch v-model="enableCondensedLineForAcct">
-						<template #label>Enable condensed line for acct</template>
-					</MkSwitch>
-				</div>
-			</MkFolder>
-
-			<MkFolder>
 				<template #icon><i class="ti ti-code"></i></template>
 				<template #label>{{ i18n.ts.developer }}</template>
 
@@ -74,7 +63,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 import MkSwitch from '@/components/MkSwitch.vue';
 import FormLink from '@/components/form/link.vue';
 import MkFolder from '@/components/MkFolder.vue';
@@ -89,19 +78,9 @@ import { definePageMetadata } from '@/scripts/page-metadata';
 import { unisonReload } from '@/scripts/unison-reload';
 import FormSection from '@/components/form/section.vue';
 
-const reportError = computed(defaultStore.makeGetterSetter('reportError'));
-const enableCondensedLineForAcct = computed(defaultStore.makeGetterSetter('enableCondensedLineForAcct'));
 const devMode = computed(defaultStore.makeGetterSetter('devMode'));
 
-function onChangeInjectFeaturedNote(v) {
-	os.api('i/update', {
-		injectFeaturedNote: v,
-	}).then((i) => {
-		$i!.injectFeaturedNote = i.injectFeaturedNote;
-	});
-}
-
-async function deleteAccount() {
+async function deleteAccount(): Promise<void> {
 	{
 		const { canceled } = await os.confirm({
 			type: 'warning',
@@ -127,7 +106,7 @@ async function deleteAccount() {
 	await signout();
 }
 
-async function reloadAsk() {
+async function reloadAsk(): Promise<void> {
 	const { canceled } = await os.confirm({
 		type: 'info',
 		text: i18n.ts.reloadToApplySetting,
@@ -136,16 +115,6 @@ async function reloadAsk() {
 
 	unisonReload();
 }
-
-watch([
-	enableCondensedLineForAcct,
-], async () => {
-	await reloadAsk();
-});
-
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
 
 definePageMetadata({
 	title: i18n.ts.other,
