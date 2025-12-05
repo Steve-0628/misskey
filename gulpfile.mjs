@@ -9,7 +9,7 @@ import terser from 'gulp-terser';
 import cssnano from 'gulp-cssnano';
 
 import locales from './locales/index.js';
-import meta from './package.json' assert { type: "json" };
+import meta from './package.json' with { type: "json" };
 
 gulp.task('copy:backend:views', () =>
 	gulp.src('./packages/backend/src/server/web/views/**/*').pipe(gulp.dest('./packages/backend/built/server/web/views'))
