@@ -22,7 +22,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - id: lowercase
-      uses: step-security/change-string-case-action@v6
+      uses: ASzc/change-string-case-action@v6
       with:
         string: ${{ github.repository }}
     - name: Build and push Docker image
