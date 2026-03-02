@@ -1,25 +1,22 @@
-import { computed, createApp, watch, markRaw, version as vueVersion, defineAsyncComponent, App } from 'vue';
+import { computed, watch, version as vueVersion, App } from 'vue';
 import { compareVersions } from 'compare-versions';
 import widgets from '@/widgets';
 import directives from '@/directives';
 import components from '@/components';
-import { version, ui, lang, updateLocale } from '@/config';
+import { version, lang, updateLocale } from '@/config';
 import { applyTheme } from '@/scripts/theme';
 import { isDeviceDarkmode } from '@/scripts/is-device-darkmode';
-import { i18n, updateI18n } from '@/i18n';
-import { confirm, alert, post, popup, toast } from '@/os';
-import { $i, refreshAccount, login, updateAccount, signout } from '@/account';
+import { updateI18n } from '@/i18n';
+import { $i, refreshAccount, login } from '@/account';
 import { defaultStore, ColdDeviceStorage } from '@/store';
 import { fetchInstance, instance } from '@/instance';
 import { deviceKind } from '@/scripts/device-kind';
 import { reloadChannel } from '@/scripts/unison-reload';
-import { reactionPicker } from '@/scripts/reaction-picker';
 import { getUrlWithoutLoginId } from '@/scripts/login-id';
 import { getAccountFromId } from '@/scripts/get-account-from-id';
 import { deckStore } from '@/ui/deck/deck-store';
 import { miLocalStorage } from '@/local-storage';
 import { fetchCustomEmojis } from '@/custom-emojis';
-import { mainRouter } from '@/router';
 
 export async function common(createVue: () => App<Element>) {
 	console.info(`Misskey v${version}`);
