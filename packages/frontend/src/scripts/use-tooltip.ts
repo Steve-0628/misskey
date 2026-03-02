@@ -65,7 +65,9 @@ export function useTooltip(
 		close();
 	};
 
-	const stop: (() => void) | undefined = watch(elRef, () => {
+	let stop: (() => void) | undefined;
+	// eslint-disable-next-line prefer-const
+	stop = watch(elRef, () => {
 		if (elRef.value) {
 			if (stop) stop();
 			const el = elRef.value instanceof Element ? elRef.value : elRef.value.$el;
