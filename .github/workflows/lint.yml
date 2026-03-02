@@ -33,6 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         workspace:
         - backend
@@ -64,9 +65,11 @@ jobs:
     runs-on: ubuntu-latest
     continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         workspace:
         - backend
+        - frontend
         - misskey-js
     steps:
     - uses: actions/checkout@v3.3.0
