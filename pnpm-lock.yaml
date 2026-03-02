@@ -6,7 +6,7 @@ settings:
 
 overrides:
   chokidar: 3.5.3
-  lodash: 4.17.21
+  lodash: 4.17.23
 
 importers:
 
@@ -6357,8 +6357,8 @@ packages:
   lodash.uniq@4.5.0:
     resolution: {integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==}
 
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+  lodash@4.17.23:
+    resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
 
   log-symbols@4.1.0:
     resolution: {integrity: sha512-8XPvpAA8uyhfteu8pIvQxpJZ7SYYdpUivZpGy6sFsBuKRY/7rQGavedeB8aK+Zkyq6upMFVL/9AW6vOYzfRyLg==}
@@ -10987,7 +10987,7 @@ snapshots:
       '@rushstack/rig-package': 0.4.0
       '@rushstack/ts-command-line': 4.15.1
       colors: 1.2.5
-      lodash: 4.17.21
+      lodash: 4.17.23
       resolve: 1.22.1
       semver: 7.3.8
       source-map: 0.6.1
@@ -11608,7 +11608,7 @@ snapshots:
       chalk: 3.0.0
       css.escape: 1.5.1
       dom-accessibility-api: 0.5.16
-      lodash: 4.17.21
+      lodash: 4.17.23
       redent: 3.0.0
 
   '@testing-library/vue@7.0.0(@vue/compiler-sfc@3.3.4)(vue@3.3.4)':
@@ -12924,7 +12924,7 @@ snapshots:
       debuglog: 1.0.1
       get-port: 5.1.1
       ioredis: 5.3.2
-      lodash: 4.17.21
+      lodash: 4.17.23
       msgpackr: 1.9.2
       semver: 7.5.4
       uuid: 8.3.2
@@ -13556,7 +13556,7 @@ snapshots:
       is-installed-globally: 0.4.0
       lazy-ass: 1.6.0
       listr2: 3.14.0(enquirer@2.4.1)
-      lodash: 4.17.21
+      lodash: 4.17.23
       log-symbols: 4.1.0
       minimist: 1.2.8
       ospath: 1.2.2
@@ -15320,7 +15320,7 @@ snapshots:
       cli-width: 3.0.0
       external-editor: 3.1.0
       figures: 3.2.0
-      lodash: 4.17.21
+      lodash: 4.17.23
       mute-stream: 0.0.8
       ora: 5.4.1
       run-async: 2.4.1
@@ -16428,7 +16428,7 @@ snapshots:
 
   lodash.uniq@4.5.0: {}
 
-  lodash@4.17.21: {}
+  lodash@4.17.23: {}
 
   log-symbols@4.1.0:
     dependencies:
@@ -17977,7 +17977,7 @@ snapshots:
 
   redis-info@3.1.0:
     dependencies:
-      lodash: 4.17.21
+      lodash: 4.17.23
 
   redis-lock@0.1.4: {}
 
@@ -19557,7 +19557,7 @@ snapshots:
       eslint-visitor-keys: 3.4.1
       espree: 9.5.2
       esquery: 1.4.2
-      lodash: 4.17.21
+      lodash: 4.17.23
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
@@ -19593,7 +19593,7 @@ snapshots:
     dependencies:
       axios: 0.27.2(debug@4.3.4)
       joi: 17.13.3
-      lodash: 4.17.21
+      lodash: 4.17.23
       minimist: 1.2.8
       rxjs: 7.8.2
     transitivePeerDependencies:
