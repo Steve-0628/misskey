@@ -65,9 +65,9 @@ export function useTooltip(
 		close();
 	};
 
-	const stop = watch(elRef, () => {
+	const stop: (() => void) | undefined = watch(elRef, () => {
 		if (elRef.value) {
-			stop();
+			if (stop) stop();
 			const el = elRef.value instanceof Element ? elRef.value : elRef.value.$el;
 			el.addEventListener('mouseover', onMouseover, { passive: true });
 			el.addEventListener('mouseleave', onMouseleave, { passive: true });
