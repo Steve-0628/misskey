@@ -95,12 +95,16 @@ describe('RoleService', () => {
 	afterEach(async () => {
 		clock.uninstall();
 
+		/*
 		await Promise.all([
 			app.get(DI.metasRepository).clear(),
 			usersRepository.clear(),
 			rolesRepository.clear(),
 			roleAssignmentsRepository.clear(),
 		]);
+		*/
+		// Avoid FK errors
+		await app.get(DI.db).query('TRUNCATE "user", "role", "meta" CASCADE');
 
 		await app.close();
 	});

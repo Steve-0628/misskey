@@ -173,6 +173,9 @@ export class StreamingApiServerService {
 			clearInterval(this.#cleanConnectionsIntervalId);
 			this.#cleanConnectionsIntervalId = null;
 		}
+		for (const connection of this.#connections.keys()) {
+			connection.terminate();
+		}
 		return new Promise((resolve) => {
 			this.#wss.close(() => resolve());
 		});
