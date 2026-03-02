@@ -39,7 +39,7 @@
 	},
 	"resolutions": {
 		"chokidar": "3.5.3",
-		"lodash": "4.17.21"
+		"lodash": "4.17.23"
 	},
 	"dependencies": {
 		"execa": "7.1.1",
