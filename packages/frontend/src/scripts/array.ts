@@ -1,4 +1,9 @@
-import { EndoRelation, Predicate } from './relation';
+export type Predicate<T> = (a: T) => boolean;
+
+export type Relation<T, U> = (a: T, b: U) => boolean;
+
+export type EndoRelation<T> = Relation<T, T>;
+
 
 /**
  * Count the number of elements that satisfy the predicate
