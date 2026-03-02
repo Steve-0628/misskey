@@ -40,9 +40,8 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, ref } from 'vue';
+import { defineAsyncComponent } from 'vue';
 import * as misskey from 'misskey-js';
-import { swInject } from './sw-inject';
 import XNotification from './notification.vue';
 import { popups, pendingApiRequestsCount } from '@/os';
 import { uploads } from '@/scripts/upload';

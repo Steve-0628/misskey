@@ -59,7 +59,7 @@
 <script lang="ts" setup>
 import { ComputedRef, onMounted, provide } from 'vue';
 import XCommon from './_common_/common.vue';
-import { host, instanceName } from '@/config';
+import { instanceName } from '@/config';
 import * as os from '@/os';
 import { instance } from '@/instance';
 import XSigninDialog from '@/components/MkSigninDialog.vue';

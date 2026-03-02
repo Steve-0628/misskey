@@ -68,7 +68,7 @@ import { useRouter } from '@/router';
 import MkButton from '@/components/MkButton.vue';
 import MkUserCardMini from '@/components/MkUserCardMini.vue';
 import MkInfo from '@/components/MkInfo.vue';
-import MkPagination, { Paging } from '@/components/MkPagination.vue';
+import MkPagination from '@/components/MkPagination.vue';
 import { infoImageUrl } from '@/instance';
 
 const router = useRouter();

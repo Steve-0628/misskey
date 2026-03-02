@@ -34,7 +34,6 @@ import XSignup from '@/components/MkSignupDialog.form.vue';
 import XServerRules from '@/components/MkSignupDialog.rules.vue';
 import MkModalWindow from '@/components/MkModalWindow.vue';
 import { i18n } from '@/i18n';
-import { instance } from '@/instance';
 
 const props = withDefaults(defineProps<{
 	autoSet?: boolean;

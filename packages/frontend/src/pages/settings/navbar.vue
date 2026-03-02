@@ -52,7 +52,6 @@ import { defaultStore } from '@/store';
 import { unisonReload } from '@/scripts/unison-reload';
 import { i18n } from '@/i18n';
 import { definePageMetadata } from '@/scripts/page-metadata';
-import { deepClone } from '@/scripts/clone';
 
 const Sortable = defineAsyncComponent(() => import('vuedraggable').then(x => x.default));
 

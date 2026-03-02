@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, provide, onUnmounted } from 'vue';
+import { onUnmounted } from 'vue';
 import MkNotes from '@/components/MkNotes.vue';
 import { useStream } from '@/stream';
 import * as sound from '@/scripts/sound';

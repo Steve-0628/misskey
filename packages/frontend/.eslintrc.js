@@ -14,7 +14,10 @@ module.exports = {
 		'../shared/.eslintrc.js',
 		'plugin:vue/vue3-recommended',
 	],
+	plugins: ['unused-imports'],
 	rules: {
+		'@typescript-eslint/explicit-function-return-type': ['off'],
+		'unused-imports/no-unused-imports': 'error',
 		'@typescript-eslint/no-empty-interface': [
 			'error',
 			{

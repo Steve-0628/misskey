@@ -47,7 +47,7 @@
 
 <script lang="ts" setup>
 import { onUnmounted, reactive } from 'vue';
-import { useWidgetPropsManager, Widget, WidgetComponentEmits, WidgetComponentExpose, WidgetComponentProps } from './widget';
+import { useWidgetPropsManager, WidgetComponentEmits, WidgetComponentExpose, WidgetComponentProps } from './widget';
 import { GetFormResultType } from '@/scripts/form';
 import { useStream } from '@/stream';
 import number from '@/filters/number';

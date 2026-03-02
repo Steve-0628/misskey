@@ -50,7 +50,6 @@ import MkPagination from '@/components/MkPagination.vue';
 import MkDriveFileThumbnail from '@/components/MkDriveFileThumbnail.vue';
 import { i18n } from '@/i18n';
 import bytes from '@/filters/bytes';
-import { dateString } from '@/filters/date';
 import { definePageMetadata } from '@/scripts/page-metadata';
 import MkSelect from '@/components/MkSelect.vue';
 import { getDriveFileMenu } from '@/scripts/get-drive-file-menu';

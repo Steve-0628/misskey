@@ -20,7 +20,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onMounted } from 'vue';
 import MkUserList from '@/components/MkUserList.vue';
 import MkInput from '@/components/MkInput.vue';
 import MkRadios from '@/components/MkRadios.vue';
@@ -28,9 +27,6 @@ import MkButton from '@/components/MkButton.vue';
 import { i18n } from '@/i18n';
 import * as os from '@/os';
 import MkFoldableSection from '@/components/MkFoldableSection.vue';
-import { $i } from '@/account';
-import { instance } from '@/instance';
-import MkInfo from '@/components/MkInfo.vue';
 import { useRouter } from '@/router';
 
 const router = useRouter();

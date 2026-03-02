@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, onMounted, computed, watch, nextTick } from 'vue';
+import { defineAsyncComponent, computed, watch } from 'vue';
 import { openInstanceMenu } from './_common_/common';
 // import { host } from '@/config';
 import * as os from '@/os';

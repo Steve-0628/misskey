@@ -26,19 +26,13 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted } from 'vue';
 import MkNotes from '@/components/MkNotes.vue';
 import MkInput from '@/components/MkInput.vue';
-import MkRadios from '@/components/MkRadios.vue';
 import MkButton from '@/components/MkButton.vue';
 import { i18n } from '@/i18n';
 import * as os from '@/os';
 import MkFoldableSection from '@/components/MkFoldableSection.vue';
-import { $i } from '@/account';
-import { instance } from '@/instance';
-import MkInfo from '@/components/MkInfo.vue';
 import { useRouter } from '@/router';
-import MkFolder from '@/components/MkFolder.vue';
 
 const router = useRouter();
 
