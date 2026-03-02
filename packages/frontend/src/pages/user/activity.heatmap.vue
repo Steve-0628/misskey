@@ -10,6 +10,7 @@
 <script lang="ts" setup>
 import { onMounted, nextTick, watch } from 'vue';
 import { Chart } from 'chart.js';
+import type { MatrixDataPoint } from 'chartjs-chart-matrix';
 import * as misskey from 'misskey-js';
 import * as os from '@/os';
 import { defaultStore } from '@/store';
@@ -19,15 +20,17 @@ import { initChart } from '@/scripts/init-chart';
 
 initChart();
 
+type HeatmapDataPoint = MatrixDataPoint & { d: string; v: number };
+
 const props = defineProps<{
 	src: string;
 	user: misskey.entities.User;
 }>();
 
-const rootEl = $shallowRef<HTMLDivElement>(null);
-const chartEl = $shallowRef<HTMLCanvasElement>(null);
+const rootEl = $shallowRef<HTMLDivElement | null>(null);
+const chartEl = $shallowRef<HTMLCanvasElement | null>(null);
 const now = new Date();
-let chartInstance: Chart = null;
+let chartInstance: Chart | null = null;
 let fetching = $ref(true);
 
 const { handler: externalTooltipHandler } = useChartTooltip({
@@ -39,8 +42,8 @@ async function renderChart() {
 		chartInstance.destroy();
 	}
 
-	const wide = rootEl.offsetWidth > 700;
-	const narrow = rootEl.offsetWidth < 400;
+	const wide = rootEl!.offsetWidth > 700;
+	const narrow = rootEl!.offsetWidth < 400;
 
 	const weeks = wide ? 50 : narrow ? 10 : 25;
 	const chartLimit = 7 * weeks;
@@ -53,7 +56,7 @@ async function renderChart() {
 		return new Date(y, m, d - ago);
 	};
 
-	const format = (arr) => {
+	const format = (arr: number[]): HeatmapDataPoint[] => {
 		return arr.map((v, i) => {
 			const dt = getDate(i);
 			const iso = `${dt.getFullYear()}-${(dt.getMonth() + 1).toString().padStart(2, '0')}-${dt.getDate().toString().padStart(2, '0')}`;
@@ -86,18 +89,20 @@ async function renderChart() {
 
 	const marginEachCell = 4;
 
-	chartInstance = new Chart(chartEl, {
+	const formattedData = format(values);
+
+	chartInstance = new Chart<'matrix', HeatmapDataPoint>(chartEl!, {
 		type: 'matrix',
 		data: {
 			datasets: [{
 				label: '',
-				data: format(values),
+				data: formattedData,
 				pointRadius: 0,
 				borderWidth: 0,
 				borderJoinStyle: 'round',
 				borderRadius: 3,
 				backgroundColor(c) {
-					const value = c.dataset.data[c.dataIndex].v;
+					const value = formattedData[c.dataIndex].v;
 					let a = (value - min) / max;
 					if (value !== 0) { // 0でない限りは完全に不可視にはしない
 						a = Math.max(a, 0.05);
@@ -178,11 +183,11 @@ async function renderChart() {
 					enabled: false,
 					callbacks: {
 						title(context) {
-							const v = context[0].dataset.data[context[0].dataIndex];
+							const v = formattedData[context[0].dataIndex];
 							return v.d;
 						},
 						label(context) {
-							const v = context.dataset.data[context.dataIndex];
+							const v = formattedData[context.dataIndex];
 							return [v.v];
 						},
 					},

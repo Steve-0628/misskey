@@ -184,10 +184,6 @@ async function toggleBlockItem(item) {
 	}
 }
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata({
 	title: i18n.ts.muteAndBlock,
 	icon: 'ti ti-ban',

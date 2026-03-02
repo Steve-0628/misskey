@@ -62,10 +62,6 @@ function reset() {
 	}
 }
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata({
 	title: i18n.ts.sounds,
 	icon: 'ti ti-music',

@@ -73,10 +73,6 @@ async function create(): Promise<void> {
 	});
 }
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata({
 	title: 'Create new webhook',
 	icon: 'ti ti-webhook',

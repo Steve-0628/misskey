@@ -277,10 +277,6 @@ function removeEmojiIndex(lang: string) {
 	os.promiseDialog(main());
 }
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata({
 	title: i18n.ts.general,
 	icon: 'ti ti-adjustments',

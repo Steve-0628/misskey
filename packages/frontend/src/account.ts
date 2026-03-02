@@ -214,7 +214,7 @@ export async function openAccountMenu(opts: {
 	}
 
 	const storedAccounts = await getAccounts().then(accounts => accounts.filter(x => x.id !== $i.id));
-	const accountsPromise = api('users/show', { userIds: storedAccounts.map(x => x.id) });
+	const accountsPromise = api('users/show', { userIds: storedAccounts.map(x => x.id) }) as unknown as Promise<misskey.entities.UserDetailed[]>;
 
 	function createItem(account: misskey.entities.UserDetailed) {
 		return {

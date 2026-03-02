@@ -151,6 +151,20 @@ export type GalleryPost = {
 	isLiked?: boolean;
 };
 
+export type Flash = {
+	id: ID;
+	createdAt: DateString;
+	updatedAt: DateString;
+	userId: User['id'];
+	user: UserDetailed;
+	title: string;
+	summary: string;
+	script: string;
+	permissions: string[];
+	likedCount: number;
+	isLiked?: boolean;
+};
+
 export type Note = {
 	id: ID;
 	createdAt: DateString;
@@ -200,60 +214,17 @@ export type Notification = {
 	id: ID;
 	createdAt: DateString;
 	isRead: boolean;
-} & ({
-	type: 'reaction';
-	reaction: string;
-	user: User;
-	userId: User['id'];
-	note: Note;
-} | {
-	type: 'reply';
-	user: User;
-	userId: User['id'];
-	note: Note;
-} | {
-	type: 'renote';
-	user: User;
-	userId: User['id'];
-	note: Note;
-} | {
-	type: 'quote';
-	user: User;
-	userId: User['id'];
-	note: Note;
-} | {
-	type: 'mention';
-	user: User;
-	userId: User['id'];
-	note: Note;
-} | {
-	type: 'pollVote';
-	user: User;
-	userId: User['id'];
-	note: Note;
-} | {
-	type: 'follow';
-	user: User;
-	userId: User['id'];
-} | {
-	type: 'followRequestAccepted';
-	user: User;
-	userId: User['id'];
-} | {
-	type: 'receiveFollowRequest';
-	user: User;
-	userId: User['id'];
-} | {
-	type: 'groupInvited';
-	invitation: UserGroup;
-	user: User;
-	userId: User['id'];
-} | {
-	type: 'app';
+	type: 'follow' | 'mention' | 'reply' | 'renote' | 'quote' | 'reaction' | 'pollVote' | 'pollEnded' | 'receiveFollowRequest' | 'followRequestAccepted' | 'groupInvited' | 'achievementEarned' | 'app';
+	userId?: User['id'];
+	user?: User;
+	note?: Note;
+	reaction?: string;
+	achievement?: string;
+	invitation?: UserGroup;
+	body?: string | null;
 	header?: string | null;
-	body: string;
 	icon?: string | null;
-});
+};
 
 export type MessagingMessage = {
 	id: ID;
@@ -277,6 +248,27 @@ export type CustomEmoji = {
 	url: string;
 	category: string;
 	aliases: string[];
+};
+
+export type RolePolicies = {
+	gtlAvailable: boolean;
+	ltlAvailable: boolean;
+	canPublicNote: boolean;
+	canInvite: boolean;
+	inviteLimit: number;
+	inviteLimitCycle: number;
+	inviteExpirationTime: number;
+	canManageCustomEmojis: boolean;
+	canSearchNotes: boolean;
+	driveCapacityMb: number;
+	alwaysMarkNsfw: boolean;
+	pinLimit: number;
+	antennaLimit: number;
+	wordMuteLimit: number;
+	webhookLimit: number;
+	userListLimit: number;
+	userEachUserListsLimit: number;
+	rateLimitFactor: number;
 };
 
 export type LiteInstanceMetadata = {
@@ -329,6 +321,7 @@ export type LiteInstanceMetadata = {
 	}[];
 	translatorAvailable: boolean;
 	serverRules: string[];
+	policies: RolePolicies;
 };
 
 export type DetailedInstanceMetadata = LiteInstanceMetadata & {
@@ -499,3 +492,47 @@ export type UserSorting =
 	| '+updatedAt'
 	| '-updatedAt';
 export type OriginType = 'combined' | 'local' | 'remote';
+
+export type Role = {
+	id: ID;
+	createdAt: DateString;
+	updatedAt: DateString;
+	name: string;
+	description: string;
+	color: string | null;
+	iconUrl: string | null;
+	target: 'manual' | 'conditional';
+	condFormula: Record<string, unknown>;
+	isPublic: boolean;
+	isAdministrator: boolean;
+	isModerator: boolean;
+	isExplorable: boolean;
+	asBadge: boolean;
+	canEditMembersByModerator: boolean;
+	displayOrder: number;
+	policies: Record<string, unknown>;
+	usersCount: number;
+};
+
+export type EmojiSimple = {
+	aliases: string[];
+	name: string;
+	category: string | null;
+	url: string;
+	localOnly?: boolean;
+	isSensitive?: boolean;
+	roleIdsThatCanBeUsedThisEmojiAsReaction?: string[];
+};
+
+export type EmojiDetailed = {
+	id: string;
+	aliases: string[];
+	name: string;
+	category: string | null;
+	host: string | null;
+	url: string;
+	license: string | null;
+	isSensitive: boolean;
+	localOnly: boolean;
+	roleIdsThatCanBeUsedThisEmojiAsReaction: string[];
+};

@@ -42,7 +42,7 @@
 				</div>
 				<MkA v-if="$i && $i.id === flash.userId" :to="`/play/${flash.id}/edit`" style="color: var(--accent);">{{ i18n.ts._play.editThisPage }}</MkA>
 			</div>
-			<MkError v-else-if="error" @retry="fetchPage()"/>
+			<MkError v-else-if="error" @retry="fetchFlash()"/>
 			<MkLoading v-else/>
 		</Transition>
 	</MkSpacer>
@@ -52,6 +52,7 @@
 <script lang="ts" setup>
 import { computed, onDeactivated, onUnmounted, Ref, ref, watch } from 'vue';
 import { Interpreter, Parser, values } from '@syuilo/aiscript';
+import * as misskey from 'misskey-js';
 import MkButton from '@/components/MkButton.vue';
 import * as os from '@/os';
 import { url } from '@/config';
@@ -69,7 +70,7 @@ const props = defineProps<{
 	id: string;
 }>();
 
-let flash = $ref(null);
+let flash = $ref<misskey.entities.Flash | null>(null);
 let error = $ref(null);
 
 function fetchFlash() {

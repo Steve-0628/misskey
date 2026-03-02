@@ -79,7 +79,7 @@ async function init() {
 	}
 
 	if ($i?.alsoKnownAs && $i.alsoKnownAs.length > 0) {
-		const alsoKnownAs = await os.api('users/show', { userIds: $i.alsoKnownAs });
+		const alsoKnownAs = await os.api('users/show', { userIds: $i.alsoKnownAs }) as unknown as UserDetailed[];
 		accountAliases.value = (alsoKnownAs && alsoKnownAs.length > 0) ? alsoKnownAs.map(user => `@${toString(user)}`) : [''];
 	} else {
 		accountAliases.value = [''];

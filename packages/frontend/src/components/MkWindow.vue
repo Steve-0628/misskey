@@ -58,7 +58,17 @@ import { defaultStore } from '@/store';
 const minHeight = 50;
 const minWidth = 250;
 
-function dragListen(fn: (ev: MouseEvent) => void) {
+function getClientX(ev: MouseEvent | TouchEvent): number {
+	if ('touches' in ev) return ev.touches[0]?.clientX ?? 0;
+	return ev.clientX;
+}
+
+function getClientY(ev: MouseEvent | TouchEvent): number {
+	if ('touches' in ev) return ev.touches[0]?.clientY ?? 0;
+	return ev.clientY;
+}
+
+function dragListen(fn: (ev: MouseEvent | TouchEvent) => void) {
 	window.addEventListener('mousemove', fn);
 	window.addEventListener('touchmove', fn);
 	window.addEventListener('mouseleave', dragClear.bind(null, fn));
@@ -194,7 +204,7 @@ function onDblClick() {
 	}
 }
 
-function onHeaderMousedown(evt: MouseEvent) {
+function onHeaderMousedown(evt: MouseEvent | TouchEvent) {
 	// 右クリックはコンテキストメニューを開こうとした可能性が高いため無視
 	if (evt.button === 2) return;
 
@@ -221,8 +231,8 @@ function onHeaderMousedown(evt: MouseEvent) {
 
 	const position = main.getBoundingClientRect();
 
-	const clickX = evt.touches && evt.touches.length > 0 ? evt.touches[0].clientX : evt.clientX;
-	const clickY = evt.touches && evt.touches.length > 0 ? evt.touches[0].clientY : evt.clientY;
+	const clickX = getClientX(evt);
+	const clickY = getClientY(evt);
 	const moveBaseX = beforeMaximized ? parseInt(unResizedWidth, 10) / 2 : clickX - position.left; // TODO: parseIntやめる
 	const moveBaseY = beforeMaximized ? 20 : clickY - position.top;
 	const browserWidth = window.innerWidth;
@@ -256,8 +266,8 @@ function onHeaderMousedown(evt: MouseEvent) {
 
 	// 動かした時
 	dragListen(me => {
-		const x = me.touches && me.touches.length > 0 ? me.touches[0].clientX : me.clientX;
-		const y = me.touches && me.touches.length > 0 ? me.touches[0].clientY : me.clientY;
+		const x = getClientX(me);
+		const y = getClientY(me);
 
 		move(x, y);
 	});
@@ -275,7 +285,7 @@ function onTopHandleMousedown(evt) {
 
 	// 動かした時
 	dragListen(me => {
-		const move = me.clientY - base;
+		const move = getClientY(me) - base;
 		if (top + move > 0) {
 			if (height + -move > minHeight) {
 				applyTransformHeight(height + -move);
@@ -303,7 +313,7 @@ function onRightHandleMousedown(evt) {
 
 	// 動かした時
 	dragListen(me => {
-		const move = me.clientX - base;
+		const move = getClientX(me) - base;
 		if (left + width + move < browserWidth) {
 			if (width + move > minWidth) {
 				applyTransformWidth(width + move);
@@ -328,7 +338,7 @@ function onBottomHandleMousedown(evt) {
 
 	// 動かした時
 	dragListen(me => {
-		const move = me.clientY - base;
+		const move = getClientY(me) - base;
 		if (top + height + move < browserHeight) {
 			if (height + move > minHeight) {
 				applyTransformHeight(height + move);
@@ -352,7 +362,7 @@ function onLeftHandleMousedown(evt) {
 
 	// 動かした時
 	dragListen(me => {
-		const move = me.clientX - base;
+		const move = getClientX(me) - base;
 		if (left + move > 0) {
 			if (width + -move > minWidth) {
 				applyTransformWidth(width + -move);

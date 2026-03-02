@@ -62,7 +62,7 @@ const props = withDefaults(defineProps<{
 	withDescription: true,
 });
 
-let achievements = $ref();
+let achievements = $ref<{ name: typeof ACHIEVEMENT_TYPES[number]; unlockedAt: number }[]>();
 const lockedAchievements = $computed(() => ACHIEVEMENT_TYPES.filter(x => !(achievements ?? []).some(a => a.name === x)));
 
 function fetch() {

@@ -78,7 +78,7 @@ let host = $ref('');
 let users: misskey.entities.UserDetailed[] = $ref([]);
 let recentUsers: misskey.entities.UserDetailed[] = $ref([]);
 let selected: misskey.entities.UserDetailed | null = $ref(null);
-let dialogEl = $ref();
+let dialogEl = $ref<InstanceType<typeof MkModalWindow>>();
 
 const search = () => {
 	if (username === '' && host === '') {

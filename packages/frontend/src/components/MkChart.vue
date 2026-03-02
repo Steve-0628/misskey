@@ -90,7 +90,7 @@ const getColor = (i) => {
 };
 
 const now = new Date();
-let chartInstance: Chart = null;
+let chartInstance: Chart | null = null;
 let chartData: {
 	series: {
 		name: string;
@@ -103,9 +103,10 @@ let chartData: {
 			y: number;
 		}[];
 	}[];
-} = null;
+	bytes?: boolean;
+} | null = null;
 
-const chartEl = shallowRef<HTMLCanvasElement>(null);
+const chartEl = shallowRef<HTMLCanvasElement | null>(null);
 const fetching = ref(true);
 
 const getDate = (ago: number) => {

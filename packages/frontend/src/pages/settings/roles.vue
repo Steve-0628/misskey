@@ -31,10 +31,6 @@ function save() {
 	});
 }
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata({
 	title: i18n.ts.roles,
 	icon: 'ti ti-badges',

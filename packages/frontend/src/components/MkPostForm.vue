@@ -162,7 +162,7 @@ let showPreview = $ref(false);
 let cw = $ref<string | null>(null);
 let localOnly = $ref<boolean>(props.initialLocalOnly ?? defaultStore.state.rememberNoteVisibility ? defaultStore.state.localOnly : defaultStore.state.defaultNoteLocalOnly);
 let visibility = $ref(props.initialVisibility ?? (defaultStore.state.rememberNoteVisibility ? defaultStore.state.visibility : defaultStore.state.defaultNoteVisibility) as typeof misskey.noteVisibilities[number]);
-let visibleUsers = $ref([]);
+let visibleUsers = $ref<misskey.entities.UserLite[]>([]);
 if (props.initialVisibleUsers) {
 	props.initialVisibleUsers.forEach(pushVisibleUser);
 }
@@ -183,7 +183,7 @@ const draftKey = $computed((): string => {
 	} else if (props.reply) {
 		key += `reply:${props.reply.id}`;
 	} else {
-		key += `note:${$i.id}`;
+		key += `note:${$i!.id}`;
 	}
 
 	return key;
@@ -252,7 +252,7 @@ if (props.mention) {
 	text += ' ';
 }
 
-if (props.reply && (props.reply.user.username !== $i.username || (props.reply.user.host != null && props.reply.user.host !== host))) {
+if (props.reply && (props.reply.user.username !== $i!.username || (props.reply.user.host != null && props.reply.user.host !== host))) {
 	text = `@${props.reply.user.username}${props.reply.user.host != null ? '@' + toASCII(props.reply.user.host) : ''} `;
 }
 
@@ -268,7 +268,7 @@ if (props.reply && props.reply.text != null) {
 				`@${x.username}@${toASCII(otherHost)}`;
 
 		// 自分は除外
-		if ($i.username === x.username && (x.host == null || x.host === host)) continue;
+		if ($i!.username === x.username && (x.host == null || x.host === host)) continue;
 
 		// 重複は除外
 		if (text.includes(`${mention} `)) continue;
@@ -289,14 +289,14 @@ if (props.reply && ['home', 'followers', 'specified'].includes(props.reply.visib
 
 	if (visibility === 'specified') {
 		if (props.reply.visibleUserIds) {
-			os.api('users/show', {
-				userIds: props.reply.visibleUserIds.filter(uid => uid !== $i.id && uid !== props.reply.userId),
-			}).then(users => {
+			(os.api('users/show', {
+				userIds: props.reply.visibleUserIds.filter(uid => uid !== $i?.id && uid !== props.reply!.userId),
+			}) as unknown as Promise<misskey.entities.UserDetailed[]>).then(users => {
 				users.forEach(pushVisibleUser);
 			});
 		}
 
-		if (props.reply.userId !== $i.id) {
+		if (props.reply.userId !== $i?.id) {
 			os.api('users/show', { userId: props.reply.userId }).then(user => {
 				pushVisibleUser(user);
 			});
@@ -513,9 +513,10 @@ function onCompositionEnd(ev: CompositionEvent) {
 }
 
 async function onPaste(ev: ClipboardEvent) {
-	for (const { item, i } of Array.from(ev.clipboardData.items, (item, i) => ({ item, i }))) {
+	for (const { item, i } of Array.from(ev.clipboardData!.items, (item, i) => ({ item, i }))) {
 		if (item.kind === 'file') {
 			const file = item.getAsFile();
+			if (!file) continue;
 			const lio = file.name.lastIndexOf('.');
 			const ext = lio >= 0 ? file.name.slice(lio) : '';
 			const formatted = `${formatTimeString(new Date(file.lastModified), defaultStore.state.pastedFileName).replace(/{{number}}/g, `${i + 1}`)}${ext}`;
@@ -523,7 +524,7 @@ async function onPaste(ev: ClipboardEvent) {
 		}
 	}
 
-	const paste = ev.clipboardData.getData('text');
+	const paste = ev.clipboardData!.getData('text');
 
 	if (!props.renote && !quoteId && paste.startsWith(url + '/notes/')) {
 		ev.preventDefault();
@@ -625,7 +626,7 @@ function deleteDraft() {
 
 async function post(ev?: MouseEvent) {
 	if (ev) {
-		const el = ev.currentTarget ?? ev.target;
+		const el = (ev.currentTarget ?? ev.target) as HTMLElement;
 		const rect = el.getBoundingClientRect();
 		const x = rect.left + (el.offsetWidth / 2);
 		const y = rect.top + (el.offsetHeight / 2);
@@ -675,8 +676,8 @@ async function post(ev?: MouseEvent) {
 		reactionAcceptance,
 	};
 
-	if (withHashtags && hashtags && hashtags.trim() !== '') {
-		const hashtags_ = hashtags.trim().split(' ').map(x => x.startsWith('#') ? x : '#' + x).join(' ');
+	if (withHashtags && hashtags && (hashtags as string).trim() !== '') {
+		const hashtags_ = (hashtags as string).trim().split(' ').map(x => x.startsWith('#') ? x : '#' + x).join(' ');
 		postData.text = postData.text ? `${postData.text} ${hashtags_}` : hashtags_;
 	}
 
@@ -777,9 +778,9 @@ function openAccountMenu(ev: MouseEvent) {
 	openAccountMenu_({
 		withExtraOperation: false,
 		includeCurrentAccount: true,
-		active: postAccount != null ? postAccount.id : $i.id,
+		active: postAccount != null ? postAccount.id : $i!.id,
 		onChoose: (account) => {
-			if (account.id === $i.id) {
+			if (account.id === $i!.id) {
 				postAccount = null;
 			} else {
 				postAccount = account;
@@ -798,9 +799,9 @@ onMounted(() => {
 	}
 
 	// TODO: detach when unmount
-	new Autocomplete(textareaEl, $$(text));
-	new Autocomplete(cwInputEl, $$(cw));
-	new Autocomplete(hashtagsInputEl, $$(hashtags));
+	new Autocomplete(textareaEl!, $$(text));
+	new Autocomplete(cwInputEl!, $$(cw));
+	new Autocomplete(hashtagsInputEl!, $$(hashtags));
 
 	nextTick(() => {
 		// 書きかけの投稿を復元
@@ -831,7 +832,7 @@ onMounted(() => {
 					choices: init.poll.choices.map(x => x.text),
 					multiple: init.poll.multiple,
 					expiresAt: init.poll.expiresAt,
-					expiredAfter: init.poll.expiredAfter,
+					expiredAfter: null,
 				};
 			}
 			visibility = init.visibility;

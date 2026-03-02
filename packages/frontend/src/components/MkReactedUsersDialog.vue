@@ -57,7 +57,7 @@ const dialog = $shallowRef<InstanceType<typeof MkModalWindow>>();
 let note = $ref<misskey.entities.Note>();
 let tab = $ref<string>();
 let reactions = $ref<string[]>();
-let users = $ref();
+let users = $ref<misskey.entities.UserLite[]>();
 
 watch($$(tab), async () => {
 	const res = await os.api('notes/reactions', {

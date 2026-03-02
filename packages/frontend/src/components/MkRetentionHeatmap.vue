@@ -10,6 +10,7 @@
 <script lang="ts" setup>
 import { onMounted, nextTick } from 'vue';
 import { Chart } from 'chart.js';
+import type { MatrixDataPoint } from 'chartjs-chart-matrix';
 import * as os from '@/os';
 import { defaultStore } from '@/store';
 import { useChartTooltip } from '@/scripts/use-chart-tooltip';
@@ -18,10 +19,11 @@ import { initChart } from '@/scripts/init-chart';
 
 initChart();
 
-const rootEl = $shallowRef<HTMLDivElement>(null);
-const chartEl = $shallowRef<HTMLCanvasElement>(null);
-const now = new Date();
-let chartInstance: Chart = null;
+type RetentionDataPoint = MatrixDataPoint & { v: number; y: string };
+
+const rootEl = $shallowRef<HTMLDivElement | null>(null);
+const chartEl = $shallowRef<HTMLCanvasElement | null>(null);
+let chartInstance: Chart | null = null;
 let fetching = $ref(true);
 
 const { handler: externalTooltipHandler } = useChartTooltip({
@@ -33,8 +35,8 @@ async function renderChart() {
 		chartInstance.destroy();
 	}
 
-	const wide = rootEl.offsetWidth > 600;
-	const narrow = rootEl.offsetWidth < 400;
+	const wide = rootEl!.offsetWidth > 600;
+	const narrow = rootEl!.offsetWidth < 400;
 
 	const maxDays = wide ? 10 : narrow ? 5 : 7;
 
@@ -42,7 +44,7 @@ async function renderChart() {
 
 	raw = raw.slice(0, maxDays + 1);
 
-	const data = [];
+	const data: RetentionDataPoint[] = [];
 	for (const record of raw) {
 		data.push({
 			x: 0,
@@ -78,7 +80,7 @@ async function renderChart() {
 
 	const marginEachCell = 12;
 
-	chartInstance = new Chart(chartEl, {
+	chartInstance = new Chart<'matrix', RetentionDataPoint>(chartEl!, {
 		type: 'matrix',
 		data: {
 			datasets: [{
@@ -89,8 +91,8 @@ async function renderChart() {
 				borderJoinStyle: 'round',
 				borderRadius: 3,
 				backgroundColor(c) {
-					const value = c.dataset.data[c.dataIndex].v;
-					const m = max(c.dataset.data[c.dataIndex].y);
+					const value = data[c.dataIndex].v;
+					const m = max(data[c.dataIndex].y);
 					if (m === 0) {
 						return alpha(color, 0);
 					} else {
@@ -141,7 +143,7 @@ async function renderChart() {
 				},
 				y: {
 					type: 'time',
-					min: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - maxDays),
+					min: new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate() - maxDays).getTime(),
 					offset: true,
 					reverse: true,
 					position: 'left',
@@ -170,11 +172,11 @@ async function renderChart() {
 					enabled: false,
 					callbacks: {
 						title(context) {
-							const v = context[0].dataset.data[context[0].dataIndex];
+							const v = data[context[0].dataIndex];
 							return getYYYYMMDD(new Date(new Date(v.y).getTime() + (v.x * 86400000)));
 						},
 						label(context) {
-							const v = context.dataset.data[context.dataIndex];
+							const v = data[context.dataIndex];
 							const m = max(v.y);
 							if (m === 0) {
 								return [`Active: ${v.v} (-%)`];

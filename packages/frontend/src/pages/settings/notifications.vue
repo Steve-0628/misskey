@@ -45,10 +45,6 @@ function configure() {
 	}, 'closed');
 }
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata({
 	title: i18n.ts.notifications,
 	icon: 'ti ti-bell',

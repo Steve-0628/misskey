@@ -90,10 +90,6 @@ function getStatus(instance) {
 	return 'Alive';
 }
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata(computed(() => ({
 	title: i18n.ts.federation,
 	icon: 'ti ti-whirl',

@@ -1,8 +1,8 @@
 import type {
-	Ad, Announcement, Antenna, App, AuthSession, Blocking, Clip, DateString, DetailedInstanceMetadata, DriveFile, DriveFolder, Following, FollowingFolloweePopulated, FollowingFollowerPopulated, FollowRequest, GalleryPost, Instance,
+	Ad, Announcement, Antenna, App, AuthSession, Blocking, Clip, DateString, DetailedInstanceMetadata, DriveFile, DriveFolder, EmojiDetailed, EmojiSimple, Flash, Following, FollowingFolloweePopulated, FollowingFollowerPopulated, FollowRequest, GalleryPost, Instance,
 	LiteInstanceMetadata,
 	MeDetailed,
-	Note, NoteFavorite, OriginType, ServerInfo, Stats, User, UserDetailed, MeSignup, UserGroup, UserList, UserSorting, Notification, NoteReaction, Signin, MessagingMessage, Invite, InviteLimit,
+	Note, NoteFavorite, OriginType, Role, ServerInfo, Stats, User, UserDetailed, MeSignup, UserGroup, UserList, UserSorting, Notification, NoteReaction, Signin, MessagingMessage, Invite, InviteLimit,
 } from './entities.js';
 
 type TODO = Record<string, any> | null;
@@ -21,13 +21,33 @@ export type Endpoints = {
 	'admin/invite': { req: TODO; res: TODO; };
 	'admin/logs': { req: TODO; res: TODO; };
 	'admin/meta': { req: TODO; res: TODO; };
-	'admin/reset-password': { req: TODO; res: TODO; };
 	'admin/resolve-abuse-user-report': { req: TODO; res: TODO; };
 	'admin/resync-chart': { req: TODO; res: TODO; };
 	'admin/send-email': { req: TODO; res: TODO; };
 	'admin/server-info': { req: TODO; res: TODO; };
 	'admin/show-moderation-logs': { req: TODO; res: TODO; };
-	'admin/show-user': { req: TODO; res: TODO; };
+	'admin/show-user': { req: { userId: User['id'] }; res: {
+		email: string | null;
+		emailVerified: boolean;
+		autoAcceptFollowed: boolean;
+		noCrawle: boolean;
+		preventAiLearning: boolean;
+		alwaysMarkNsfw: boolean;
+		carefulBot: boolean;
+		injectFeaturedNote: boolean;
+		mutedWords: string[][];
+		mutedInstances: string[];
+		mutingNotificationTypes: string[];
+		isModerator: boolean;
+		isSilenced: boolean;
+		isSuspended: boolean;
+		lastActiveDate: DateString | null;
+		moderationNote: string;
+		signins: Signin[];
+		policies: Record<string, unknown>;
+		roles: Role[];
+		roleAssigns: { createdAt: DateString; expiresAt: DateString | null; roleId: string }[];
+	}; };
 	'admin/show-users': { req: TODO; res: TODO; };
 	'admin/silence-user': { req: TODO; res: TODO; };
 	'admin/suspend-user': { req: TODO; res: TODO; };
@@ -35,6 +55,10 @@ export type Endpoints = {
 	'admin/unsuspend-user': { req: TODO; res: TODO; };
 	'admin/update-meta': { req: TODO; res: TODO; };
 	'admin/vacuum': { req: TODO; res: TODO; };
+	'admin/update-user-note': { req: { userId: User['id']; text: string }; res: null; };
+	'admin/delete-account': { req: { userId: User['id'] }; res: null; };
+	'admin/get-user-ips': { req: { userId: User['id'] }; res: { ip: string; createdAt: DateString }[]; };
+	'admin/reset-password': { req: { userId: User['id'] }; res: { password: string }; };
 	'admin/accounts/create': { req: TODO; res: TODO; };
 	'admin/ad/create': { req: TODO; res: TODO; };
 	'admin/ad/delete': { req: { id: Ad['id']; }; res: null; };
@@ -49,10 +73,18 @@ export type Endpoints = {
 	'admin/drive/files': { req: TODO; res: TODO; };
 	'admin/drive/show-file': { req: TODO; res: TODO; };
 	'admin/emoji/add': { req: TODO; res: TODO; };
+	'admin/emoji/add-aliases-bulk': { req: { ids: string[]; aliases: string[] }; res: null; };
 	'admin/emoji/copy': { req: TODO; res: TODO; };
+	'admin/emoji/delete': { req: { id: string }; res: null; };
+	'admin/emoji/delete-bulk': { req: { ids: string[] }; res: null; };
+	'admin/emoji/import-zip': { req: TODO; res: null; };
 	'admin/emoji/list-remote': { req: TODO; res: TODO; };
 	'admin/emoji/list': { req: TODO; res: TODO; };
 	'admin/emoji/remove': { req: TODO; res: TODO; };
+	'admin/emoji/remove-aliases-bulk': { req: { ids: string[]; aliases: string[] }; res: null; };
+	'admin/emoji/set-aliases-bulk': { req: { ids: string[]; aliases: string[] }; res: null; };
+	'admin/emoji/set-category-bulk': { req: { ids: string[]; category: string | null }; res: null; };
+	'admin/emoji/set-license-bulk': { req: { ids: string[]; license: string | null }; res: null; };
 	'admin/emoji/update': { req: TODO; res: TODO; };
 	'admin/federation/delete-all-files': { req: { host: string; }; res: null; };
 	'admin/federation/refresh-remote-instance-metadata': { req: TODO; res: TODO; };
@@ -67,10 +99,20 @@ export type Endpoints = {
 	'admin/queue/deliver-delayed': { req: TODO; res: TODO; };
 	'admin/queue/inbox-delayed': { req: TODO; res: TODO; };
 	'admin/queue/jobs': { req: TODO; res: TODO; };
+	'admin/queue/promote': { req: { jobId: string }; res: null; };
 	'admin/queue/stats': { req: TODO; res: TODO; };
 	'admin/relays/add': { req: TODO; res: TODO; };
 	'admin/relays/list': { req: TODO; res: TODO; };
 	'admin/relays/remove': { req: TODO; res: TODO; };
+	'admin/roles/assign': { req: { roleId: string; userId: User['id']; expiresAt?: string | null }; res: null; };
+	'admin/roles/create': { req: TODO; res: Role; };
+	'admin/roles/delete': { req: { roleId: string }; res: null; };
+	'admin/roles/list': { req: NoParams; res: Role[]; };
+	'admin/roles/show': { req: { roleId: string }; res: Role; };
+	'admin/roles/unassign': { req: { roleId: string; userId: User['id'] }; res: null; };
+	'admin/roles/update': { req: TODO; res: Role; };
+	'admin/roles/update-default-policies': { req: { policies: Record<string, unknown> }; res: null; };
+	'admin/roles/users': { req: { roleId: string; limit?: number; sinceId?: string; untilId?: string }; res: { id: string; user: UserDetailed; expiresAt: DateString | null }[]; };
 
 	// announcements
 	'announcements': { req: { limit?: number; withUnreads?: boolean; sinceId?: Announcement['id']; untilId?: Announcement['id']; }; res: Announcement[]; };
@@ -99,6 +141,7 @@ export type Endpoints = {
 
 	// auth
 	'auth/accept': { req: { token: string; }; res: null; };
+	'auth/deny': { req: { token: string; }; res: null; };
 	'auth/session/generate': { req: { appSecret: string; }; res: { token: string; url: string; }; };
 	'auth/session/show': { req: { token: string; }; res: AuthSession; };
 	'auth/session/userkey': { req: { appSecret: string; token: string; }; res: { accessToken: string; user: User }; };
@@ -116,6 +159,20 @@ export type Endpoints = {
 		remote: {
 			users: number[];
 		};
+		readWrite: number[];
+		read: number[];
+		write: number[];
+		registeredWithinWeek: number[];
+		registeredWithinMonth: number[];
+		registeredWithinYear: number[];
+		registeredOutsideWeek: number[];
+		registeredOutsideMonth: number[];
+		registeredOutsideYear: number[];
+	}; };
+	'charts/ap-request': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; }; res: {
+		deliverFailed: number[];
+		deliverSucceeded: number[];
+		inboxReceived: number[];
 	}; };
 	'charts/drive': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; }; res: {
 		local: {
@@ -136,11 +193,14 @@ export type Endpoints = {
 		};
 	}; };
 	'charts/federation': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; }; res: {
-		instance: {
-			dec: number[];
-			inc: number[];
-			total: number[];
-		};
+		deliveredInstances: number[];
+		inboxInstances: number[];
+		stalled: number[];
+		sub: number[];
+		pub: number[];
+		pubsub: number[];
+		subActive: number[];
+		pubActive: number[];
 	}; };
 	'charts/hashtag': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; }; res: TODO; };
 	'charts/instance': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; host: string; }; res: {
@@ -193,6 +253,7 @@ export type Endpoints = {
 				normal: number[];
 				renote: number[];
 				reply: number[];
+				withFile: number[];
 			};
 		};
 		remote: {
@@ -203,6 +264,7 @@ export type Endpoints = {
 				normal: number[];
 				renote: number[];
 				reply: number[];
+				withFile: number[];
 			};
 		};
 	}; };
@@ -224,6 +286,10 @@ export type Endpoints = {
 			renote: number[];
 			reply: number[];
 		};
+	}; };
+	'charts/user/pv': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; userId: User['id']; }; res: {
+		upv: { user: number[]; visitor: number[] };
+		pv: { user: number[]; visitor: number[] };
 	}; };
 	'charts/user/reactions': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; userId: User['id']; }; res: TODO; };
 	'charts/users': { req: { span: 'day' | 'hour'; limit?: number; offset?: number | null; }; res: {
@@ -302,19 +368,37 @@ export type Endpoints = {
 		publishing?: boolean | null;
 		limit?: number;
 		offset?: number;
-		sort?: '+pubSub' | '-pubSub' | '+notes' | '-notes' | '+users' | '-users' | '+following' | '-following' | '+followers' | '-followers' | '+caughtAt' | '-caughtAt' | '+lastCommunicatedAt' | '-lastCommunicatedAt' | '+driveUsage' | '-driveUsage' | '+driveFiles' | '-driveFiles';
+		sort?: '+pubSub' | '-pubSub' | '+notes' | '-notes' | '+users' | '-users' | '+following' | '-following' | '+followers' | '-followers' | '+caughtAt' | '-caughtAt' | '+lastCommunicatedAt' | '-lastCommunicatedAt' | '+driveUsage' | '-driveUsage' | '+driveFiles' | '-driveFiles' | '+latestRequestReceivedAt' | '-latestRequestReceivedAt';
 	}; res: Instance[]; };
 	'federation/show-instance': { req: { host: string; }; res: Instance; };
+	'federation/stats': { req: { limit?: number }; res: {
+		topSubInstances: Instance[];
+		otherFollowersCount: number;
+		topPubInstances: Instance[];
+		otherFollowingCount: number;
+	}; };
 	'federation/update-remote-user': { req: { userId: User['id']; }; res: null; };
 	'federation/users': { req: { host: string; limit?: number; sinceId?: User['id']; untilId?: User['id']; }; res: UserDetailed[]; };
 
 	// following
 	'following/create': { req: { userId: User['id'] }; res: User; };
 	'following/delete': { req: { userId: User['id'] }; res: User; };
+	'following/invalidate': { req: { userId: User['id'] }; res: User; };
 	'following/requests/accept': { req: { userId: User['id'] }; res: null; };
 	'following/requests/cancel': { req: { userId: User['id'] }; res: User; };
 	'following/requests/list': { req: NoParams; res: FollowRequest[]; };
 	'following/requests/reject': { req: { userId: User['id'] }; res: null; };
+
+	// flash
+	'flash/create': { req: { title: string; summary: string; script: string; permissions: string[] }; res: Flash; };
+	'flash/delete': { req: { flashId: Flash['id'] }; res: null; };
+	'flash/featured': { req: null; res: Flash[]; };
+	'flash/like': { req: { flashId: Flash['id'] }; res: null; };
+	'flash/my': { req: { limit?: number; sinceId?: Flash['id']; untilId?: Flash['id'] }; res: Flash[]; };
+	'flash/my-likes': { req: { limit?: number; sinceId?: string; untilId?: string }; res: Flash[]; };
+	'flash/show': { req: { flashId: Flash['id'] }; res: Flash; };
+	'flash/unlike': { req: { flashId: Flash['id'] }; res: null; };
+	'flash/update': { req: { flashId: Flash['id']; title: string; summary: string; script: string; permissions: string[] }; res: Flash; };
 
 	// gallery
 	'gallery/featured': { req: null; res: GalleryPost[]; };
@@ -444,21 +528,7 @@ export type Endpoints = {
 	'messaging/messages/read': { req: { messageId: MessagingMessage['id']; }; res: null; };
 
 	// meta
-	'meta': { req: { detail?: boolean; }; res: {
-		$switch: {
-			$cases: [[
-				{ detail: true; },
-				DetailedInstanceMetadata,
-			], [
-				{ detail: false; },
-				LiteInstanceMetadata,
-			], [
-				{ detail: boolean; },
-				LiteInstanceMetadata | DetailedInstanceMetadata,
-			]];
-			$default: LiteInstanceMetadata;
-		};
-	}; };
+	'meta': { req: { detail?: boolean; }; res: LiteInstanceMetadata | DetailedInstanceMetadata; };
 
 	// miauth
 	'miauth/gen-token': { req: TODO; res: TODO; };
@@ -467,6 +537,11 @@ export type Endpoints = {
 	'mute/create': { req: TODO; res: TODO; };
 	'mute/delete': { req: { userId: User['id'] }; res: null; };
 	'mute/list': { req: TODO; res: TODO; };
+
+	// renote-mute
+	'renote-mute/create': { req: { userId: User['id'] }; res: null; };
+	'renote-mute/delete': { req: { userId: User['id'] }; res: null; };
+	'renote-mute/list': { req: { limit?: number; sinceId?: string; untilId?: string }; res: { id: string; createdAt: DateString; muteeId: User['id']; mutee: UserDetailed }[]; };
 
 	// my
 	'my/apps': { req: TODO; res: TODO; };
@@ -513,6 +588,7 @@ export type Endpoints = {
 	'notes/show': { req: { noteId: Note['id']; }; res: Note; };
 	'notes/state': { req: TODO; res: TODO; };
 	'notes/timeline': { req: { limit?: number; sinceId?: Note['id']; untilId?: Note['id']; sinceDate?: number; untilDate?: number; }; res: Note[]; };
+	'notes/translate': { req: { noteId: Note['id']; targetLang: string }; res: { sourceLang: string; text: string } | 204; };
 	'notes/unrenote': { req: { noteId: Note['id']; }; res: null; };
 	'notes/user-list-timeline': { req: { listId: UserList['id']; limit?: number; sinceId?: Note['id']; untilId?: Note['id']; sinceDate?: number; untilDate?: number; }; res: Note[]; };
 	'notes/watching/create': { req: TODO; res: TODO; };
@@ -537,9 +613,36 @@ export type Endpoints = {
 	// reset-password
 	'reset-password': { req: { token: string; password: string; }; res: null; };
 
+	// retention
+	'retention': { req: Record<string, never>; res: { createdAt: DateString; users: number; data: Record<string, number> }[]; };
+
 	// room
 	'room/show': { req: TODO; res: TODO; };
 	'room/update': { req: TODO; res: TODO; };
+
+	// signin
+	'signin': {
+		req: {
+			username: string;
+			password: string;
+			token?: string;
+			'hcaptcha-response'?: string;
+			'g-recaptcha-response'?: string;
+			clientData?: string;
+			authenticatorData?: string;
+			signature?: string;
+			credentialId?: string;
+			challengeId?: string;
+		};
+		res: {
+			id: string;
+			i: string;
+		} | {
+			challenge: string;
+			challengeId: string;
+			securityKeys: { id: string }[];
+		};
+	};
 
 	// signup
 	'signup': {
@@ -567,6 +670,7 @@ export type Endpoints = {
 
 	// users
 	'users': { req: { limit?: number; offset?: number; sort?: UserSorting; origin?: OriginType; }; res: User[]; };
+	'users/achievements': { req: { userId: User['id'] }; res: { name: string; unlockedAt: number }[]; };
 	'users/clips': { req: TODO; res: TODO; };
 	'users/followers': { req: { userId?: User['id']; username?: User['username']; host?: User['host'] | null; limit?: number; sinceId?: Following['id']; untilId?: Following['id']; }; res: FollowingFollowerPopulated[]; };
 	'users/following': { req: { userId?: User['id']; username?: User['username']; host?: User['host'] | null; limit?: number; sinceId?: Following['id']; untilId?: Following['id']; }; res: FollowingFolloweePopulated[]; };
@@ -584,11 +688,14 @@ export type Endpoints = {
 	'users/groups/transfer': { req: TODO; res: TODO; };
 	'users/groups/update': { req: TODO; res: TODO; };
 	'users/lists/create': { req: { name: string; }; res: UserList; };
+	'users/lists/create-from-public': { req: { listId: UserList['id']; name?: string }; res: UserList; };
 	'users/lists/delete': { req: { listId: UserList['id']; }; res: null; };
+	'users/lists/favorite': { req: { listId: UserList['id'] }; res: null; };
 	'users/lists/list': { req: NoParams; res: UserList[]; };
 	'users/lists/pull': { req: { listId: UserList['id']; userId: User['id']; }; res: null; };
 	'users/lists/push': { req: { listId: UserList['id']; userId: User['id']; }; res: null; };
 	'users/lists/show': { req: { listId: UserList['id']; }; res: UserList; };
+	'users/lists/unfavorite': { req: { listId: UserList['id'] }; res: null; };
 	'users/lists/update': { req: { listId: UserList['id']; name: string; }; res: UserList; };
 	'users/notes': { req: { userId: User['id']; limit?: number; sinceId?: Note['id']; untilId?: Note['id']; sinceDate?: number; untilDate?: number; }; res: Note[]; };
 	'users/recommendation': { req: TODO; res: TODO; };
@@ -596,14 +703,26 @@ export type Endpoints = {
 	'users/report-abuse': { req: TODO; res: TODO; };
 	'users/search-by-username-and-host': { req: TODO; res: TODO; };
 	'users/search': { req: TODO; res: TODO; };
-	'users/show': { req: ShowUserReq | { userIds: User['id'][]; }; res: {
-		$switch: {
-			$cases: [[
-				{ userIds: User['id'][]; },
-				UserDetailed[],
-			]];
-			$default: UserDetailed;
-		};
-	}; };
+	'users/show': { req: ShowUserReq | { userIds: User['id'][]; }; res: UserDetailed };
 	'users/stats': { req: TODO; res: TODO; };
+	'users/update-memo': { req: { userId: User['id']; memo: string | null }; res: null; };
+
+	// email-address
+	'email-address/available': { req: { emailAddress: string }; res: { available: boolean; reason: string | null } };
+
+	// emojis
+	'emojis': { req: NoParams; res: { emojis: EmojiSimple[] } };
+	'emoji': { req: { name: string }; res: EmojiDetailed };
+
+	// export
+	'export-custom-emojis': { req: NoParams; res: null };
+
+	// roles
+	'roles/list': { req: NoParams; res: Role[] };
+	'roles/show': { req: { roleId: string }; res: Role };
+	'roles/users': { req: { roleId: string; limit?: number; sinceId?: string; untilId?: string }; res: { id: string; createdAt: DateString; user: UserDetailed }[] };
+	'roles/notes': { req: { roleId: string; limit?: number; sinceId?: Note['id']; untilId?: Note['id'] }; res: Note[] };
+
+	// signup-pending
+	'signup-pending': { req: { code: string }; res: { id: User['id']; i: string } };
 };

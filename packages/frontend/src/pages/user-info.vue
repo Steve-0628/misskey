@@ -3,6 +3,7 @@
 	<template #header><MkPageHeader v-model:tab="tab" :actions="headerActions" :tabs="headerTabs"/></template>
 	<MkSpacer :contentMax="600" :marginMin="16" :marginMax="32">
 		<FormSuspense :p="init">
+			<template v-if="user">
 			<div v-if="tab === 'overview'" class="_gaps_m">
 				<div class="aeakzknw">
 					<MkAvatar class="avatar" :user="user" indicator link preview/>
@@ -174,6 +175,7 @@
 				<MkObjectView tall :value="user">
 				</MkObjectView>
 			</div>
+			</template>
 		</FormSuspense>
 	</MkSpacer>
 </MkStickyContainer>
@@ -212,11 +214,12 @@ const props = withDefaults(defineProps<{
 
 let tab = $ref(props.initialTab);
 let chartSrc = $ref('per-user-notes');
-let user = $ref<null | misskey.entities.UserDetailed>();
+let user = $ref<null | misskey.entities.UserDetailed>(null);
 let init = $ref<ReturnType<typeof createFetcher>>();
-let info = $ref();
-let ips = $ref(null);
-let ap = $ref(null);
+type AdminShowUserInfo = misskey.Endpoints['admin/show-user']['res'];
+let info = $ref<AdminShowUserInfo | null>(null);
+let ips = $ref<{ ip: string; createdAt: string }[] | null>(null);
+let ap = $ref<Record<string, unknown> | null>(null);
 let moderator = $ref(false);
 let silenced = $ref(false);
 let suspended = $ref(false);
@@ -228,7 +231,7 @@ const filesPagination = {
 		userId: props.userId,
 	})),
 };
-let expandedRoles = $ref([]);
+let expandedRoles = $ref<string[]>([]);
 
 function createFetcher() {
 	if (iAmModerator) {
@@ -239,16 +242,16 @@ function createFetcher() {
 		}), iAmAdmin ? os.api('admin/get-user-ips', {
 			userId: props.userId,
 		}) : Promise.resolve(null)]).then(([_user, _info, _ips]) => {
-			user = _user;
+			user = _user as unknown as misskey.entities.UserDetailed;
 			info = _info;
 			ips = _ips;
-			moderator = info.isModerator;
-			silenced = info.isSilenced;
-			suspended = info.isSuspended;
-			moderationNote = info.moderationNote;
+			moderator = info!.isModerator;
+			silenced = info!.isSilenced;
+			suspended = info!.isSuspended;
+			moderationNote = info!.moderationNote;
 
 			watch($$(moderationNote), async () => {
-				await os.api('admin/update-user-note', { userId: user.id, text: moderationNote });
+				await os.api('admin/update-user-note', { userId: user!.id, text: moderationNote });
 				await refreshUser();
 			});
 		});
@@ -256,7 +259,7 @@ function createFetcher() {
 		return () => os.api('users/show', {
 			userId: props.userId,
 		}).then((res) => {
-			user = res;
+			user = res as unknown as misskey.entities.UserDetailed;
 		});
 	}
 }
@@ -266,7 +269,7 @@ function refreshUser() {
 }
 
 async function updateRemoteUser() {
-	await os.apiWithDialog('federation/update-remote-user', { userId: user.id });
+	await os.apiWithDialog('federation/update-remote-user', { userId: user!.id });
 	refreshUser();
 }
 
@@ -279,7 +282,7 @@ async function resetPassword() {
 		return;
 	} else {
 		const { password } = await os.api('admin/reset-password', {
-			userId: user.id,
+			userId: user!.id,
 		});
 		os.alert({
 			type: 'success',
@@ -296,7 +299,7 @@ async function toggleSuspend(v) {
 	if (confirm.canceled) {
 		suspended = !v;
 	} else {
-		await os.api(v ? 'admin/suspend-user' : 'admin/unsuspend-user', { userId: user.id });
+		await os.api(v ? 'admin/suspend-user' : 'admin/unsuspend-user', { userId: user!.id });
 		await refreshUser();
 	}
 }
@@ -308,7 +311,7 @@ async function deleteAllFiles() {
 	});
 	if (confirm.canceled) return;
 	const process = async () => {
-		await os.api('admin/delete-all-files-of-a-user', { userId: user.id });
+		await os.api('admin/delete-all-files-of-a-user', { userId: user!.id });
 		os.success();
 	};
 	await process().catch(err => {
@@ -334,7 +337,7 @@ async function deleteAccount() {
 
 	if (typed.result === user?.username) {
 		await os.apiWithDialog('admin/delete-account', {
-			userId: user.id,
+			userId: user!.id,
 		});
 	} else {
 		os.alert({
@@ -371,13 +374,13 @@ async function assignRole() {
 	if (canceled2) return;
 
 	const expiresAt = period === 'indefinitely' ? null
-		: period === 'oneHour' ? Date.now() + (1000 * 60 * 60)
-		: period === 'oneDay' ? Date.now() + (1000 * 60 * 60 * 24)
-		: period === 'oneWeek' ? Date.now() + (1000 * 60 * 60 * 24 * 7)
-		: period === 'oneMonth' ? Date.now() + (1000 * 60 * 60 * 24 * 30)
+		: period === 'oneHour' ? new Date(Date.now() + (1000 * 60 * 60)).toISOString()
+		: period === 'oneDay' ? new Date(Date.now() + (1000 * 60 * 60 * 24)).toISOString()
+		: period === 'oneWeek' ? new Date(Date.now() + (1000 * 60 * 60 * 24 * 7)).toISOString()
+		: period === 'oneMonth' ? new Date(Date.now() + (1000 * 60 * 60 * 24 * 30)).toISOString()
 		: null;
 
-	await os.apiWithDialog('admin/roles/assign', { roleId, userId: user.id, expiresAt });
+	await os.apiWithDialog('admin/roles/assign', { roleId, userId: user!.id, expiresAt });
 	refreshUser();
 }
 
@@ -387,7 +390,7 @@ async function unassignRole(role, ev) {
 		icon: 'ti ti-x',
 		danger: true,
 		action: async () => {
-			await os.apiWithDialog('admin/roles/unassign', { roleId: role.id, userId: user.id });
+			await os.apiWithDialog('admin/roles/unassign', { roleId: role.id, userId: user!.id });
 			refreshUser();
 		},
 	}], ev.currentTarget ?? ev.target);
@@ -409,7 +412,7 @@ watch(() => props.userId, () => {
 
 watch($$(user), () => {
 	os.api('ap/get', {
-		uri: user.uri ?? `${url}/users/${user.id}`,
+		uri: user!.uri ?? `${url}/users/${user!.id}`,
 	}).then(res => {
 		ap = res;
 	});

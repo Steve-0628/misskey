@@ -271,10 +271,6 @@ const lookup = (ev) => {
 	}], ev.currentTarget ?? ev.target);
 };
 
-const headerActions = $computed(() => []);
-
-const headerTabs = $computed(() => []);
-
 definePageMetadata(INFO);
 
 defineExpose({

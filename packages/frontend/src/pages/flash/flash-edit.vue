@@ -10,7 +10,7 @@
 				<template #label>{{ i18n.ts._play.summary }}</template>
 			</MkTextarea>
 			<MkButton primary @click="selectPreset">{{ i18n.ts.selectFromPresets }}<i class="ti ti-chevron-down"></i></MkButton>
-			<MkTextarea v-model="script" class="_monospace" tall spellcheck="false">
+			<MkTextarea v-model="script" class="_monospace" tall :spellcheck="false">
 				<template #label>{{ i18n.ts._play.script }}</template>
 			</MkTextarea>
 			<div class="_buttons">
@@ -25,6 +25,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import * as misskey from 'misskey-js';
 import MkButton from '@/components/MkButton.vue';
 import * as os from '@/os';
 import { i18n } from '@/i18n';
@@ -352,7 +353,7 @@ const props = defineProps<{
 	id?: string;
 }>();
 
-let flash = $ref(null);
+let flash = $ref<misskey.entities.Flash | null>(null);
 
 if (props.id) {
 	flash = await os.api('flash/show', {
@@ -386,13 +387,13 @@ function selectPreset(ev: MouseEvent) {
 		action: () => {
 			script = PRESET_TIMELINE;
 		},
-	}], ev.currentTarget ?? ev.target);
+	}], ev.currentTarget as HTMLElement ?? ev.target as HTMLElement);
 }
 
 async function save() {
 	if (flash) {
 		os.apiWithDialog('flash/update', {
-			flashId: props.id,
+			flashId: props.id!,
 			title,
 			summary,
 			permissions,
@@ -422,7 +423,7 @@ function show() {
 async function del() {
 	const { canceled } = await os.confirm({
 		type: 'warning',
-		text: i18n.t('deleteAreYouSure', { x: flash.title }),
+		text: i18n.t('deleteAreYouSure', { x: flash!.title }),
 	});
 	if (canceled) return;
 

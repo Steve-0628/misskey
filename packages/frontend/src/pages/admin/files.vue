@@ -100,8 +100,6 @@ const headerActions = $computed(() => [{
 	handler: clear,
 }]);
 
-const headerTabs = $computed(() => []);
-
 definePageMetadata(computed(() => ({
 	title: i18n.ts.files,
 	icon: 'ti ti-cloud',

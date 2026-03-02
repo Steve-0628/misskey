@@ -97,7 +97,7 @@ const props = defineProps<{
 	userLists: any[] | null;
 }>();
 
-const statusbar = reactive(deepClone(defaultStore.state.statusbars.find(x => x.id === props._id)));
+const statusbar = reactive(deepClone(defaultStore.state.statusbars.find(x => x.id === props._id)!));
 
 watch(() => statusbar.type, () => {
 	if (statusbar.type === 'rss') {

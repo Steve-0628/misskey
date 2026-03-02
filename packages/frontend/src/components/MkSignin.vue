@@ -45,6 +45,7 @@
 
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue';
+import * as misskey from 'misskey-js';
 import { toUnicode } from 'punycode/';
 import { showSuspendedDialog } from '../scripts/show-suspended-dialog';
 import MkButton from '@/components/MkButton.vue';
@@ -58,7 +59,7 @@ import { instance } from '@/instance';
 import { i18n } from '@/i18n';
 
 let signing = $ref(false);
-let user = $ref(null);
+let user = $ref<misskey.entities.UserDetailed | null>(null);
 let username = $ref('');
 let password = $ref('');
 let token = $ref('');
