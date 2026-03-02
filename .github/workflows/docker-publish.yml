@@ -3,7 +3,7 @@ name: Push to GHCR
 on:
   push:
     branches:
-    - master
+    - steskey
 
 jobs:
   build:
