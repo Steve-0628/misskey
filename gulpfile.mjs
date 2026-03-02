@@ -23,9 +23,6 @@ gulp.task('copy:frontend:tabler-icons', () =>
 	gulp.src('./packages/frontend/node_modules/@tabler/icons-webfont/**/*').pipe(gulp.dest('./built/_frontend_dist_/tabler-icons/'))
 );
 
-gulp.task('copy:meta', () =>
-	gulp.src('./packages/meta.json').pipe(gulp.dest('./built/'))
-);
 
 gulp.task('copy:frontend:locales', cb => {
 	fs.mkdirSync('./built/_frontend_dist_/locales', { recursive: true });
@@ -57,7 +54,7 @@ gulp.task('build:backend:style', () => {
 });
 
 gulp.task('build', gulp.parallel(
-	'copy:frontend:locales', 'copy:backend:views', 'build:backend:script', 'build:backend:style', 'copy:frontend:fonts', 'copy:frontend:tabler-icons', 'copy:meta'
+	'copy:frontend:locales', 'copy:backend:views', 'build:backend:script', 'build:backend:style', 'copy:frontend:fonts', 'copy:frontend:tabler-icons'
 ));
 
 gulp.task('default', gulp.task('build'));

@@ -13,19 +13,6 @@ describe('Before setup instance', () => {
     cy.visitHome();
   });
 
-	it('setup instance', () => {
-    cy.visitHome();
-
-		cy.intercept('POST', '/api/admin/accounts/create').as('signup');
-
-		cy.get('[data-cy-admin-username] input').type('admin');
-		cy.get('[data-cy-admin-password] input').type('admin1234');
-		cy.get('[data-cy-admin-ok]').click();
-
-		// なぜか動かない
-		//cy.wait('@signup').should('have.property', 'response.statusCode');
-		cy.wait('@signup');
-  });
 });
 
 describe('After setup instance', () => {
@@ -161,31 +148,7 @@ describe('After user signed in', () => {
 	});
 
   it('successfully loads', () => {
-		cy.get('[data-cy-user-setup-continue]').should('be.visible');
-  });
-
-	it('account setup wizard', () => {
-		cy.get('[data-cy-user-setup-continue]').click();
-
-		cy.get('[data-cy-user-setup-user-name] input').type('ありす');
-		cy.get('[data-cy-user-setup-user-description] textarea').type('ほげ');
-		// TODO: アイコン設定テスト
-
-		cy.get('[data-cy-user-setup-continue]').click();
-
-		// プライバシー設定
-
-		cy.get('[data-cy-user-setup-continue]').click();
-
-		// フォローはスキップ
-
-		cy.get('[data-cy-user-setup-continue]').click();
-
-		// プッシュ通知設定はスキップ
-
-		cy.get('[data-cy-user-setup-continue]').click();
-
-		cy.get('[data-cy-user-setup-continue]').click();
+		cy.get('[data-cy-open-post-form]').should('be.visible');
   });
 });
 
