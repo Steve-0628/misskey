@@ -55,4 +55,26 @@ describe('XHome', () => {
 		assert.exists(anchor, 'anchor to the remote exists');
 		assert.strictEqual(anchor?.href, 'https://example.com/@user');
 	});
+
+	test('Should not render the remote caution when user.host is null', async () => {
+		const home = renderHome({
+			id: 'blobcat',
+			name: 'blobcat',
+			host: null,
+			firstName: 'Blob',
+			lastName: 'Cat',
+			username: 'blobcat',
+			roles: [],
+			createdAt: '1970-01-01T00:00:00.000Z',
+			fields: [],
+			pinnedNotes: [],
+		});
+
+		// Check for element with class 'warn' (remote caution) - relying on implementation detail but consistent with existing test
+		// Existing test finds anchor and checks parent options.
+		// If remote caution is missing, anchor to remote profile shouldn't exist in that context.
+		// MkRemoteCaution usually contains the link.
+		const warnParameter = home.container.querySelector('.warn');
+		assert.isNull(warnParameter);
+	});
 });
