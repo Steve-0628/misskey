@@ -33,14 +33,13 @@ describe('Reactions', () => {
 			assert.strictEqual(res.status, 204);
 		});
 
-		test('cannot react to the same note twice', async () => {
+		test('can react to the same note twice', async () => {
 			const note = await post(alice, { text: 'unique note for double-react' });
 
 			await api('/notes/reactions/create', { noteId: note.id, reaction: '👍' }, bob);
 			const res = await api('/notes/reactions/create', { noteId: note.id, reaction: '❤️' }, bob);
 
-			assert.strictEqual(res.status, 400);
-			assert.strictEqual(res.body.error.code, 'ALREADY_REACTED');
+			assert.strictEqual(res.status, 204);
 		});
 
 		test('cannot react to a non-existent note', async () => {

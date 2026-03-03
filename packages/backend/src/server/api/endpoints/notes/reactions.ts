@@ -1,9 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { GetterService } from '@/server/api/GetterService.js';
 import type { NoteReactionsRepository } from '@/models/index.js';
 import type { NoteReaction } from '@/models/entities/NoteReaction.js';
 import { Endpoint } from '@/server/api/endpoint-base.js';
 import { NoteReactionEntityService } from '@/core/entities/NoteReactionEntityService.js';
 import { DI } from '@/di-symbols.js';
+import { ApiError } from '@/server/api/error.js';
 import type { FindOptionsWhere } from 'typeorm';
 
 export const meta = {
@@ -50,12 +52,18 @@ export const paramDef = {
 @Injectable()
 export default class extends Endpoint<typeof meta, typeof paramDef> {
 	constructor(
+		private getterService: GetterService,
 		@Inject(DI.noteReactionsRepository)
 		private noteReactionsRepository: NoteReactionsRepository,
 
 		private noteReactionEntityService: NoteReactionEntityService,
 	) {
 		super(meta, paramDef, async (ps, me) => {
+			await this.getterService.getNote(ps.noteId).catch(err => {
+				if (err.id === '9725d0ce-ba28-4dde-95a7-2cbb2c15de24') throw new ApiError(meta.errors.noSuchNote);
+				throw err;
+			});
+
 			const query = {
 				noteId: ps.noteId,
 			} as FindOptionsWhere<NoteReaction>;
