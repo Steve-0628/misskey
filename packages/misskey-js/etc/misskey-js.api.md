@@ -288,6 +288,31 @@ type DriveFile = {
 type DriveFolder = TODO_2;
 
 // @public (undocumented)
+type EmojiDetailed = {
+    id: string;
+    aliases: string[];
+    name: string;
+    category: string | null;
+    host: string | null;
+    url: string;
+    license: string | null;
+    isSensitive: boolean;
+    localOnly: boolean;
+    roleIdsThatCanBeUsedThisEmojiAsReaction: string[];
+};
+
+// @public (undocumented)
+type EmojiSimple = {
+    aliases: string[];
+    name: string;
+    category: string | null;
+    url: string;
+    localOnly?: boolean;
+    isSensitive?: boolean;
+    roleIdsThatCanBeUsedThisEmojiAsReaction?: string[];
+};
+
+// @public (undocumented)
 export type Endpoints = {
     'admin/abuse-user-reports': {
         req: TODO;
@@ -323,10 +348,6 @@ export type Endpoints = {
         req: TODO;
         res: TODO;
     };
-    'admin/reset-password': {
-        req: TODO;
-        res: TODO;
-    };
     'admin/resolve-abuse-user-report': {
         req: TODO;
         res: TODO;
@@ -348,8 +369,35 @@ export type Endpoints = {
         res: TODO;
     };
     'admin/show-user': {
-        req: TODO;
-        res: TODO;
+        req: {
+            userId: User['id'];
+        };
+        res: {
+            email: string | null;
+            emailVerified: boolean;
+            autoAcceptFollowed: boolean;
+            noCrawle: boolean;
+            preventAiLearning: boolean;
+            alwaysMarkNsfw: boolean;
+            carefulBot: boolean;
+            injectFeaturedNote: boolean;
+            mutedWords: string[][];
+            mutedInstances: string[];
+            mutingNotificationTypes: string[];
+            isModerator: boolean;
+            isSilenced: boolean;
+            isSuspended: boolean;
+            lastActiveDate: DateString | null;
+            moderationNote: string;
+            signins: Signin[];
+            policies: Record<string, unknown>;
+            roles: Role[];
+            roleAssigns: {
+                createdAt: DateString;
+                expiresAt: DateString | null;
+                roleId: string;
+            }[];
+        };
     };
     'admin/show-users': {
         req: TODO;
@@ -378,6 +426,36 @@ export type Endpoints = {
     'admin/vacuum': {
         req: TODO;
         res: TODO;
+    };
+    'admin/update-user-note': {
+        req: {
+            userId: User['id'];
+            text: string;
+        };
+        res: null;
+    };
+    'admin/delete-account': {
+        req: {
+            userId: User['id'];
+        };
+        res: null;
+    };
+    'admin/get-user-ips': {
+        req: {
+            userId: User['id'];
+        };
+        res: {
+            ip: string;
+            createdAt: DateString;
+        }[];
+    };
+    'admin/reset-password': {
+        req: {
+            userId: User['id'];
+        };
+        res: {
+            password: string;
+        };
     };
     'admin/accounts/create': {
         req: TODO;
@@ -439,9 +517,32 @@ export type Endpoints = {
         req: TODO;
         res: TODO;
     };
+    'admin/emoji/add-aliases-bulk': {
+        req: {
+            ids: string[];
+            aliases: string[];
+        };
+        res: null;
+    };
     'admin/emoji/copy': {
         req: TODO;
         res: TODO;
+    };
+    'admin/emoji/delete': {
+        req: {
+            id: string;
+        };
+        res: null;
+    };
+    'admin/emoji/delete-bulk': {
+        req: {
+            ids: string[];
+        };
+        res: null;
+    };
+    'admin/emoji/import-zip': {
+        req: TODO;
+        res: null;
     };
     'admin/emoji/list-remote': {
         req: TODO;
@@ -454,6 +555,34 @@ export type Endpoints = {
     'admin/emoji/remove': {
         req: TODO;
         res: TODO;
+    };
+    'admin/emoji/remove-aliases-bulk': {
+        req: {
+            ids: string[];
+            aliases: string[];
+        };
+        res: null;
+    };
+    'admin/emoji/set-aliases-bulk': {
+        req: {
+            ids: string[];
+            aliases: string[];
+        };
+        res: null;
+    };
+    'admin/emoji/set-category-bulk': {
+        req: {
+            ids: string[];
+            category: string | null;
+        };
+        res: null;
+    };
+    'admin/emoji/set-license-bulk': {
+        req: {
+            ids: string[];
+            license: string | null;
+        };
+        res: null;
     };
     'admin/emoji/update': {
         req: TODO;
@@ -513,6 +642,12 @@ export type Endpoints = {
         req: TODO;
         res: TODO;
     };
+    'admin/queue/promote': {
+        req: {
+            jobId: string;
+        };
+        res: null;
+    };
     'admin/queue/stats': {
         req: TODO;
         res: TODO;
@@ -528,6 +663,64 @@ export type Endpoints = {
     'admin/relays/remove': {
         req: TODO;
         res: TODO;
+    };
+    'admin/roles/assign': {
+        req: {
+            roleId: string;
+            userId: User['id'];
+            expiresAt?: string | null;
+        };
+        res: null;
+    };
+    'admin/roles/create': {
+        req: TODO;
+        res: Role;
+    };
+    'admin/roles/delete': {
+        req: {
+            roleId: string;
+        };
+        res: null;
+    };
+    'admin/roles/list': {
+        req: NoParams;
+        res: Role[];
+    };
+    'admin/roles/show': {
+        req: {
+            roleId: string;
+        };
+        res: Role;
+    };
+    'admin/roles/unassign': {
+        req: {
+            roleId: string;
+            userId: User['id'];
+        };
+        res: null;
+    };
+    'admin/roles/update': {
+        req: TODO;
+        res: Role;
+    };
+    'admin/roles/update-default-policies': {
+        req: {
+            policies: Record<string, unknown>;
+        };
+        res: null;
+    };
+    'admin/roles/users': {
+        req: {
+            roleId: string;
+            limit?: number;
+            sinceId?: string;
+            untilId?: string;
+        };
+        res: {
+            id: string;
+            user: UserDetailed;
+            expiresAt: DateString | null;
+        }[];
     };
     'announcements': {
         req: {
@@ -605,6 +798,12 @@ export type Endpoints = {
         };
         res: null;
     };
+    'auth/deny': {
+        req: {
+            token: string;
+        };
+        res: null;
+    };
     'auth/session/generate': {
         req: {
             appSecret: string;
@@ -663,6 +862,27 @@ export type Endpoints = {
             remote: {
                 users: number[];
             };
+            readWrite: number[];
+            read: number[];
+            write: number[];
+            registeredWithinWeek: number[];
+            registeredWithinMonth: number[];
+            registeredWithinYear: number[];
+            registeredOutsideWeek: number[];
+            registeredOutsideMonth: number[];
+            registeredOutsideYear: number[];
+        };
+    };
+    'charts/ap-request': {
+        req: {
+            span: 'day' | 'hour';
+            limit?: number;
+            offset?: number | null;
+        };
+        res: {
+            deliverFailed: number[];
+            deliverSucceeded: number[];
+            inboxReceived: number[];
         };
     };
     'charts/drive': {
@@ -697,11 +917,14 @@ export type Endpoints = {
             offset?: number | null;
         };
         res: {
-            instance: {
-                dec: number[];
-                inc: number[];
-                total: number[];
-            };
+            deliveredInstances: number[];
+            inboxInstances: number[];
+            stalled: number[];
+            sub: number[];
+            pub: number[];
+            pubsub: number[];
+            subActive: number[];
+            pubActive: number[];
         };
     };
     'charts/hashtag': {
@@ -783,6 +1006,7 @@ export type Endpoints = {
                     normal: number[];
                     renote: number[];
                     reply: number[];
+                    withFile: number[];
                 };
             };
             remote: {
@@ -793,6 +1017,7 @@ export type Endpoints = {
                     normal: number[];
                     renote: number[];
                     reply: number[];
+                    withFile: number[];
                 };
             };
         };
@@ -837,6 +1062,24 @@ export type Endpoints = {
                 normal: number[];
                 renote: number[];
                 reply: number[];
+            };
+        };
+    };
+    'charts/user/pv': {
+        req: {
+            span: 'day' | 'hour';
+            limit?: number;
+            offset?: number | null;
+            userId: User['id'];
+        };
+        res: {
+            upv: {
+                user: number[];
+                visitor: number[];
+            };
+            pv: {
+                user: number[];
+                visitor: number[];
             };
         };
     };
@@ -1085,7 +1328,7 @@ export type Endpoints = {
             publishing?: boolean | null;
             limit?: number;
             offset?: number;
-            sort?: '+pubSub' | '-pubSub' | '+notes' | '-notes' | '+users' | '-users' | '+following' | '-following' | '+followers' | '-followers' | '+caughtAt' | '-caughtAt' | '+lastCommunicatedAt' | '-lastCommunicatedAt' | '+driveUsage' | '-driveUsage' | '+driveFiles' | '-driveFiles';
+            sort?: '+pubSub' | '-pubSub' | '+notes' | '-notes' | '+users' | '-users' | '+following' | '-following' | '+followers' | '-followers' | '+caughtAt' | '-caughtAt' | '+lastCommunicatedAt' | '-lastCommunicatedAt' | '+driveUsage' | '-driveUsage' | '+driveFiles' | '-driveFiles' | '+latestRequestReceivedAt' | '-latestRequestReceivedAt';
         };
         res: Instance[];
     };
@@ -1094,6 +1337,17 @@ export type Endpoints = {
             host: string;
         };
         res: Instance;
+    };
+    'federation/stats': {
+        req: {
+            limit?: number;
+        };
+        res: {
+            topSubInstances: Instance[];
+            otherFollowersCount: number;
+            topPubInstances: Instance[];
+            otherFollowingCount: number;
+        };
     };
     'federation/update-remote-user': {
         req: {
@@ -1122,6 +1376,12 @@ export type Endpoints = {
         };
         res: User;
     };
+    'following/invalidate': {
+        req: {
+            userId: User['id'];
+        };
+        res: User;
+    };
     'following/requests/accept': {
         req: {
             userId: User['id'];
@@ -1143,6 +1403,69 @@ export type Endpoints = {
             userId: User['id'];
         };
         res: null;
+    };
+    'flash/create': {
+        req: {
+            title: string;
+            summary: string;
+            script: string;
+            permissions: string[];
+        };
+        res: Flash;
+    };
+    'flash/delete': {
+        req: {
+            flashId: Flash['id'];
+        };
+        res: null;
+    };
+    'flash/featured': {
+        req: null;
+        res: Flash[];
+    };
+    'flash/like': {
+        req: {
+            flashId: Flash['id'];
+        };
+        res: null;
+    };
+    'flash/my': {
+        req: {
+            limit?: number;
+            sinceId?: Flash['id'];
+            untilId?: Flash['id'];
+        };
+        res: Flash[];
+    };
+    'flash/my-likes': {
+        req: {
+            limit?: number;
+            sinceId?: string;
+            untilId?: string;
+        };
+        res: Flash[];
+    };
+    'flash/show': {
+        req: {
+            flashId: Flash['id'];
+        };
+        res: Flash;
+    };
+    'flash/unlike': {
+        req: {
+            flashId: Flash['id'];
+        };
+        res: null;
+    };
+    'flash/update': {
+        req: {
+            flashId: Flash['id'];
+            title: string;
+            summary: string;
+            script: string;
+            permissions: string[];
+        };
+        res: Flash;
     };
     'gallery/featured': {
         req: null;
@@ -1574,31 +1897,7 @@ export type Endpoints = {
         req: {
             detail?: boolean;
         };
-        res: {
-            $switch: {
-                $cases: [
-                [
-                    {
-                    detail: true;
-                },
-                DetailedInstanceMetadata
-                ],
-                [
-                    {
-                    detail: false;
-                },
-                LiteInstanceMetadata
-                ],
-                [
-                    {
-                    detail: boolean;
-                },
-                LiteInstanceMetadata | DetailedInstanceMetadata
-                ]
-                ];
-                $default: LiteInstanceMetadata;
-            };
-        };
+        res: LiteInstanceMetadata | DetailedInstanceMetadata;
     };
     'miauth/gen-token': {
         req: TODO;
@@ -1617,6 +1916,31 @@ export type Endpoints = {
     'mute/list': {
         req: TODO;
         res: TODO;
+    };
+    'renote-mute/create': {
+        req: {
+            userId: User['id'];
+        };
+        res: null;
+    };
+    'renote-mute/delete': {
+        req: {
+            userId: User['id'];
+        };
+        res: null;
+    };
+    'renote-mute/list': {
+        req: {
+            limit?: number;
+            sinceId?: string;
+            untilId?: string;
+        };
+        res: {
+            id: string;
+            createdAt: DateString;
+            muteeId: User['id'];
+            mutee: UserDetailed;
+        }[];
     };
     'my/apps': {
         req: TODO;
@@ -1808,6 +2132,16 @@ export type Endpoints = {
         };
         res: Note[];
     };
+    'notes/translate': {
+        req: {
+            noteId: Note['id'];
+            targetLang: string;
+        };
+        res: {
+            sourceLang: string;
+            text: string;
+        } | 204;
+    };
     'notes/unrenote': {
         req: {
             noteId: Note['id'];
@@ -1875,6 +2209,14 @@ export type Endpoints = {
         };
         res: null;
     };
+    'retention': {
+        req: Record<string, never>;
+        res: {
+            createdAt: DateString;
+            users: number;
+            data: Record<string, number>;
+        }[];
+    };
     'room/show': {
         req: TODO;
         res: TODO;
@@ -1882,6 +2224,30 @@ export type Endpoints = {
     'room/update': {
         req: TODO;
         res: TODO;
+    };
+    'signin': {
+        req: {
+            username: string;
+            password: string;
+            token?: string;
+            'hcaptcha-response'?: string;
+            'g-recaptcha-response'?: string;
+            clientData?: string;
+            authenticatorData?: string;
+            signature?: string;
+            credentialId?: string;
+            challengeId?: string;
+        };
+        res: {
+            id: string;
+            i: string;
+        } | {
+            challenge: string;
+            challengeId: string;
+            securityKeys: {
+                id: string;
+            }[];
+        };
     };
     'signup': {
         req: {
@@ -1920,6 +2286,15 @@ export type Endpoints = {
             origin?: OriginType;
         };
         res: User[];
+    };
+    'users/achievements': {
+        req: {
+            userId: User['id'];
+        };
+        res: {
+            name: string;
+            unlockedAt: number;
+        }[];
     };
     'users/clips': {
         req: TODO;
@@ -2007,7 +2382,20 @@ export type Endpoints = {
         };
         res: UserList;
     };
+    'users/lists/create-from-public': {
+        req: {
+            listId: UserList['id'];
+            name?: string;
+        };
+        res: UserList;
+    };
     'users/lists/delete': {
+        req: {
+            listId: UserList['id'];
+        };
+        res: null;
+    };
+    'users/lists/favorite': {
         req: {
             listId: UserList['id'];
         };
@@ -2036,6 +2424,12 @@ export type Endpoints = {
             listId: UserList['id'];
         };
         res: UserList;
+    };
+    'users/lists/unfavorite': {
+        req: {
+            listId: UserList['id'];
+        };
+        res: null;
     };
     'users/lists/update': {
         req: {
@@ -2079,23 +2473,84 @@ export type Endpoints = {
         req: ShowUserReq | {
             userIds: User['id'][];
         };
-        res: {
-            $switch: {
-                $cases: [
-                [
-                    {
-                    userIds: User['id'][];
-                },
-                UserDetailed[]
-                ]
-                ];
-                $default: UserDetailed;
-            };
-        };
+        res: UserDetailed;
     };
     'users/stats': {
         req: TODO;
         res: TODO;
+    };
+    'users/update-memo': {
+        req: {
+            userId: User['id'];
+            memo: string | null;
+        };
+        res: null;
+    };
+    'email-address/available': {
+        req: {
+            emailAddress: string;
+        };
+        res: {
+            available: boolean;
+            reason: string | null;
+        };
+    };
+    'emojis': {
+        req: NoParams;
+        res: {
+            emojis: EmojiSimple[];
+        };
+    };
+    'emoji': {
+        req: {
+            name: string;
+        };
+        res: EmojiDetailed;
+    };
+    'export-custom-emojis': {
+        req: NoParams;
+        res: null;
+    };
+    'roles/list': {
+        req: NoParams;
+        res: Role[];
+    };
+    'roles/show': {
+        req: {
+            roleId: string;
+        };
+        res: Role;
+    };
+    'roles/users': {
+        req: {
+            roleId: string;
+            limit?: number;
+            sinceId?: string;
+            untilId?: string;
+        };
+        res: {
+            id: string;
+            createdAt: DateString;
+            user: UserDetailed;
+        }[];
+    };
+    'roles/notes': {
+        req: {
+            roleId: string;
+            limit?: number;
+            sinceId?: Note['id'];
+            untilId?: Note['id'];
+        };
+        res: Note[];
+    };
+    'signup-pending': {
+        req: {
+            code: string;
+        };
+        res: {
+            id: User['id'];
+            i: string;
+        };
     };
 };
 
@@ -2114,11 +2569,13 @@ declare namespace entities {
         DriveFile,
         DriveFolder,
         GalleryPost,
+        Flash,
         Note,
         NoteReaction,
         Notification_2 as Notification,
         MessagingMessage,
         CustomEmoji,
+        RolePolicies,
         LiteInstanceMetadata,
         DetailedInstanceMetadata,
         InstanceMetadata,
@@ -2141,7 +2598,10 @@ declare namespace entities {
         Invite,
         InviteLimit,
         UserSorting,
-        OriginType
+        OriginType,
+        Role,
+        EmojiSimple,
+        EmojiDetailed
     }
 }
 export { entities }
@@ -2162,6 +2622,21 @@ type FetchLike = (input: string, init?: {
 
 // @public (undocumented)
 export const ffVisibility: readonly ["public", "followers", "private"];
+
+// @public (undocumented)
+type Flash = {
+    id: ID;
+    createdAt: DateString;
+    updatedAt: DateString;
+    userId: User['id'];
+    user: UserDetailed;
+    title: string;
+    summary: string;
+    script: string;
+    permissions: string[];
+    likedCount: number;
+    isLiked?: boolean;
+};
 
 // @public (undocumented)
 type Following = {
@@ -2311,6 +2786,7 @@ type LiteInstanceMetadata = {
     }[];
     translatorAvailable: boolean;
     serverRules: string[];
+    policies: RolePolicies;
 };
 
 // @public (undocumented)
@@ -2440,60 +2916,17 @@ type Notification_2 = {
     id: ID;
     createdAt: DateString;
     isRead: boolean;
-} & ({
-    type: 'reaction';
-    reaction: string;
-    user: User;
-    userId: User['id'];
-    note: Note;
-} | {
-    type: 'reply';
-    user: User;
-    userId: User['id'];
-    note: Note;
-} | {
-    type: 'renote';
-    user: User;
-    userId: User['id'];
-    note: Note;
-} | {
-    type: 'quote';
-    user: User;
-    userId: User['id'];
-    note: Note;
-} | {
-    type: 'mention';
-    user: User;
-    userId: User['id'];
-    note: Note;
-} | {
-    type: 'pollVote';
-    user: User;
-    userId: User['id'];
-    note: Note;
-} | {
-    type: 'follow';
-    user: User;
-    userId: User['id'];
-} | {
-    type: 'followRequestAccepted';
-    user: User;
-    userId: User['id'];
-} | {
-    type: 'receiveFollowRequest';
-    user: User;
-    userId: User['id'];
-} | {
-    type: 'groupInvited';
-    invitation: UserGroup;
-    user: User;
-    userId: User['id'];
-} | {
-    type: 'app';
+    type: 'follow' | 'mention' | 'reply' | 'renote' | 'quote' | 'reaction' | 'pollVote' | 'pollEnded' | 'receiveFollowRequest' | 'followRequestAccepted' | 'groupInvited' | 'achievementEarned' | 'app';
+    userId?: User['id'];
+    user?: User;
+    note?: Note;
+    reaction?: string;
+    achievement?: string;
+    invitation?: UserGroup;
+    body?: string | null;
     header?: string | null;
-    body: string;
     icon?: string | null;
-});
+};
 
 // @public (undocumented)
 export const notificationTypes: readonly ["follow", "mention", "reply", "renote", "quote", "reaction", "pollVote", "pollEnded", "receiveFollowRequest", "followRequestAccepted", "groupInvited", "app"];
@@ -2503,6 +2936,50 @@ type OriginType = 'combined' | 'local' | 'remote';
 
 // @public (undocumented)
 export const permissions: string[];
+
+// @public (undocumented)
+type Role = {
+    id: ID;
+    createdAt: DateString;
+    updatedAt: DateString;
+    name: string;
+    description: string;
+    color: string | null;
+    iconUrl: string | null;
+    target: 'manual' | 'conditional';
+    condFormula: Record<string, unknown>;
+    isPublic: boolean;
+    isAdministrator: boolean;
+    isModerator: boolean;
+    isExplorable: boolean;
+    asBadge: boolean;
+    canEditMembersByModerator: boolean;
+    displayOrder: number;
+    policies: Record<string, unknown>;
+    usersCount: number;
+};
+
+// @public (undocumented)
+type RolePolicies = {
+    gtlAvailable: boolean;
+    ltlAvailable: boolean;
+    canPublicNote: boolean;
+    canInvite: boolean;
+    inviteLimit: number;
+    inviteLimitCycle: number;
+    inviteExpirationTime: number;
+    canManageCustomEmojis: boolean;
+    canSearchNotes: boolean;
+    driveCapacityMb: number;
+    alwaysMarkNsfw: boolean;
+    pinLimit: number;
+    antennaLimit: number;
+    wordMuteLimit: number;
+    webhookLimit: number;
+    userListLimit: number;
+    userEachUserListsLimit: number;
+    rateLimitFactor: number;
+};
 
 // @public (undocumented)
 type ServerInfo = {
@@ -2668,7 +3145,7 @@ type UserSorting = '+follower' | '-follower' | '+createdAt' | '-createdAt' | '+u
 //
 // src/api.types.ts:16:32 - (ae-forgotten-export) The symbol "TODO" needs to be exported by the entry point index.d.ts
 // src/api.types.ts:18:25 - (ae-forgotten-export) The symbol "NoParams" needs to be exported by the entry point index.d.ts
-// src/api.types.ts:599:18 - (ae-forgotten-export) The symbol "ShowUserReq" needs to be exported by the entry point index.d.ts
+// src/api.types.ts:706:18 - (ae-forgotten-export) The symbol "ShowUserReq" needs to be exported by the entry point index.d.ts
 // src/streaming.types.ts:32:4 - (ae-forgotten-export) The symbol "FIXME" needs to be exported by the entry point index.d.ts
 
 // (No @packageDocumentation comment for this package)
