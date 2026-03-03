@@ -32,4 +32,5 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
+        context: .
         tags: ghcr.io/${{ steps.lowercase.outputs.lowercase }}:latest
