@@ -528,7 +528,16 @@ export type Endpoints = {
 	'messaging/messages/read': { req: { messageId: MessagingMessage['id']; }; res: null; };
 
 	// meta
-	'meta': { req: { detail?: boolean; }; res: LiteInstanceMetadata | DetailedInstanceMetadata; };
+	'meta': { req: { detail?: boolean; }; res: {
+		$switch: {
+			$cases: [
+				[{ detail: true; }, DetailedInstanceMetadata],
+				[{ detail: false; }, LiteInstanceMetadata],
+				[{ detail: boolean; }, LiteInstanceMetadata | DetailedInstanceMetadata],
+			];
+			$default: LiteInstanceMetadata;
+		};
+	}; };
 
 	// miauth
 	'miauth/gen-token': { req: TODO; res: TODO; };
@@ -703,7 +712,14 @@ export type Endpoints = {
 	'users/report-abuse': { req: TODO; res: TODO; };
 	'users/search-by-username-and-host': { req: TODO; res: TODO; };
 	'users/search': { req: TODO; res: TODO; };
-	'users/show': { req: ShowUserReq | { userIds: User['id'][]; }; res: UserDetailed };
+	'users/show': { req: ShowUserReq | { userIds: User['id'][]; }; res: {
+		$switch: {
+			$cases: [
+				[{ userIds: User['id'][]; }, UserDetailed[]],
+			];
+			$default: UserDetailed;
+		};
+	}; };
 	'users/stats': { req: TODO; res: TODO; };
 	'users/update-memo': { req: { userId: User['id']; memo: string | null }; res: null; };
 
