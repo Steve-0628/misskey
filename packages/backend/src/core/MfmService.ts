@@ -381,6 +381,8 @@ export class MfmService {
 
 		appendChildren(nodes, doc.body);
 
-		return `<p>${doc.body.innerHTML}</p>`;
+		const result = `<p>${doc.body.innerHTML}</p>`;
+		window.close();
+		return result;
 	}
 }
