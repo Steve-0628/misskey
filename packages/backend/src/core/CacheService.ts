@@ -68,7 +68,7 @@ export class CacheService implements OnApplicationShutdown {
 		});
 		this.userByIdCache = userByIdCache;
 
-		this.localUserByNativeTokenCache = new MemoryKVCache<LocalUser | null, string | null>(Infinity, {
+		this.localUserByNativeTokenCache = new MemoryKVCache<LocalUser | null, string | null>(1000 * 60 * 60 * 6 /* 6h */, {
 			toMapConverter: user => {
 				if (user === null) return null;
 
@@ -77,7 +77,7 @@ export class CacheService implements OnApplicationShutdown {
 			},
 			fromMapConverter: id => id === null ? null : localUserByIdCache.get(id),
 		});
-		this.uriPersonCache = new MemoryKVCache<User | null, string | null>(Infinity, {
+		this.uriPersonCache = new MemoryKVCache<User | null, string | null>(1000 * 60 * 60 * 6 /* 6h */, {
 			toMapConverter: user => {
 				if (user === null) return null;
 

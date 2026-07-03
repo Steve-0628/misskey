@@ -75,6 +75,20 @@ export class ImportCustomEmojisProcessorService {
 		const outputPath = path + '/emojis';
 		const unzipStream = fs.createReadStream(destPath);
 		const extractor = unzipper.Extract({ path: outputPath });
+		unzipStream.on('error', (e) => {
+			this.logger.error(e);
+			unzipStream.destroy();
+			extractor.destroy();
+			cleanup();
+			done();
+		});
+		extractor.on('error', (e) => {
+			this.logger.error(e);
+			unzipStream.destroy();
+			extractor.destroy();
+			cleanup();
+			done();
+		});
 		extractor.on('close', async () => {
 			const metaRaw = fs.readFileSync(outputPath + '/meta.json', 'utf-8');
 			const meta = JSON.parse(metaRaw);

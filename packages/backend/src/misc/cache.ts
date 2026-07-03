@@ -289,6 +289,7 @@ export class MemoryKVCache<T, V = T> {
 
 	@bindThis
 	public gc(): void {
+		if (this.lifetime === Infinity) return; // Infinity caches never expire; avoid iterating uselessly
 		const now = Date.now();
 		for (const [key, { date }] of this.cache.entries()) {
 			if ((now - date) > this.lifetime) {

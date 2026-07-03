@@ -286,5 +286,14 @@ export default class Connection {
 		for (const c of this.channels.filter(c => c.dispose)) {
 			if (c.dispose) c.dispose();
 		}
+		// Clear all remaining listeners on the per-connection EventEmitter
+		this.subscriber.removeAllListeners();
+		// Clear subscribingNotes references
+		for (const noteId of Object.keys(this.subscribingNotes)) {
+			this.subscriber.off(`noteStream:${noteId}`, this.onNoteStreamMessage);
+		}
+		this.subscribingNotes = {};
+		// Remove wsConnection listener
+		this.wsConnection.off('message', this.onWsConnectionMessage);
 	}
 }

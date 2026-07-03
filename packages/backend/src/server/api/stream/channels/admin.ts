@@ -10,9 +10,17 @@ class AdminChannel extends Channel {
 	@bindThis
 	public async init(params: any) {
 		// Subscribe admin stream
-		this.subscriber.on(`adminStream:${this.user!.id}`, data => {
-			this.send(data);
-		});
+		this.subscriber.on(`adminStream:${this.user!.id}`, this.onAdminStreamData);
+	}
+
+	@bindThis
+	private onAdminStreamData(data: any) {
+		this.send(data);
+	}
+
+	@bindThis
+	public dispose(): void {
+		this.subscriber.off(`adminStream:${this.user!.id}`, this.onAdminStreamData);
 	}
 }
 
