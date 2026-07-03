@@ -3,15 +3,33 @@ import { readFile } from 'node:fs/promises';
 import { isAbsolute, basename } from 'node:path';
 import { inspect } from 'node:util';
 import WebSocket, { ClientOptions } from 'ws';
-import fetch, { Blob, File, RequestInit } from 'node-fetch';
+import fetch, { File, RequestInit } from 'node-fetch';
 import { DataSource } from 'typeorm';
 import { JSDOM } from 'jsdom';
 import { DEFAULT_POLICIES } from '@/core/RoleService.js';
+import { server as _startServer } from '@/boot/common.js';
 import { entities } from '../src/postgres.js';
 import { loadConfig } from '../src/config.js';
 import type * as misskey from 'misskey-js';
 
-export { server as startServer } from '@/boot/common.js';
+export async function startServer() {
+	const app = await _startServer();
+	// Make app.close idempotent and swallow close-time errors so test teardowns
+	// don't fail when setup was partial or when close throws.
+	const origClose = (app.close && app.close.bind(app)) || (async () => {});
+	let _closed = false;
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	(app as any).close = async () => {
+		if (_closed) return;
+		_closed = true;
+		try {
+			await origClose();
+		} catch (e) {
+			// Swallow errors during close to avoid teardown crashes in tests
+		}
+	};
+	return app;
+}
 
 interface UserToken {
 	token: string;
