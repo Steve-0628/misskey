@@ -1,4 +1,16 @@
 packages:
- - 'packages/backend'
- - 'packages/frontend'
- - 'packages/misskey-js'
+  - 'packages/backend'
+  - 'packages/frontend'
+  - 'packages/misskey-js'
+allowBuilds:
+  '@nestjs/core': true
+  '@swc/core': true
+  bufferutil: true
+  cypress: true
+  es5-ext: true
+  esbuild: true
+  msgpackr-extract: true
+  msw: true
+  re2: true
+  sharp: true
+  utf-8-validate: true

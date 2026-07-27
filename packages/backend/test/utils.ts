@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { isAbsolute, basename } from 'node:path';
 import { inspect } from 'node:util';
 import WebSocket, { ClientOptions } from 'ws';
-import fetch, { File, RequestInit } from 'node-fetch';
+import fetch, { File, FormData, RequestInit } from 'node-fetch';
 import { DataSource } from 'typeorm';
 import { JSDOM } from 'jsdom';
 import { DEFAULT_POLICIES } from '@/core/RoleService.js';
@@ -255,8 +255,9 @@ export const uploadFile = async (user?: UserToken, { path, name, blob }: UploadO
 			: new URL(path, new URL('resources/', import.meta.url));
 
 	const formData = new FormData();
-	formData.append('file', blob ??
-		new File([await readFile(absPath)], basename(absPath.toString())));
+	formData.append('file', blob != null
+		? (blob instanceof File ? blob : new File([blob], 'blob.bin'))
+		: new File([await readFile(absPath)], basename(absPath.toString())));
 	formData.append('force', 'true');
 	if (name) {
 		formData.append('name', name);

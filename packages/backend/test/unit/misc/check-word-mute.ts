@@ -1,49 +1,51 @@
+process.env.NODE_ENV = 'test';
+
+import { describe, test, expect } from '@jest/globals';
 import { checkWordMute } from '@/misc/check-word-mute.js';
 
-describe(checkWordMute, () => {
-	describe('Slacc boost mode', () => {
-		it('should return false if mutedWords is empty', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo' }, null, [])).toBe(false);
-		});
-		it('should return true if mutedWords is not empty and text contains muted word', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo' }, null, [['foo']])).toBe(true);
-		});
-		it('should return false if mutedWords is not empty and text does not contain muted word', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo' }, null, [['bar']])).toBe(false);
-		});
-		it('should return false when the note is written by me even if mutedWords is not empty and text contains muted word', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo' }, { id: '1' }, [['foo']])).toBe(false);
-		});
-		it('should return true if mutedWords is not empty and text contains muted word in CW', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo', cw: 'bar' }, null, [['bar']])).toBe(true);
-		});
-		it('should return true if mutedWords is not empty and text contains muted word in both CW and text', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo', cw: 'bar' }, null, [['foo'], ['bar']])).toBe(true);
-		});
-		it('should return true if mutedWords is not empty and text does not contain muted word in both CW and text', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo', cw: 'bar' }, null, [['foo'], ['baz']])).toBe(true);
-		});
+describe('checkWordMute', () => {
+	test('returns false for own note', async () => {
+		const result = await checkWordMute({ userId: 'me', text: 'bad' }, { id: 'me' }, [['bad']]);
+		expect(result).toBe(false);
 	});
-	describe('normal mode', () => {
-		it('should return false if text does not contain muted words', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo' }, null, [['foo', 'bar']])).toBe(false);
-		});
-		it('should return true if text contains muted words', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foobar' }, null, [['foo', 'bar']])).toBe(true);
-		});
-		it('should return false when the note is written by me even if text contains muted words', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo bar' }, { id: '1' }, [['foo', 'bar']])).toBe(false);
-		});
+
+	test('returns false when no muted words', async () => {
+		const result = await checkWordMute({ userId: 'other', text: 'hello' }, { id: 'me' }, []);
+		expect(result).toBe(false);
 	});
-	describe('RegExp mode', () => {
-		it('should return false if text does not contain muted words', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo' }, null, ['/bar/'])).toBe(false);
-		});
-		it('should return true if text contains muted words', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foobar' }, null, ['/bar/'])).toBe(true);
-		});
-		it('should return false when the note is written by me even if text contains muted words', async () => {
-			expect(await checkWordMute({ userId: '1', text: 'foo bar' }, { id: '1' }, ['/bar/'])).toBe(false);
-		});
+
+	test('returns false when text is empty', async () => {
+		const result = await checkWordMute({ userId: 'other', text: null }, { id: 'me' }, [['bad']]);
+		expect(result).toBe(false);
+	});
+
+	test('matches single keyword via AhoCorasick', async () => {
+		const result = await checkWordMute({ userId: 'other', text: 'hello bad world' }, { id: 'me' }, [['bad']]);
+		expect(result).toBe(true);
+	});
+
+	test('matches multiple keywords via AND', async () => {
+		const result = await checkWordMute({ userId: 'other', text: 'hello bad world' }, { id: 'me' }, [['bad', 'world']]);
+		expect(result).toBe(true);
+	});
+
+	test('returns false when AND keywords not all present', async () => {
+		const result = await checkWordMute({ userId: 'other', text: 'hello bad' }, { id: 'me' }, [['bad', 'world']]);
+		expect(result).toBe(false);
+	});
+
+	test('matches regexp', async () => {
+		const result = await checkWordMute({ userId: 'other', text: 'hello world' }, { id: 'me' }, ['/wor.+/']);
+		expect(result).toBe(true);
+	});
+
+	test('ignores invalid regexp string', async () => {
+		const result = await checkWordMute({ userId: 'other', text: 'hello' }, { id: 'me' }, ['invalid']);
+		expect(result).toBe(false);
+	});
+
+	test('matches cw text', async () => {
+		const result = await checkWordMute({ userId: 'other', text: 'hello', cw: 'bad cw' }, { id: 'me' }, [['cw']]);
+		expect(result).toBe(true);
 	});
 });

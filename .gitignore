@@ -66,3 +66,7 @@ temp
 
 # VSCode addon
 .favorites.json
+
+.sisyphus/*
+AGENTS.md
+.kimchi/*
