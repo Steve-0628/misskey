@@ -1,13 +1,22 @@
 process.env.NODE_ENV = 'test';
 
-import { describe, test, expect } from '@jest/globals';
+import { afterEach, describe, test, expect } from '@jest/globals';
+import * as mfm from 'mfm-js';
 import { MfmService } from '@/core/MfmService.js';
 import type { Config } from '@/config.js';
 
 describe('MfmService', () => {
+	const services: MfmService[] = [];
+
 	function createService(): MfmService {
-		return new MfmService({ url: 'https://example.com' } as Config);
+		const service = new MfmService({ url: 'https://example.com' } as Config);
+		services.push(service);
+		return service;
 	}
+
+	afterEach(async () => {
+		await Promise.all(services.splice(0).map(service => service.onApplicationShutdown()));
+	});
 
 	describe('fromHtml', () => {
 		test('converts plain text', () => {
@@ -99,6 +108,21 @@ describe('MfmService', () => {
 		test('returns null for null nodes', () => {
 			const service = createService();
 			expect(service.toHtml(null)).toBeNull();
+		});
+
+		test('does not retain document content between conversions', () => {
+			const service = createService();
+			expect(service.toHtml(mfm.parse('first'))).toBe('<p><span>first</span></p>');
+			expect(service.toHtml(mfm.parse('second'))).toBe('<p><span>second</span></p>');
+		});
+
+		test('can render after its detached window is closed', async () => {
+			const service = createService();
+			expect(service.toHtml(mfm.parse('before'))).toBe('<p><span>before</span></p>');
+
+			await service.onApplicationShutdown();
+
+			expect(service.toHtml(mfm.parse('after'))).toBe('<p><span>after</span></p>');
 		});
 
 		test('converts bold node', () => {

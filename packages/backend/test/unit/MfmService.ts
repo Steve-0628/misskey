@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as mfm from 'mfm-js';
-import { Test } from '@nestjs/testing';
+import { Test, type TestingModule } from '@nestjs/testing';
 
 import { CoreModule } from '@/core/CoreModule.js';
 import { MfmService } from '@/core/MfmService.js';
@@ -8,12 +8,17 @@ import { GlobalModule } from '@/GlobalModule.js';
 
 describe('MfmService', () => {
 	let mfmService: MfmService;
+	let app: TestingModule;
 
 	beforeAll(async () => {
-		const app = await Test.createTestingModule({
+		app = await Test.createTestingModule({
 			imports: [GlobalModule, CoreModule],
 		}).compile();
 		mfmService = app.get<MfmService>(MfmService);
+	});
+
+	afterAll(async () => {
+		await app.close();
 	});
 
 	describe('toHtml', () => {

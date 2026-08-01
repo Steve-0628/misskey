@@ -1,5 +1,5 @@
 import { URL } from 'node:url';
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, type OnApplicationShutdown } from '@nestjs/common';
 import * as parse5 from 'parse5';
 import { Window } from 'happy-dom';
 import { DI } from '@/di-symbols.js';
@@ -16,7 +16,11 @@ const urlRegex = /^https?:\/\/[\w\/:%#@$&?!()\[\]~.,=+\-]+/;
 const urlRegexFull = /^https?:\/\/[\w\/:%#@$&?!()\[\]~.,=+\-]+$/;
 
 @Injectable()
-export class MfmService {
+export class MfmService implements OnApplicationShutdown {
+	// Reuse one detached browser context. Creating one for every conversion causes
+	// Happy DOM to retain a NativeContext even when Window.close() is called.
+	private window: Window | null = null;
+
 	constructor(
 		@Inject(DI.config)
 		private config: Config,
@@ -235,9 +239,9 @@ export class MfmService {
 			return null;
 		}
 
-		const { window } = new Window();
-
+		const window = this.window ??= new Window();
 		const doc = window.document;
+		doc.body.replaceChildren();
 
 		function appendChildren(children: mfm.MfmNode[], targetElement: any): void {
 			if (children) {
@@ -379,10 +383,19 @@ export class MfmService {
 			},
 		};
 
-		appendChildren(nodes, doc.body);
+		try {
+			appendChildren(nodes, doc.body);
+			return `<p>${doc.body.innerHTML}</p>`;
+		} finally {
+			doc.body.replaceChildren();
+		}
+	}
 
-		const result = `<p>${doc.body.innerHTML}</p>`;
-		window.close();
-		return result;
+	@bindThis
+	public async onApplicationShutdown(): Promise<void> {
+		const window = this.window;
+		this.window = null;
+		// Window.close() does not close a detached Happy DOM window.
+		if (window) await window.happyDOM.close();
 	}
 }
