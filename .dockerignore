@@ -6,6 +6,7 @@
 Dockerfile
 build/
 built/
+packages/*/built/
 db/
 docker-compose.yml
 node_modules/
