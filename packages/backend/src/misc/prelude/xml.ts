@@ -17,16 +17,16 @@ export function escapeValue(x: string): string {
 		i < x.length;
 	) {
 		if (insideOfCDATA) {
-			if (x.slice(i, i + beginingOfCDATA.length) === beginingOfCDATA) {
-				insideOfCDATA = true;
-				i += beginingOfCDATA.length;
+			if (x.slice(i, i + endOfCDATA.length) === endOfCDATA) {
+				insideOfCDATA = false;
+				i += endOfCDATA.length;
 			} else {
 				builder += x[i++];
 			}
 		} else {
-			if (x.slice(i, i + endOfCDATA.length) === endOfCDATA) {
-				insideOfCDATA = false;
-				i += endOfCDATA.length;
+			if (x.slice(i, i + beginingOfCDATA.length) === beginingOfCDATA) {
+				insideOfCDATA = true;
+				i += beginingOfCDATA.length;
 			} else {
 				const b = x[i++];
 				builder += map[b] || b;
