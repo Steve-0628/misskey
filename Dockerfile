@@ -68,4 +68,4 @@ COPY --chown=misskey:misskey --from=native-builder /misskey/fluent-emojis /missk
 ENV NODE_ENV=production
 HEALTHCHECK --interval=5s --retries=20 CMD ["/bin/bash", "/misskey/healthcheck.sh"]
 ENTRYPOINT ["/usr/bin/tini", "--"]
-CMD ["pnpm", "run", "migrateandstart"]
+CMD ["/bin/bash", "-c", "cd /misskey/packages/backend && node ./node_modules/typeorm/cli.js migration:run -d ormconfig.js && node ./check_connect.js && exec node ./built/boot/index.js"]
