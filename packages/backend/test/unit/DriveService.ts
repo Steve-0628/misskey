@@ -23,6 +23,7 @@ import { DownloadService } from '@/core/DownloadService.js';
 import { IdService } from '@/core/IdService.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { DriveFileEntityService } from '@/core/entities/DriveFileEntityService.js';
+import type { DriveFile } from '@/models/entities/DriveFile.js';
 import DriveChart from '@/core/chart/charts/drive.js';
 import PerUserDriveChart from '@/core/chart/charts/per-user-drive.js';
 import InstanceChart from '@/core/chart/charts/instance.js';
@@ -79,6 +80,7 @@ describe('DriveService addFile branches', () => {
 	let driveService: DriveService;
 	let tempPath: string;
 	let tempCleanup: () => void;
+	let persistedFile: DriveFile | null;
 
 	const mockMetaService = { fetch: jest.fn() };
 	const mockFileInfoService = { getFileInfo: jest.fn() };
@@ -102,12 +104,15 @@ describe('DriveService addFile branches', () => {
 	const mockDownloadService = {};
 
 	beforeAll(async () => {
-		[ tempPath, tempCleanup ] = await createTemp();
+		[tempPath, tempCleanup] = await createTemp();
 		// write a minimal 1x1 PNG so sharp/generateAlts can run
 		fs.writeFileSync(tempPath, Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==', 'base64'));
 
 		driveService = new DriveService(
-			{ url: 'https://example.com' } as unknown as Config,
+			{
+				url: 'https://example.com',
+				videoThumbnailGenerator: 'https://thumbnail.example.com',
+			} as unknown as Config,
 			mockUsersRepository as unknown as UsersRepository,
 			mockUserProfilesRepository as unknown as UserProfilesRepository,
 			mockDriveFilesRepository as unknown as DriveFilesRepository,
@@ -150,9 +155,16 @@ describe('DriveService addFile branches', () => {
 			blurhash: null,
 			type: { ext: 'png', mime: 'image/png' },
 		});
+		persistedFile = null;
 		mockDriveFilesRepository.findOneBy.mockResolvedValue(null);
-		mockDriveFilesRepository.insert.mockResolvedValue({ identifiers: [{ id: 'file1' }] });
-		mockDriveFilesRepository.findOneByOrFail.mockResolvedValue({ id: 'file1' });
+		mockDriveFilesRepository.insert.mockImplementation(async (file: DriveFile) => {
+			persistedFile = file;
+			return { identifiers: [{ id: file.id }] };
+		});
+		mockDriveFilesRepository.findOneByOrFail.mockImplementation(async () => {
+			if (persistedFile == null) throw new Error('file-not-found');
+			return persistedFile;
+		});
 		mockDriveFilesRepository.createQueryBuilder.mockReturnValue({
 			where: jest.fn().mockReturnThis(),
 			andWhere: jest.fn().mockReturnThis(),
@@ -165,6 +177,7 @@ describe('DriveService addFile branches', () => {
 		mockUserEntityService.isLocalUser.mockReturnValue(true);
 		mockDriveFileEntityService.validateFileName.mockReturnValue(true);
 		mockDriveFileEntityService.calcDriveUsageOf.mockResolvedValue(0);
+		mockDriveFileEntityService.pack.mockResolvedValue({ id: 'file1' });
 		mockIdService.genId.mockReturnValue('file1');
 		mockInternalStorageService.saveFromPath.mockReturnValue('https://example.com/files/file1');
 		mockImageProcessingService.convertSharpToWebp.mockResolvedValue({ data: Buffer.from('webp'), ext: 'webp', type: 'image/webp' });
@@ -195,8 +208,6 @@ describe('DriveService addFile branches', () => {
 	});
 
 	test('addFile with isLink true stores link without saving body', async () => {
-		mockDriveFilesRepository.insert.mockResolvedValue({ identifiers: [{ id: 'link1' }] });
-		mockDriveFilesRepository.findOneByOrFail.mockResolvedValue({ id: 'link1' });
 		const result = await driveService.addFile({
 			...baseArgs(),
 			isLink: true,

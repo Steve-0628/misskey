@@ -262,7 +262,7 @@ describe('GlobalTimelineChannel', () => {
 			const metaService = createMetaService();
 			const roleService = createRoleService({ gtlAvailable: true });
 			const noteEntityService = createNoteEntityService();
-			noteEntityService.pack.mockResolvedValue({ id: 'reply1', userId: 'other1' } as unknown as Packed<'Note'>);
+			noteEntityService.pack.mockResolvedValue(createPackedNote({ id: 'reply1', userId: 'other1' }));
 			const connection = createConnection();
 			const service = new GlobalTimelineChannelService(metaService, roleService, noteEntityService);
 			const channel = service.create('channel1', connection);
