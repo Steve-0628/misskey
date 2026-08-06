@@ -337,8 +337,8 @@ importers:
         specifier: https://github.com/misskey-dev/summaly#d7f6a88aee62510a0d3ba061f515e4688c34ca48
         version: https://codeload.github.com/misskey-dev/summaly/tar.gz/d7f6a88aee62510a0d3ba061f515e4688c34ca48
       systeminformation:
-        specifier: 5.30.8
-        version: 5.30.8
+        specifier: 5.31.7
+        version: 5.31.7
       tinycolor2:
         specifier: 1.6.0
         version: 1.6.0
@@ -8692,8 +8692,8 @@ packages:
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
-  systeminformation@5.30.8:
-    resolution: {integrity: sha512-imB8LwJCc2DkufKlSRHfzbjhheGzpg1P31A4c55IKTq/ll6Agn1rhBOY+WmS/hyg5inGFp7AyZIK0gvq5rFO2Q==}
+  systeminformation@5.31.7:
+    resolution: {integrity: sha512-/8NC53e5nP9nmhn42/ncdOkyJnOoue/Vy+tJOyUGd1Yv66G069wK4rrziwhrqDETgk78CudTQupw5z19S5uoZw==}
     engines: {node: '>=8.0.0'}
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
@@ -19020,7 +19020,7 @@ snapshots:
 
   symbol-tree@3.2.4: {}
 
-  systeminformation@5.30.8: {}
+  systeminformation@5.31.7: {}
 
   syuilo-password-strength@0.0.1: {}
 
