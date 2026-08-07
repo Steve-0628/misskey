@@ -270,8 +270,14 @@ export class ApPersonService implements OnModuleInit {
 
 		const url = getOneApHrefNullable(person.url);
 
-		if (url && !checkHttps(url)) {
-			throw new Error('unexpected schema of person url: ' + url);
+		if (url != null) {
+			if (!checkHttps(url)) {
+				throw new Error('unexpected schema of person url: ' + url);
+			}
+
+			if (this.punyHost(url) !== this.punyHost(person.id)) {
+				throw new Error(`person url <> uri host mismatch: ${url} <> ${person.id}`);
+			}
 		}
 
 		// Create user
@@ -431,8 +437,14 @@ export class ApPersonService implements OnModuleInit {
 
 		const url = getOneApHrefNullable(person.url);
 
-		if (url && !checkHttps(url)) {
-			throw new Error('unexpected schema of person url: ' + url);
+		if (url != null) {
+			if (!checkHttps(url)) {
+				throw new Error('unexpected schema of person url: ' + url);
+			}
+
+			if (this.punyHost(url) !== this.punyHost(person.id)) {
+				throw new Error(`person url <> uri host mismatch: ${url} <> ${person.id}`);
+			}
 		}
 
 		const updates = {

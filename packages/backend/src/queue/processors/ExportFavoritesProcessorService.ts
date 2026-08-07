@@ -1,6 +1,5 @@
 import * as fs from 'node:fs';
 import { Inject, Injectable } from '@nestjs/common';
-import { MoreThan } from 'typeorm';
 import { format as dateFormat } from 'date-fns';
 import { DI } from '@/di-symbols.js';
 import type { NoteFavorite, NoteFavoritesRepository, NotesRepository, PollsRepository, User, UsersRepository } from '@/models/index.js';
@@ -11,6 +10,7 @@ import { createTemp } from '@/misc/create-temp.js';
 import type { Poll } from '@/models/entities/Poll.js';
 import type { Note } from '@/models/entities/Note.js';
 import { bindThis } from '@/decorators.js';
+import { QueryService } from '@/core/QueryService.js';
 import { QueueLoggerService } from '../QueueLoggerService.js';
 import type Bull from 'bull';
 import type { DbJobDataWithUser } from '../types.js';
@@ -35,6 +35,7 @@ export class ExportFavoritesProcessorService {
 		@Inject(DI.noteFavoritesRepository)
 		private noteFavoritesRepository: NoteFavoritesRepository,
 
+		private queryService: QueryService,
 		private driveService: DriveService,
 		private queueLoggerService: QueueLoggerService,
 	) {
@@ -78,17 +79,17 @@ export class ExportFavoritesProcessorService {
 			let cursor: NoteFavorite['id'] | null = null;
 
 			while (true) {
-				const favorites = await this.noteFavoritesRepository.find({
-					where: {
-						userId: user.id,
-						...(cursor ? { id: MoreThan(cursor) } : {}),
-					},
-					take: 100,
-					order: {
-						id: 1,
-					},
-					relations: ['note', 'note.user'],
-				}) as (NoteFavorite & { note: Note & { user: User } })[];
+				const query = this.noteFavoritesRepository.createQueryBuilder('favorite')
+					.leftJoinAndSelect('favorite.note', 'note')
+					.leftJoinAndSelect('note.user', 'user')
+					.where('favorite.userId = :userId', { userId: user.id })
+					.orderBy('favorite.id', 'ASC')
+					.take(100);
+				if (cursor) {
+					query.andWhere('favorite.id > :cursor', { cursor });
+				}
+				this.queryService.generateVisibilityQuery(query, user);
+				const favorites = await query.getMany() as (NoteFavorite & { note: Note & { user: User } })[];
 
 				if (favorites.length === 0) {
 					job.progress(100);
