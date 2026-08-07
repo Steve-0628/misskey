@@ -275,7 +275,7 @@ export class ApPersonService implements OnModuleInit {
 				throw new Error('unexpected schema of person url: ' + url);
 			}
 
-			if (this.punyHost(url) !== this.punyHost(person.id)) {
+			if (this.punyHost(url) !== this.punyHost(person.id!)) {
 				throw new Error(`person url <> uri host mismatch: ${url} <> ${person.id}`);
 			}
 		}
@@ -442,7 +442,7 @@ export class ApPersonService implements OnModuleInit {
 				throw new Error('unexpected schema of person url: ' + url);
 			}
 
-			if (this.punyHost(url) !== this.punyHost(person.id)) {
+			if (this.punyHost(url) !== this.punyHost(person.id!)) {
 				throw new Error(`person url <> uri host mismatch: ${url} <> ${person.id}`);
 			}
 		}

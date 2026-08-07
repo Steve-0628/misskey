@@ -148,7 +148,9 @@ export class TwoFactorAuthenticationService {
 		});
 		if (delta === null) return false;
 
-		const currentStep = totp.counter({ timestamp: now });
+		// OTPAuth 9.1.x does not expose TOTP.counter(); derive the RFC 6238
+		// counter from the timestamp and period instead.
+		const currentStep = Math.floor(now / (timeStep * 1000));
 		const step = currentStep + delta;
 		const secretFingerprint = crypto.createHash('sha256')
 			.update(twoFactorSecret)
