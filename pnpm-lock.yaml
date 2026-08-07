@@ -376,8 +376,8 @@ importers:
         specifier: 3.6.3
         version: 3.6.3(supports-color@8.1.1)
       ws:
-        specifier: 8.13.0
-        version: 8.13.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+        specifier: 8.21.0
+        version: 8.21.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       xev:
         specifier: 3.0.2
         version: 3.0.2
@@ -9530,8 +9530,8 @@ packages:
     resolution: {integrity: sha512-7KxauUdBmSdWnmpaGFg+ppNjKF8uNLry8LyzjauQDOVONfFLNKrKvQOxZ/VuTIcS/gge/YNahf5RIIQWTSarlg==}
     engines: {node: ^12.13.0 || ^14.15.0 || >=16.0.0}
 
-  ws@8.13.0:
-    resolution: {integrity: sha512-x9vcZYTrFPC7aSIbj7sRCYo7L/Xb8Iy+pW0ng0wt2vCJv7M9HOMy0UoN3rr+IFC7hb7vXoqS+P9ktyLLLhO+LA==}
+  ws@8.21.0:
+    resolution: {integrity: sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
@@ -10692,7 +10692,7 @@ snapshots:
     dependencies:
       '@fastify/reply-from': 9.0.1
       fastify-plugin: 4.5.0
-      ws: 8.13.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      ws: 8.21.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -16403,7 +16403,7 @@ snapshots:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 12.0.1
-      ws: 8.13.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
+      ws: 8.21.0(bufferutil@4.0.9)(utf-8-validate@6.0.5)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -19929,7 +19929,7 @@ snapshots:
       imurmurhash: 0.1.4
       signal-exit: 3.0.7
 
-  ws@8.13.0(bufferutil@4.0.9)(utf-8-validate@6.0.5):
+  ws@8.21.0(bufferutil@4.0.9)(utf-8-validate@6.0.5):
     optionalDependencies:
       bufferutil: 4.0.9
       utf-8-validate: 6.0.5
