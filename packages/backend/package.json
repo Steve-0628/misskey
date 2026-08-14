@@ -166,7 +166,7 @@
 		"@types/bcryptjs": "2.4.6",
 		"@types/cbor": "6.0.0",
 		"@types/color-convert": "2.0.0",
-		"@types/content-disposition": "0.5.5",
+		"@types/content-disposition": "0.5.9",
 		"@types/fluent-ffmpeg": "2.1.21",
 		"@types/jest": "29.5.3",
 		"@types/js-yaml": "4.0.5",
