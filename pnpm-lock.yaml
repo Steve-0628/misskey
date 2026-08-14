@@ -367,8 +367,8 @@ importers:
         specifier: 0.10.14
         version: 0.10.14
       uuid:
-        specifier: 9.0.0
-        version: 9.0.0
+        specifier: 11.1.1
+        version: 11.1.1
       vary:
         specifier: 1.1.2
         version: 1.1.2
@@ -759,8 +759,8 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
       uuid:
-        specifier: 9.0.0
-        version: 9.0.0
+        specifier: 11.1.1
+        version: 11.1.1
       vanilla-tilt:
         specifier: 1.8.0
         version: 1.8.0
@@ -6177,6 +6177,7 @@ packages:
 
   jsrsasign@11.0.0:
     resolution: {integrity: sha512-BtRwVKS+5dsgPpAtzJcpo5OoWjSs1/zllSBG0+8o8/aV0Ki76m6iZwHnwnsqoTdhfFZDN1XIdcaZr5ZkP+H2gg==}
+    deprecated: This package is no longer maintained.
 
   jssha@3.3.0:
     resolution: {integrity: sha512-w9OtT4ALL+fbbwG3gw7erAO0jvS5nfvrukGPMWIAoea359B26ALXGpzy4YJSp9yGnpUvuvOw1nSjSoHDfWSr1w==}
@@ -9200,8 +9201,8 @@ packages:
   util@0.12.5:
     resolution: {integrity: sha512-kZf/K6hEIrWHI6XqOFUiiMa+79wE/D8Q+NCNAWclkyg3b4d2k7s0QGepNjiABc+aR3N1PAyHL7p6UcLY6LmrnA==}
 
-  uuid@11.1.0:
-    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+  uuid@11.1.1:
+    resolution: {integrity: sha512-vIYxrBCC/N/K+Js3qSN88go7kIfNPssr/hHCesKCQNAjmgvYS2oqr69kIufEG+O4+PfezOH4EbIeHCfFov8ZgQ==}
     hasBin: true
 
   uuid@8.3.2:
@@ -19367,7 +19368,7 @@ snapshots:
       sha.js: 2.4.12
       sql-highlight: 6.1.0
       tslib: 2.8.1
-      uuid: 11.1.0
+      uuid: 11.1.1
       yargs: 17.7.2
     optionalDependencies:
       ioredis: 5.3.2
@@ -19515,7 +19516,7 @@ snapshots:
       is-typed-array: 1.1.15
       which-typed-array: 1.1.19
 
-  uuid@11.1.0: {}
+  uuid@11.1.1: {}
 
   uuid@8.3.2: {}
 
