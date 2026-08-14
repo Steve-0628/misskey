@@ -404,8 +404,8 @@ importers:
         specifier: 2.0.0
         version: 2.0.0
       '@types/content-disposition':
-        specifier: 0.5.5
-        version: 0.5.5
+        specifier: 0.5.9
+        version: 0.5.9
       '@types/fluent-ffmpeg':
         specifier: 2.1.21
         version: 2.1.21
@@ -2463,8 +2463,8 @@ packages:
   '@types/color-name@1.1.1':
     resolution: {integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==}
 
-  '@types/content-disposition@0.5.5':
-    resolution: {integrity: sha512-v6LCdKfK6BwcqMo+wYW05rLS12S0ZO0Fl4w1h4aaZMD7bqT3gVUns6FvLJKGZHQmYn3SX55JWGpziwJRwVgutA==}
+  '@types/content-disposition@0.5.9':
+    resolution: {integrity: sha512-8uYXI3Gw35MhiVYhG3s295oihrxRyytcRHjSjqnqZVDDy/xcGBRny7+Xj1Wgfhv5QzRtN2hB2dVRBUX9XW3UcQ==}
 
   '@types/cookie@0.4.1':
     resolution: {integrity: sha512-XW/Aa8APYr6jSVVA1y/DEIZX0/GMKLEVekNG727R8cs56ahETkRAy/3DR7+fJyh7oUgGwNQaRfXCun0+KbWY7Q==}
@@ -6177,6 +6177,7 @@ packages:
 
   jsrsasign@11.0.0:
     resolution: {integrity: sha512-BtRwVKS+5dsgPpAtzJcpo5OoWjSs1/zllSBG0+8o8/aV0Ki76m6iZwHnwnsqoTdhfFZDN1XIdcaZr5ZkP+H2gg==}
+    deprecated: This package is no longer maintained.
 
   jssha@3.3.0:
     resolution: {integrity: sha512-w9OtT4ALL+fbbwG3gw7erAO0jvS5nfvrukGPMWIAoea359B26ALXGpzy4YJSp9yGnpUvuvOw1nSjSoHDfWSr1w==}
@@ -11727,7 +11728,7 @@ snapshots:
 
   '@types/color-name@1.1.1': {}
 
-  '@types/content-disposition@0.5.5': {}
+  '@types/content-disposition@0.5.9': {}
 
   '@types/cookie@0.4.1': {}
 
