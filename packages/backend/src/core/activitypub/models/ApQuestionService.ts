@@ -1,11 +1,12 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
-import type { NotesRepository, PollsRepository } from '@/models/index.js';
+import type { NotesRepository, PollsRepository, UsersRepository } from '@/models/index.js';
 import type { Config } from '@/config.js';
 import type { IPoll } from '@/models/entities/Poll.js';
+import type { RemoteUser } from '@/models/entities/User.js';
 import type Logger from '@/logger.js';
 import { bindThis } from '@/decorators.js';
-import { isQuestion } from '../type.js';
+import { getOneApId, isQuestion } from '../type.js';
 import { ApLoggerService } from '../ApLoggerService.js';
 import { ApResolverService } from '../ApResolverService.js';
 import type { Resolver } from '../ApResolverService.js';
@@ -24,6 +25,9 @@ export class ApQuestionService {
 
 		@Inject(DI.pollsRepository)
 		private pollsRepository: PollsRepository,
+
+		@Inject(DI.usersRepository)
+		private usersRepository: UsersRepository,
 
 		private apResolverService: ApResolverService,
 		private apLoggerService: ApLoggerService,
@@ -60,7 +64,7 @@ export class ApQuestionService {
 	 * @returns true if updated
 	 */
 	@bindThis
-	public async updateQuestion(value: string | IObject, resolver?: Resolver): Promise<boolean> {
+	public async updateQuestion(value: string | IObject, actor: RemoteUser, resolver?: Resolver): Promise<boolean> {
 		const uri = typeof value === 'string' ? value : value.id;
 		if (uri == null) throw new Error('uri is null');
 
@@ -73,6 +77,9 @@ export class ApQuestionService {
 
 		const poll = await this.pollsRepository.findOneBy({ noteId: note.id });
 		if (poll == null) throw new Error('Question is not registed');
+		const user = await this.usersRepository.findOneBy({ id: note.userId });
+		if (user?.uri == null) throw new Error('Question author is not a remote user');
+		if (actor.uri !== user.uri) throw new Error('Update actor does not own Question');
 		//#endregion
 
 		// resolve new Question object
@@ -82,6 +89,9 @@ export class ApQuestionService {
 		this.logger.debug(`fetched question: ${JSON.stringify(question, null, 2)}`);
 
 		if (question.type !== 'Question') throw new Error('object is not a Question');
+		if (question.attributedTo == null || getOneApId(question.attributedTo) !== user.uri) {
+			throw new Error('Question attributedTo does not match original author');
+		}
 
 		const apChoices = question.oneOf ?? question.anyOf;
 		if (apChoices == null) throw new Error('invalid apChoices: ' + apChoices);
@@ -91,7 +101,7 @@ export class ApQuestionService {
 		for (const choice of poll.choices) {
 			const oldCount = poll.votes[poll.choices.indexOf(choice)];
 			const newCount = apChoices.filter(ap => ap.name === choice).at(0)?.replies?.totalItems;
-			if (newCount == null) throw new Error('invalid newCount: ' + newCount);
+			if (newCount == null || !Number.isInteger(newCount) || newCount < 0) throw new Error('invalid newCount: ' + newCount);
 
 			if (oldCount !== newCount) {
 				changed = true;
