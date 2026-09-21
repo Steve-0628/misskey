@@ -413,8 +413,8 @@ importers:
         specifier: 29.5.3
         version: 29.5.3
       '@types/js-yaml':
-        specifier: 4.0.5
-        version: 4.0.5
+        specifier: 4.0.9
+        version: 4.0.9
       '@types/jsdom':
         specifier: 21.1.1
         version: 21.1.1
@@ -2541,8 +2541,8 @@ packages:
   '@types/js-levenshtein@1.1.1':
     resolution: {integrity: sha512-qC4bCqYGy1y/NP7dDVr7KJarn+PbX1nSpwA7JXdu0HxT3QYjO8MJ+cntENtHFVy2dRAyBV23OZ6MxsW1AM1L8g==}
 
-  '@types/js-yaml@4.0.5':
-    resolution: {integrity: sha512-FhpRzf927MNQdRZP0J5DLIdTXhjLYzeUTmLAu69mnVksLH9CJY3IuSeEgbKUki7GQZm0WqDkGzyxju2EZGD2wA==}
+  '@types/js-yaml@4.0.9':
+    resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
 
   '@types/jsdom@21.1.1':
     resolution: {integrity: sha512-cZFuoVLtzKP3gmq9eNosUL1R50U+USkbLtUQ1bYVgl/lKp0FZM7Cq4aIHAL8oIvQ17uSHi7jXPtfDOdjPwBE7A==}
@@ -11824,7 +11824,7 @@ snapshots:
 
   '@types/js-levenshtein@1.1.1': {}
 
-  '@types/js-yaml@4.0.5': {}
+  '@types/js-yaml@4.0.9': {}
 
   '@types/jsdom@21.1.1':
     dependencies:
