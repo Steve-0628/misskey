@@ -37,8 +37,8 @@ importers:
         version: 5.9.3
     devDependencies:
       '@types/gulp':
-        specifier: 4.0.10
-        version: 4.0.10
+        specifier: 4.0.18
+        version: 4.0.18
       '@types/gulp-rename':
         specifier: 2.0.1
         version: 2.0.1
@@ -790,8 +790,8 @@ importers:
         specifier: 1.0.9
         version: 1.0.9
       '@types/gulp':
-        specifier: 4.0.13
-        version: 4.0.13
+        specifier: 4.0.18
+        version: 4.0.18
       '@types/gulp-rename':
         specifier: 2.0.2
         version: 2.0.2
@@ -2490,14 +2490,8 @@ packages:
   '@types/fluent-ffmpeg@2.1.21':
     resolution: {integrity: sha512-+n3dy/Tegt6n+YwGZUiGq6i8Jrnt8+MoyPiW1L6J5EWUl7GSt18a/VyReecfCsvTTNBXNMIKOMHDstiQM8nJLA==}
 
-  '@types/glob-stream@6.1.1':
-    resolution: {integrity: sha512-AGOUTsTdbPkRS0qDeyeS+6KypmfVpbT5j23SN8UPG63qjKXNKjXn6V9wZUr8Fin0m9l8oGYaPK8b2WUMF8xI1A==}
-
   '@types/glob-stream@8.0.3':
     resolution: {integrity: sha512-vctgrT9AH/GK3TRaIbRUU0TZn12GBU4kzelZdPyJp1Sc8L/6Wrq21UrtN4+x4saqTg6COUIUtFV6JSYcVln/EQ==}
-
-  '@types/glob@8.1.0':
-    resolution: {integrity: sha512-IO+MJPVhoqz+28h1qLAcBEH2+xHMK6MTyHJc7MTnnYb6wsoLR29POVGJ7LycmVXIqyy/4/2ShP5sUwTXuOwb/w==}
 
   '@types/graceful-fs@4.1.6':
     resolution: {integrity: sha512-Sig0SNORX9fdW+bQuTEovKj3uHcUL6LQKbCrrqb1X7J6/ReAbhCXRAhc+SMejhLELFj2QcyuxmUooZ4bt5ReSw==}
@@ -2508,11 +2502,8 @@ packages:
   '@types/gulp-rename@2.0.2':
     resolution: {integrity: sha512-CQsXqTVtAXqrPd4IbrrlJEEzRkUR3RXsyZbrVoOVqjlchDDmnyRDatAUisjpQjjCg/wjJrSiNg8T1uAbJ/7Qqg==}
 
-  '@types/gulp@4.0.10':
-    resolution: {integrity: sha512-spgZHJFqiEJGwqGlf7T/k4nkBpBcLgP7T0EfN6G2vvnhUfvd4uO1h8RwpXOE8x/54DVYUs1XCAtBHkX/R3axAQ==}
-
-  '@types/gulp@4.0.13':
-    resolution: {integrity: sha512-Ms20Q2tZ3MpThZGn4Ag6e7ifz/oQJFxsuiopqz5oHmhE6q2ohnELgafi5K/pKX/4ntlpidS61v/TXAguYsVcaA==}
+  '@types/gulp@4.0.18':
+    resolution: {integrity: sha512-IqkYa4sXkwH2uwqO2aXYOoAisJpLX13BPaS6lmEAoG4BbgOay3qqGQFsT9LMSSQVMQlEKU7wTUW0sPV46V0olw==}
 
   '@types/http-cache-semantics@4.0.4':
     resolution: {integrity: sha512-1m0bIFVc7eJWyve9S0RnuRgcQqF/Xd5QsUZAZeQFr1Q3/p9JWoQQEqmVy+DPTNpGXwhgIetAoYF8JSc33q29QA==}
@@ -2576,9 +2567,6 @@ packages:
 
   '@types/mime-types@2.1.1':
     resolution: {integrity: sha512-vXOTGVSLR2jMw440moWTC7H19iUyLtP3Z1YTj7cSsubOICinjMxFeb/V57v9QdyyPGbbWolUFSSmSiRSn94tFw==}
-
-  '@types/minimatch@5.1.2':
-    resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
 
   '@types/minimist@1.2.2':
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
@@ -2690,17 +2678,11 @@ packages:
   '@types/tough-cookie@4.0.2':
     resolution: {integrity: sha512-Q5vtl1W5ue16D+nIaW8JWebSSraJVlK+EthKn7e7UcD4KWsaSJ8BqGPXNaPghgtcn/fhvrN17Tv8ksUsQpiplw==}
 
-  '@types/undertaker-registry@1.0.1':
-    resolution: {integrity: sha512-Z4TYuEKn9+RbNVk1Ll2SS4x1JeLHecolIbM/a8gveaHsW0Hr+RQMraZACwTO2VD7JvepgA6UO1A1VrbktQrIbQ==}
-
   '@types/undertaker-registry@1.0.4':
     resolution: {integrity: sha512-tW77pHh2TU4uebWXWeEM5laiw8BuJ7pyJYDh6xenOs75nhny2kVgwYbegJ4BoLMYsIrXaBpKYaPdYO3/udG+hg==}
 
   '@types/undertaker@1.2.12':
     resolution: {integrity: sha512-52BiBni1srlIx/o7anEB1Y230yr3+21P0utA4VXLyeyeR2gHANKi5kJ/e0FakD4RYEXX0D9dOC7PDrVqL1j98Q==}
-
-  '@types/undertaker@1.2.8':
-    resolution: {integrity: sha512-gW3PRqCHYpo45XFQHJBhch7L6hytPsIe0QeLujlnFsjHPnXLhJcPdN6a9368d7aIQgH2I/dUTPFBlGeSNA3qOg==}
 
   '@types/unzipper@0.10.6':
     resolution: {integrity: sha512-zcBj329AHgKLQyz209N/S9R0GZqXSkUQO4tJSYE3x02qg4JuDFpgKMj50r82Erk1natCWQDIvSccDddt7jPzjA==}
@@ -2710,9 +2692,6 @@ packages:
 
   '@types/vary@1.1.0':
     resolution: {integrity: sha512-LQWqrIa0dvEOOH37lGksMEXbypRLUFqu6Gx0pmX7zIUisD2I/qaVgEX/vJ/PSVSW0Hk6yz1BNkFpqg6dZm3Wug==}
-
-  '@types/vinyl-fs@2.4.12':
-    resolution: {integrity: sha512-LgBpYIWuuGsihnlF+OOWWz4ovwCYlT03gd3DuLwex50cYZLmX3yrW+sFF9ndtmh7zcZpS6Ri47PrIu+fV+sbXw==}
 
   '@types/vinyl-fs@3.0.7':
     resolution: {integrity: sha512-ojGFhBnh5pj5Crf2yBOk3rjJXUX2U4W9z6tZ7hn6pUbQa/J8KH8NrXem0POYVQWI3ifnx4T65DPktuWfxc3iiA==}
@@ -11755,21 +11734,11 @@ snapshots:
     dependencies:
       '@types/node': 22.13.14
 
-  '@types/glob-stream@6.1.1':
-    dependencies:
-      '@types/glob': 8.1.0
-      '@types/node': 22.13.14
-
   '@types/glob-stream@8.0.3':
     dependencies:
       '@types/node': 22.13.14
       '@types/picomatch': 4.0.2
       '@types/streamx': 2.9.5
-
-  '@types/glob@8.1.0':
-    dependencies:
-      '@types/minimatch': 5.1.2
-      '@types/node': 22.13.14
 
   '@types/graceful-fs@4.1.6':
     dependencies:
@@ -11785,16 +11754,11 @@ snapshots:
       '@types/node': 22.13.14
       '@types/vinyl': 2.0.7
 
-  '@types/gulp@4.0.10':
+  '@types/gulp@4.0.18':
     dependencies:
+      '@types/node': 22.13.14
       '@types/undertaker': 1.2.12
       '@types/vinyl-fs': 3.0.7
-      chokidar: 3.5.3
-
-  '@types/gulp@4.0.13':
-    dependencies:
-      '@types/undertaker': 1.2.8
-      '@types/vinyl-fs': 2.4.12
       chokidar: 3.5.3
 
   '@types/http-cache-semantics@4.0.4': {}
@@ -11855,8 +11819,6 @@ snapshots:
       '@types/braces': 3.0.1
 
   '@types/mime-types@2.1.1': {}
-
-  '@types/minimatch@5.1.2': {}
 
   '@types/minimist@1.2.2': {}
 
@@ -11964,20 +11926,12 @@ snapshots:
 
   '@types/tough-cookie@4.0.2': {}
 
-  '@types/undertaker-registry@1.0.1': {}
-
   '@types/undertaker-registry@1.0.4': {}
 
   '@types/undertaker@1.2.12':
     dependencies:
       '@types/node': 22.13.14
       '@types/undertaker-registry': 1.0.4
-      async-done: 1.3.2
-
-  '@types/undertaker@1.2.8':
-    dependencies:
-      '@types/node': 22.13.14
-      '@types/undertaker-registry': 1.0.1
       async-done: 1.3.2
 
   '@types/unzipper@0.10.6':
@@ -11989,12 +11943,6 @@ snapshots:
   '@types/vary@1.1.0':
     dependencies:
       '@types/node': 22.13.14
-
-  '@types/vinyl-fs@2.4.12':
-    dependencies:
-      '@types/glob-stream': 6.1.1
-      '@types/node': 22.13.14
-      '@types/vinyl': 2.0.12
 
   '@types/vinyl-fs@3.0.7':
     dependencies:
