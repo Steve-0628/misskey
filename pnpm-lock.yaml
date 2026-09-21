@@ -784,8 +784,8 @@ importers:
         specifier: 7.0.0
         version: 7.0.0(@vue/compiler-sfc@3.3.4)(vue@3.3.4)
       '@types/escape-regexp':
-        specifier: 0.0.1
-        version: 0.0.1
+        specifier: 0.0.3
+        version: 0.0.3
       '@types/estree':
         specifier: 1.0.9
         version: 1.0.9
@@ -2475,8 +2475,8 @@ packages:
   '@types/disposable-email-domains@1.0.2':
     resolution: {integrity: sha512-SDKwyYTjk3y5aZBxxc38yRecpJPjsqn57STz1bNxYYlv4k11bBe7QB8w4llXDTmQXKT1mFvgGmJv+8Zdu3YmJw==}
 
-  '@types/escape-regexp@0.0.1':
-    resolution: {integrity: sha512-ogj/ZTIdeFkiuxDwawYuZSIgC6suFGgBeZPr6Xs5lHEcvIXTjXGtH+/n8f1XhZhespaUwJ5LIGRICPji972FLw==}
+  '@types/escape-regexp@0.0.3':
+    resolution: {integrity: sha512-FQMYUxaf1dVeWLUzJFSvfdDugfOpDyM13p67QfyMdagxSkBa689opkr/q9uR/VWyrWrl0jAyQaSPKxX9MpAXFw==}
 
   '@types/eslint@7.29.0':
     resolution: {integrity: sha512-VNcvioYDH8/FxaeTKkM4/TiTwt6pBV9E3OfGmvaw8tPl0rrHCJ4Ll15HRT+pMiFAf/MLQvAzC+6RzUMEL9Ceng==}
@@ -11740,7 +11740,7 @@ snapshots:
 
   '@types/disposable-email-domains@1.0.2': {}
 
-  '@types/escape-regexp@0.0.1': {}
+  '@types/escape-regexp@0.0.3': {}
 
   '@types/eslint@7.29.0':
     dependencies:
