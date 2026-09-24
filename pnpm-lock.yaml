@@ -367,8 +367,8 @@ importers:
         specifier: 0.10.14
         version: 0.10.14
       uuid:
-        specifier: 9.0.0
-        version: 9.0.0
+        specifier: 11.1.1
+        version: 11.1.1
       vary:
         specifier: 1.1.2
         version: 1.1.2
@@ -759,8 +759,8 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
       uuid:
-        specifier: 9.0.0
-        version: 9.0.0
+        specifier: 11.1.1
+        version: 11.1.1
       vanilla-tilt:
         specifier: 1.8.0
         version: 1.8.0
