@@ -94,6 +94,7 @@ function createConnection(partial: Partial<Connection> = {}): Connection {
 		userIdsWhoBlockingMe: new Set<string>(),
 		subscriber: new EventEmitter() as unknown as StreamEventEmitter,
 		cacheNote: jest.fn(),
+		canUse: jest.fn().mockReturnValue(true),
 		sendMessageToWs: jest.fn(),
 		...partial,
 	} as unknown as Connection;
@@ -124,6 +125,36 @@ describe('MainChannel', () => {
 	});
 
 	describe('onMainStreamData', () => {
+		test('does not send notifications to an account-only app', async () => {
+			const noteEntityService = createNoteEntityService();
+			const connection = createConnection({
+				canUse: (permission: string) => permission === 'read:account',
+			});
+			const service = new MainChannelService(noteEntityService);
+			const channel = service.create('channel1', connection);
+			await channel.init({});
+
+			connection.subscriber.emit('mainStream:user1', { type: 'notification', body: { id: 'private' } });
+			await flushPromises();
+
+			expect(connection.sendMessageToWs).not.toHaveBeenCalled();
+		});
+
+		test('does not send drive events to an account-only app', async () => {
+			const noteEntityService = createNoteEntityService();
+			const connection = createConnection({
+				canUse: (permission: string) => permission === 'read:account',
+			});
+			const service = new MainChannelService(noteEntityService);
+			const channel = service.create('channel1', connection);
+			await channel.init({});
+
+			connection.subscriber.emit('mainStream:user1', { type: 'driveFileCreated', body: { id: 'private' } });
+			await flushPromises();
+
+			expect(connection.sendMessageToWs).not.toHaveBeenCalled();
+		});
+
 		test('forwards unrelated event types', async () => {
 			const noteEntityService = createNoteEntityService();
 			const connection = createConnection();

@@ -315,6 +315,26 @@ describe('Connection', () => {
 			expect(notificationService.readAllNotification).toHaveBeenCalledWith('user1');
 		});
 
+		test('does not mark notifications read with a read-only app token', async () => {
+			connection.user = createUser();
+			connection.token = createAccessToken({ permission: ['read:notifications'] });
+
+			sendWsMessage({ type: 'readNotification' });
+			await flushPromises();
+
+			expect(notificationService.readAllNotification).not.toHaveBeenCalled();
+		});
+
+		test('marks notifications read with the write scope', async () => {
+			connection.user = createUser();
+			connection.token = createAccessToken({ permission: ['write:notifications'] });
+
+			sendWsMessage({ type: 'readNotification' });
+			await flushPromises();
+
+			expect(notificationService.readAllNotification).toHaveBeenCalledWith('user1');
+		});
+
 		test('handles subNote message', async () => {
 			sendWsMessage({ type: 'subNote', body: { id: 'note1' } });
 			await flushPromises();
@@ -430,6 +450,36 @@ describe('Connection', () => {
 	});
 
 	describe('connectChannel', () => {
+		test('rejects drive channel without the drive scope', () => {
+			connection = createConnection(createUser(), createAccessToken({ permission: ['read:account'] }));
+			const channelService = createChannelService('drive');
+			channelsService.getChannelService.mockReturnValue(channelService);
+
+			connection.connectChannel('conn1', {}, 'drive');
+
+			expect(channelService.create).not.toHaveBeenCalled();
+		});
+
+		test('allows drive channel with the drive scope', () => {
+			connection = createConnection(createUser(), createAccessToken({ permission: ['read:drive'] }));
+			const channelService = createChannelService('drive');
+			channelsService.getChannelService.mockReturnValue(channelService);
+
+			connection.connectChannel('conn1', {}, 'drive');
+
+			expect(channelService.create).toHaveBeenCalledTimes(1);
+		});
+
+		test('rejects private timeline channels for app tokens', () => {
+			connection = createConnection(createUser(), createAccessToken({ permission: ['read:account'] }));
+			const channelService = createChannelService('homeTimeline');
+			channelsService.getChannelService.mockReturnValue(channelService);
+
+			connection.connectChannel('conn1', {}, 'homeTimeline');
+
+			expect(channelService.create).not.toHaveBeenCalled();
+		});
+
 		test('requires credential when channel requires it and user is absent', async () => {
 			connection = createConnection();
 			const channel = createChannel('conn1', 'main');

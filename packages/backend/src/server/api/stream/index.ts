@@ -43,6 +43,31 @@ export default class Connection {
 		if (token) this.token = token;
 	}
 
+	public canUse(permission: string): boolean {
+		return this.token == null || this.token.permission.includes(permission);
+	}
+
+	private canConnectChannel(channel: string): boolean {
+		if (this.token == null) return true;
+
+		switch (channel) {
+			case 'main':
+				return ['read:account', 'read:notifications', 'read:drive', 'read:following']
+					.some(permission => this.canUse(permission));
+			case 'drive': return this.canUse('read:drive');
+			case 'antenna': return this.canUse('read:account');
+			case 'localTimeline':
+			case 'globalTimeline':
+			case 'hashtag':
+			case 'roleTimeline':
+			case 'serverStats':
+			case 'queueStats':
+				return true;
+			default:
+				return false;
+		}
+	}
+
 	@bindThis
 	public async fetch() {
 		if (this.user == null) return;
@@ -139,6 +164,7 @@ export default class Connection {
 
 	@bindThis
 	private readNote(body: any) {
+		if (!this.canUse('write:account')) return;
 		const id = body.id;
 
 		const note = this.cachedNotes.find(n => n.id === id);
@@ -151,7 +177,8 @@ export default class Connection {
 
 	@bindThis
 	private onReadNotification(payload: any) {
-		this.notificationService.readAllNotification(this.user!.id);
+		if (this.user == null || !this.canUse('write:notifications')) return;
+		this.notificationService.readAllNotification(this.user.id);
 	}
 
 	/**
@@ -229,6 +256,8 @@ export default class Connection {
 	 */
 	@bindThis
 	public connectChannel(id: string, params: any, channel: string, pong = false) {
+		if (!this.canConnectChannel(channel)) return;
+		if (this.user == null && ['main', 'homeTimeline', 'hybridTimeline', 'userList', 'antenna', 'drive', 'admin'].includes(channel)) return;
 		const channelService = this.channelsService.getChannelService(channel);
 
 		if (channelService.requireCredential && this.user == null) {
