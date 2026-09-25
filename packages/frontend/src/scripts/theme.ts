@@ -94,24 +94,47 @@ export function applyTheme(theme: Theme, persist = true) {
 	globalEvents.emit('themeChanged');
 }
 
+const MAX_THEME_REFERENCE_DEPTH = 8;
+
 function compile(theme: Theme): Record<string, string> {
-	function getColor(val: string): tinycolor.Instance {
+	function getThemeReferenceColor(key: string, stack: string[], depth: number): tinycolor.Instance {
+		if (depth >= MAX_THEME_REFERENCE_DEPTH) {
+			throw new Error('Theme reference limit exceeded');
+		}
+
+		if (stack.includes(key)) {
+			throw new Error('Theme contains circular references');
+		}
+
+		const nextValue = theme.props[key];
+		if (typeof nextValue !== 'string') {
+			throw new Error(`Theme references missing property: ${key}`);
+		}
+
+		return getColor(nextValue, [...stack, key], depth + 1);
+	}
+
+	function getColor(val: string, stack: string[] = [], depth = 0): tinycolor.Instance {
 		// ref (prop)
 		if (val[0] === '@') {
-			return getColor(theme.props[val.substring(1)]);
+			return getThemeReferenceColor(val.substring(1), stack, depth);
 		}
 
 		// ref (const)
 		else if (val[0] === '$') {
-			return getColor(theme.props[val]);
+			return getThemeReferenceColor(val, stack, depth);
 		}
 
 		// func
 		else if (val[0] === ':') {
+			if (depth >= MAX_THEME_REFERENCE_DEPTH) {
+				throw new Error('Theme reference limit exceeded');
+			}
+
 			const parts = val.split('<');
 			const func = parts.shift().substring(1);
 			const arg = parseFloat(parts.shift());
-			const color = getColor(parts.join('<'));
+			const color = getColor(parts.join('<'), stack, depth + 1);
 
 			switch (func) {
 				case 'darken': return color.darken(arg);

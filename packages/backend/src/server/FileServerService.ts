@@ -210,6 +210,13 @@ export class FileServerService {
 
 	@bindThis
 	private async proxyHandler(request: FastifyRequest<{ Params: { url: string; }; Querystring: { url?: string; }; }>, reply: FastifyReply) {
+		const userAgent = request.headers['user-agent'];
+		if (typeof userAgent !== 'string' || userAgent.includes('Misskey/')) {
+			// Prevent media-proxy recursion/amplification. Misskey's own outbound
+			// requests identify themselves with a Misskey/* User-Agent.
+			reply.code(403);
+			return;
+		}
 		const url = 'url' in request.query ? request.query.url : 'https://' + request.params.url;
 
 		if (typeof url !== 'string') {
