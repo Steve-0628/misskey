@@ -1,10 +1,12 @@
 import * as http from 'node:http';
 import * as https from 'node:https';
 import * as net from 'node:net';
+import * as dns from 'node:dns/promises';
 import ipaddr from 'ipaddr.js';
 import CacheableLookup from 'cacheable-lookup';
 import fetch from 'node-fetch';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
+import type { HttpProxyAgentOptions, HttpsProxyAgentOptions } from 'hpagent';
 import { Inject, Injectable } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
@@ -21,9 +23,12 @@ export type HttpRequestSendOptions = {
 	validators?: ((res: Response) => void)[];
 };
 
+type ProxyRequestOptions = http.ClientRequestArgs & { servername?: string };
+
 declare module 'node:http' {
 	interface Agent {
 		createConnection(options: net.NetConnectOpts, callback?: (err: unknown, stream: net.Socket) => void): net.Socket;
+		addRequest(request: http.ClientRequest, options: ProxyRequestOptions): void;
 	}
 }
 
@@ -38,6 +43,73 @@ function isPrivateIp(config: Config, ip: string): boolean {
 	}
 
 	return parsedIp.range() !== 'unicast';
+}
+
+async function resolveProxyTarget(config: Config, hostname: string): Promise<string> {
+	const host = hostname.startsWith('[') && hostname.endsWith(']') ? hostname.slice(1, -1) : hostname;
+	const addresses = ipaddr.isValid(host)
+		? [host]
+		: (await dns.lookup(host, { all: true })).map(result => result.address);
+
+	if (addresses.length === 0 || addresses.some(address => isPrivateIp(config, address))) {
+		throw new Error(`Blocked proxy target: ${hostname}`);
+	}
+
+	// CONNECT to the checked address, so the proxy cannot resolve the hostname
+	// again to a private address after this check.
+	const address = addresses[0];
+	return address.includes(':') ? `[${address}]` : address;
+}
+
+function addGuardedProxyRequest(
+	config: Config,
+	request: http.ClientRequest,
+	options: ProxyRequestOptions,
+	addRequest: (options: ProxyRequestOptions) => void,
+): void {
+	const reject = (error: Error): void => {
+		queueMicrotask(() => {
+			request.emit('error', error);
+			request.destroy();
+		});
+	};
+
+	if (process.env.NODE_ENV !== 'production') {
+		addRequest(options);
+		return;
+	}
+
+	const hostname = options.hostname ?? options.host;
+	if (hostname == null) {
+		reject(new Error('Proxy target has no hostname'));
+		return;
+	}
+
+	void resolveProxyTarget(config, hostname).then(address => {
+		if (!request.destroyed) {
+			addRequest({ ...options, host: address, hostname: address, servername: hostname });
+		}
+	}, reject);
+}
+
+class SafeHttpProxyAgent extends HttpProxyAgent {
+	constructor(private config: Config, options: HttpProxyAgentOptions) {
+		super(options);
+	}
+
+	public addRequest(request: http.ClientRequest, options: ProxyRequestOptions): void {
+		addGuardedProxyRequest(this.config, request, options, resolved => super.addRequest(request, resolved));
+	}
+}
+
+class SafeHttpsProxyAgent extends HttpsProxyAgent {
+	constructor(private config: Config, options: HttpsProxyAgentOptions) {
+		super(options);
+	}
+
+	public addRequest(request: http.ClientRequest, options: ProxyRequestOptions): void {
+		addGuardedProxyRequest(this.config, request, options, resolved => super.addRequest(request, resolved));
+	}
 }
 
 class HttpRequestServiceAgent extends http.Agent {
@@ -124,7 +196,7 @@ export class HttpRequestService {
 		const maxSockets = Math.max(256, config.deliverJobConcurrency ?? 128);
 
 		this.httpAgent = config.proxy
-			? new HttpProxyAgent({
+			? new SafeHttpProxyAgent(config, {
 				keepAlive: true,
 				keepAliveMsecs: 30 * 1000,
 				maxSockets,
@@ -135,7 +207,7 @@ export class HttpRequestService {
 			: this.http;
 
 		this.httpsAgent = config.proxy
-			? new HttpsProxyAgent({
+			? new SafeHttpsProxyAgent(config, {
 				keepAlive: true,
 				keepAliveMsecs: 30 * 1000,
 				maxSockets,
@@ -228,7 +300,7 @@ export class HttpRequestService {
 		const controller = new AbortController();
 		setTimeout(() => {
 			controller.abort();
-		}, timeout);
+		}, timeout).unref();
 
 		const res = await fetch(url, {
 			method: args.method ?? 'GET',
