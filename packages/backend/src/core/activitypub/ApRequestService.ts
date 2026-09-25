@@ -195,7 +195,7 @@ export class ApRequestService {
 
 		const finalUrl = res.url;
 		const activity = await res.json() as IObject;
-		assertActivityMatchesUrls(url, activity, [finalUrl]);
+		assertActivityMatchesUrls(url, activity, finalUrl);
 
 		return activity;
 	}
