@@ -68,9 +68,6 @@ export class StreamingApiServerService {
 			try {
 				[user, app] = await this.authenticateService.authenticate(token);
 
-				if (app !== null && !app.permission.some(p => p === 'read:account')) {
-					throw new AuthenticationError('Your app does not have necessary permissions to use websocket API.');
-				}
 			} catch (e) {
 				if (e instanceof AuthenticationError) {
 					socket.write([
