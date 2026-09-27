@@ -2,6 +2,7 @@ import * as crypto from 'node:crypto';
 import { Injectable } from '@nestjs/common';
 import { HttpRequestService } from '@/core/HttpRequestService.js';
 import { bindThis } from '@/decorators.js';
+import { validateContentTypeSetAsJsonLD } from './misc/validator.js';
 import { CONTEXT, PRELOADED_CONTEXTS } from './misc/contexts.js';
 import type { JsonLdDocument } from 'jsonld';
 import type { JsonLd as JsonLdObject, RemoteDocument } from 'jsonld/jsonld-spec.js';
@@ -9,6 +10,15 @@ import type { JsonLd as JsonLdObject, RemoteDocument } from 'jsonld/jsonld-spec.
 // RsaSignature2017 based from https://github.com/transmute-industries/RsaSignature2017
 
 class JsonLd {
+	private static readonly forbiddenDirectives = new Set([
+		'@included',
+		'@graph',
+		'@reverse',
+	]);
+
+	private frozen = false;
+	private cache: Map<string, RemoteDocument> = new Map();
+
 	public debug = false;
 	public preLoad = true;
 	public loderTimeout = 5000;
@@ -104,6 +114,28 @@ class JsonLd {
 	}
 
 	@bindThis
+	public checkForForbiddenDirectives(value: unknown): void {
+		if (value === null || typeof value !== 'object') return;
+
+		if (Array.isArray(value)) {
+			for (const item of value) this.checkForForbiddenDirectives(item);
+			return;
+		}
+
+		for (const [key, child] of Object.entries(value)) {
+			if (JsonLd.forbiddenDirectives.has(key)) {
+				throw new Error(`${key} is forbidden by Misskey in ActivityPub documents`);
+			}
+			this.checkForForbiddenDirectives(child);
+		}
+	}
+
+	@bindThis
+	public freeze(): void {
+		this.frozen = true;
+	}
+
+	@bindThis
 	private getLoader() {
 		return async (url: string): Promise<RemoteDocument> => {
 			if (!/^https?:\/\//.test(url)) throw new Error(`Invalid URL ${url}`);
@@ -119,13 +151,25 @@ class JsonLd {
 				}
 			}
 
+			const cached = this.cache.get(url);
+			if (cached) {
+				if (this.debug) console.debug(`HIT: ${url}`);
+				return cached;
+			}
+
 			if (this.debug) console.debug(`MISS: ${url}`);
+			if (this.frozen) throw new Error('attempt to insert into frozen JSON-LD context cache');
+
 			const document = await this.fetchDocument(url);
-			return {
+			this.checkForForbiddenDirectives(document);
+			const remoteDocument: RemoteDocument = {
 				contextUrl: undefined,
 				document: document,
 				documentUrl: url,
 			};
+			this.cache.set(url, remoteDocument);
+			if (this.cache.size > 256) throw new Error('JSON-LD context cache overflow');
+			return remoteDocument;
 		};
 	}
 
@@ -139,7 +183,10 @@ class JsonLd {
 				},
 				timeout: this.loderTimeout,
 			},
-			{ throwErrorWhenResponseNotOk: false },
+			{
+				throwErrorWhenResponseNotOk: false,
+				validators: [validateContentTypeSetAsJsonLD],
+			},
 		).then(res => {
 			if (!res.ok) {
 				throw new Error(`${res.status} ${res.statusText}`);

@@ -145,25 +145,30 @@ export class InboxProcessorService {
 
 				const jsonLd = this.jsonLdService.use();
 
-				// LD-Signature検証
-				// const ldSignature = this.ldSignatureService.use();
-				// const verified = await ldSignature.verifyRsaSignature2017(activity, authUser.key.keyPem).catch(() => false);
-				const verified = await jsonLd.verifyRsaSignature2017(activity, authUser.key.keyPem).catch(() => false);
-				if (!verified) {
-					return 'skip: LD-Signatureの検証に失敗しました';
+				try {
+					jsonLd.checkForForbiddenDirectives(activity);
+				} catch (e) {
+					return `skip: forbidden JSON-LD directive: ${e}`;
 				}
 
-				+				// アクティビティを正規化
+				// Verify and process the exact same JSON-LD graph. First compact while
+				// context fetching is allowed, then freeze the loader before verifying.
 				delete activity.signature;
 				try {
 					activity = await jsonLd.compact(activity) as IActivity;
+					jsonLd.checkForForbiddenDirectives(activity);
 				} catch (e) {
 					this.logger.error(`Failed to compact activity: ${e}`);
 					throw job.discard();
 				}
-				// TODO: 元のアクティビティと非互換な形に正規化される場合は転送をスキップする
-				// https://github.com/mastodon/mastodon/blob/664b0ca/app/services/activitypub/process_collection_service.rb#L24-L29
+
 				activity.signature = ldSignature;
+				jsonLd.freeze();
+
+				const verified = await jsonLd.verifyRsaSignature2017(activity, authUser.key.keyPem).catch(() => false);
+				if (!verified) {
+					return 'skip: LD-Signatureの検証に失敗しました';
+				}
 
 				//#region Log
 				const compactedInfo = Object.assign({}, activity);

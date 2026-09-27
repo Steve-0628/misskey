@@ -3,7 +3,6 @@ process.env.NODE_ENV = 'test';
 import { jest } from '@jest/globals';
 import { describe, test, expect } from '@jest/globals';
 import bcrypt from 'bcryptjs';
-import * as OTPAuth from 'otpauth';
 import { SigninApiService } from '@/server/api/SigninApiService.js';
 import type { Config } from '@/config.js';
 import type { UsersRepository, UserSecurityKeysRepository, UserProfilesRepository, AttestationChallengesRepository, SigninsRepository } from '@/models/index.js';
@@ -95,7 +94,8 @@ function createService() {
 	const twoFactorAuthenticationService = {
 		hash: jest.fn().mockReturnValue(Buffer.from('hash')),
 		verifySignin: jest.fn().mockReturnValue(true),
-	} as unknown as TwoFactorAuthenticationService;
+		verifyTotp: jest.fn<() => Promise<boolean>>().mockResolvedValue(true),
+	} as unknown as jest.Mocked<TwoFactorAuthenticationService>;
 
 	const service = new SigninApiService(
 		config,
@@ -183,33 +183,33 @@ describe('SigninApiService', () => {
 
 	test('signs in with valid 2fa token', async () => {
 		const { service, mocks } = createService();
-		const secret = new OTPAuth.Secret({ size: 20 });
-		const totp = new OTPAuth.TOTP({ secret, digits: 6 });
 		mocks.userProfilesRepository.findOneByOrFail.mockResolvedValue(createProfile({
 			twoFactorEnabled: true,
-			twoFactorSecret: secret.base32,
+			twoFactorSecret: 'test-secret',
 			password: await hashPassword('pass'),
 		}));
 		const reply = createReply();
 
-		const result = await service.signin(createRequest({ username: 'alice', password: 'pass', token: totp.generate() }), reply);
+		const result = await service.signin(createRequest({ username: 'alice', password: 'pass', token: '123456' }), reply);
 
+		expect(mocks.twoFactorAuthenticationService.verifyTotp).toHaveBeenCalledWith('user1', 'test-secret', '123456');
 		expect(mocks.signinService.signin).toHaveBeenCalled();
 		expect(result).toEqual({ success: true });
 	});
 
 	test('returns 403 with invalid 2fa token', async () => {
 		const { service, mocks } = createService();
-		const secret = new OTPAuth.Secret({ size: 20 });
+		mocks.twoFactorAuthenticationService.verifyTotp.mockResolvedValue(false);
 		mocks.userProfilesRepository.findOneByOrFail.mockResolvedValue(createProfile({
 			twoFactorEnabled: true,
-			twoFactorSecret: secret.base32,
+			twoFactorSecret: 'test-secret',
 			password: await hashPassword('pass'),
 		}));
 		const reply = createReply();
 
 		const result = await service.signin(createRequest({ username: 'alice', password: 'pass', token: '000000' }), reply);
 
+		expect(mocks.twoFactorAuthenticationService.verifyTotp).toHaveBeenCalledWith('user1', 'test-secret', '000000');
 		expect(reply.code).toHaveBeenCalledWith(403);
 		expect(result).toEqual({ error: { id: 'cdf1235b-ac71-46d4-a3a6-84ccce48df6f' } });
 	});

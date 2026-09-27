@@ -1,6 +1,8 @@
 process.env.NODE_ENV = 'test';
 
 import * as crypto from 'node:crypto';
+import * as OTPAuth from 'otpauth';
+import * as lolex from '@sinonjs/fake-timers';
 import { jest } from '@jest/globals';
 import { Test } from '@nestjs/testing';
 import { TwoFactorAuthenticationService } from '@/core/TwoFactorAuthenticationService.js';
@@ -61,11 +63,20 @@ describe('TwoFactorAuthenticationService', () => {
 		const usersRepository = {
 			findOneBy: jest.fn(),
 		} as unknown as jest.Mocked<UsersRepository>;
+		const usedTokens = new Set<string>();
+		const redisClient = {
+			set: async (key: string): Promise<'OK' | null> => {
+				if (usedTokens.has(key)) return null;
+				usedTokens.add(key);
+				return 'OK';
+			},
+		};
 
 		app = await Test.createTestingModule({
 			providers: [
 				TwoFactorAuthenticationService,
 				{ provide: DI.config, useValue: config },
+				{ provide: DI.redis, useValue: redisClient },
 				{ provide: DI.usersRepository, useValue: usersRepository },
 			],
 		}).compile();
@@ -75,6 +86,21 @@ describe('TwoFactorAuthenticationService', () => {
 
 	afterEach(async () => {
 		await app.close();
+	});
+
+	describe('verifyTotp', () => {
+		test('rejects a valid token after it has been used', async () => {
+			const clock = lolex.install({ now: Date.UTC(2024, 0, 1), shouldClearNativeTimers: true });
+			try {
+				const secret = 'JBSWY3DPEHPK3PXP';
+				const token = new OTPAuth.TOTP({ secret: OTPAuth.Secret.fromBase32(secret), digits: 6, period: 30 }).generate();
+
+				await expect(service.verifyTotp('user-1', secret, token)).resolves.toBe(true);
+				await expect(service.verifyTotp('user-1', secret, token)).resolves.toBe(false);
+			} finally {
+				clock.uninstall();
+			}
+		});
 	});
 
 	describe('hash', () => {

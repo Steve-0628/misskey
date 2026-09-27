@@ -28,14 +28,10 @@ export class UrlPreviewService {
 
 	@bindThis
 	private wrap(url?: string | null): string | null {
-		return url != null
-			? url.match(/^https?:\/\//)
-				? `${this.config.mediaProxy}/preview.webp?${query({
-					url,
-					preview: '1',
-				})}`
-				: url
-			: null;
+		return url == null ? null : `${this.config.mediaProxy}/preview.webp?${query({
+			url,
+			preview: '1',
+		})}`;
 	}
 
 	@bindThis
@@ -70,10 +66,10 @@ export class UrlPreviewService {
 				await summaly(url, {
 					followRedirects: false,
 					lang: lang ?? 'ja-JP',
-					agent: this.config.proxy ? {
+					agent: {
 						http: this.httpRequestService.httpAgent,
 						https: this.httpRequestService.httpsAgent,
-					} : undefined,
+					},
 				});
 
 			this.logger.succ(`Got preview of ${url}: ${summary.title}`);

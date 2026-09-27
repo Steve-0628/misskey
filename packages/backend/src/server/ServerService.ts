@@ -65,7 +65,10 @@ export class ServerService implements OnApplicationShutdown {
 	@bindThis
 	public async launch() {
 		const fastify = Fastify({
-			trustProxy: true,
+			// Disabling this by default stops clients from spoofing their address
+			// via X-Forwarded-For to evade per-IP rate limiting. Instances that
+			// sit behind a reverse proxy they control can opt back in.
+			trustProxy: this.config.trustProxy ?? false,
 			logger: !['production', 'test'].includes(process.env.NODE_ENV ?? ''),
 		});
 		this.#fastify = fastify;

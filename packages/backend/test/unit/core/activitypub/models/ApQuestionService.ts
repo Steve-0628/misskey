@@ -4,11 +4,14 @@ import { jest } from '@jest/globals';
 import { describe, test, expect } from '@jest/globals';
 import { ApQuestionService } from '@/core/activitypub/models/ApQuestionService.js';
 import type { Config } from '@/config.js';
-import type { NotesRepository, PollsRepository } from '@/models/index.js';
+import type { NotesRepository, PollsRepository, UsersRepository } from '@/models/index.js';
 import type { ApLoggerService } from '@/core/activitypub/ApLoggerService.js';
 import type { ApResolverService } from '@/core/activitypub/ApResolverService.js';
 import type Logger from '@/logger.js';
 import type { IPoll } from '@/models/entities/Poll.js';
+import type { RemoteUser } from '@/models/entities/User.js';
+
+const questionAuthorUri = 'https://remote.example/users/alice';
 
 function createService() {
 	const config = { url: 'https://example.com' } as Config;
@@ -19,6 +22,9 @@ function createService() {
 		findOneBy: jest.fn(),
 		update: jest.fn().mockResolvedValue(undefined),
 	} as unknown as jest.Mocked<PollsRepository>;
+	const usersRepository = {
+		findOneBy: jest.fn().mockResolvedValue({ id: 'user1', uri: questionAuthorUri }),
+	} as unknown as jest.Mocked<UsersRepository>;
 	const logger = {
 		debug: jest.fn(),
 	} as unknown as Logger;
@@ -36,16 +42,21 @@ function createService() {
 		config,
 		notesRepository,
 		pollsRepository,
+		usersRepository,
 		apResolverService,
 		apLoggerService,
 	);
 
 	return {
 		service,
+		// The caller of updateQuestion(); the CVE fix requires the activity
+		// actor to be the author of the Question being updated.
+		actor: { id: 'remote1', uri: questionAuthorUri } as RemoteUser,
 		mocks: {
 			config,
 			notesRepository,
 			pollsRepository,
+			usersRepository,
 			apResolverService,
 			resolver,
 			logger,
@@ -166,48 +177,80 @@ describe('ApQuestionService', () => {
 
 	describe('updateQuestion', () => {
 		test('throws when value object has no id', async () => {
-			const { service } = createService();
+			const { service, actor } = createService();
 
-			await expect(service.updateQuestion({ type: 'Question' } as any)).rejects.toThrow('uri is null');
+			await expect(service.updateQuestion({ type: 'Question' } as any, actor)).rejects.toThrow('uri is null');
 		});
 
 		test('throws when uri points to local instance', async () => {
-			const { service } = createService();
+			const { service, actor } = createService();
 
-			await expect(service.updateQuestion('https://example.com/question/1')).rejects.toThrow('uri points local');
+			await expect(service.updateQuestion('https://example.com/question/1', actor)).rejects.toThrow('uri points local');
 		});
 
 		test('throws when note is not registered locally', async () => {
-			const { service, mocks } = createService();
+			const { service, actor, mocks } = createService();
 			mocks.notesRepository.findOneBy.mockResolvedValue(null);
 
-			await expect(service.updateQuestion('https://remote/question/1')).rejects.toThrow('Question is not registed');
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('Question is not registed');
 		});
 
 		test('throws when poll is not registered locally', async () => {
-			const { service, mocks } = createService();
+			const { service, actor, mocks } = createService();
 			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1' });
 			mocks.pollsRepository.findOneBy.mockResolvedValue(null);
 
-			await expect(service.updateQuestion('https://remote/question/1')).rejects.toThrow('Question is not registed');
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('Question is not registed');
 		});
 
-		test('throws when resolved object is not a Question', async () => {
-			const { service, mocks } = createService();
-			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1' });
+		test('throws when the question author is not a remote user', async () => {
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
 			mocks.pollsRepository.findOneBy.mockResolvedValue({
 				noteId: 'note1',
 				choices: ['A'],
 				votes: [0],
 			} as unknown as IPoll);
-			mocks.resolver.resolve.mockResolvedValue({ type: 'Note' });
+			mocks.usersRepository.findOneBy.mockResolvedValue({ id: 'user1' } as RemoteUser);
 
-			await expect(service.updateQuestion('https://remote/question/1')).rejects.toThrow('object is not a Question');
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('Question author is not a remote user');
 		});
 
-		test('throws when apChoices is missing', async () => {
+		test('throws when the update actor does not own the question', async () => {
 			const { service, mocks } = createService();
-			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1' });
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
+			mocks.pollsRepository.findOneBy.mockResolvedValue({
+				noteId: 'note1',
+				choices: ['A'],
+				votes: [0],
+			} as unknown as IPoll);
+
+			const otherActor = { id: 'remote2', uri: 'https://remote.example/users/mallory' } as RemoteUser;
+
+			await expect(service.updateQuestion('https://remote/question/1', otherActor)).rejects.toThrow('Update actor does not own Question');
+			expect(mocks.resolver.resolve).not.toHaveBeenCalled();
+		});
+
+		test('throws when the resolved question is attributed to another user', async () => {
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
+			mocks.pollsRepository.findOneBy.mockResolvedValue({
+				noteId: 'note1',
+				choices: ['A'],
+				votes: [0],
+			} as unknown as IPoll);
+			mocks.resolver.resolve.mockResolvedValue({
+				type: 'Question',
+				attributedTo: 'https://remote.example/users/mallory',
+				oneOf: [{ type: 'Note', name: 'A', replies: { totalItems: 3 } }],
+			});
+
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('Question attributedTo does not match original author');
+		});
+
+		test('throws when the resolved question has no attributedTo', async () => {
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
 			mocks.pollsRepository.findOneBy.mockResolvedValue({
 				noteId: 'note1',
 				choices: ['A'],
@@ -215,12 +258,38 @@ describe('ApQuestionService', () => {
 			} as unknown as IPoll);
 			mocks.resolver.resolve.mockResolvedValue({ type: 'Question' });
 
-			await expect(service.updateQuestion('https://remote/question/1')).rejects.toThrow('invalid apChoices: undefined');
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('Question attributedTo does not match original author');
+		});
+
+		test('throws when resolved object is not a Question', async () => {
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
+			mocks.pollsRepository.findOneBy.mockResolvedValue({
+				noteId: 'note1',
+				choices: ['A'],
+				votes: [0],
+			} as unknown as IPoll);
+			mocks.resolver.resolve.mockResolvedValue({ type: 'Note' });
+
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('object is not a Question');
+		});
+
+		test('throws when apChoices is missing', async () => {
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
+			mocks.pollsRepository.findOneBy.mockResolvedValue({
+				noteId: 'note1',
+				choices: ['A'],
+				votes: [0],
+			} as unknown as IPoll);
+			mocks.resolver.resolve.mockResolvedValue({ type: 'Question', attributedTo: questionAuthorUri });
+
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('invalid apChoices: undefined');
 		});
 
 		test('throws when new count cannot be determined', async () => {
-			const { service, mocks } = createService();
-			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1' });
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
 			mocks.pollsRepository.findOneBy.mockResolvedValue({
 				noteId: 'note1',
 				choices: ['A'],
@@ -228,15 +297,33 @@ describe('ApQuestionService', () => {
 			} as unknown as IPoll);
 			mocks.resolver.resolve.mockResolvedValue({
 				type: 'Question',
+				attributedTo: questionAuthorUri,
 				oneOf: [{ type: 'Note', name: 'A' }],
 			});
 
-			await expect(service.updateQuestion('https://remote/question/1')).rejects.toThrow('invalid newCount: undefined');
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('invalid newCount: undefined');
+		});
+
+		test('throws when the new count is not a non-negative integer', async () => {
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
+			mocks.pollsRepository.findOneBy.mockResolvedValue({
+				noteId: 'note1',
+				choices: ['A'],
+				votes: [0],
+			} as unknown as IPoll);
+			mocks.resolver.resolve.mockResolvedValue({
+				type: 'Question',
+				attributedTo: questionAuthorUri,
+				oneOf: [{ type: 'Note', name: 'A', replies: { totalItems: -1 } }],
+			});
+
+			await expect(service.updateQuestion('https://remote/question/1', actor)).rejects.toThrow('invalid newCount: -1');
 		});
 
 		test('returns false and updates nothing when vote counts are unchanged', async () => {
-			const { service, mocks } = createService();
-			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1' });
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
 			mocks.pollsRepository.findOneBy.mockResolvedValue({
 				noteId: 'note1',
 				choices: ['A'],
@@ -244,10 +331,11 @@ describe('ApQuestionService', () => {
 			} as unknown as IPoll);
 			mocks.resolver.resolve.mockResolvedValue({
 				type: 'Question',
+				attributedTo: questionAuthorUri,
 				oneOf: [{ type: 'Note', name: 'A', replies: { totalItems: 5 } }],
 			});
 
-			const changed = await service.updateQuestion('https://remote/question/1');
+			const changed = await service.updateQuestion('https://remote/question/1', actor);
 
 			expect(changed).toBe(false);
 			expect(mocks.pollsRepository.update).toHaveBeenCalledWith(
@@ -257,8 +345,8 @@ describe('ApQuestionService', () => {
 		});
 
 		test('returns true and updates votes when counts changed', async () => {
-			const { service, mocks } = createService();
-			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1' });
+			const { service, actor, mocks } = createService();
+			mocks.notesRepository.findOneBy.mockResolvedValue({ id: 'note1', userId: 'user1' });
 			mocks.pollsRepository.findOneBy.mockResolvedValue({
 				noteId: 'note1',
 				choices: ['A'],
@@ -266,10 +354,11 @@ describe('ApQuestionService', () => {
 			} as unknown as IPoll);
 			mocks.resolver.resolve.mockResolvedValue({
 				type: 'Question',
+				attributedTo: questionAuthorUri,
 				oneOf: [{ type: 'Note', name: 'A', replies: { totalItems: 8 } }],
 			});
 
-			const changed = await service.updateQuestion('https://remote/question/1');
+			const changed = await service.updateQuestion('https://remote/question/1', actor);
 
 			expect(changed).toBe(true);
 			expect(mocks.pollsRepository.update).toHaveBeenCalledWith(
