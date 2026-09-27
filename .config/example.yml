@@ -200,5 +200,15 @@ signToActivityPubGet: true
 #  '127.0.0.1/32'
 #]
 
+# Trust X-Forwarded-For when determining the client IP address (default: false)
+# Only enable this if Misskey is reachable exclusively through a reverse proxy
+# that you control and that overwrites the X-Forwarded-* headers. If it is
+# disabled while a reverse proxy is in front, every request looks like it comes
+# from the proxy, and per-IP rate limits (including signin) then apply to all
+# users at once.
+# Accepts true/false, a number of trusted hops, or a list of trusted proxy
+# addresses / CIDR ranges.
+#trustProxy: false
+
 # Upload or download file size limits (bytes)
 #maxFileSize: 262144000

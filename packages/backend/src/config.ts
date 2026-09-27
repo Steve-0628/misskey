@@ -63,6 +63,21 @@ export type Source = {
 
 	allowedPrivateNetworks?: string[];
 
+	/**
+	 * Whether to believe `X-Forwarded-For` and friends when determining the
+	 * client IP address.
+	 *
+	 * Leave this disabled unless Misskey is reachable *only* through a reverse
+	 * proxy you control, otherwise a client can spoof its own address and
+	 * bypass per-IP rate limiting. When Misskey is behind a reverse proxy and
+	 * this is disabled, every request appears to originate from the proxy, so
+	 * per-IP limits apply to all users at once.
+	 *
+	 * Accepts a boolean, a number of hops to trust, or a list of addresses /
+	 * CIDR ranges of trusted proxies.
+	 */
+	trustProxy?: boolean | number | string[];
+
 	maxFileSize?: number;
 
 	accesslog?: string;

@@ -8,9 +8,11 @@ export type MockQueryBuilder<T = unknown> = {
 	orderBy: jest.Mock;
 	addOrderBy: jest.Mock;
 	limit: jest.Mock;
+	take: jest.Mock;
 	offset: jest.Mock;
 	cache: jest.Mock;
 	innerJoin: jest.Mock;
+	leftJoinAndSelect: jest.Mock;
 	getMany: jest.Mock<Promise<T[]>>;
 	getCount: jest.Mock<Promise<number>>;
 	getRawOne: jest.Mock<Promise<Record<string, unknown> | null>>;
@@ -25,9 +27,11 @@ export function createMockQueryBuilder<T = unknown>(): MockQueryBuilder<T> {
 		orderBy: jest.fn(() => builder),
 		addOrderBy: jest.fn(() => builder),
 		limit: jest.fn(() => builder),
+		take: jest.fn(() => builder),
 		offset: jest.fn(() => builder),
 		cache: jest.fn(() => builder),
 		innerJoin: jest.fn(() => builder),
+		leftJoinAndSelect: jest.fn(() => builder),
 		getMany: jest.fn(),
 		getCount: jest.fn(),
 		getRawOne: jest.fn(),

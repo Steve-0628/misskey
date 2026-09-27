@@ -40,6 +40,15 @@ describe('2要素認証', () => {
 		});
 	};
 
+	// A TOTP code is single use: once accepted it must not be accepted again
+	// within the same time step (CVE-2026-57574). Wait for the next step
+	// before generating a code meant for a second request.
+	const waitForNextTotpStep = async (): Promise<void> => {
+		const periodMs = 30 * 1000;
+		const waitMs = periodMs - (Date.now() % periodMs) + 1000;
+		await new Promise(resolve => setTimeout(resolve, waitMs));
+	};
+
 	const rpIdHash = (): Buffer => {
 		return crypto.createHash('sha256')
 			.update(Buffer.from(config.hostname, 'utf-8'))
@@ -183,8 +192,9 @@ describe('2要素認証', () => {
 		assert.strictEqual(registerResponse.body.label, username);
 		assert.strictEqual(registerResponse.body.issuer, config.host);
 
+		const setupToken = otpToken(registerResponse.body.secret);
 		const doneResponse = await api('/i/2fa/done', {
-			token: otpToken(registerResponse.body.secret),
+			token: setupToken,
 		}, alice);
 		assert.strictEqual(doneResponse.status, 204);
 
@@ -194,13 +204,22 @@ describe('2要素認証', () => {
 		assert.strictEqual(usersShowResponse.status, 200);
 		assert.strictEqual(usersShowResponse.body.twoFactorEnabled, true);
 
+		// The code that enabled 2FA is already spent, so it must not work again.
+		const replayResponse = await api('/signin', {
+			...signinParam(),
+			token: setupToken,
+		});
+		assert.strictEqual(replayResponse.status, 403);
+
+		await waitForNextTotpStep();
+
 		const signinResponse = await api('/signin', {
 			...signinParam(),
 			token: otpToken(registerResponse.body.secret),
 		});
 		assert.strictEqual(signinResponse.status, 200);
 		assert.notEqual(signinResponse.body.i, undefined);
-	});
+	}, 1000 * 60);
 
 	test('が設定でき、セキュリティキーでログインできる。', async () => {
 		const registerResponse = await api('/i/2fa/register', {
@@ -401,13 +420,15 @@ describe('2要素認証', () => {
 		assert.strictEqual(usersShowResponse.status, 200);
 		assert.strictEqual(usersShowResponse.body.securityKeys, false);
 
+		await waitForNextTotpStep();
+
 		const signinResponse = await api('/signin', {
 			...signinParam(),
 			token: otpToken(registerResponse.body.secret),
 		});
 		assert.strictEqual(signinResponse.status, 200);
 		assert.notEqual(signinResponse.body.i, undefined);
-	});
+	}, 1000 * 60);
 
 	test('が設定でき、設定解除できる。（パスワードのみでログインできる。）', async () => {
 		const registerResponse = await api('/i/2fa/register', {

@@ -211,6 +211,25 @@ function createJob(data: InboxJobData): Bull.Job<InboxJobData> {
 	} as unknown as Bull.Job<InboxJobData>;
 }
 
+type MockJsonLd = {
+	verifyRsaSignature2017: jest.Mock;
+	compact: jest.Mock;
+	checkForForbiddenDirectives: jest.Mock;
+	freeze: jest.Mock;
+};
+
+// The processor relies on the directive guard and on the loader being frozen
+// before signature verification, so every stub has to expose both.
+function createMockJsonLd(overrides: Partial<MockJsonLd> = {}): MockJsonLd {
+	return {
+		verifyRsaSignature2017: jest.fn().mockResolvedValue(true),
+		compact: jest.fn().mockImplementation(async (activity: IActivity) => activity),
+		checkForForbiddenDirectives: jest.fn(),
+		freeze: jest.fn(),
+		...overrides,
+	};
+}
+
 describe('InboxProcessorService', () => {
 	let app: TestingModule;
 	let service: InboxProcessorServiceType;
@@ -269,10 +288,7 @@ describe('InboxProcessorService', () => {
 		} as unknown as jest.Mocked<ApPersonService>;
 
 		jsonLdService = {
-			use: jest.fn().mockReturnValue({
-				verifyRsaSignature2017: jest.fn().mockResolvedValue(true),
-				compact: jest.fn().mockImplementation(async (activity: IActivity) => activity),
-			}),
+			use: jest.fn().mockReturnValue(createMockJsonLd()),
 		} as unknown as jest.Mocked<JsonLdService>;
 
 		federatedInstanceService = {
@@ -358,10 +374,7 @@ describe('InboxProcessorService', () => {
 				user: createRemoteUser(),
 				key: createUserPublickey(),
 			});
-			jsonLdService.use.mockReturnValue({
-				verifyRsaSignature2017: jest.fn().mockResolvedValue(true),
-				compact: jest.fn().mockImplementation(async (activity: IActivity) => activity),
-			});
+			jsonLdService.use.mockReturnValue(createMockJsonLd());
 
 			const result = await service.process(createJob({
 				activity: createActivity({
@@ -616,10 +629,9 @@ describe('InboxProcessorService', () => {
 				key: createUserPublickey(),
 			});
 			apPersonService.resolvePerson.mockResolvedValue(createRemoteUser());
-			jsonLdService.use.mockReturnValue({
+			jsonLdService.use.mockReturnValue(createMockJsonLd({
 				verifyRsaSignature2017: jest.fn().mockResolvedValue(false),
-				compact: jest.fn().mockImplementation(async (activity: IActivity) => activity),
-			});
+			}));
 
 			const result = await service.process(createJob({
 				activity: createActivity({
@@ -800,10 +812,9 @@ describe('InboxProcessorService', () => {
 				user: createRemoteUser(),
 				key: createUserPublickey(),
 			});
-			jsonLdService.use.mockReturnValue({
-				verifyRsaSignature2017: jest.fn().mockResolvedValue(true),
+			jsonLdService.use.mockReturnValue(createMockJsonLd({
 				compact: jest.fn().mockRejectedValue(new Error('compact failed')),
-			});
+			}));
 
 			await expect(service.process(createJob({
 				activity: createActivity({

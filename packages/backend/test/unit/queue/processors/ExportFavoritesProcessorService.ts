@@ -7,7 +7,9 @@ import { DI } from '@/di-symbols.js';
 import type { NoteFavoritesRepository, NotesRepository, PollsRepository, UsersRepository } from '@/models/index.js';
 import type { Config } from '@/config.js';
 import { DriveService } from '@/core/DriveService.js';
+import { QueryService } from '@/core/QueryService.js';
 import { QueueLoggerService } from '@/queue/QueueLoggerService.js';
+import { createMockQueryBuilder } from '../../../prelude/typeorm-query-builder-mock.js';
 import type { TestingModule } from '@nestjs/testing';
 import type Bull from 'bull';
 import type { DbJobDataWithUser } from '@/queue/types.js';
@@ -39,6 +41,8 @@ describe('ExportFavoritesProcessorService', () => {
 	let usersRepository: jest.Mocked<UsersRepository>;
 	let noteFavoritesRepository: jest.Mocked<NoteFavoritesRepository>;
 	let pollsRepository: jest.Mocked<PollsRepository>;
+	let queryService: { generateVisibilityQuery: jest.Mock };
+	let favoritesQuery: ReturnType<typeof createMockQueryBuilder>;
 	let driveService: { addFile: jest.MockedFunction<DriveService['addFile']> };
 	let done: jest.Mock<() => void>;
 
@@ -47,14 +51,21 @@ describe('ExportFavoritesProcessorService', () => {
 			findOneBy: jest.fn(),
 		} as unknown as jest.Mocked<UsersRepository>;
 
+		// The processor pages through favorites with a query builder so that the
+		// visibility filter can be applied to every page.
+		favoritesQuery = createMockQueryBuilder();
 		noteFavoritesRepository = {
-			find: jest.fn(),
+			createQueryBuilder: jest.fn(() => favoritesQuery),
 			countBy: jest.fn(),
 		} as unknown as jest.Mocked<NoteFavoritesRepository>;
 
 		pollsRepository = {
 			findOneByOrFail: jest.fn(),
 		} as unknown as jest.Mocked<PollsRepository>;
+
+		queryService = {
+			generateVisibilityQuery: jest.fn(),
+		};
 
 		driveService = {
 			addFile: jest.fn().mockResolvedValue({ id: 'drive-file-id' }),
@@ -70,6 +81,7 @@ describe('ExportFavoritesProcessorService', () => {
 				{ provide: DI.pollsRepository, useValue: pollsRepository },
 				{ provide: DI.notesRepository, useValue: { find: jest.fn(), countBy: jest.fn() } as unknown as jest.Mocked<NotesRepository> },
 				{ provide: DI.noteFavoritesRepository, useValue: noteFavoritesRepository },
+				{ provide: QueryService, useValue: queryService },
 				{ provide: DriveService, useValue: driveService },
 				{ provide: QueueLoggerService, useValue: { logger: mockLogger } },
 			],
@@ -96,7 +108,7 @@ describe('ExportFavoritesProcessorService', () => {
 		await service.process(createJob({ user: { id: 'user1' } }), done);
 
 		expect(usersRepository.findOneBy).toHaveBeenCalledWith({ id: 'user1' });
-		expect(noteFavoritesRepository.find).not.toHaveBeenCalled();
+		expect(noteFavoritesRepository.createQueryBuilder).not.toHaveBeenCalled();
 		expect(driveService.addFile).not.toHaveBeenCalled();
 		expect(done).toHaveBeenCalledTimes(1);
 	});
@@ -130,7 +142,7 @@ describe('ExportFavoritesProcessorService', () => {
 		} as NoteFavorite;
 
 		usersRepository.findOneBy.mockResolvedValue(user);
-		noteFavoritesRepository.find
+		favoritesQuery.getMany
 			.mockResolvedValueOnce([favorite])
 			.mockResolvedValue([]);
 		noteFavoritesRepository.countBy.mockResolvedValue(1);
@@ -138,12 +150,13 @@ describe('ExportFavoritesProcessorService', () => {
 		const job = createJob({ user: { id: user.id } });
 		await service.process(job, done);
 
-		expect(noteFavoritesRepository.find).toHaveBeenCalledWith(expect.objectContaining({
-			where: expect.objectContaining({ userId: user.id }),
-			take: 100,
-			order: { id: 1 },
-			relations: ['note', 'note.user'],
-		}));
+		expect(noteFavoritesRepository.createQueryBuilder).toHaveBeenCalledWith('favorite');
+		expect(favoritesQuery.where).toHaveBeenCalledWith('favorite.userId = :userId', { userId: user.id });
+		expect(favoritesQuery.leftJoinAndSelect).toHaveBeenCalledWith('favorite.note', 'note');
+		expect(favoritesQuery.leftJoinAndSelect).toHaveBeenCalledWith('note.user', 'user');
+		// Favorites must be filtered by the visibility the exporting user is
+		// actually allowed to see.
+		expect(queryService.generateVisibilityQuery).toHaveBeenCalledWith(favoritesQuery, user);
 		expect(pollsRepository.findOneByOrFail).not.toHaveBeenCalled();
 		expect(driveService.addFile).toHaveBeenCalledWith(expect.objectContaining({
 			user,
@@ -194,7 +207,7 @@ describe('ExportFavoritesProcessorService', () => {
 		});
 
 		usersRepository.findOneBy.mockResolvedValue(user);
-		noteFavoritesRepository.find
+		favoritesQuery.getMany
 			.mockResolvedValueOnce([favorite])
 			.mockResolvedValue([]);
 		noteFavoritesRepository.countBy.mockResolvedValue(1);
