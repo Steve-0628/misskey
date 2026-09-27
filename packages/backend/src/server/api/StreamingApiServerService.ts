@@ -67,7 +67,6 @@ export class StreamingApiServerService {
 
 			try {
 				[user, app] = await this.authenticateService.authenticate(token);
-
 			} catch (e) {
 				if (e instanceof AuthenticationError) {
 					socket.write([
