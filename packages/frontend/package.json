@@ -77,7 +77,7 @@
 	"devDependencies": {
 		"@testing-library/jest-dom": "5.16.5",
 		"@testing-library/vue": "7.0.0",
-		"@types/escape-regexp": "0.0.1",
+		"@types/escape-regexp": "0.0.3",
 		"@types/estree": "1.0.9",
 		"@types/gulp": "4.0.13",
 		"@types/gulp-rename": "2.0.2",
