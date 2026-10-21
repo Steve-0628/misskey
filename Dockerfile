@@ -1,4 +1,4 @@
-ARG NODE_VERSION=24.18.0-trixie
+ARG NODE_VERSION=24.22.1-trixie
 
 FROM node:${NODE_VERSION} AS native-builder
 
