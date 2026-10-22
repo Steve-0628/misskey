@@ -248,7 +248,6 @@ export interface Locale {
     "usernameOrUserId": string;
     "noSuchUser": string;
     "lookup": string;
-    "announcements": string;
     "imageUrl": string;
     "remove": string;
     "removed": string;
@@ -266,7 +265,6 @@ export interface Locale {
     "uploadFromUrlDescription": string;
     "uploadFromUrlRequested": string;
     "uploadFromUrlMayTakeTime": string;
-    "explore": string;
     "messageRead": string;
     "noMoreHistory": string;
     "startMessaging": string;
@@ -340,7 +338,6 @@ export interface Locale {
     "dayX": string;
     "monthX": string;
     "yearX": string;
-    "pages": string;
     "integration": string;
     "connectService": string;
     "disconnectService": string;
@@ -569,7 +566,6 @@ export interface Locale {
     "divider": string;
     "addItem": string;
     "rearrange": string;
-    "relays": string;
     "addRelay": string;
     "inboxUrl": string;
     "addedRelays": string;
@@ -633,7 +629,6 @@ export interface Locale {
     "logs": string;
     "delayed": string;
     "database": string;
-    "channel": string;
     "create": string;
     "notificationSetting": string;
     "notificationSettingDesc": string;
@@ -668,7 +663,6 @@ export interface Locale {
     "system": string;
     "switchUi": string;
     "desktop": string;
-    "clip": string;
     "createNew": string;
     "optional": string;
     "createNewClip": string;
@@ -707,7 +701,6 @@ export interface Locale {
     "pageLikedCount": string;
     "contact": string;
     "useSystemFont": string;
-    "clips": string;
     "experimentalFeatures": string;
     "experimental": string;
     "thisIsExperimentalFeature": string;
@@ -796,11 +789,9 @@ export interface Locale {
     "configure": string;
     "postToGallery": string;
     "postToHashtag": string;
-    "gallery": string;
     "recentPosts": string;
     "popularPosts": string;
     "shareWithNote": string;
-    "ads": string;
     "expiration": string;
     "startingperiod": string;
     "memo": string;
@@ -1522,22 +1513,10 @@ export interface Locale {
         "started": string;
         "inProgress": string;
     };
-    "_ad": {
-        "back": string;
-        "reduceFrequencyOfThisAd": string;
-        "hide": string;
-        "timezoneinfo": string;
-    };
     "_forgotPassword": {
         "enterEmail": string;
         "ifNoEmail": string;
         "contactAdmin": string;
-    };
-    "_gallery": {
-        "my": string;
-        "liked": string;
-        "like": string;
-        "unlike": string;
     };
     "_email": {
         "_follow": {
@@ -1597,19 +1576,6 @@ export interface Locale {
         "reload": string;
         "dialog": string;
         "quiet": string;
-    };
-    "_channel": {
-        "create": string;
-        "edit": string;
-        "setBanner": string;
-        "removeBanner": string;
-        "featured": string;
-        "owned": string;
-        "following": string;
-        "usersCount": string;
-        "notesCount": string;
-        "nameAndDescription": string;
-        "nameOnly": string;
     };
     "_menuDisplay": {
         "sideFull": string;
@@ -1980,58 +1946,6 @@ export interface Locale {
         "title": string;
         "script": string;
         "summary": string;
-    };
-    "_pages": {
-        "newPage": string;
-        "editPage": string;
-        "readPage": string;
-        "created": string;
-        "updated": string;
-        "deleted": string;
-        "pageSetting": string;
-        "nameAlreadyExists": string;
-        "invalidNameTitle": string;
-        "invalidNameText": string;
-        "editThisPage": string;
-        "viewSource": string;
-        "viewPage": string;
-        "like": string;
-        "unlike": string;
-        "my": string;
-        "liked": string;
-        "featured": string;
-        "inspector": string;
-        "contents": string;
-        "content": string;
-        "variables": string;
-        "title": string;
-        "url": string;
-        "summary": string;
-        "alignCenter": string;
-        "hideTitleWhenPinned": string;
-        "font": string;
-        "fontSerif": string;
-        "fontSansSerif": string;
-        "eyeCatchingImageSet": string;
-        "eyeCatchingImageRemove": string;
-        "chooseBlock": string;
-        "selectType": string;
-        "contentBlocks": string;
-        "inputBlocks": string;
-        "specialBlocks": string;
-        "blocks": {
-            "text": string;
-            "textarea": string;
-            "section": string;
-            "image": string;
-            "button": string;
-            "note": string;
-            "_note": {
-                "id": string;
-                "idDescription": string;
-                "detailed": string;
-            };
-        };
     };
     "_relayStatus": {
         "requesting": string;

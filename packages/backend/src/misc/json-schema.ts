@@ -21,7 +21,6 @@ import { packedNoteReactionSchema } from '@/models/json-schema/note-reaction.js'
 import { packedHashtagSchema } from '@/models/json-schema/hashtag.js';
 import { packedInviteCodeSchema } from '@/models/json-schema/invite-code.js';
 import { packedNoteFavoriteSchema } from '@/models/json-schema/note-favorite.js';
-import { packedChannelSchema } from '@/models/json-schema/channel.js';
 import { packedAntennaSchema } from '@/models/json-schema/antenna.js';
 import { packedFederationInstanceSchema } from '@/models/json-schema/federation-instance.js';
 import { packedQueueCountSchema } from '@/models/json-schema/queue.js';
@@ -51,7 +50,6 @@ export const refs = {
 	Blocking: packedBlockingSchema,
 	Hashtag: packedHashtagSchema,
 	InviteCode: packedInviteCodeSchema,
-	Channel: packedChannelSchema,
 	QueueCount: packedQueueCountSchema,
 	Antenna: packedAntennaSchema,
 	FederationInstance: packedFederationInstanceSchema,
