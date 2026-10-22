@@ -111,16 +111,20 @@ describe('Drive', () => {
 			assert.strictEqual(res.body.error.code, 'NO_SUCH_FILE');
 		});
 
-		test('deleted file no longer appears in file list', async () => {
-			const file = await uploadFile(alice);
-			assert.strictEqual(file.status, 200);
-			const fileId = file.body!.id;
+		test('deleted files no longer appear in file list', async () => {
+			// Delete several files back to back: with an unawaited delete the list
+			// below would race each deletion, so this reliably catches regressions.
+			const fileIds: string[] = [];
+			for (let i = 0; i < 5; i++) {
+				const file = await uploadFile(alice);
+				assert.strictEqual(file.status, 200);
+				fileIds.push(file.body!.id);
+				await api('/drive/files/delete', { fileId: file.body!.id }, alice);
 
-			await api('/drive/files/delete', { fileId }, alice);
-
-			const res = await api('/drive/files', {}, alice);
-			const ids = res.body.map((f: any) => f.id);
-			assert.strictEqual(ids.includes(fileId), false);
+				const res = await api('/drive/files', { limit: 100 }, alice);
+				const ids = res.body.map((f: any) => f.id);
+				assert.strictEqual(ids.includes(file.body!.id), false);
+			}
 		});
 	});
 });
