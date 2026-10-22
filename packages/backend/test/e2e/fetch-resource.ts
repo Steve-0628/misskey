@@ -1,7 +1,7 @@
 process.env.NODE_ENV = 'test';
 
 import * as assert from 'assert';
-import { startServer, cookie, signup, page, play, post, simpleGet, uploadFile } from '../utils.js';
+import { startServer, cookie, signup, play, post, simpleGet, uploadFile } from '../utils.js';
 import type { SimpleGetResponse } from '../utils.js';
 import type { INestApplicationContext } from '@nestjs/common';
 import type * as misskey from 'misskey-js';
@@ -23,7 +23,6 @@ describe('Webリソース', () => {
 	let alice: misskey.entities.MeSignup;
 	let aliceUploadedFile: any;
 	let alicesPost: any;
-	let alicePage: any;
 	let alicePlay: any;
 
 	type Request = {
@@ -75,7 +74,6 @@ describe('Webリソース', () => {
 		alicesPost = await post(alice, {
 			text: 'test',
 		});
-		alicePage = await page(alice, {});
 		alicePlay = await play(alice, {});
 	}, 1000 * 60 * 2);
 
