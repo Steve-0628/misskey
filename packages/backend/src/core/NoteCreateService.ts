@@ -462,12 +462,12 @@ export class NoteCreateService implements OnApplicationShutdown {
 		this.antennaService.addNoteToAntennas(note, user);
 
 		if (data.reply) {
-			this.saveReply(data.reply, note);
+			await this.saveReply(data.reply, note);
 		}
 
 		// この投稿を除く指定したユーザーによる指定したノートのリノートが存在しないとき
 		if (data.renote && (await this.noteEntityService.countSameRenotes(user.id, data.renote.id, note.id) === 0)) {
-			if (!user.isBot) this.incRenoteCount(data.renote);
+			if (!user.isBot) await this.incRenoteCount(data.renote);
 		}
 
 		if (data.poll && data.poll.expiresAt) {
@@ -659,8 +659,8 @@ export class NoteCreateService implements OnApplicationShutdown {
 	}
 
 	@bindThis
-	private incRenoteCount(renote: Note) {
-		this.notesRepository.createQueryBuilder().update()
+	private async incRenoteCount(renote: Note) {
+		await this.notesRepository.createQueryBuilder().update()
 			.set({
 				renoteCount: () => '"renoteCount" + 1',
 				score: () => '"score" + 1',
@@ -702,8 +702,8 @@ export class NoteCreateService implements OnApplicationShutdown {
 	}
 
 	@bindThis
-	private saveReply(reply: Note, note: Note) {
-		this.notesRepository.increment({ id: reply.id }, 'repliesCount', 1);
+	private async saveReply(reply: Note, note: Note) {
+		await this.notesRepository.increment({ id: reply.id }, 'repliesCount', 1);
 	}
 
 	@bindThis

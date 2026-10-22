@@ -271,7 +271,7 @@ export class ReactionService {
 			.where('id = :id', { id: note.id })
 			.execute();
 
-		if (!user.isBot) this.notesRepository.decrement({ id: note.id }, 'score', 1);
+		if (!user.isBot) await this.notesRepository.decrement({ id: note.id }, 'score', 1);
 
 		this.globalEventService.publishNoteStream(note.id, 'unreacted', {
 			reaction: this.decodeReaction(exist.reaction).reaction,

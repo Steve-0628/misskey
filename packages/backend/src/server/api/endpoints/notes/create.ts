@@ -200,7 +200,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 
 				if (renote == null) {
 					throw new ApiError(meta.errors.noSuchRenoteTarget);
-				} else if (renote.renoteId && !renote.text && !renote.fileIds && !renote.hasPoll) {
+				} else if (renote.renoteId && !renote.text && (renote.fileIds == null || renote.fileIds.length === 0) && !renote.hasPoll) {
 					throw new ApiError(meta.errors.cannotReRenote);
 				}
 
@@ -225,7 +225,7 @@ export default class extends Endpoint<typeof meta, typeof paramDef> {
 
 				if (reply == null) {
 					throw new ApiError(meta.errors.noSuchReplyTarget);
-				} else if (reply.renoteId && !reply.text && !reply.fileIds && !reply.hasPoll) {
+				} else if (reply.renoteId && !reply.text && (reply.fileIds == null || reply.fileIds.length === 0) && !reply.hasPoll) {
 					throw new ApiError(meta.errors.cannotReplyToPureRenote);
 				}
 

@@ -639,7 +639,7 @@ export class DriveService {
 			}
 		}
 
-		this.deletePostProcess(file, isExpired);
+		await this.deletePostProcess(file, isExpired);
 	}
 
 	@bindThis
@@ -670,14 +670,14 @@ export class DriveService {
 			await Promise.all(promises);
 		}
 
-		this.deletePostProcess(file, isExpired);
+		await this.deletePostProcess(file, isExpired);
 	}
 
 	@bindThis
 	private async deletePostProcess(file: DriveFile, isExpired = false) {
 		// リモートファイル期限切れ削除後は直リンクにする
 		if (isExpired && file.userHost !== null && file.uri != null) {
-			this.driveFilesRepository.update(file.id, {
+			await this.driveFilesRepository.update(file.id, {
 				isLink: true,
 				url: file.uri,
 				thumbnailUrl: null,
@@ -689,7 +689,7 @@ export class DriveService {
 				webpublicAccessKey: 'webpublic-' + randomUUID(),
 			});
 		} else {
-			this.driveFilesRepository.delete(file.id);
+			await this.driveFilesRepository.delete(file.id);
 		}
 
 		this.driveChart.update(file, false);

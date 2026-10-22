@@ -57,8 +57,8 @@ export class NoteDeleteService {
 
 		// この投稿を除く指定したユーザーによる指定したノートのリノートが存在しないとき
 		if (note.renoteId && (await this.noteEntityService.countSameRenotes(user.id, note.renoteId, note.id)) === 0) {
-			this.notesRepository.decrement({ id: note.renoteId }, 'renoteCount', 1);
-			if (!user.isBot) this.notesRepository.decrement({ id: note.renoteId }, 'score', 1);
+			await this.notesRepository.decrement({ id: note.renoteId }, 'renoteCount', 1);
+			if (!user.isBot) await this.notesRepository.decrement({ id: note.renoteId }, 'score', 1);
 		}
 
 		if (note.replyId) {
