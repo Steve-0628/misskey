@@ -74,11 +74,6 @@ function addGuardedProxyRequest(
 		});
 	};
 
-	if (process.env.NODE_ENV !== 'production') {
-		addRequest(options);
-		return;
-	}
-
 	const hostname = options.hostname ?? options.host;
 	if (hostname == null) {
 		reject(new Error('Proxy target has no hostname'));
@@ -124,7 +119,7 @@ class HttpRequestServiceAgent extends http.Agent {
 		const socket = super.createConnection(options, callback)
 			.on('connect', () => {
 				const address = socket.remoteAddress;
-				if (process.env.NODE_ENV === 'production' && address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
+				if (address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
 					socket.destroy(new Error(`Blocked address: ${address}`));
 				}
 			});
@@ -144,7 +139,7 @@ class HttpsRequestServiceAgent extends https.Agent {
 		const socket = super.createConnection(options, callback)
 			.on('connect', () => {
 				const address = socket.remoteAddress;
-				if (process.env.NODE_ENV === 'production' && address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
+				if (address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
 					socket.destroy(new Error(`Blocked address: ${address}`));
 				}
 			});
