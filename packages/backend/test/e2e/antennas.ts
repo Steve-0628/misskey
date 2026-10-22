@@ -8,7 +8,6 @@ import {
 	signup,
 	post,
 	userList,
-	page,
 	role,
 	startServer,
 	api,

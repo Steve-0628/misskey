@@ -7,7 +7,6 @@ import type { Packed } from '@/misc/json-schema.js';
 import {
 	signup,
 	post,
-	page,
 	role,
 	startServer,
 	api,
@@ -172,7 +171,6 @@ describe('ユーザー', () => {
 	let root: User;
 	let alice: User;
 	let aliceNote: misskey.entities.Note;
-	let alicePage: misskey.entities.Page;
 	let aliceList: misskey.entities.UserList;
 
 	let bob: User;
@@ -220,7 +218,6 @@ describe('ユーザー', () => {
 		root = await signup({ username: 'root' });
 		alice = await signup({ username: 'alice' });
 		aliceNote = await post(alice, { text: 'test' }) as any;
-		alicePage = await page(alice);
 		aliceList = (await api('users/list/create', { name: 'aliceList' }, alice)).body;
 		bob = await signup({ username: 'bob' });
 		bobNote = await post(bob, { text: 'test' }) as any;

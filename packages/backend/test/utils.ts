@@ -160,29 +160,6 @@ export const userList = async (user: UserToken, userList: any = {}): Promise<any
 	return res.body;
 };
 
-export const page = async (user: UserToken, page: any = {}): Promise<any> => {
-	const res = await api('pages/create', {
-		alignCenter: false,
-		content: [
-			{
-				id: '2be9a64b-5ada-43a3-85f3-ec3429551ded',
-				text: 'Hello World!',
-				type: 'text',
-			},
-		],
-		eyeCatchingImageId: null,
-		font: 'sans-serif',
-		hideTitleWhenPinned: false,
-		name: '1678594845072',
-		script: '',
-		summary: null,
-		title: '',
-		variables: [],
-		...page,
-	}, user);
-	return res.body;
-};
-
 export const play = async (user: UserToken, play: any = {}): Promise<any> => {
 	const res = await api('flash/create', {
 		permissions: [],
@@ -190,16 +167,6 @@ export const play = async (user: UserToken, play: any = {}): Promise<any> => {
 		summary: '',
 		title: 'test',
 		...play,
-	}, user);
-	return res.body;
-};
-
-export const channel = async (user: UserToken, channel: any = {}): Promise<any> => {
-	const res = await api('channels/create', {
-		bannerId: null,
-		description: null,
-		name: 'test',
-		...channel,
 	}, user);
 	return res.body;
 };
