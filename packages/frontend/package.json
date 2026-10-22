@@ -84,7 +84,7 @@
 		"@types/katex": "0.16.0",
 		"@types/matter-js": "0.18.5",
 		"@types/micromatch": "4.0.2",
-		"@types/node": "22.13.14",
+		"@types/node": "24.19.2",
 		"@types/punycode": "2.1.0",
 		"@types/sanitize-html": "2.9.0",
 		"@types/testing-library__jest-dom": "5.14.8",
