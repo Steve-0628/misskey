@@ -1,5 +1,11 @@
 name: Test (frontend)
 
+# Cancel superseded runs: Renovate rebases and rapid merges would otherwise
+# queue a full matrix of jobs for every intermediate commit.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches:
@@ -14,11 +20,6 @@ jobs:
   vitest:
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [24.18.0]
-
     steps:
     - uses: actions/checkout@v3.3.0
       with:
@@ -28,10 +29,10 @@ jobs:
       with:
         version: 11
         run_install: false
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js
       uses: actions/setup-node@v3.6.0
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version-file: '.node-version'
         cache: 'pnpm'
     - run: corepack enable
     - if: github.event_name != 'pull_request'
@@ -51,7 +52,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [24.18.0]
         browser: [chrome]
 
     services:
@@ -82,10 +82,10 @@ jobs:
       with:
         version: 11
         run_install: false
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js
       uses: actions/setup-node@v3.6.0
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version-file: '.node-version'
         cache: 'pnpm'
     - run: corepack enable
     - if: github.event_name != 'pull_request'
@@ -114,7 +114,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: failure()
       with:
-        name: ${{ matrix.browser }}-${{ matrix.node-version }}-cypress-screenshots
+        name: ${{ matrix.browser }}-cypress-screenshots
         path: cypress/screenshots
     - uses: actions/upload-artifact@v4
       if: always()
