@@ -33,7 +33,7 @@ const props = defineProps<{
 	listId: string;
 }>();
 
-let list = $ref(null);
+let list = $ref<{ id: string; name: string | null } | null>(null);
 let queue = $ref(0);
 let tlEl = $shallowRef<InstanceType<typeof MkTimeline>>();
 let rootEl = $shallowRef<HTMLElement>();

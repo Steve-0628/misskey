@@ -63,10 +63,10 @@ const onStats = (stats) => {
 };
 
 const onStatsLog = (statsLog) => {
-	const dataProcess = [];
-	const dataActive = [];
-	const dataDelayed = [];
-	const dataWaiting = [];
+	const dataProcess: number[] = [];
+	const dataActive: number[] = [];
+	const dataDelayed: number[] = [];
+	const dataWaiting: number[] = [];
 
 	for (const stats of [...statsLog].reverse()) {
 		dataProcess.push(stats[props.domain].activeSincePrevTick);

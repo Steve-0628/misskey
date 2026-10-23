@@ -32,7 +32,11 @@ if (!['http:', 'https:'].includes(requestUrl.protocol)) throw new Error('invalid
 
 let fetching = $ref(true);
 let title = $ref<string | null>(null);
-let player = $ref({
+let player = $ref<{
+	url: string | null;
+	width: number | null;
+	height: number | null;
+}>({
 	url: null,
 	width: null,
 	height: null,

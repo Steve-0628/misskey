@@ -19,7 +19,7 @@ import { initChart } from '@/scripts/init-chart';
 
 initChart();
 
-type RetentionDataPoint = MatrixDataPoint & { v: number; y: string };
+type RetentionDataPoint = Omit<MatrixDataPoint, 'y'> & { v: number; y: string };
 
 const rootEl = $shallowRef<HTMLDivElement | null>(null);
 const chartEl = $shallowRef<HTMLCanvasElement | null>(null);

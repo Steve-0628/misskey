@@ -33,7 +33,7 @@ const props = defineProps<{
 	antennaId: string;
 }>();
 
-let antenna = $ref(null);
+let antenna = $ref<{ id: string; name: string } | null>(null);
 let queue = $ref(0);
 let rootEl = $shallowRef<HTMLElement>();
 let tlEl = $shallowRef<InstanceType<typeof MkTimeline>>();

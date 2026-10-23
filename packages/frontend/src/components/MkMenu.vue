@@ -142,7 +142,7 @@ function onItemMouseLeave(item) {
 
 let childrenCache = new WeakMap();
 async function showChildren(item: MenuItem, ev: MouseEvent) {
-	const children = ref([]);
+	const children = ref<InnerMenuItem[]>([]);
 	if (childrenCache.has(item)) {
 		children.value = childrenCache.get(item);
 	} else {

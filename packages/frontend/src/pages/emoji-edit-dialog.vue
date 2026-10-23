@@ -95,7 +95,7 @@ let license: string = $ref(props.emoji ? (props.emoji.license ?? '') : '');
 let isSensitive = $ref(props.emoji ? props.emoji.isSensitive : false);
 let localOnly = $ref(props.emoji ? props.emoji.localOnly : false);
 let roleIdsThatCanBeUsedThisEmojiAsReaction = $ref(props.emoji ? props.emoji.roleIdsThatCanBeUsedThisEmojiAsReaction : []);
-let rolesThatCanBeUsedThisEmojiAsReaction = $ref([]);
+let rolesThatCanBeUsedThisEmojiAsReaction = $ref<{ id: string; name: string; target: string }[]>([]);
 let file = $ref<misskey.entities.DriveFile>();
 
 watch($$(roleIdsThatCanBeUsedThisEmojiAsReaction), async () => {

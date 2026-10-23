@@ -57,7 +57,7 @@ const history = $ref<{ path: string; key: any; }[]>([{
 	key: router.getCurrentKey(),
 }]);
 const buttonsLeft = $computed(() => {
-	const buttons = [];
+	const buttons: { icon: string; onClick: () => void }[] = [];
 
 	if (history.length > 1) {
 		buttons.push({

@@ -37,7 +37,7 @@ const props = defineProps<{
 	refreshIntervalSec?: number;
 }>();
 
-const items = ref([]);
+const items = ref<{ link: string; title: string }[]>([]);
 const fetching = ref(true);
 let key = $ref(0);
 

@@ -59,10 +59,10 @@ const focused = ref(false);
 const opening = ref(false);
 const changed = ref(false);
 const invalid = ref(false);
-const inputEl = ref(null);
-const prefixEl = ref(null);
-const suffixEl = ref(null);
-const container = ref(null);
+const inputEl = ref<HTMLElement | null>(null);
+const prefixEl = ref<HTMLElement | null>(null);
+const suffixEl = ref<HTMLElement | null>(null);
+const container = ref<HTMLElement | null>(null);
 const height =
 	props.small ? 33 :
 	props.large ? 39 :

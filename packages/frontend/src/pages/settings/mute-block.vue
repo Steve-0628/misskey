@@ -123,9 +123,9 @@ const blockingPagination = {
 	limit: 10,
 };
 
-let expandedRenoteMuteItems = $ref([]);
-let expandedMuteItems = $ref([]);
-let expandedBlockItems = $ref([]);
+let expandedRenoteMuteItems = $ref<string[]>([]);
+let expandedMuteItems = $ref<string[]>([]);
+let expandedBlockItems = $ref<string[]>([]);
 
 async function unrenoteMute(user, ev) {
 	os.popupMenu([{

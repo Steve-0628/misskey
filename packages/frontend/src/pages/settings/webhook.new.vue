@@ -56,7 +56,7 @@ let event_reaction = $ref(true);
 let event_mention = $ref(true);
 
 async function create(): Promise<void> {
-	const events = [];
+	const events: string[] = [];
 	if (event_follow) events.push('follow');
 	if (event_followed) events.push('followed');
 	if (event_note) events.push('note');

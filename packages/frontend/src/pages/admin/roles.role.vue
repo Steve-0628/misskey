@@ -85,7 +85,7 @@ const usersPagination = {
 	})),
 };
 
-let expandedItems = $ref([]);
+let expandedItems = $ref<string[]>([]);
 
 const role = reactive(await os.api('admin/roles/show', {
 	roleId: props.id,

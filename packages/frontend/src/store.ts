@@ -212,7 +212,7 @@ export const defaultStore = markRaw(new Storage('base', {
 	},
 	recentlyUsedUsers: {
 		where: 'device',
-		default: [] as string[],
+		default: [] as string[] as string[],
 	},
 	defaultSideView: {
 		where: 'device',
