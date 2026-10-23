@@ -63,6 +63,12 @@ describe('FetchInstanceMetadataService', () => {
 		httpRequestService = app.get<HttpRequestService>(HttpRequestService) as jest.Mocked<HttpRequestService>;
 	});
 
+	beforeEach(() => {
+		// jest 30 no longer clears plain jest.fn() call history between tests via
+		// restoreMocks (it did in 29); these tests share one app from beforeAll.
+		jest.clearAllMocks();
+	});
+
 	afterAll(async () => {
 		await app.close();
 	});

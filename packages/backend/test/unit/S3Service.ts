@@ -61,7 +61,7 @@ describe('S3Service', () => {
 				Bucket: 'fake',
 				Key: 'fake',
 				Body: 'x',
-			})).rejects.toThrowError(Error);
+			})).rejects.toThrow(Error);
 		});
 
 		test('upload a large file error', async () => {
@@ -71,7 +71,7 @@ describe('S3Service', () => {
 				Bucket: 'fake',
 				Key: 'fake',
 				Body: 'x'.repeat(8 * 1024 * 1024 + 1), // デフォルトpartSizeにしている 8 * 1024 * 1024 を越えるサイズ
-			})).rejects.toThrowError(Error);
+			})).rejects.toThrow(Error);
 		});
 	});
 });
