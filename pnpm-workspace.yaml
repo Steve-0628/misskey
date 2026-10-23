@@ -3,7 +3,9 @@ packages:
   - 'packages/frontend'
   - 'packages/misskey-js'
 allowBuilds:
+  '@parcel/watcher': true
   '@nestjs/core': true
+  '@parcel/watcher': set this to true or false
   '@swc/core': true
   bufferutil: true
   cypress: true
@@ -13,11 +15,6 @@ allowBuilds:
   msw: true
   re2: true
   sharp: true
+  unrs-resolver: set this to true or false
+  unrs-resolver: true
   utf-8-validate: true
-
-overrides:
-  # sanitize-html 2.18 pulls htmlparser2 ^12, which is ESM-only (no `require`
-  # export). Jest loads sanitize-html through require(), so every suite that
-  # touches it dies with "Must use import to load ES Module". htmlparser2 10.x
-  # ships both module formats and keeps the sanitize-html security bump.
-  htmlparser2: 10.1.0
