@@ -2,5 +2,43 @@
 	"$schema": "https://docs.renovatebot.com/renovate-schema.json",
 	"extends": [
 		"config:recommended"
+	],
+	"dependencyDashboard": true,
+	"packageRules": [
+		{
+			"description": "Batch routine devDependency updates into one weekly PR so the CI queue stays manageable (the dashboard queue regularly exceeds 200 entries, each previously spawning its own full workflow matrix)",
+			"matchManagers": [
+				"npm"
+			],
+			"matchDepTypes": [
+				"devDependencies"
+			],
+			"matchUpdateTypes": [
+				"minor",
+				"patch"
+			],
+			"groupName": "devDependencies (non-major)",
+			"schedule": [
+				"before 4am on monday"
+			],
+			"automerge": true,
+			"automergeType": "pr"
+		},
+		{
+			"description": "Batch GitHub Actions updates separately; these are low risk and unblock CI fixes quickly",
+			"matchManagers": [
+				"github-actions"
+			],
+			"groupName": "github-actions",
+			"automerge": true,
+			"automergeType": "pr"
+		},
+		{
+			"description": "Major updates break things here (fastify/nestjs/vite/vitest majors need code changes) - create them only on dashboard approval",
+			"matchUpdateTypes": [
+				"major"
+			],
+			"dependencyDashboardApproval": true
+		}
 	]
 }

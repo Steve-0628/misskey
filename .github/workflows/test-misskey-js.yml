@@ -3,6 +3,12 @@
 
 name: Test (misskey.js)
 
+# Cancel superseded runs: Renovate rebases and rapid merges would otherwise
+# queue a full matrix of jobs for every intermediate commit.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches: [ steskey ]
@@ -14,22 +20,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [24.18.0]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3.3.0
 
       - run: corepack enable
 
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v3.6.0
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: '.node-version'
           cache: 'pnpm'
 
       - name: Install dependencies
