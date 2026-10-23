@@ -121,7 +121,7 @@ function show(ev: MouseEvent) {
 	focused.value = true;
 	opening.value = true;
 
-	const menu = [];
+	const menu: Parameters<typeof os.popupMenu>[0] = [];
 	let options = slots.default!();
 
 	const pushOption = (option: VNode) => {
