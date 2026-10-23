@@ -52,7 +52,7 @@ const timer = computed(() => i18n.t(
 		d: Math.floor(remaining.value / 86400),
 	}));
 
-const showResult = ref(props.readOnly || isVoted.value);
+const showResult = ref(Boolean(props.readOnly) || isVoted.value);
 
 // 期限付きアンケート
 if (props.note.poll.expiresAt) {
