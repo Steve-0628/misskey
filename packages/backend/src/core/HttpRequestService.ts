@@ -1,6 +1,7 @@
 import * as http from 'node:http';
 import * as https from 'node:https';
 import * as net from 'node:net';
+import type { Duplex } from 'node:stream';
 import * as dns from 'node:dns/promises';
 import ipaddr from 'ipaddr.js';
 import CacheableLookup from 'cacheable-lookup';
@@ -27,7 +28,6 @@ type ProxyRequestOptions = http.ClientRequestArgs & { servername?: string };
 
 declare module 'node:http' {
 	interface Agent {
-		createConnection(options: net.NetConnectOpts, callback?: (err: unknown, stream: net.Socket) => void): net.Socket;
 		addRequest(request: http.ClientRequest, options: ProxyRequestOptions): void;
 	}
 }
@@ -115,14 +115,14 @@ class HttpRequestServiceAgent extends http.Agent {
 		super(options);
 	}
 
-	public createConnection(options: net.NetConnectOpts, callback?: (err: unknown, stream: net.Socket) => void): net.Socket {
-		const socket = super.createConnection(options, callback)
-			.on('connect', () => {
-				const address = socket.remoteAddress;
-				if (address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
-					socket.destroy(new Error(`Blocked address: ${address}`));
-				}
-			});
+	public createConnection(options: net.NetConnectOpts, callback?: (err: Error | null, stream: Duplex) => void): Duplex {
+		const socket = super.createConnection(options, callback) as net.Socket;
+		socket.on('connect', () => {
+			const address = socket.remoteAddress;
+			if (address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
+				socket.destroy(new Error(`Blocked address: ${address}`));
+			}
+		});
 		return socket;
 	}
 }
@@ -135,14 +135,14 @@ class HttpsRequestServiceAgent extends https.Agent {
 		super(options);
 	}
 
-	public createConnection(options: net.NetConnectOpts, callback?: (err: unknown, stream: net.Socket) => void): net.Socket {
-		const socket = super.createConnection(options, callback)
-			.on('connect', () => {
-				const address = socket.remoteAddress;
-				if (address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
-					socket.destroy(new Error(`Blocked address: ${address}`));
-				}
-			});
+	public createConnection(options: net.NetConnectOpts, callback?: (err: Error | null, stream: Duplex) => void): Duplex {
+		const socket = super.createConnection(options, callback) as net.Socket;
+		socket.on('connect', () => {
+			const address = socket.remoteAddress;
+			if (address && ipaddr.isValid(address) && isPrivateIp(this.config, address)) {
+				socket.destroy(new Error(`Blocked address: ${address}`));
+			}
+		});
 		return socket;
 	}
 }
