@@ -244,8 +244,8 @@ importers:
         specifier: 8.16.3
         version: 8.16.3
       probe-image-size:
-        specifier: 7.2.3
-        version: 7.2.3(supports-color@5.5.0)
+        specifier: 7.4.0
+        version: 7.4.0
       promise-limit:
         specifier: 2.7.0
         version: 2.7.0
@@ -7571,8 +7571,8 @@ packages:
     resolution: {integrity: sha512-2pkOVPGYD/4QyAg95c6E/4bLYXPthT5Xw4ocXYzIIsMBhskOMn6IwkWXmg6ZiA6K58+O6VD/n02r1hDhk7vDPw==}
     engines: {node: '>=14.16'}
 
-  probe-image-size@7.2.3:
-    resolution: {integrity: sha512-HubhG4Rb2UH8YtV4ba0Vp5bQ7L78RTONYu/ujmCu5nBI8wGv24s4E9xSKBi0N1MowRpxk76pFCpJtW0KPzOK0w==}
+  probe-image-size@7.4.0:
+    resolution: {integrity: sha512-cdEprVtZxV+awMde9X+4jILBFYh4CARxVrQaMl4wY4YcPWbul9jntXrIW95NInBDyJwcVUP3U0T6yukN8rMBaQ==}
 
   proc-log@7.0.0:
     resolution: {integrity: sha512-FYgfaA69XZ93zaXLoMNQ+ViDXGGBgR8aLh03txzcFhV+9xOXx7+8DLCULrKKpR9+GsH9ZfHm82aSUPpozX0Ztg==}
@@ -16903,9 +16903,9 @@ snapshots:
 
   natural-compare@1.4.0: {}
 
-  needle@2.9.1(supports-color@5.5.0):
+  needle@2.9.1:
     dependencies:
-      debug: 3.2.7(supports-color@5.5.0)
+      debug: 3.2.7(supports-color@8.1.1)
       iconv-lite: 0.4.24
       sax: 1.2.4
     transitivePeerDependencies:
@@ -17763,10 +17763,10 @@ snapshots:
       ipaddr.js: 2.1.0
       netmask: 2.0.2
 
-  probe-image-size@7.2.3(supports-color@5.5.0):
+  probe-image-size@7.4.0:
     dependencies:
       lodash.merge: 4.6.2
-      needle: 2.9.1(supports-color@5.5.0)
+      needle: 2.9.1
       stream-parser: 0.3.1
     transitivePeerDependencies:
       - supports-color
