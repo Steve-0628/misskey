@@ -291,7 +291,7 @@ const containerEl = $shallowRef<HTMLElement>();
 
 function iconLoaded() {
 	const emojis = defaultStore.state.reactions;
-	const containerWidth = containerEl.offsetWidth;
+	const containerWidth = containerEl!.offsetWidth;
 	for (let i = 0; i < 32; i++) {
 		easterEggEmojis.push({
 			id: i.toString(),

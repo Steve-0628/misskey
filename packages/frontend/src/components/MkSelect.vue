@@ -68,7 +68,7 @@ const height =
 	props.large ? 39 :
 	36;
 
-const focus = () => inputEl.value.focus();
+const focus = () => inputEl.value!.focus();
 const onInput = (ev) => {
 	changed.value = true;
 	emit('change', ev);
@@ -88,7 +88,7 @@ watch(v, newValue => {
 		updated();
 	}
 
-	invalid.value = inputEl.value.validity.badInput;
+	invalid.value = inputEl.value!.validity.badInput;
 });
 
 // このコンポーネントが作成された時、非表示状態である場合がある
@@ -96,12 +96,12 @@ watch(v, newValue => {
 useInterval(() => {
 	if (prefixEl.value) {
 		if (prefixEl.value.offsetWidth) {
-			inputEl.value.style.paddingLeft = prefixEl.value.offsetWidth + 'px';
+			inputEl.value!.style.paddingLeft = prefixEl.value.offsetWidth + 'px';
 		}
 	}
 	if (suffixEl.value) {
 		if (suffixEl.value.offsetWidth) {
-			inputEl.value.style.paddingRight = suffixEl.value.offsetWidth + 'px';
+			inputEl.value!.style.paddingRight = suffixEl.value.offsetWidth + 'px';
 		}
 	}
 }, 100, {
@@ -127,9 +127,9 @@ function show(ev: MouseEvent) {
 	const pushOption = (option: VNode) => {
 		menu.push({
 			text: option.children,
-			active: computed(() => v.value === option.props.value),
+			active: computed(() => v.value === option.props!.value),
 			action: () => {
-				v.value = option.props.value;
+				v.value = option.props!.value;
 			},
 		});
 	};
@@ -140,7 +140,7 @@ function show(ev: MouseEvent) {
 				const optgroup = vnode;
 				menu.push({
 					type: 'label',
-					text: optgroup.props.label,
+					text: optgroup.props!.label,
 				});
 				scanOptions(optgroup.children);
 			} else if (Array.isArray(vnode.children)) { // 何故かフラグメントになってくることがある
@@ -158,7 +158,7 @@ function show(ev: MouseEvent) {
 	scanOptions(options);
 
 	os.popupMenu(menu, container.value, {
-		width: container.value.offsetWidth,
+		width: container.value!.offsetWidth,
 		onClosing: () => {
 			opening.value = false;
 		},

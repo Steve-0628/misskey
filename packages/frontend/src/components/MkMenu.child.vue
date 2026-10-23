@@ -74,7 +74,7 @@ onUnmounted(() => {
 
 defineExpose({
 	checkHit: (ev: MouseEvent) => {
-		return (ev.target === el.value || el.value.contains(ev.target));
+		return (ev.target === el.value || el.value!.contains(ev.target));
 	},
 });
 </script>

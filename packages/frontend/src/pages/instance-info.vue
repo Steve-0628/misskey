@@ -167,20 +167,20 @@ async function fetch() {
 async function toggleBlock(ev) {
 	if (meta == null) return;
 	await os.api('admin/update-meta', {
-		blockedHosts: isBlocked ? meta.blockedHosts.concat([instance.host]) : meta.blockedHosts.filter(x => x !== instance.host),
+		blockedHosts: isBlocked ? meta.blockedHosts.concat([instance!.host]) : meta.blockedHosts.filter(x => x !== instance!.host),
 	});
 }
 
 async function toggleSuspend(v) {
 	await os.api('admin/federation/update-instance', {
-		host: instance.host,
+		host: instance!.host,
 		isSuspended: suspended,
 	});
 }
 
 function refreshMetadata() {
 	os.api('admin/federation/refresh-remote-instance-metadata', {
-		host: instance.host,
+		host: instance!.host,
 	});
 	os.alert({
 		text: 'Refresh requested',

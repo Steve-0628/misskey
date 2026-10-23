@@ -85,8 +85,8 @@ const count = $computed(() => props.mediaList.filter(media => previewable(media)
 let lightbox: PhotoSwipeLightbox | null;
 
 const popstateHandler = (): void => {
-	if (lightbox.pswp && lightbox.pswp.isOpen === true) {
-		lightbox.pswp.close();
+	if (lightbox!.pswp && lightbox!.pswp.isOpen === true) {
+		lightbox!.pswp.close();
 	}
 };
 
@@ -193,7 +193,7 @@ onMounted(() => {
 		// element is children
 		const { element } = itemData;
 
-		const id = element.dataset.id;
+		const id = element!.dataset.id;
 		const file = props.mediaList.find(media => media.id === id);
 		if (!file) return;
 
@@ -210,7 +210,7 @@ onMounted(() => {
 	});
 
 	lightbox.on('uiRegister', () => {
-		lightbox.pswp.ui.registerElement({
+		lightbox!.pswp!.ui!.registerElement({
 			name: 'altText',
 			className: 'pwsp__alt-text-container',
 			appendTo: 'wrapper',
@@ -220,7 +220,7 @@ onMounted(() => {
 				el.appendChild(textBox);
 
 				pwsp.on('change', (a) => {
-					textBox.textContent = pwsp.currSlide.data.comment;
+					textBox.textContent = pwsp.currSlide!.data.comment;
 				});
 			},
 		});

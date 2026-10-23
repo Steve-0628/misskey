@@ -54,7 +54,7 @@ const tick = () => {
 	});
 };
 
-useInterval(tick, Math.max(5000, props.refreshIntervalSec * 1000), {
+useInterval(tick, Math.max(5000, props.refreshIntervalSec! * 1000), {
 	immediate: true,
 	afterMounted: true,
 });

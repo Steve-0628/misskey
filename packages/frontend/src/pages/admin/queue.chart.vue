@@ -73,10 +73,10 @@ const onStats = (stats) => {
 	delayed.value = stats[props.domain].delayed;
 	waiting.value = stats[props.domain].waiting;
 
-	chartProcess.pushData(stats[props.domain].activeSincePrevTick);
-	chartActive.pushData(stats[props.domain].active);
-	chartDelayed.pushData(stats[props.domain].delayed);
-	chartWaiting.pushData(stats[props.domain].waiting);
+	chartProcess!.pushData(stats[props.domain].activeSincePrevTick);
+	chartActive!.pushData(stats[props.domain].active);
+	chartDelayed!.pushData(stats[props.domain].delayed);
+	chartWaiting!.pushData(stats[props.domain].waiting);
 };
 
 const onStatsLog = (statsLog) => {
@@ -92,10 +92,10 @@ const onStatsLog = (statsLog) => {
 		dataWaiting.push(stats[props.domain].waiting);
 	}
 
-	chartProcess.setData(dataProcess);
-	chartActive.setData(dataActive);
-	chartDelayed.setData(dataDelayed);
-	chartWaiting.setData(dataWaiting);
+	chartProcess!.setData(dataProcess);
+	chartActive!.setData(dataActive);
+	chartDelayed!.setData(dataDelayed);
+	chartWaiting!.setData(dataWaiting);
 };
 
 onMounted(() => {

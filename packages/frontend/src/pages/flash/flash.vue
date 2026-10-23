@@ -86,24 +86,24 @@ function fetchFlash() {
 
 function share() {
 	navigator.share({
-		title: flash.title,
-		text: flash.summary,
-		url: `${url}/play/${flash.id}`,
+		title: flash!.title,
+		text: flash!.summary,
+		url: `${url}/play/${flash!.id}`,
 	});
 }
 
 function shareWithNote() {
 	os.post({
-		initialText: `${flash.title} ${url}/play/${flash.id}`,
+		initialText: `${flash!.title} ${url}/play/${flash!.id}`,
 	});
 }
 
 function like() {
 	os.apiWithDialog('flash/like', {
-		flashId: flash.id,
+		flashId: flash!.id,
 	}).then(() => {
-		flash.isLiked = true;
-		flash.likedCount++;
+		flash!.isLiked = true;
+		flash!.likedCount++;
 	});
 }
 
@@ -114,10 +114,10 @@ async function unlike() {
 	});
 	if (confirm.canceled) return;
 	os.apiWithDialog('flash/unlike', {
-		flashId: flash.id,
+		flashId: flash!.id,
 	}).then(() => {
-		flash.isLiked = false;
-		flash.likedCount--;
+		flash!.isLiked = false;
+		flash!.likedCount--;
 	});
 }
 
@@ -140,13 +140,13 @@ async function run() {
 
 	aiscript = new Interpreter({
 		...createAiScriptEnv({
-			storageKey: 'flash:' + flash.id,
+			storageKey: 'flash:' + flash!.id,
 		}),
 		...registerAsUiLib(components, (_root) => {
 			root.value = _root.value;
 		}),
-		THIS_ID: values.STR(flash.id),
-		THIS_URL: values.STR(`${url}/play/${flash.id}`),
+		THIS_ID: values.STR(flash!.id),
+		THIS_URL: values.STR(`${url}/play/${flash!.id}`),
 	}, {
 		in: (q) => {
 			return new Promise(ok => {
@@ -171,7 +171,7 @@ async function run() {
 
 	let ast;
 	try {
-		ast = parser.parse(flash.script);
+		ast = parser.parse(flash!.script);
 	} catch (err) {
 		os.alert({
 			type: 'error',

@@ -65,19 +65,19 @@ function fetchList(): void {
 
 function like() {
 	os.apiWithDialog('users/lists/favorite', {
-		listId: list.id,
+		listId: list!.id,
 	}).then(() => {
-		list.isLiked = true;
-		list.likedCount++;
+		list!.isLiked = true;
+		list!.likedCount!++;
 	});
 }
 
 function unlike() {
 	os.apiWithDialog('users/lists/unfavorite', {
-		listId: list.id,
+		listId: list!.id,
 	}).then(() => {
-		list.isLiked = false;
-		list.likedCount--;
+		list!.isLiked = false;
+		list!.likedCount!--;
 	});
 }
 
@@ -86,7 +86,7 @@ async function create() {
 		title: i18n.ts.enterListName,
 	});
 	if (canceled) return;
-	await os.apiWithDialog('users/lists/create-from-public', { name: name, listId: list.id });
+	await os.apiWithDialog('users/lists/create-from-public', { name: name, listId: list!.id });
 }
 
 watch(() => props.listId, fetchList, { immediate: true });

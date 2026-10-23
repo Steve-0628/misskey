@@ -99,7 +99,7 @@ const ok = () => {
 	const sel = selected;
 	if (sel == null) return;
 	emit('ok', sel);
-	dialogEl.close();
+	dialogEl!.close();
 
 	// 最近使ったユーザー更新
 	let recents = defaultStore.state.recentlyUsedUsers;
@@ -110,7 +110,7 @@ const ok = () => {
 
 const cancel = () => {
 	emit('cancel');
-	dialogEl.close();
+	dialogEl!.close();
 };
 
 onMounted(() => {

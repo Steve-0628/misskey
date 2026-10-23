@@ -89,13 +89,13 @@ function ok() {
 	emit('done', {
 		result: values,
 	});
-	dialog.value.close();
+	dialog.value!.close();
 }
 
 function cancel() {
 	emit('done', {
 		canceled: true,
 	});
-	dialog.value.close();
+	dialog.value!.close();
 }
 </script>

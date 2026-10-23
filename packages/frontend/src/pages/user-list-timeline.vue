@@ -62,7 +62,7 @@ async function timetravel() {
 	});
 	if (canceled) return;
 
-	tlEl.timetravel(date);
+	tlEl!.timetravel(date);
 }
 
 const headerActions = $computed(() => list ? [{

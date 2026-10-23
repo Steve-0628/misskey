@@ -84,9 +84,9 @@ function anime() {
 	if (document.hidden) return;
 	if (!defaultStore.state.animation) return;
 
-	const rect = buttonEl.value.getBoundingClientRect();
+	const rect = buttonEl.value!.getBoundingClientRect();
 	const x = rect.left + 16;
-	const y = rect.top + (buttonEl.value.offsetHeight / 2);
+	const y = rect.top + (buttonEl.value!.offsetHeight / 2);
 	os.popup(MkReactionEffect, { reaction: props.reaction, x, y }, {}, 'end');
 }
 

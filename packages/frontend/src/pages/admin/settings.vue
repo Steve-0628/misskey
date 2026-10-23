@@ -83,15 +83,15 @@ let deeplIsPro: boolean = $ref(false);
 
 async function init(): Promise<void> {
 	const meta = await os.api('admin/meta');
-	name = meta.name;
-	description = meta.description;
-	maintainerName = meta.maintainerName;
-	maintainerEmail = meta.maintainerEmail;
-	pinnedUsers = meta.pinnedUsers.join('\n');
-	swPublicKey = meta.swPublickey;
-	swPrivateKey = meta.swPrivateKey;
-	deeplAuthKey = meta.deeplAuthKey;
-	deeplIsPro = meta.deeplIsPro;
+	name = meta!.name;
+	description = meta!.description;
+	maintainerName = meta!.maintainerName;
+	maintainerEmail = meta!.maintainerEmail;
+	pinnedUsers = meta!.pinnedUsers.join('\n');
+	swPublicKey = meta!.swPublickey;
+	swPrivateKey = meta!.swPrivateKey;
+	deeplAuthKey = meta!.deeplAuthKey;
+	deeplIsPro = meta!.deeplIsPro;
 }
 
 function save(): void {

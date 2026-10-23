@@ -87,7 +87,7 @@ const props = defineProps<{
 	emoji?: any,
 }>();
 
-let dialog = $ref(null);
+let dialog = $ref<{ close: () => void } | null>(null);
 let name: string = $ref(props.emoji ? props.emoji.name : '');
 let category: string = $ref(props.emoji ? props.emoji.category : '');
 let aliases: string = $ref(props.emoji ? props.emoji.aliases.join(' ') : '');
@@ -161,7 +161,7 @@ async function done() {
 			},
 		});
 
-		dialog.close();
+		dialog!.close();
 	} else {
 		const created = await os.apiWithDialog('admin/emoji/add', params);
 
@@ -169,7 +169,7 @@ async function done() {
 			created: created,
 		});
 
-		dialog.close();
+		dialog!.close();
 	}
 }
 
@@ -186,7 +186,7 @@ async function del() {
 		emit('done', {
 			deleted: true,
 		});
-		dialog.close();
+		dialog!.close();
 	});
 }
 </script>

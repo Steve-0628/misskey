@@ -55,7 +55,7 @@ async function timetravel() {
 	});
 	if (canceled) return;
 
-	tlEl.timetravel(date);
+	tlEl!.timetravel(date);
 }
 
 function settings() {
@@ -63,7 +63,7 @@ function settings() {
 }
 
 function focus() {
-	tlEl.focus();
+	tlEl!.focus();
 }
 
 watch(() => props.antennaId, async () => {

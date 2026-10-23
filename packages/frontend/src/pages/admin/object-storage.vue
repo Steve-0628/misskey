@@ -106,19 +106,19 @@ let objectStorageS3ForcePathStyle: boolean = $ref(true);
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	useObjectStorage = meta.useObjectStorage;
-	objectStorageBaseUrl = meta.objectStorageBaseUrl;
-	objectStorageBucket = meta.objectStorageBucket;
-	objectStoragePrefix = meta.objectStoragePrefix;
-	objectStorageEndpoint = meta.objectStorageEndpoint;
-	objectStorageRegion = meta.objectStorageRegion;
-	objectStoragePort = meta.objectStoragePort;
-	objectStorageAccessKey = meta.objectStorageAccessKey;
-	objectStorageSecretKey = meta.objectStorageSecretKey;
-	objectStorageUseSSL = meta.objectStorageUseSSL;
-	objectStorageUseProxy = meta.objectStorageUseProxy;
-	objectStorageSetPublicRead = meta.objectStorageSetPublicRead;
-	objectStorageS3ForcePathStyle = meta.objectStorageS3ForcePathStyle;
+	useObjectStorage = meta!.useObjectStorage;
+	objectStorageBaseUrl = meta!.objectStorageBaseUrl;
+	objectStorageBucket = meta!.objectStorageBucket;
+	objectStoragePrefix = meta!.objectStoragePrefix;
+	objectStorageEndpoint = meta!.objectStorageEndpoint;
+	objectStorageRegion = meta!.objectStorageRegion;
+	objectStoragePort = meta!.objectStoragePort;
+	objectStorageAccessKey = meta!.objectStorageAccessKey;
+	objectStorageSecretKey = meta!.objectStorageSecretKey;
+	objectStorageUseSSL = meta!.objectStorageUseSSL;
+	objectStorageUseProxy = meta!.objectStorageUseProxy;
+	objectStorageSetPublicRead = meta!.objectStorageSetPublicRead;
+	objectStorageS3ForcePathStyle = meta!.objectStorageS3ForcePathStyle;
 }
 
 function save() {

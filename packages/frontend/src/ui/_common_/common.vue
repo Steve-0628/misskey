@@ -59,7 +59,7 @@ const dev = _DEV_;
 let notifications = $ref<misskey.entities.Notification[]>([]);
 
 function onNotification(notification) {
-	if ($i.mutingNotificationTypes.includes(notification.type)) return;
+	if ($i!.mutingNotificationTypes.includes(notification.type)) return;
 
 	if (document.visibilityState === 'visible') {
 		useStream().send('readNotification');

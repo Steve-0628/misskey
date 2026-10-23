@@ -63,7 +63,7 @@ const changed = ref(false);
 const invalid = ref(false);
 const inputEl = shallowRef<HTMLTextAreaElement>();
 
-const focus = () => inputEl.value.focus();
+const focus = () => inputEl.value!.focus();
 const onInput = (ev) => {
 	changed.value = true;
 	emit('change', ev);
@@ -98,7 +98,7 @@ watch(v, newValue => {
 		}
 	}
 
-	invalid.value = inputEl.value.validity.badInput;
+	invalid.value = inputEl.value!.validity.badInput;
 });
 
 onMounted(() => {

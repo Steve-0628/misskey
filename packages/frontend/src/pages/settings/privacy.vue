@@ -72,14 +72,14 @@ import { i18n } from '@/i18n';
 import { $i } from '@/account';
 import { definePageMetadata } from '@/scripts/page-metadata';
 
-let isLocked = $ref($i.isLocked);
-let autoAcceptFollowed = $ref($i.autoAcceptFollowed);
-let noCrawle = $ref($i.noCrawle);
-let preventAiLearning = $ref($i.preventAiLearning);
-let isExplorable = $ref($i.isExplorable);
-let hideOnlineStatus = $ref($i.hideOnlineStatus);
-let publicReactions = $ref($i.publicReactions);
-let ffVisibility = $ref($i.ffVisibility);
+let isLocked = $ref($i!.isLocked);
+let autoAcceptFollowed = $ref($i!.autoAcceptFollowed);
+let noCrawle = $ref($i!.noCrawle);
+let preventAiLearning = $ref($i!.preventAiLearning);
+let isExplorable = $ref($i!.isExplorable);
+let hideOnlineStatus = $ref($i!.hideOnlineStatus);
+let publicReactions = $ref($i!.publicReactions);
+let ffVisibility = $ref($i!.ffVisibility);
 
 let defaultNoteVisibility = $computed(defaultStore.makeGetterSetter('defaultNoteVisibility'));
 let defaultNoteLocalOnly = $computed(defaultStore.makeGetterSetter('defaultNoteLocalOnly'));

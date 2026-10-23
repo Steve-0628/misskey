@@ -65,11 +65,11 @@ let tosUrl: string | null = $ref(null);
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	enableRegistration = !meta.disableRegistration;
-	emailRequiredForSignup = meta.emailRequiredForSignup;
-	sensitiveWords = meta.sensitiveWords.join('\n');
-	preservedUsernames = meta.preservedUsernames.join('\n');
-	tosUrl = meta.tosUrl;
+	enableRegistration = !meta!.disableRegistration;
+	emailRequiredForSignup = meta!.emailRequiredForSignup;
+	sensitiveWords = meta!.sensitiveWords.join('\n');
+	preservedUsernames = meta!.preservedUsernames.join('\n');
+	tosUrl = meta!.tosUrl;
 }
 
 function save() {

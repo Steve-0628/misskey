@@ -149,30 +149,30 @@ function top() {
 
 function maximize() {
 	maximized = true;
-	unResizedTop = rootEl.style.top;
-	unResizedLeft = rootEl.style.left;
-	unResizedWidth = rootEl.style.width;
-	unResizedHeight = rootEl.style.height;
-	rootEl.style.top = '0';
-	rootEl.style.left = '0';
-	rootEl.style.width = '100%';
-	rootEl.style.height = '100%';
+	unResizedTop = rootEl!.style.top;
+	unResizedLeft = rootEl!.style.left;
+	unResizedWidth = rootEl!.style.width;
+	unResizedHeight = rootEl!.style.height;
+	rootEl!.style.top = '0';
+	rootEl!.style.left = '0';
+	rootEl!.style.width = '100%';
+	rootEl!.style.height = '100%';
 }
 
 function unMaximize() {
 	maximized = false;
-	rootEl.style.top = unResizedTop;
-	rootEl.style.left = unResizedLeft;
-	rootEl.style.width = unResizedWidth;
-	rootEl.style.height = unResizedHeight;
+	rootEl!.style.top = unResizedTop;
+	rootEl!.style.left = unResizedLeft;
+	rootEl!.style.width = unResizedWidth;
+	rootEl!.style.height = unResizedHeight;
 }
 
 function minimize() {
 	minimized = true;
-	unResizedWidth = rootEl.style.width;
-	unResizedHeight = rootEl.style.height;
-	rootEl.style.width = minWidth + 'px';
-	rootEl.style.height = props.mini ? '32px' : '39px';
+	unResizedWidth = rootEl!.style.width;
+	unResizedHeight = rootEl!.style.height;
+	rootEl!.style.width = minWidth + 'px';
+	rootEl!.style.height = props.mini ? '32px' : '39px';
 }
 
 function unMinimize() {
@@ -180,8 +180,8 @@ function unMinimize() {
 	if (main == null) return;
 
 	minimized = false;
-	rootEl.style.width = unResizedWidth;
-	rootEl.style.height = unResizedHeight;
+	rootEl!.style.width = unResizedWidth;
+	rootEl!.style.height = unResizedHeight;
 	const browserWidth = window.innerWidth;
 	const browserHeight = window.innerHeight;
 	const windowWidth = main.offsetWidth;
@@ -256,8 +256,8 @@ function onHeaderMousedown(evt: MouseEvent | TouchEvent) {
 		// 右はみ出し
 		if (moveLeft + windowWidth > browserWidth) moveLeft = browserWidth - windowWidth;
 
-		rootEl.style.left = moveLeft + 'px';
-		rootEl.style.top = moveTop + 'px';
+		rootEl!.style.left = moveLeft + 'px';
+		rootEl!.style.top = moveTop + 'px';
 	}
 
 	if (beforeMaximized) {
@@ -405,23 +405,23 @@ function onBottomLeftHandleMousedown(evt) {
 // 高さを適用
 function applyTransformHeight(height) {
 	if (height > window.innerHeight) height = window.innerHeight;
-	rootEl.style.height = height + 'px';
+	rootEl!.style.height = height + 'px';
 }
 
 // 幅を適用
 function applyTransformWidth(width) {
 	if (width > window.innerWidth) width = window.innerWidth;
-	rootEl.style.width = width + 'px';
+	rootEl!.style.width = width + 'px';
 }
 
 // Y座標を適用
 function applyTransformTop(top) {
-	rootEl.style.top = top + 'px';
+	rootEl!.style.top = top + 'px';
 }
 
 // X座標を適用
 function applyTransformLeft(left) {
-	rootEl.style.left = left + 'px';
+	rootEl!.style.left = left + 'px';
 }
 
 function onBrowserResize() {
@@ -443,8 +443,8 @@ onMounted(() => {
 	applyTransformWidth(props.initialWidth);
 	if (props.initialHeight) applyTransformHeight(props.initialHeight);
 
-	applyTransformTop((window.innerHeight / 2) - (rootEl.offsetHeight / 2));
-	applyTransformLeft((window.innerWidth / 2) - (rootEl.offsetWidth / 2));
+	applyTransformTop((window.innerHeight / 2) - (rootEl!.offsetHeight / 2));
+	applyTransformLeft((window.innerWidth / 2) - (rootEl!.offsetWidth / 2));
 
 	// 他のウィンドウ内のボタンなどを押してこのウィンドウが開かれた場合、親が最前面になろうとするのでそれに隠されないようにする
 	top();

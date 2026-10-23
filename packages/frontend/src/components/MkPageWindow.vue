@@ -108,7 +108,7 @@ const contextmenu = $computed(() => ([{
 	text: i18n.ts.openInNewTab,
 	action: () => {
 		window.open(url + router.getCurrentPath(), '_blank');
-		windowEl.close();
+		windowEl!.close();
 	},
 }, {
 	icon: 'ti ti-link',
@@ -128,17 +128,17 @@ function reload() {
 }
 
 function close() {
-	windowEl.close();
+	windowEl!.close();
 }
 
 function expand() {
 	mainRouter.push(router.getCurrentPath(), 'forcePage');
-	windowEl.close();
+	windowEl!.close();
 }
 
 function popout() {
-	_popout(router.getCurrentPath(), windowEl.$el);
-	windowEl.close();
+	_popout(router.getCurrentPath(), windowEl!.$el);
+	windowEl!.close();
 }
 
 useScrollPositionManager(() => getScrollContainer(contents.value), router);

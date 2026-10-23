@@ -104,7 +104,7 @@ function toggle() {
 
 onMounted(() => {
 	const computedStyle = getComputedStyle(document.documentElement);
-	const parentBg = getBgColor(rootEl.parentElement);
+	const parentBg = getBgColor(rootEl!.parentElement);
 	const myBg = computedStyle.getPropertyValue('--panel');
 	bgSame = parentBg === myBg;
 });

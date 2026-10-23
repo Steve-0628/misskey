@@ -146,16 +146,16 @@ async function showChildren(item: MenuItem, ev: MouseEvent) {
 	if (childrenCache.has(item)) {
 		children.value = childrenCache.get(item);
 	} else {
-		if (typeof item.children === 'function') {
+		if (typeof item!.children === 'function') {
 			children.value = [{
 				type: 'pending',
 			}];
-			item.children().then(x => {
+			item!.children().then(x => {
 				children.value = x;
 				childrenCache.set(item, x);
 			});
 		} else {
-			children.value = item.children;
+			children.value = item!.children;
 		}
 	}
 
@@ -189,7 +189,7 @@ function focusDown() {
 onMounted(() => {
 	if (props.viaKeyboard) {
 		nextTick(() => {
-			focusNext(itemsEl.children[0], true, false);
+			focusNext(itemsEl!.children[0], true, false);
 		});
 	}
 

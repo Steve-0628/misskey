@@ -83,13 +83,13 @@ let smtpPass: string = $ref('');
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	enableEmail = meta.enableEmail;
-	email = meta.email;
-	smtpSecure = meta.smtpSecure;
-	smtpHost = meta.smtpHost;
-	smtpPort = meta.smtpPort;
-	smtpUser = meta.smtpUser;
-	smtpPass = meta.smtpPass;
+	enableEmail = meta!.enableEmail;
+	email = meta!.email;
+	smtpSecure = meta!.smtpSecure;
+	smtpHost = meta!.smtpHost;
+	smtpPort = meta!.smtpPort;
+	smtpUser = meta!.smtpUser;
+	smtpPass = meta!.smtpPass;
 }
 
 async function testEmail() {
