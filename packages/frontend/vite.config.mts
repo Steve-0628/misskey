@@ -2,7 +2,7 @@ import path from 'path';
 import pluginReplace from '@rollup/plugin-replace';
 import pluginVue from '@vitejs/plugin-vue';
 import { type UserConfig, defineConfig } from 'vite';
-import ReactivityTransform from '@vue-macros/reactivity-transform/vite';
+import VueMacros from 'vue-macros';
 
 import locales from '../../locales';
 import generateDTS from '../../locales/generateDTS';
@@ -51,10 +51,11 @@ export function getConfig(): UserConfig {
 		},
 
 		plugins: [
-			pluginVue({
-				reactivityTransform: true,
+			VueMacros.vite({
+				plugins: {
+					vue: pluginVue(),
+				},
 			}),
-			ReactivityTransform(),
 			pluginUnwindCssModuleClassName(),
 			pluginJson5(),
 			...process.env.NODE_ENV === 'production'
