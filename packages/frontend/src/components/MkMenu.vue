@@ -66,7 +66,7 @@ import { i18n } from '@/i18n';
 const XChild = defineAsyncComponent(() => import('./MkMenu.child.vue'));
 
 const props = defineProps<{
-	items: MenuItem[];
+	items: (MenuItem | MenuPending)[];
 	viaKeyboard?: boolean;
 	asDrawer?: boolean;
 	align?: 'center' | string;
@@ -111,7 +111,7 @@ watch(() => props.items, () => {
 	immediate: true,
 });
 
-let childMenu = ref<MenuItem[] | null>();
+let childMenu = ref<(MenuItem | MenuPending)[] | null>();
 let childTarget = $shallowRef<HTMLElement | null>();
 
 function closeChild() {
