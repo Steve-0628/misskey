@@ -71,7 +71,6 @@ let queryingKey = $ref(false);
 let hCaptchaResponse = $ref(null);
 let reCaptchaResponse = $ref(null);
 
-const meta = $computed(() => instance);
 
 const emit = defineEmits<{
 	(ev: 'login', v: any): void;

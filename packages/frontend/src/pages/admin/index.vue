@@ -48,7 +48,6 @@ provide('shouldOmitHeaderTitle', false);
 let INFO = $ref(indexInfo);
 let childInfo = $ref(null);
 let narrow = $ref(false);
-let view = $ref(null);
 let el = $ref(null);
 let pageProps = $ref({});
 let noMaintainerInformation = isEmpty(instance.maintainerName) || isEmpty(instance.maintainerEmail);

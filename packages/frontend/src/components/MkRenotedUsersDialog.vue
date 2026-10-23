@@ -47,7 +47,6 @@ const props = defineProps<{
 
 const dialog = $shallowRef<InstanceType<typeof MkModalWindow>>();
 
-let note = $ref<misskey.entities.Note>();
 let renotes = $ref<misskey.entities.Note[]>();
 let users = $ref<misskey.entities.UserDetailed[]>();
 
