@@ -126,7 +126,7 @@ describe('ApResolverService', () => {
 		} as unknown as jest.Mocked<ApRequestService>;
 
 		httpRequestService = {
-			getJson: jest.fn().mockResolvedValue(createRemoteObject()),
+			getActivityJson: jest.fn().mockResolvedValue(createRemoteObject()),
 			send: jest.fn().mockResolvedValue({ ok: true } as Response),
 		} as unknown as jest.Mocked<HttpRequestService>;
 
@@ -200,7 +200,7 @@ describe('ApResolverService', () => {
 			const object = createRemoteObject();
 			const result = await resolver.resolve(object);
 			expect(result).toBe(object);
-			expect(httpRequestService.getJson).not.toHaveBeenCalled();
+			expect(httpRequestService.getActivityJson).not.toHaveBeenCalled();
 		});
 
 		test('throws for URL with fragment', async () => {
@@ -244,7 +244,7 @@ describe('ApResolverService', () => {
 			const resolver = service.createResolver();
 
 			await expect(resolver.resolve('https://remote.example/objects/1')).rejects.toThrow('Instance is blocked');
-			expect(httpRequestService.getJson).not.toHaveBeenCalled();
+			expect(httpRequestService.getActivityJson).not.toHaveBeenCalled();
 			expect(apRequestService.signedGet).not.toHaveBeenCalled();
 		});
 
@@ -255,8 +255,8 @@ describe('ApResolverService', () => {
 
 			const result = await resolver.resolve(url);
 
-			expect(httpRequestService.getJson).toHaveBeenCalledTimes(1);
-			expect(httpRequestService.getJson).toHaveBeenCalledWith(url, 'application/activity+json, application/ld+json');
+			expect(httpRequestService.getActivityJson).toHaveBeenCalledTimes(1);
+			expect(httpRequestService.getActivityJson).toHaveBeenCalledWith(url);
 			expect(apRequestService.signedGet).not.toHaveBeenCalled();
 			expect(instanceActorService.getInstanceActor).not.toHaveBeenCalled();
 			expect(result).toEqual(createRemoteObject());
@@ -272,19 +272,19 @@ describe('ApResolverService', () => {
 			expect(instanceActorService.getInstanceActor).toHaveBeenCalled();
 			expect(apRequestService.signedGet).toHaveBeenCalledTimes(1);
 			expect(apRequestService.signedGet).toHaveBeenCalledWith(url, { id: 'instanceactor1' });
-			expect(httpRequestService.getJson).not.toHaveBeenCalled();
+			expect(httpRequestService.getActivityJson).not.toHaveBeenCalled();
 			expect(result).toEqual(createRemoteObject());
 		});
 
 		test('throws when response has invalid @context string', async () => {
-			httpRequestService.getJson.mockResolvedValue({ type: 'Note', '@context': 'https://bad.example/context' });
+			httpRequestService.getActivityJson.mockResolvedValue({ type: 'Note', '@context': 'https://bad.example/context' });
 			const resolver = service.createResolver();
 
 			await expect(resolver.resolve('https://remote.example/objects/1')).rejects.toThrow('invalid response');
 		});
 
 		test('throws when response has invalid @context array', async () => {
-			httpRequestService.getJson.mockResolvedValue({ type: 'Note', '@context': ['https://bad.example/context'] });
+			httpRequestService.getActivityJson.mockResolvedValue({ type: 'Note', '@context': ['https://bad.example/context'] });
 			const resolver = service.createResolver();
 
 			await expect(resolver.resolve('https://remote.example/objects/1')).rejects.toThrow('invalid response');
@@ -296,7 +296,7 @@ describe('ApResolverService', () => {
 				id: 'https://remote.example/objects/1',
 				'@context': ['https://www.w3.org/ns/activitystreams'],
 			};
-			httpRequestService.getJson.mockResolvedValue(object);
+			httpRequestService.getActivityJson.mockResolvedValue(object);
 			const resolver = service.createResolver();
 
 			const result = await resolver.resolve('https://remote.example/objects/1');
@@ -379,22 +379,22 @@ describe('ApResolverService', () => {
 			const result = await resolver.resolveCollection(collection);
 
 			expect(result).toBe(collection);
-			expect(httpRequestService.getJson).not.toHaveBeenCalled();
+			expect(httpRequestService.getActivityJson).not.toHaveBeenCalled();
 		});
 
 		test('fetches and validates a collection URL', async () => {
 			const collection = { type: 'Collection', id: 'https://remote.example/collection/1', '@context': 'https://www.w3.org/ns/activitystreams' };
-			httpRequestService.getJson.mockResolvedValue(collection);
+			httpRequestService.getActivityJson.mockResolvedValue(collection);
 			const resolver = service.createResolver();
 
 			const result = await resolver.resolveCollection('https://remote.example/collection/1');
 
-			expect(httpRequestService.getJson).toHaveBeenCalledWith('https://remote.example/collection/1', 'application/activity+json, application/ld+json');
+			expect(httpRequestService.getActivityJson).toHaveBeenCalledWith('https://remote.example/collection/1');
 			expect(result).toEqual(collection);
 		});
 
 		test('throws for non-collection object', async () => {
-			httpRequestService.getJson.mockResolvedValue({ type: 'Note', '@context': 'https://www.w3.org/ns/activitystreams' });
+			httpRequestService.getActivityJson.mockResolvedValue({ type: 'Note', '@context': 'https://www.w3.org/ns/activitystreams' });
 			const resolver = service.createResolver();
 
 			await expect(resolver.resolveCollection('https://remote.example/objects/1')).rejects.toThrow('unrecognized collection type');

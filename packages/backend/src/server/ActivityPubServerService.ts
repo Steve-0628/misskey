@@ -1,3 +1,4 @@
+import * as crypto from 'node:crypto';
 import { IncomingMessage } from 'node:http';
 import { Inject, Injectable } from '@nestjs/common';
 import fastifyAccepts from '@fastify/accepts';
@@ -21,11 +22,16 @@ import { UtilityService } from '@/core/UtilityService.js';
 import { UserEntityService } from '@/core/entities/UserEntityService.js';
 import { bindThis } from '@/decorators.js';
 import { IActivity } from '@/core/activitypub/type.js';
-import type { FastifyInstance, FastifyRequest, FastifyReply, FastifyPluginOptions } from 'fastify';
+import type { FastifyInstance, FastifyRequest, FastifyReply, FastifyPluginOptions, FastifyBodyParser } from 'fastify';
 import type { FindOptionsWhere } from 'typeorm';
 
 const ACTIVITY_JSON = 'application/activity+json; charset=utf-8';
 const LD_JSON = 'application/ld+json; profile="https://www.w3.org/ns/activitystreams"; charset=utf-8';
+
+type ActivityPubRequestBody = {
+	rawBody: Buffer;
+	activity: IActivity;
+};
 
 @Injectable()
 export class ActivityPubServerService {
@@ -92,7 +98,7 @@ export class ActivityPubServerService {
 	}
 
 	@bindThis
-	private inbox(request: FastifyRequest, reply: FastifyReply) {
+	private inbox(request: FastifyRequest<{ Body: ActivityPubRequestBody }>, reply: FastifyReply) {
 		let signature;
 
 		try {
@@ -102,8 +108,41 @@ export class ActivityPubServerService {
 			return;
 		}
 
-		// TODO: request.bodyのバリデーション？
-		this.queueService.inbox(request.body as IActivity, signature);
+		if (signature.params.headers.indexOf('host') === -1 || request.headers.host !== this.config.host) {
+			reply.code(401);
+			return;
+		}
+
+		if (signature.params.headers.indexOf('digest') === -1) {
+			reply.code(401);
+			return;
+		}
+
+		const digest = request.headers.digest;
+		if (typeof digest !== 'string') {
+			reply.code(401);
+			return;
+		}
+
+		const match = digest.match(/^([a-zA-Z0-9\-]+)=(.+)$/);
+		if (match == null) {
+			reply.code(401);
+			return;
+		}
+
+		const [, algorithm, digestValue] = match;
+		if (algorithm !== 'SHA-256') {
+			reply.code(401);
+			return;
+		}
+
+		const hash = crypto.createHash('sha256').update(request.body.rawBody).digest('base64');
+		if (hash !== digestValue) {
+			reply.code(401);
+			return;
+		}
+
+		this.queueService.inbox(request.body.activity, signature);
 
 		reply.code(202);
 	}
@@ -453,9 +492,25 @@ export class ActivityPubServerService {
 			},
 		});
 
+		const activityJsonParser: FastifyBodyParser<Buffer> = (_request, rawBody, done) => {
+			if (rawBody.length === 0) {
+				const err = new Error('Body cannot be empty!') as Error & { statusCode?: number };
+				err.statusCode = 400;
+				return done(err, undefined);
+			}
+
+			try {
+				const activity = JSON.parse(rawBody.toString('utf8')) as IActivity;
+				done(null, { rawBody, activity });
+			} catch (err) {
+				const parseError = err as Error & { statusCode?: number };
+				parseError.statusCode = 400;
+				done(parseError, undefined);
+			}
+		};
 		fastify.register(fastifyAccepts);
-		fastify.addContentTypeParser('application/activity+json', { parseAs: 'string' }, fastify.getDefaultJsonParser('ignore', 'ignore'));
-		fastify.addContentTypeParser('application/ld+json', { parseAs: 'string' }, fastify.getDefaultJsonParser('ignore', 'ignore'));
+		fastify.addContentTypeParser('application/activity+json', { parseAs: 'buffer' }, activityJsonParser);
+		fastify.addContentTypeParser('application/ld+json', { parseAs: 'buffer' }, activityJsonParser);
 
 		fastify.addHook('onRequest', (request, reply, done) => {
 			reply.header('Access-Control-Allow-Headers', 'Accept');
@@ -467,8 +522,8 @@ export class ActivityPubServerService {
 
 		//#region Routing
 		// inbox (limit: 64kb)
-		fastify.post('/inbox', { bodyLimit: 1024 * 64 }, async (request, reply) => await this.inbox(request, reply));
-		fastify.post('/users/:user/inbox', { bodyLimit: 1024 * 64 }, async (request, reply) => await this.inbox(request, reply));
+		fastify.post<{ Body: ActivityPubRequestBody }>('/inbox', { bodyLimit: 1024 * 64 }, async (request, reply) => await this.inbox(request, reply));
+		fastify.post<{ Body: ActivityPubRequestBody }>('/users/:user/inbox', { bodyLimit: 1024 * 64 }, async (request, reply) => await this.inbox(request, reply));
 
 		// note
 		fastify.get<{ Params: { note: string; } }>('/notes/:note', { constraints: { apOrHtml: 'ap' } }, async (request, reply) => {

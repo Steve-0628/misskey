@@ -3,6 +3,19 @@ import { isInstanceMuted, isUserFromMutedInstance } from '@/misc/is-instance-mut
 import { NoteEntityService } from '@/core/entities/NoteEntityService.js';
 import { bindThis } from '@/decorators.js';
 import Channel from '../channel.js';
+import type { MainStreamTypes } from '../types.js';
+
+const eventPermissions: Partial<Record<keyof MainStreamTypes, string>> = {
+	notification: 'read:notifications',
+	unreadNotification: 'read:notifications',
+	readAllNotifications: 'read:notifications',
+	urlUploadFinished: 'read:drive',
+	driveFileCreated: 'read:drive',
+	follow: 'read:following',
+	followed: 'read:following',
+	unfollow: 'read:following',
+	receiveFollowRequest: 'read:following',
+};
 
 class MainChannel extends Channel {
 	public readonly chName = 'main';
@@ -26,6 +39,9 @@ class MainChannel extends Channel {
 
 	@bindThis
 	private async onMainStreamData(data: any) {
+		const permission = eventPermissions[data.type as keyof MainStreamTypes] ?? 'read:account';
+		if (!this.connection.canUse(permission)) return;
+
 		switch (data.type) {
 			case 'notification': {
 				// Ignore notifications from instances the user has muted

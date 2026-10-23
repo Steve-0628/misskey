@@ -1,6 +1,8 @@
 import * as crypto from 'node:crypto';
 import { Inject, Injectable } from '@nestjs/common';
 import * as jsrsasign from 'jsrsasign';
+import * as OTPAuth from 'otpauth';
+import * as Redis from 'ioredis';
 import { DI } from '@/di-symbols.js';
 import type { UsersRepository } from '@/models/index.js';
 import type { Config } from '@/config.js';
@@ -111,6 +113,9 @@ export class TwoFactorAuthenticationService {
 		@Inject(DI.config)
 		private config: Config,
 
+		@Inject(DI.redis)
+		private redisClient: Redis.Redis,
+
 		@Inject(DI.usersRepository)
 		private usersRepository: UsersRepository,
 	) {
@@ -122,6 +127,43 @@ export class TwoFactorAuthenticationService {
 			.createHash('sha256')
 			.update(data)
 			.digest();
+	}
+
+	@bindThis
+	public async verifyTotp(userId: string, twoFactorSecret: string, token: string): Promise<boolean> {
+		const now = Date.now();
+		const normalizedToken = token.trim();
+		const validationWindow = 1;
+		const timeStep = 30;
+		const totp = new OTPAuth.TOTP({
+			secret: OTPAuth.Secret.fromBase32(twoFactorSecret),
+			digits: 6,
+			period: timeStep,
+		});
+
+		const delta = totp.validate({
+			token: normalizedToken,
+			window: validationWindow,
+			timestamp: now,
+		});
+		if (delta === null) return false;
+
+		// OTPAuth 9.1.x does not expose TOTP.counter(); derive the RFC 6238
+		// counter from the timestamp and period instead.
+		const currentStep = Math.floor(now / (timeStep * 1000));
+		const step = currentStep + delta;
+		const secretFingerprint = crypto.createHash('sha256')
+			.update(twoFactorSecret)
+			.digest('base64url');
+		const usedTokenRedisKey = `2fa:used:${userId}:${secretFingerprint}:${step}`;
+		const ttl = timeStep * (validationWindow * 2 + 1);
+
+		return await this.redisClient.set(
+			usedTokenRedisKey,
+			normalizedToken,
+			'EX', ttl,
+			'NX',
+		) === 'OK';
 	}
 
 	@bindThis
