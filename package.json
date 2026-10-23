@@ -52,14 +52,14 @@
 		"typescript": "5.9.3"
 	},
 	"devDependencies": {
-		"@types/gulp": "4.0.10",
-		"@types/gulp-rename": "2.0.1",
-		"@typescript-eslint/eslint-plugin": "5.61.0",
-		"@typescript-eslint/parser": "5.61.0",
+		"@types/gulp": "4.0.18",
+		"@types/gulp-rename": "2.0.7",
+		"@typescript-eslint/eslint-plugin": "5.62.0",
+		"@typescript-eslint/parser": "5.62.0",
 		"cross-env": "7.0.3",
 		"cypress": "14.5.4",
-		"eslint": "8.45.0",
-		"start-server-and-test": "2.0.0"
+		"eslint": "8.57.1",
+		"start-server-and-test": "2.1.5"
 	},
 	"engines": {
 		"runtime": {
