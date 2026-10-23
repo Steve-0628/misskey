@@ -4,6 +4,7 @@ packages:
   - 'packages/misskey-js'
 allowBuilds:
   '@nestjs/core': true
+  '@parcel/watcher': true
   '@swc/core': true
   bufferutil: true
   cypress: true
@@ -13,4 +14,5 @@ allowBuilds:
   msw: true
   re2: true
   sharp: true
+  unrs-resolver: true
   utf-8-validate: true
