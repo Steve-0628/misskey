@@ -21,7 +21,7 @@ import { confetti } from '@/scripts/confetti';
 const modal = shallowRef<InstanceType<typeof MkModal>>();
 
 const whatIsNew = () => {
-	modal.value.close();
+	modal.value!.close();
 	window.open(`https://misskey-hub.net/docs/releases.html#_${version.replace(/\./g, '-')}`, '_blank');
 };
 

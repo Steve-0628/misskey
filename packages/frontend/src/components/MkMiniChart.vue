@@ -42,7 +42,6 @@ let polylinePoints = $ref('');
 let polygonPoints = $ref('');
 let headX = $ref<number | null>(null);
 let headY = $ref<number | null>(null);
-let clock = $ref<number | null>(null);
 const accent = tinycolor(getComputedStyle(document.documentElement).getPropertyValue('--accent'));
 const color = accent.toRgbString();
 

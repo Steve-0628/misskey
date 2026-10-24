@@ -685,7 +685,7 @@ async function post(ev?: MouseEvent) {
 
 	if (postAccount) {
 		const storedAccounts = await getAccounts();
-		token = storedAccounts.find(x => x.id === postAccount.id)?.token;
+		token = storedAccounts.find(x => x.id === postAccount!.id)?.token;
 	}
 
 	posting = true;
@@ -726,7 +726,7 @@ async function post(ev?: MouseEvent) {
 				claimAchievement('brainDiver');
 			}
 
-			if (props.renote && (props.renote.userId === $i.id) && text.length > 0) {
+			if (props.renote && (props.renote.userId === $i!.id) && text.length > 0) {
 				claimAchievement('selfQuote');
 			}
 

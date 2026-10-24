@@ -87,15 +87,15 @@ let notFoundImageUrl: string | null = $ref(null);
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	iconUrl = meta.iconUrl;
-	bannerUrl = meta.bannerUrl;
-	backgroundImageUrl = meta.backgroundImageUrl;
-	themeColor = meta.themeColor;
-	defaultLightTheme = meta.defaultLightTheme;
-	defaultDarkTheme = meta.defaultDarkTheme;
-	serverErrorImageUrl = meta.serverErrorImageUrl;
-	infoImageUrl = meta.infoImageUrl;
-	notFoundImageUrl = meta.notFoundImageUrl;
+	iconUrl = meta!.iconUrl;
+	bannerUrl = meta!.bannerUrl;
+	backgroundImageUrl = meta!.backgroundImageUrl;
+	themeColor = meta!.themeColor;
+	defaultLightTheme = meta!.defaultLightTheme;
+	defaultDarkTheme = meta!.defaultDarkTheme;
+	serverErrorImageUrl = meta!.serverErrorImageUrl;
+	infoImageUrl = meta!.infoImageUrl;
+	notFoundImageUrl = meta!.notFoundImageUrl;
 }
 
 function save() {

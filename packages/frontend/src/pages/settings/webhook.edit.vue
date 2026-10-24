@@ -71,7 +71,7 @@ let event_reaction = $ref(webhook.on.includes('reaction'));
 let event_mention = $ref(webhook.on.includes('mention'));
 
 async function save(): Promise<void> {
-	const events = [];
+	const events: string[] = [];
 	if (event_follow) events.push('follow');
 	if (event_followed) events.push('followed');
 	if (event_note) events.push('note');

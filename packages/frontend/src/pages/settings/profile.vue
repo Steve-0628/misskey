@@ -120,13 +120,13 @@ const Sortable = defineAsyncComponent(() => import('vuedraggable').then(x => x.d
 const reactionAcceptance = computed(defaultStore.makeGetterSetter('reactionAcceptance'));
 
 const profile = reactive({
-	name: $i.name,
-	description: $i.description,
-	location: $i.location,
-	birthday: $i.birthday,
-	lang: $i.lang,
-	isBot: $i.isBot,
-	isCat: $i.isCat,
+	name: $i!.name,
+	description: $i!.description,
+	location: $i!.location,
+	birthday: $i!.birthday,
+	lang: $i!.lang,
+	isBot: $i!.isBot,
+	isCat: $i!.isCat,
 });
 
 watch(() => profile, () => {
@@ -205,8 +205,8 @@ function changeAvatar(ev) {
 		const i = await os.apiWithDialog('i/update', {
 			avatarId: originalOrCropped.id,
 		});
-		$i.avatarId = i.avatarId;
-		$i.avatarUrl = i.avatarUrl;
+		$i!.avatarId = i.avatarId;
+		$i!.avatarUrl = i.avatarUrl;
 		claimAchievement('profileFilled');
 	});
 }
@@ -231,8 +231,8 @@ function changeBanner(ev) {
 		const i = await os.apiWithDialog('i/update', {
 			bannerId: originalOrCropped.id,
 		});
-		$i.bannerId = i.bannerId;
-		$i.bannerUrl = i.bannerUrl;
+		$i!.bannerId = i.bannerId;
+		$i!.bannerUrl = i.bannerUrl;
 	});
 }
 

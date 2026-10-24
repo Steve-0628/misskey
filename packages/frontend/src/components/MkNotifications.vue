@@ -39,18 +39,18 @@ const pagination: Paging = {
 	limit: 10,
 	params: computed(() => ({
 		includeTypes: props.includeTypes ?? undefined,
-		excludeTypes: props.includeTypes ? undefined : $i.mutingNotificationTypes,
+		excludeTypes: props.includeTypes ? undefined : $i!.mutingNotificationTypes,
 	})),
 };
 
 const onNotification = (notification) => {
-	const isMuted = props.includeTypes ? !props.includeTypes.includes(notification.type) : $i.mutingNotificationTypes.includes(notification.type);
+	const isMuted = props.includeTypes ? !props.includeTypes.includes(notification.type) : $i!.mutingNotificationTypes.includes(notification.type);
 	if (isMuted || document.visibilityState === 'visible') {
 		useStream().send('readNotification');
 	}
 
 	if (!isMuted) {
-		pagingComponent.value.prepend(notification);
+		pagingComponent.value!.prepend(notification);
 	}
 };
 

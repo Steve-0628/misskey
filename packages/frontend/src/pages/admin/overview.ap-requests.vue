@@ -66,7 +66,6 @@ onMounted(async () => {
 	const succColor = '#87e000';
 	const failColor = '#ff4400';
 
-	const succMax = Math.max(...raw.deliverSucceeded);
 	const failMax = Math.max(...raw.deliverFailed);
 
 	new Chart(chartEl, {

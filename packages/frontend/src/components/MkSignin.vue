@@ -65,13 +65,12 @@ let password = $ref('');
 let token = $ref('');
 let host = $ref(toUnicode(configHost));
 let totpLogin = $ref(false);
-let credential = $ref(null);
-let challengeData = $ref(null);
+let credential = $ref<{ securityKeys?: unknown[]; response?: unknown } | null>(null);
+let challengeData = $ref<{ challenge: Record<string, unknown> } | null>(null);
 let queryingKey = $ref(false);
 let hCaptchaResponse = $ref(null);
 let reCaptchaResponse = $ref(null);
 
-const meta = $computed(() => instance);
 
 const emit = defineEmits<{
 	(ev: 'login', v: any): void;
@@ -115,8 +114,8 @@ function queryKey() {
 	queryingKey = true;
 	return navigator.credentials.get({
 		publicKey: {
-			challenge: byteify(challengeData.challenge, 'base64'),
-			allowCredentials: challengeData.securityKeys.map(key => ({
+			challenge: byteify(challengeData!.challenge, 'base64'),
+			allowCredentials: challengeData!.securityKeys.map(key => ({
 				id: byteify(key.id, 'hex'),
 				type: 'public-key',
 				transports: ['usb', 'nfc', 'ble', 'internal'],
@@ -132,11 +131,11 @@ function queryKey() {
 		return os.api('signin', {
 			username,
 			password,
-			signature: hexify(credential.response.signature),
-			authenticatorData: hexify(credential.response.authenticatorData),
-			clientDataJSON: hexify(credential.response.clientDataJSON),
-			credentialId: credential.id,
-			challengeId: challengeData.challengeId,
+			signature: hexify(credential!.response.signature),
+			authenticatorData: hexify(credential!.response.authenticatorData),
+			clientDataJSON: hexify(credential!.response.clientDataJSON),
+			credentialId: credential!.id,
+			challengeId: challengeData!.challengeId,
 			'hcaptcha-response': hCaptchaResponse,
 			'g-recaptcha-response': reCaptchaResponse,
 		});

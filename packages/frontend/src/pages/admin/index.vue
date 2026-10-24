@@ -48,8 +48,7 @@ provide('shouldOmitHeaderTitle', false);
 let INFO = $ref(indexInfo);
 let childInfo = $ref(null);
 let narrow = $ref(false);
-let view = $ref(null);
-let el = $ref(null);
+let el = $ref<HTMLElement | null>(null);
 let pageProps = $ref({});
 let noMaintainerInformation = isEmpty(instance.maintainerName) || isEmpty(instance.maintainerEmail);
 let noBotProtection = !instance.disableRegistration && !instance.enableHcaptcha && !instance.enableRecaptcha && !instance.enableTurnstile;
@@ -61,7 +60,7 @@ os.api('admin/abuse-user-reports', {
 	state: 'unresolved',
 	limit: 1,
 }).then(reports => {
-	if (reports.length > 0) thereIsUnresolvedAbuseReport = true;
+	if (reports!.length > 0) thereIsUnresolvedAbuseReport = true;
 });
 
 const NARROW_THRESHOLD = 600;
@@ -198,14 +197,14 @@ watch(narrow, () => {
 onMounted(() => {
 	ro.observe(el);
 
-	narrow = el.offsetWidth < NARROW_THRESHOLD;
+	narrow = el!.offsetWidth < NARROW_THRESHOLD;
 	if (currentPage?.route.name == null && !narrow) {
 		router.push('/admin/overview');
 	}
 });
 
 onActivated(() => {
-	narrow = el.offsetWidth < NARROW_THRESHOLD;
+	narrow = el!.offsetWidth < NARROW_THRESHOLD;
 	if (currentPage?.route.name == null && !narrow) {
 		router.push('/admin/overview');
 	}

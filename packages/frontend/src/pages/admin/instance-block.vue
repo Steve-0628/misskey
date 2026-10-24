@@ -29,7 +29,7 @@ let blockedHosts: string = $ref('');
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	blockedHosts = meta.blockedHosts.join('\n');
+	blockedHosts = meta!.blockedHosts.join('\n');
 }
 
 function save() {

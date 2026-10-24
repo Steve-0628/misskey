@@ -50,13 +50,13 @@ const pagination = {
 
 function accept(user) {
 	os.api('following/requests/accept', { userId: user.id }).then(() => {
-		paginationComponent.value.reload();
+		paginationComponent.value!.reload();
 	});
 }
 
 function reject(user) {
 	os.api('following/requests/reject', { userId: user.id }).then(() => {
-		paginationComponent.value.reload();
+		paginationComponent.value!.reload();
 	});
 }
 

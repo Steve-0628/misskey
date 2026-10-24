@@ -21,6 +21,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import type * as misskey from 'misskey-js';
 import { useWidgetPropsManager, WidgetComponentEmits, WidgetComponentExpose, WidgetComponentProps } from './widget';
 import { GetFormResultType } from '@/scripts/form';
 import MkContainer from '@/components/MkContainer.vue';
@@ -51,8 +52,8 @@ const { widgetProps, configure } = useWidgetPropsManager(name,
 	emit,
 );
 
-const instances = ref([]);
-const charts = ref([]);
+const instances = ref<misskey.entities.Instance[]>([]);
+const charts = ref<{ requests: { received: number[] } }[]>([]);
 const fetching = ref(true);
 
 const fetch = async () => {

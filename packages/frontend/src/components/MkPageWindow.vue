@@ -57,7 +57,7 @@ const history = $ref<{ path: string; key: any; }[]>([{
 	key: router.getCurrentKey(),
 }]);
 const buttonsLeft = $computed(() => {
-	const buttons = [];
+	const buttons: { icon: string; onClick: () => void }[] = [];
 
 	if (history.length > 1) {
 		buttons.push({
@@ -108,7 +108,7 @@ const contextmenu = $computed(() => ([{
 	text: i18n.ts.openInNewTab,
 	action: () => {
 		window.open(url + router.getCurrentPath(), '_blank');
-		windowEl.close();
+		windowEl!.close();
 	},
 }, {
 	icon: 'ti ti-link',
@@ -128,17 +128,17 @@ function reload() {
 }
 
 function close() {
-	windowEl.close();
+	windowEl!.close();
 }
 
 function expand() {
 	mainRouter.push(router.getCurrentPath(), 'forcePage');
-	windowEl.close();
+	windowEl!.close();
 }
 
 function popout() {
-	_popout(router.getCurrentPath(), windowEl.$el);
-	windowEl.close();
+	_popout(router.getCurrentPath(), windowEl!.$el);
+	windowEl!.close();
 }
 
 useScrollPositionManager(() => getScrollContainer(contents.value), router);

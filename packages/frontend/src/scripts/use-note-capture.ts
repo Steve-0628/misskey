@@ -4,7 +4,7 @@ import { useStream } from '@/stream';
 import { $i } from '@/account';
 
 export function useNoteCapture(props: {
-	rootEl: Ref<HTMLElement>;
+	rootEl: Ref<HTMLElement | { $el: HTMLElement } | null | undefined>;
 	note: Ref<misskey.entities.Note>;
 	isDeletedRef: Ref<boolean>;
 }) {

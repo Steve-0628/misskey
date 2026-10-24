@@ -66,7 +66,6 @@ const otherNavItemIndicated = computed<boolean>(() => {
 	}
 	return false;
 });
-let el = $shallowRef<HTMLElement>();
 // let accounts = $ref([]);
 // let connection = $ref(null);
 let iconOnly = $ref(false);

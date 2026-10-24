@@ -119,26 +119,26 @@ const props = withDefaults(defineProps<{
 });
 
 const elRef = shallowRef<HTMLElement>(null);
-const reactionRef = ref(null);
+const reactionRef = ref<{ $el: HTMLElement } | null>(null);
 
 const followRequestDone = ref(false);
 
 const acceptFollowRequest = () => {
 	followRequestDone.value = true;
-	os.api('following/requests/accept', { userId: props.notification.user.id });
+	os.api('following/requests/accept', { userId: props.notification.user!.id });
 };
 
 const rejectFollowRequest = () => {
 	followRequestDone.value = true;
-	os.api('following/requests/reject', { userId: props.notification.user.id });
+	os.api('following/requests/reject', { userId: props.notification.user!.id });
 };
 
 useTooltip(reactionRef, (showing) => {
 	os.popup(XReactionTooltip, {
 		showing,
 		reaction: props.notification.reaction ? props.notification.reaction.replace(/^:(\w+):$/, ':$1@.:') : props.notification.reaction,
-		emojis: props.notification.note.emojis,
-		targetElement: reactionRef.value.$el,
+		emojis: props.notification.note!.emojis,
+		targetElement: reactionRef.value!.$el,
 	}, {}, 'closed');
 });
 </script>

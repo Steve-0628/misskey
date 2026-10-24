@@ -185,12 +185,12 @@ const muted = ref(checkWordMute(appearNote, $i, defaultStore.state.mutedWords));
 const translation = ref<any>(null);
 const translating = ref(false);
 const showTicker = (defaultStore.state.instanceTicker === 'always') || (defaultStore.state.instanceTicker === 'remote' && appearNote.user.instance);
-const canRenote = computed(() => ['public', 'home'].includes(appearNote.visibility) || appearNote.userId === $i.id);
+const canRenote = computed(() => ['public', 'home'].includes(appearNote.visibility) || appearNote.userId === $i!.id);
 
 const keymap = {
 	'r': () => reply(true),
 	'e|a|plus': () => react(true),
-	'q': () => renoteButton.value.renote(true),
+	'q': () => renoteButton.value!.renote(true),
 	'up|k|shift+tab': focusBefore,
 	'down|j|tab': focusAfter,
 	'esc': blur,
@@ -374,11 +374,11 @@ function showRenoteMenu(viaKeyboard = false): void {
 }
 
 function focus() {
-	el.value.focus();
+	el.value!.focus();
 }
 
 function blur() {
-	el.value.blur();
+	el.value!.blur();
 }
 
 function focusBefore() {

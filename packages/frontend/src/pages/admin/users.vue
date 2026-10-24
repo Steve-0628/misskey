@@ -106,7 +106,7 @@ async function addUser() {
 		username: username,
 		password: password,
 	}).then(res => {
-		paginationComponent.reload();
+		paginationComponent!.reload();
 	});
 }
 

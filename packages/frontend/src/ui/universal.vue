@@ -188,7 +188,7 @@ const onContextmenu = (ev) => {
 };
 
 function top() {
-	contents.value.rootEl.scrollTo({
+	contents.value!.rootEl!.scrollTo({
 		top: 0,
 		behavior: 'smooth',
 	});
@@ -211,7 +211,7 @@ watch($$(navFooter), () => {
 	immediate: true,
 });
 
-useScrollPositionManager(() => contents.value.rootEl, mainRouter);
+useScrollPositionManager(() => contents.value!.rootEl, mainRouter);
 </script>
 
 <style>

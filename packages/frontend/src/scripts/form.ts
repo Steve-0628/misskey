@@ -35,12 +35,12 @@ export type FormItem = {
 	label?: string;
 	type: 'object';
 	default: Record<string, unknown> | null;
-	hidden: true;
+	hidden?: boolean;
 } | {
 	label?: string;
 	type: 'array';
 	default: unknown[] | null;
-	hidden: true;
+	hidden?: boolean;
 };
 
 export type Form = Record<string, FormItem>;

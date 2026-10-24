@@ -31,7 +31,7 @@ let proxyAccountId: any = $ref(null);
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	proxyAccountId = meta.proxyAccountId;
+	proxyAccountId = meta!.proxyAccountId;
 	if (proxyAccountId) {
 		proxyAccount = await os.api('users/show', { userId: proxyAccountId });
 	}

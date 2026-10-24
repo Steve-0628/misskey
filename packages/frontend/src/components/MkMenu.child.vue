@@ -7,12 +7,12 @@
 <script lang="ts" setup>
 import { nextTick, onMounted, onUnmounted, shallowRef, watch } from 'vue';
 import MkMenu from './MkMenu.vue';
-import { MenuItem } from '@/types/menu';
+import { MenuItem, MenuPending } from '@/types/menu';
 
 const props = defineProps<{
-	items: MenuItem[];
-	targetElement: HTMLElement;
-	rootElement: HTMLElement;
+	items: (MenuItem | MenuPending)[];
+	targetElement: HTMLElement | null;
+	rootElement: HTMLElement | null;
 	width?: number;
 	viaKeyboard?: boolean;
 }>();
@@ -28,11 +28,11 @@ const align = 'left';
 const SCROLLBAR_THICKNESS = 16;
 
 function setPosition() {
-	const rootRect = props.rootElement.getBoundingClientRect();
-	const parentRect = props.targetElement.getBoundingClientRect();
-	const myRect = el.value.getBoundingClientRect();
+	const rootRect = props.rootElement!.getBoundingClientRect();
+	const parentRect = props.targetElement!.getBoundingClientRect();
+	const myRect = el.value!.getBoundingClientRect();
 
-	let left = props.targetElement.offsetWidth;
+	let left = props.targetElement!.offsetWidth;
 	let top = (parentRect.top - rootRect.top) - 8;
 	if (rootRect.left + left + myRect.width >= (window.innerWidth - SCROLLBAR_THICKNESS)) {
 		left = -myRect.width;
@@ -40,8 +40,8 @@ function setPosition() {
 	if (rootRect.top + top + myRect.height >= (window.innerHeight - SCROLLBAR_THICKNESS)) {
 		top = top - ((rootRect.top + top + myRect.height) - (window.innerHeight - SCROLLBAR_THICKNESS));
 	}
-	el.value.style.left = left + 'px';
-	el.value.style.top = top + 'px';
+	el.value!.style.left = left + 'px';
+	el.value!.style.top = top + 'px';
 }
 
 function onChildClosed(actioned?: boolean) {
@@ -61,7 +61,7 @@ const ro = new ResizeObserver((entries, observer) => {
 });
 
 onMounted(() => {
-	ro.observe(el.value);
+	ro.observe(el.value!);
 	setPosition();
 	nextTick(() => {
 		setPosition();
@@ -74,7 +74,7 @@ onUnmounted(() => {
 
 defineExpose({
 	checkHit: (ev: MouseEvent) => {
-		return (ev.target === el.value || el.value.contains(ev.target));
+		return (ev.target === el.value || el.value!.contains(ev.target));
 	},
 });
 </script>
