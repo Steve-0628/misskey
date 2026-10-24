@@ -582,8 +582,8 @@ importers:
         specifier: 14.1.2
         version: 14.1.2
       '@rollup/plugin-alias':
-        specifier: 5.1.0
-        version: 5.1.0(rollup@3.30.0)
+        specifier: 5.1.1
+        version: 5.1.1(rollup@3.30.0)
       '@rollup/plugin-json':
         specifier: 6.0.0
         version: 6.0.0(rollup@3.30.0)
@@ -2277,8 +2277,8 @@ packages:
   '@quansync/fs@1.1.0':
     resolution: {integrity: sha512-qAPG/t3HqML1TlN7sY/pTbEjzFVAKsMjNNMGheyDosro+kT4iw2KCUoHcVdmliwWjorm4elZbgNQyU2eD97eDg==}
 
-  '@rollup/plugin-alias@5.1.0':
-    resolution: {integrity: sha512-lpA3RZ9PdIG7qqhEfv79tBffNaoDuukFDrmhLqg9ifv99u/ehn+lOg30x2zmhf8AQqQUZaMk/B9fZraQ6/acDQ==}
+  '@rollup/plugin-alias@5.1.1':
+    resolution: {integrity: sha512-PR9zDb+rOzkRb2VD+EuKB7UC41vU5DIwZ5qqCpk0KJudcWAyi8rvYOhS7+L5aZCspw1stTViLgN5v6FF1p5cgQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
@@ -9147,10 +9147,6 @@ packages:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
 
-  slash@4.0.0:
-    resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
-    engines: {node: '>=12'}
-
   slice-ansi@3.0.0:
     resolution: {integrity: sha512-pSyv7bSTC7ig9Dcgbw9AuRNUb5k5V6oDudjZoMBSr13qpLBG7tB+zgCkARjq7xIUgdz5P1Qe8u+rSGdouOOIyQ==}
     engines: {node: '>=8'}
@@ -12364,9 +12360,7 @@ snapshots:
     dependencies:
       quansync: 1.0.0
 
-  '@rollup/plugin-alias@5.1.0(rollup@3.30.0)':
-    dependencies:
-      slash: 4.0.0
+  '@rollup/plugin-alias@5.1.1(rollup@3.30.0)':
     optionalDependencies:
       rollup: 3.30.0
 
@@ -20531,8 +20525,6 @@ snapshots:
       slacc-win32-x64-msvc: 0.0.10
 
   slash@3.0.0: {}
-
-  slash@4.0.0: {}
 
   slice-ansi@3.0.0:
     dependencies:
