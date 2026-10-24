@@ -15,7 +15,7 @@
 		"@discordapp/twemoji": "14.1.2",
 		"@rollup/plugin-alias": "5.1.0",
 		"@rollup/plugin-json": "6.0.0",
-		"@rollup/plugin-replace": "5.0.2",
+		"@rollup/plugin-replace": "5.0.7",
 		"@rollup/pluginutils": "5.0.2",
 		"@syuilo/aiscript": "0.15.0",
 		"@tabler/icons-webfont": "2.25.0",
