@@ -14,7 +14,7 @@ jobs:
       attestations: write
       id-token: write
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
       with:
         submodules: 'recursive'
     - name: Log in to the Container registry
@@ -24,7 +24,7 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - id: lowercase
-      uses: ASzc/change-string-case-action@v6
+      uses: ASzc/change-string-case-action@v8
       with:
         string: ${{ github.repository }}
     - name: Build and push Docker image
