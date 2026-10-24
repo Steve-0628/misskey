@@ -360,8 +360,8 @@ importers:
         specifier: 2.2.3
         version: 2.2.3
       jsonld:
-        specifier: 8.3.2
-        version: 8.3.2(web-streams-polyfill@3.2.1)
+        specifier: 8.3.3
+        version: 8.3.3(web-streams-polyfill@3.2.1)
       jsrsasign:
         specifier: 11.1.5
         version: 11.1.5
@@ -7253,8 +7253,8 @@ packages:
   jsonfile@6.2.0:
     resolution: {integrity: sha512-FGuPw30AdOIUTRMC2OMRtQV+jkVj2cfPqSeWXv1NEAJ1qZ5zb1X6z1mFhbfOB/iy3ssJCD+3KuZ8r8C3uVFlAg==}
 
-  jsonld@8.3.2:
-    resolution: {integrity: sha512-MwBbq95szLwt8eVQ1Bcfwmgju/Y5P2GdtlHE2ncyfuYjIdEhluUVyj1eudacf1mOkWIoS9GpDBTECqhmq7EOaA==}
+  jsonld@8.3.3:
+    resolution: {integrity: sha512-9YcilrF+dLfg9NTEof/mJLMtbdX1RJ8dbWtJgE00cMOIohb1lIyJl710vFiTaiHTl6ZYODJuBd32xFvUhmv3kg==}
     engines: {node: '>=14'}
 
   jsprim@1.4.2:
@@ -18833,7 +18833,7 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  jsonld@8.3.2(web-streams-polyfill@3.2.1):
+  jsonld@8.3.3(web-streams-polyfill@3.2.1):
     dependencies:
       '@digitalbazaar/http-client': 3.4.1(web-streams-polyfill@3.2.1)
       canonicalize: 1.0.8
