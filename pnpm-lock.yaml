@@ -265,10 +265,10 @@ importers:
         version: 8.0.0
       '@nestjs/common':
         specifier: 10.4.22
-        version: 10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1)
+        version: 10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1)
       '@nestjs/core':
         specifier: 10.1.0
-        version: 10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.1)
+        version: 10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.2)
       '@peertube/http-signature':
         specifier: 1.7.0
         version: 1.7.0
@@ -441,8 +441,8 @@ importers:
         specifier: 3.13.0
         version: 3.13.0
       rxjs:
-        specifier: 7.8.1
-        version: 7.8.1
+        specifier: 7.8.2
+        version: 7.8.2
       sanitize-html:
         specifier: 2.18.1
         version: 2.18.1
@@ -503,7 +503,7 @@ importers:
         version: 29.7.0(supports-color@8.1.1)
       '@nestjs/testing':
         specifier: 10.4.22
-        version: 10.4.22(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1))(@nestjs/core@10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.1))
+        version: 10.4.22(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.2))
       '@sinonjs/fake-timers':
         specifier: 10.3.0
         version: 10.3.0
@@ -9126,9 +9126,6 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  rxjs@7.8.1:
-    resolution: {integrity: sha512-AA3TVj+0A2iuIoQkWEK/tqFjBq2j+6PO6Y0zJcvzLAFhEFIO3HL0vls9hWLncZbAAbK0mar7oZ4V079I/qPMxg==}
-
   rxjs@7.8.2:
     resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
 
@@ -10013,9 +10010,6 @@ packages:
 
   tslib@1.14.1:
     resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
-
-  tslib@2.5.0:
-    resolution: {integrity: sha512-336iVw3rtn2BUK7ORdIAHTyxHGRIHVReokCR3XjbckJMK7ms8FysBfhLR8IXnAgy7T0PTPNBWKiH514FOW/WSg==}
 
   tslib@2.5.3:
     resolution: {integrity: sha512-mSxlJJwl3BMEQCUNnxXBU9jP4JBktcEGhURcPR6VQVlnP0FdDEsIaz0C35dXNGLyRfrATNofF0F5p2KPxQgB+w==}
@@ -12585,35 +12579,35 @@ snapshots:
       '@tybys/wasm-util': 0.10.4
     optional: true
 
-  '@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1)':
+  '@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1)':
     dependencies:
       file-type: 20.4.1(supports-color@8.1.1)
       iterare: 1.2.1
       reflect-metadata: 0.1.14
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       tslib: 2.8.1
       uid: 2.0.2
     transitivePeerDependencies:
       - supports-color
 
-  '@nestjs/core@10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.1)':
+  '@nestjs/core@10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.2)':
     dependencies:
-      '@nestjs/common': 10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1)
+      '@nestjs/common': 10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1)
       '@nuxtjs/opencollective': 0.3.2(encoding@0.1.13)
       fast-safe-stringify: 2.1.1
       iterare: 1.2.1
       path-to-regexp: 3.2.0
       reflect-metadata: 0.1.14
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       tslib: 2.6.0
       uid: 2.0.2
     transitivePeerDependencies:
       - encoding
 
-  '@nestjs/testing@10.4.22(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1))(@nestjs/core@10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.1))':
+  '@nestjs/testing@10.4.22(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1))(@nestjs/core@10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.2))':
     dependencies:
-      '@nestjs/common': 10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1)
-      '@nestjs/core': 10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.1)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.1)
+      '@nestjs/common': 10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1)
+      '@nestjs/core': 10.1.0(@nestjs/common@10.4.22(reflect-metadata@0.1.14)(rxjs@7.8.2)(supports-color@8.1.1))(encoding@0.1.13)(reflect-metadata@0.1.14)(rxjs@7.8.2)
       tslib: 2.8.1
 
   '@nodelib/fs.scandir@2.1.5':
@@ -17623,7 +17617,7 @@ snapshots:
       mute-stream: 0.0.8
       ora: 5.4.1
       run-async: 2.4.1
-      rxjs: 7.8.1
+      rxjs: 7.8.2
       string-width: 4.2.3
       strip-ansi: 6.0.1
       through: 2.3.8
@@ -20736,10 +20730,6 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  rxjs@7.8.1:
-    dependencies:
-      tslib: 2.5.0
-
   rxjs@7.8.2:
     dependencies:
       tslib: 2.8.1
@@ -21704,8 +21694,6 @@ snapshots:
       read-pkg-up: 7.0.1
 
   tslib@1.14.1: {}
-
-  tslib@2.5.0: {}
 
   tslib@2.5.3: {}
 
