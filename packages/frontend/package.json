@@ -37,7 +37,7 @@
 		"date-fns": "2.30.0",
 		"escape-regexp": "0.0.1",
 		"estree-walker": "^3.0.3",
-		"eventemitter3": "5.0.1",
+		"eventemitter3": "5.0.4",
 		"gsap": "3.12.2",
 		"idb-keyval": "6.2.1",
 		"insert-text-at-cursor": "0.3.0",
