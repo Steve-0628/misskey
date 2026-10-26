@@ -58,24 +58,24 @@ onMounted(() => {
 	watch([parentStickyTop, parentStickyBottom], calc);
 
 	watch($$(childStickyTop), () => {
-		bodyEl.style.setProperty('--stickyTop', `${childStickyTop}px`);
+		bodyEl!.style.setProperty('--stickyTop', `${childStickyTop}px`);
 	}, {
 		immediate: true,
 	});
 
 	watch($$(childStickyBottom), () => {
-		bodyEl.style.setProperty('--stickyBottom', `${childStickyBottom}px`);
+		bodyEl!.style.setProperty('--stickyBottom', `${childStickyBottom}px`);
 	}, {
 		immediate: true,
 	});
 
-	headerEl.style.position = 'sticky';
-	headerEl.style.top = 'var(--stickyTop, 0)';
-	headerEl.style.zIndex = '1000';
+	headerEl!.style.position = 'sticky';
+	headerEl!.style.top = 'var(--stickyTop, 0)';
+	headerEl!.style.zIndex = '1000';
 
-	footerEl.style.position = 'sticky';
-	footerEl.style.bottom = 'var(--stickyBottom, 0)';
-	footerEl.style.zIndex = '1000';
+	footerEl!.style.position = 'sticky';
+	footerEl!.style.bottom = 'var(--stickyBottom, 0)';
+	footerEl!.style.zIndex = '1000';
 
 	observer.observe(headerEl);
 	observer.observe(footerEl);

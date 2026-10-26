@@ -108,7 +108,7 @@ async function save(): Promise<void> {
 	const i = await os.apiWithDialog('i/update', {
 		alsoKnownAs,
 	});
-	$i.alsoKnownAs = i.alsoKnownAs;
+	$i!.alsoKnownAs = i.alsoKnownAs;
 	init();
 }
 

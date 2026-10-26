@@ -24,7 +24,7 @@
 		</div>
 		<div v-if="username != '' || host != ''" :class="[$style.result, { [$style.hit]: users.length > 0 }]">
 			<div v-if="users.length > 0" :class="$style.users">
-				<div v-for="user in users" :key="user.id" class="_button" :class="[$style.user, { [$style.selected]: selected && selected.id === user.id }]" @click="selected = user" @dblclick="ok()">
+				<div v-for="user in users" :key="user.id" class="_button" :class="[$style.user, { [$style.selected]: selected && selected?.id === user.id }]" @click="selected = user" @dblclick="ok()">
 					<MkAvatar :user="user" :class="$style.avatar" indicator/>
 					<div :class="$style.userBody">
 						<MkUserName :user="user" :class="$style.userName"/>
@@ -38,7 +38,7 @@
 		</div>
 		<div v-if="username == '' && host == ''" :class="$style.recent">
 			<div :class="$style.users">
-				<div v-for="user in recentUsers" :key="user.id" class="_button" :class="[$style.user, { [$style.selected]: selected && selected.id === user.id }]" @click="selected = user" @dblclick="ok()">
+				<div v-for="user in recentUsers" :key="user.id" class="_button" :class="[$style.user, { [$style.selected]: selected && selected?.id === user.id }]" @click="selected = user" @dblclick="ok()">
 					<MkAvatar :user="user" :class="$style.avatar" indicator/>
 					<div :class="$style.userBody">
 						<MkUserName :user="user" :class="$style.userName"/>
@@ -77,7 +77,7 @@ let username = $ref('');
 let host = $ref('');
 let users: misskey.entities.UserDetailed[] = $ref([]);
 let recentUsers: misskey.entities.UserDetailed[] = $ref([]);
-let selected: misskey.entities.UserDetailed | null = $ref(null);
+let selected = $ref<misskey.entities.UserDetailed | null>(null);
 let dialogEl = $ref<InstanceType<typeof MkModalWindow>>();
 
 const search = () => {
@@ -96,20 +96,21 @@ const search = () => {
 };
 
 const ok = () => {
-	if (selected == null) return;
-	emit('ok', selected);
-	dialogEl.close();
+	const sel = selected;
+	if (sel == null) return;
+	emit('ok', sel);
+	dialogEl!.close();
 
 	// 最近使ったユーザー更新
 	let recents = defaultStore.state.recentlyUsedUsers;
-	recents = recents.filter(x => x !== selected.id);
-	recents.unshift(selected.id);
+	recents = recents.filter(x => x !== sel.id);
+	recents.unshift(sel.id);
 	defaultStore.set('recentlyUsedUsers', recents.splice(0, 16));
 };
 
 const cancel = () => {
 	emit('cancel');
-	dialogEl.close();
+	dialogEl!.close();
 };
 
 onMounted(() => {

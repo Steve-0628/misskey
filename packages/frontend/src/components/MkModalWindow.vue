@@ -46,7 +46,7 @@ let bodyWidth = $ref(0);
 let bodyHeight = $ref(0);
 
 const close = () => {
-	modal.close();
+	modal!.close();
 };
 
 const onBgClick = () => {
@@ -62,13 +62,13 @@ const onKeydown = (evt) => {
 };
 
 const ro = new ResizeObserver((entries, observer) => {
-	bodyWidth = rootEl.offsetWidth;
-	bodyHeight = rootEl.offsetHeight - headerEl.offsetHeight;
+	bodyWidth = rootEl!.offsetWidth;
+	bodyHeight = rootEl!.offsetHeight - headerEl!.offsetHeight;
 });
 
 onMounted(() => {
-	bodyWidth = rootEl.offsetWidth;
-	bodyHeight = rootEl.offsetHeight - headerEl.offsetHeight;
+	bodyWidth = rootEl!.offsetWidth;
+	bodyHeight = rootEl!.offsetHeight - headerEl!.offsetHeight;
 	ro.observe(rootEl);
 });
 

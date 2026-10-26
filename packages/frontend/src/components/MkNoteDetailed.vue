@@ -192,12 +192,12 @@ const urls = appearNote.text ? extractUrlFromMfm(mfm.parse(appearNote.text)) : n
 const showTicker = (defaultStore.state.instanceTicker === 'always') || (defaultStore.state.instanceTicker === 'remote' && appearNote.user.instance);
 const conversation = ref<misskey.entities.Note[]>([]);
 const replies = ref<misskey.entities.Note[]>([]);
-const canRenote = computed(() => ['public', 'home'].includes(appearNote.visibility) || appearNote.userId === $i.id);
+const canRenote = computed(() => ['public', 'home'].includes(appearNote.visibility) || appearNote.userId === $i!.id);
 
 const keymap = {
 	'r': () => reply(true),
 	'e|a|plus': () => react(true),
-	'q': () => renoteButton.value.renote(true),
+	'q': () => renoteButton.value!.renote(true),
 	'esc': blur,
 	'm|o': () => menu(true),
 	's': () => showContent.value !== showContent.value,
@@ -375,11 +375,11 @@ function showRenoteMenu(viaKeyboard = false): void {
 }
 
 function focus() {
-	el.value.focus();
+	el.value!.focus();
 }
 
 function blur() {
-	el.value.blur();
+	el.value!.blur();
 }
 
 os.api('notes/children', {
@@ -393,7 +393,7 @@ if (appearNote.replyId) {
 	os.api('notes/conversation', {
 		noteId: appearNote.replyId,
 	}).then(res => {
-		conversation.value = res.reverse();
+		conversation.value = res!.reverse();
 	});
 }
 </script>

@@ -16,7 +16,7 @@ import MkEmojiPickerDialog from '@/components/MkEmojiPickerDialog.vue';
 import MkEmojiPickerWindow from '@/components/MkEmojiPickerWindow.vue';
 import MkPopupMenu from '@/components/MkPopupMenu.vue';
 import MkContextMenu from '@/components/MkContextMenu.vue';
-import { MenuItem } from '@/types/menu';
+import { MenuItem, MenuPending } from '@/types/menu';
 import copyToClipboard from './scripts/copy-to-clipboard';
 import { showMovedDialog } from './scripts/show-moved-dialog';
 import { DriveFile } from 'misskey-js/built/entities';
@@ -529,7 +529,7 @@ export async function openEmojiPicker(src?: HTMLElement, opts, initialTextarea: 
 	});
 }
 
-export function popupMenu(items: MenuItem[] | Ref<MenuItem[]>, src?: HTMLElement, options?: {
+export function popupMenu(items: (MenuItem | MenuPending)[] | Ref<(MenuItem | MenuPending)[]>, src?: HTMLElement, options?: {
 	align?: string;
 	width?: number;
 	viaKeyboard?: boolean;
@@ -557,7 +557,7 @@ export function popupMenu(items: MenuItem[] | Ref<MenuItem[]>, src?: HTMLElement
 	});
 }
 
-export function contextMenu(items: MenuItem[] | Ref<MenuItem[]>, ev: MouseEvent): Promise<void> {
+export function contextMenu(items: (MenuItem | MenuPending)[] | Ref<(MenuItem | MenuPending)[]>, ev: MouseEvent): Promise<void> {
 	ev.preventDefault();
 	return new Promise((resolve, reject) => {
 		let dispose;

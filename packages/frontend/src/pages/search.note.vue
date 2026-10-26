@@ -38,9 +38,8 @@ const router = useRouter();
 
 let key = $ref(0);
 let searchQuery = $ref('');
-let searchOrigin = $ref('combined');
 let notePagination = $ref();
-let user = $ref(null);
+let user = $ref<{ id: string; username: string } | null>(null);
 
 function selectUser() {
 	os.selectUser().then(_user => {

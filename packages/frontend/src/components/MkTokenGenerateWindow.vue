@@ -79,7 +79,7 @@ function ok(): void {
 		name: name,
 		permissions: Object.keys(permissions).filter(p => permissions[p]),
 	});
-	dialog.close();
+	dialog!.close();
 }
 
 function disableAll(): void {

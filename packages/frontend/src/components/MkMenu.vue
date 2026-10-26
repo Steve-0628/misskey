@@ -66,7 +66,7 @@ import { i18n } from '@/i18n';
 const XChild = defineAsyncComponent(() => import('./MkMenu.child.vue'));
 
 const props = defineProps<{
-	items: MenuItem[];
+	items: (MenuItem | MenuPending)[];
 	viaKeyboard?: boolean;
 	asDrawer?: boolean;
 	align?: 'center' | string;
@@ -111,7 +111,7 @@ watch(() => props.items, () => {
 	immediate: true,
 });
 
-let childMenu = ref<MenuItem[] | null>();
+let childMenu = ref<(MenuItem | MenuPending)[] | null>();
 let childTarget = $shallowRef<HTMLElement | null>();
 
 function closeChild() {
@@ -142,20 +142,20 @@ function onItemMouseLeave(item) {
 
 let childrenCache = new WeakMap();
 async function showChildren(item: MenuItem, ev: MouseEvent) {
-	const children = ref([]);
+	const children = ref<InnerMenuItem[]>([]);
 	if (childrenCache.has(item)) {
 		children.value = childrenCache.get(item);
 	} else {
-		if (typeof item.children === 'function') {
+		if (typeof item!.children === 'function') {
 			children.value = [{
 				type: 'pending',
 			}];
-			item.children().then(x => {
+			item!.children().then(x => {
 				children.value = x;
 				childrenCache.set(item, x);
 			});
 		} else {
-			children.value = item.children;
+			children.value = item!.children;
 		}
 	}
 
@@ -189,7 +189,7 @@ function focusDown() {
 onMounted(() => {
 	if (props.viaKeyboard) {
 		nextTick(() => {
-			focusNext(itemsEl.children[0], true, false);
+			focusNext(itemsEl!.children[0], true, false);
 		});
 	}
 

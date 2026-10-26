@@ -39,9 +39,9 @@ const props = defineProps<{
 
 const remaining = ref(-1);
 
-const total = computed(() => sum(props.note.poll.choices.map(x => x.votes)));
+const total = computed(() => sum(props.note.poll!.choices.map(x => x.votes)));
 const closed = computed(() => remaining.value === 0);
-const isVoted = computed(() => !props.note.poll.multiple && props.note.poll.choices.some(c => c.isVoted));
+const isVoted = computed(() => !props.note.poll!.multiple && props.note.poll!.choices.some(c => c.isVoted));
 const timer = computed(() => i18n.t(
 	remaining.value >= 86400 ? '_poll.remainingDays' :
 	remaining.value >= 3600 ? '_poll.remainingHours' :
@@ -55,9 +55,9 @@ const timer = computed(() => i18n.t(
 const showResult = ref(Boolean(props.readOnly) || isVoted.value);
 
 // 期限付きアンケート
-if (props.note.poll.expiresAt) {
+if (props.note.poll!.expiresAt) {
 	const tick = () => {
-		remaining.value = Math.floor(Math.max(new Date(props.note.poll.expiresAt).getTime() - Date.now(), 0) / 1000);
+		remaining.value = Math.floor(Math.max(new Date(props.note.poll!.expiresAt).getTime() - Date.now(), 0) / 1000);
 		if (remaining.value === 0) {
 			showResult.value = true;
 		}
@@ -76,7 +76,7 @@ const vote = async (id) => {
 
 	const { canceled } = await os.confirm({
 		type: 'question',
-		text: i18n.t('voteConfirm', { choice: props.note.poll.choices[id].text }),
+		text: i18n.t('voteConfirm', { choice: props.note.poll!.choices[id].text }),
 	});
 	if (canceled) return;
 
@@ -84,7 +84,7 @@ const vote = async (id) => {
 		noteId: props.note.id,
 		choice: id,
 	});
-	if (!showResult.value) showResult.value = !props.note.poll.multiple;
+	if (!showResult.value) showResult.value = !props.note.poll!.multiple;
 };
 </script>
 

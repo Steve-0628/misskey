@@ -74,7 +74,6 @@ const id = Math.random().toString(); // TODO: uuid?
 const focused = ref(false);
 const changed = ref(false);
 const invalid = ref(false);
-const filled = computed(() => v.value !== '' && v.value != null);
 const inputEl = shallowRef<HTMLElement>();
 const prefixEl = shallowRef<HTMLElement>();
 const suffixEl = shallowRef<HTMLElement>();
@@ -83,7 +82,7 @@ const height =
 	props.large ? 39 :
 	36;
 
-const focus = () => inputEl.value.focus();
+const focus = () => inputEl.value!.focus();
 const onInput = (ev: KeyboardEvent) => {
 	changed.value = true;
 	emit('change', ev);
@@ -100,7 +99,7 @@ const onKeydown = (ev: KeyboardEvent) => {
 
 const updated = () => {
 	changed.value = false;
-	if (type.value === 'number') {
+	if (type!.value === 'number') {
 		emit('update:modelValue', parseFloat(v.value));
 	} else {
 		emit('update:modelValue', v.value);
@@ -122,7 +121,7 @@ watch(v, newValue => {
 		}
 	}
 
-	invalid.value = inputEl.value.validity.badInput;
+	invalid.value = inputEl.value!.validity.badInput;
 });
 
 // このコンポーネントが作成された時、非表示状態である場合がある
@@ -130,12 +129,12 @@ watch(v, newValue => {
 useInterval(() => {
 	if (prefixEl.value) {
 		if (prefixEl.value.offsetWidth) {
-			inputEl.value.style.paddingLeft = prefixEl.value.offsetWidth + 'px';
+			inputEl.value!.style.paddingLeft = prefixEl.value.offsetWidth + 'px';
 		}
 	}
 	if (suffixEl.value) {
 		if (suffixEl.value.offsetWidth) {
-			inputEl.value.style.paddingRight = suffixEl.value.offsetWidth + 'px';
+			inputEl.value!.style.paddingRight = suffixEl.value.offsetWidth + 'px';
 		}
 	}
 }, 100, {

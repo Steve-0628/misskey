@@ -55,7 +55,7 @@ const items = Object.keys(navbarItemDef).filter(k => !menu.includes(k)).map(k =>
 }));
 
 function close() {
-	modal.close();
+	modal!.close();
 }
 </script>
 

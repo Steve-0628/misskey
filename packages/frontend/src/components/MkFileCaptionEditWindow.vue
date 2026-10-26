@@ -43,6 +43,6 @@ let caption = $ref(props.default);
 
 async function ok() {
 	emit('done', caption);
-	dialog.close();
+	dialog!.close();
 }
 </script>

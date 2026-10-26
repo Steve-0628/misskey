@@ -134,13 +134,13 @@ const render = () => {
 
 	const vLineColor = defaultStore.state.darkMode ? 'rgba(255, 255, 255, 0.2)' : 'rgba(0, 0, 0, 0.2)';
 
-	const maxes = chartData.series.map((x, i) => Math.max(...x.data.map(d => d.y)));
+	const maxes = chartData!.series.map((x, i) => Math.max(...x.data.map(d => d.y)));
 
 	chartInstance = new Chart(chartEl.value, {
 		type: props.bar ? 'bar' : 'line',
 		data: {
 			labels: new Array(props.limit).fill(0).map((_, i) => date(getDate(i))).slice().reverse(),
-			datasets: chartData.series.map((x, i) => ({
+			datasets: chartData!.series.map((x, i) => ({
 				parsing: false,
 				label: x.name,
 				data: x.data.slice().reverse(),
@@ -562,7 +562,7 @@ const fetchDriveFilesChart = async (): Promise<typeof chartData> => {
 };
 
 const fetchInstanceRequestsChart = async (): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/instance', { host: props.args.host, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/instance', { host: props.args!.host, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'In',
@@ -584,7 +584,7 @@ const fetchInstanceRequestsChart = async (): Promise<typeof chartData> => {
 };
 
 const fetchInstanceUsersChart = async (total: boolean): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/instance', { host: props.args.host, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/instance', { host: props.args!.host, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Users',
@@ -599,7 +599,7 @@ const fetchInstanceUsersChart = async (total: boolean): Promise<typeof chartData
 };
 
 const fetchInstanceNotesChart = async (total: boolean): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/instance', { host: props.args.host, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/instance', { host: props.args!.host, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Notes',
@@ -614,7 +614,7 @@ const fetchInstanceNotesChart = async (total: boolean): Promise<typeof chartData
 };
 
 const fetchInstanceFfChart = async (total: boolean): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/instance', { host: props.args.host, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/instance', { host: props.args!.host, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Following',
@@ -637,7 +637,7 @@ const fetchInstanceFfChart = async (total: boolean): Promise<typeof chartData> =
 };
 
 const fetchInstanceDriveUsageChart = async (total: boolean): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/instance', { host: props.args.host, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/instance', { host: props.args!.host, limit: props.limit, span: props.span });
 	return {
 		bytes: true,
 		series: [{
@@ -653,7 +653,7 @@ const fetchInstanceDriveUsageChart = async (total: boolean): Promise<typeof char
 };
 
 const fetchInstanceDriveFilesChart = async (total: boolean): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/instance', { host: props.args.host, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/instance', { host: props.args!.host, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Drive files',
@@ -668,9 +668,9 @@ const fetchInstanceDriveFilesChart = async (total: boolean): Promise<typeof char
 };
 
 const fetchPerUserNotesChart = async (): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/user/notes', { userId: props.args.user.id, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/user/notes', { userId: props.args!.user.id, limit: props.limit, span: props.span });
 	return {
-		series: [...(props.args.withoutAll ? [] : [{
+		series: [...(props.args!.withoutAll ? [] : [{
 			name: 'All',
 			type: 'line',
 			data: format(sum(raw.inc, negate(raw.dec))),
@@ -700,7 +700,7 @@ const fetchPerUserNotesChart = async (): Promise<typeof chartData> => {
 };
 
 const fetchPerUserPvChart = async (): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/user/pv', { userId: props.args.user.id, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/user/pv', { userId: props.args!.user.id, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Unique PV (user)',
@@ -727,37 +727,37 @@ const fetchPerUserPvChart = async (): Promise<typeof chartData> => {
 };
 
 const fetchPerUserFollowingChart = async (): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/user/following', { userId: props.args.user.id, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/user/following', { userId: props.args!.user.id, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Local',
 			type: 'area',
-			data: format(raw.local.followings.total),
+			data: format(raw!.local.followings.total),
 		}, {
 			name: 'Remote',
 			type: 'area',
-			data: format(raw.remote.followings.total),
+			data: format(raw!.remote.followings.total),
 		}],
 	};
 };
 
 const fetchPerUserFollowersChart = async (): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/user/following', { userId: props.args.user.id, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/user/following', { userId: props.args!.user.id, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Local',
 			type: 'area',
-			data: format(raw.local.followers.total),
+			data: format(raw!.local.followers.total),
 		}, {
 			name: 'Remote',
 			type: 'area',
-			data: format(raw.remote.followers.total),
+			data: format(raw!.remote.followers.total),
 		}],
 	};
 };
 
 const fetchPerUserDriveChart = async (): Promise<typeof chartData> => {
-	const raw = await os.apiGet('charts/user/drive', { userId: props.args.user.id, limit: props.limit, span: props.span });
+	const raw = await os.apiGet('charts/user/drive', { userId: props.args!.user.id, limit: props.limit, span: props.span });
 	return {
 		series: [{
 			name: 'Inc',

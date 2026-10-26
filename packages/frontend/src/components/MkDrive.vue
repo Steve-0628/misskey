@@ -91,6 +91,7 @@
 
 <script lang="ts" setup>
 import { nextTick, onActivated, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue';
+import type { MenuItem } from '@/types/menu.js';
 import * as Misskey from 'misskey-js';
 import MkButton from './MkButton.vue';
 import XNavFolder from '@/components/MkDrive.navFolder.vue';
@@ -605,7 +606,7 @@ function fetchMoreFiles() {
 	});
 }
 
-function getMenu() {
+function getMenu(): MenuItem[] {
 	return [{
 		type: 'switch',
 		text: i18n.ts.keepOriginalUploading,

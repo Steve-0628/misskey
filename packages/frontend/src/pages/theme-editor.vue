@@ -139,24 +139,24 @@ function setBgColor(color: typeof bgColors[number]) {
 		for (const prop of Object.keys(base.props)) {
 			if (prop === 'accent') continue;
 			if (prop === 'fg') continue;
-			theme.props[prop] = base.props[prop];
+			theme.props![prop] = base.props[prop];
 		}
 	}
 	theme.base = color.kind;
-	theme.props.bg = color.color;
+	theme.props!.bg = color.color;
 
-	if (theme.props.fg) {
-		const matchedFgColor = fgColors.find(x => [tinycolor(x.forLight).toRgbString(), tinycolor(x.forDark).toRgbString()].includes(tinycolor(theme.props.fg).toRgbString()));
+	if (theme.props!.fg) {
+		const matchedFgColor = fgColors.find(x => [tinycolor(x.forLight).toRgbString(), tinycolor(x.forDark).toRgbString()].includes(tinycolor(theme.props!.fg).toRgbString()));
 		if (matchedFgColor) setFgColor(matchedFgColor);
 	}
 }
 
 function setAccentColor(color) {
-	theme.props.accent = color;
+	theme.props!.accent = color;
 }
 
 function setFgColor(color) {
-	theme.props.fg = theme.base === 'light' ? color.forLight : color.forDark;
+	theme.props!.fg = theme.base === 'light' ? color.forLight : color.forDark;
 }
 
 function apply() {
@@ -190,7 +190,7 @@ async function saveAs() {
 
 	theme.id = uuid();
 	theme.name = name;
-	theme.author = `@${$i.username}@${toUnicode(host)}`;
+	theme.author = `@${$i!.username}@${toUnicode(host)}`;
 	if (description) theme.desc = description;
 	await addTheme(theme);
 	applyTheme(theme);

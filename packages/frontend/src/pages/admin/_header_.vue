@@ -75,7 +75,7 @@ const showTabsPopup = (ev: MouseEvent) => {
 	if (!hasTabs.value) return;
 	ev.preventDefault();
 	ev.stopPropagation();
-	const menu = props.tabs.map(tab => ({
+	const menu = props.tabs!.map(tab => ({
 		text: tab.title,
 		icon: tab.icon,
 		active: tab.key != null && tab.key === props.tab,

@@ -98,7 +98,7 @@ function onContextmenu(ev: MouseEvent) {
 		}
 	};
 	if (isLink(ev.target)) return;
-	if (['INPUT', 'TEXTAREA', 'IMG', 'VIDEO', 'CANVAS'].includes(ev.target.tagName) || ev.target.attributes['contenteditable']) return;
+	if (['INPUT', 'TEXTAREA', 'IMG', 'VIDEO', 'CANVAS'].includes(ev.target!.tagName) || ev.target!.attributes['contenteditable']) return;
 	if (window.getSelection().toString() !== '') return;
 	const path = mainRouter.getCurrentPath();
 	os.contextMenu([{
@@ -153,9 +153,9 @@ onMounted(() => {
 	}, { passive: true });
 
 	if (defaultStore.state.aiChanMode) {
-		const iframeRect = live2d.getBoundingClientRect();
+		const iframeRect = live2d!.getBoundingClientRect();
 		window.addEventListener('mousemove', ev => {
-			live2d.contentWindow.postMessage({
+			live2d!.contentWindow!.postMessage({
 				type: 'moveCursor',
 				body: {
 					x: ev.clientX - iframeRect.left,
@@ -164,7 +164,7 @@ onMounted(() => {
 			}, '*');
 		}, { passive: true });
 		window.addEventListener('touchmove', ev => {
-			live2d.contentWindow.postMessage({
+			live2d!.contentWindow!.postMessage({
 				type: 'moveCursor',
 				body: {
 					x: ev.touches[0].clientX - iframeRect.left,

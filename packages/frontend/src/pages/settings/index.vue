@@ -211,7 +211,7 @@ watch($$(narrow), () => {
 onMounted(() => {
 	ro.observe(el.value);
 
-	narrow = el.value.offsetWidth < NARROW_THRESHOLD;
+	narrow = el.value!.offsetWidth < NARROW_THRESHOLD;
 
 	if (!narrow && currentPage?.route.name == null) {
 		router.replace('/settings/profile');
@@ -219,7 +219,7 @@ onMounted(() => {
 });
 
 onActivated(() => {
-	narrow = el.value.offsetWidth < NARROW_THRESHOLD;
+	narrow = el.value!.offsetWidth < NARROW_THRESHOLD;
 
 	if (!narrow && currentPage?.route.name == null) {
 		router.replace('/settings/profile');
@@ -236,7 +236,7 @@ watch(router.currentRef, (to) => {
 	}
 });
 
-const emailNotConfigured = computed(() => instance.enableEmail && ($i.email == null || !$i.emailVerified));
+const emailNotConfigured = computed(() => instance.enableEmail && ($i!.email == null || !$i!.emailVerified));
 
 provideMetadataReceiver((info) => {
 	if (info == null) {

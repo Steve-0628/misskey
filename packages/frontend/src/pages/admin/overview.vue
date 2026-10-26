@@ -88,7 +88,6 @@ let federationSubActiveDiff = $ref<number | null>(null);
 let newUsers = $ref(null);
 let activeInstances = $shallowRef(null);
 const queueStatsConnection = markRaw(useStream().useChannel('queueStats'));
-const now = new Date();
 const filesPagination = {
 	endpoint: 'admin/drive/files' as const,
 	limit: 9,

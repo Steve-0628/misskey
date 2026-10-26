@@ -33,7 +33,7 @@ const props = defineProps<{
 	antennaId: string;
 }>();
 
-let antenna = $ref(null);
+let antenna = $ref<{ id: string; name: string } | null>(null);
 let queue = $ref(0);
 let rootEl = $shallowRef<HTMLElement>();
 let tlEl = $shallowRef<InstanceType<typeof MkTimeline>>();
@@ -55,7 +55,7 @@ async function timetravel() {
 	});
 	if (canceled) return;
 
-	tlEl.timetravel(date);
+	tlEl!.timetravel(date);
 }
 
 function settings() {
@@ -63,7 +63,7 @@ function settings() {
 }
 
 function focus() {
-	tlEl.focus();
+	tlEl!.focus();
 }
 
 watch(() => props.antennaId, async () => {

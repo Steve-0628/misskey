@@ -26,10 +26,10 @@ let chartInstance: Chart;
 function setData(values) {
 	if (chartInstance == null) return;
 	for (const value of values) {
-		chartInstance.data.labels.push('');
+		chartInstance.data.labels!.push('');
 		chartInstance.data.datasets[0].data.push(value);
 		if (chartInstance.data.datasets[0].data.length > 200) {
-			chartInstance.data.labels.shift();
+			chartInstance.data.labels!.shift();
 			chartInstance.data.datasets[0].data.shift();
 		}
 	}
@@ -38,10 +38,10 @@ function setData(values) {
 
 function pushData(value) {
 	if (chartInstance == null) return;
-	chartInstance.data.labels.push('');
+	chartInstance.data.labels!.push('');
 	chartInstance.data.datasets[0].data.push(value);
 	if (chartInstance.data.datasets[0].data.length > 200) {
-		chartInstance.data.labels.shift();
+		chartInstance.data.labels!.shift();
 		chartInstance.data.datasets[0].data.shift();
 	}
 	chartInstance.update();

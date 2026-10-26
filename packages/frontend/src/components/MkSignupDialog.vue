@@ -52,11 +52,11 @@ const isAcceptedServerRule = $ref(false);
 
 function onSignup(res) {
 	emit('done', res);
-	dialog.close();
+	dialog!.close();
 }
 
 function onSignupEmailPending() {
-	dialog.close();
+	dialog!.close();
 }
 </script>
 

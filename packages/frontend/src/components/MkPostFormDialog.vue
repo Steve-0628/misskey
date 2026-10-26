@@ -34,7 +34,7 @@ let modal = $shallowRef<InstanceType<typeof MkModal>>();
 let form = $shallowRef<InstanceType<typeof MkPostForm>>();
 
 function onPosted() {
-	modal.close({
+	modal!.close({
 		useSendAnimation: true,
 	});
 }

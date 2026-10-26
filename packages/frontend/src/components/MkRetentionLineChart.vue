@@ -105,12 +105,12 @@ onMounted(async () => {
 					callbacks: {
 						title(context) {
 							const v = context[0].dataset.data[context[0].dataIndex];
-							return `${v.x} days later`;
+							return `${v!.x} days later`;
 						},
 						label(context) {
 							const v = context.dataset.data[context.dataIndex];
-							const p = Math.round(v.y) + '%';
-							return `${v.d} ${p}`;
+							const p = Math.round(v!.y) + '%';
+							return `${v!.d} ${p}`;
 						},
 					},
 					mode: 'index',

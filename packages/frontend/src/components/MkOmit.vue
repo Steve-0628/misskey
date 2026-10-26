@@ -23,7 +23,7 @@ let ignoreOmit = $ref(false);
 
 const calcOmit = () => {
 	if (omitted || ignoreOmit) return;
-	omitted = content.offsetHeight > props.maxHeight;
+	omitted = content!.offsetHeight > props.maxHeight;
 };
 
 const omitObserver = new ResizeObserver((entries, observer) => {

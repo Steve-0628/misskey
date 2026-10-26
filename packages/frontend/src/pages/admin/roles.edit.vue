@@ -34,8 +34,8 @@ const props = defineProps<{
 	id?: string;
 }>();
 
-let role = $ref(null);
-let data = $ref(null);
+let role = $ref<{ id: string; name: string } | null>(null);
+let data = $ref<Record<string, unknown> | null>(null);
 
 if (props.id) {
 	role = await os.api('admin/roles/show', {

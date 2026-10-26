@@ -81,12 +81,12 @@ let enableActiveEmailValidation: boolean = $ref(false);
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	summalyProxy = meta.summalyProxy;
-	enableHcaptcha = meta.enableHcaptcha;
-	enableRecaptcha = meta.enableRecaptcha;
-	enableTurnstile = meta.enableTurnstile;
-	enableIpLogging = meta.enableIpLogging;
-	enableActiveEmailValidation = meta.enableActiveEmailValidation;
+	summalyProxy = meta!.summalyProxy;
+	enableHcaptcha = meta!.enableHcaptcha;
+	enableRecaptcha = meta!.enableRecaptcha;
+	enableTurnstile = meta!.enableTurnstile;
+	enableIpLogging = meta!.enableIpLogging;
+	enableActiveEmailValidation = meta!.enableActiveEmailValidation;
 }
 
 function save() {

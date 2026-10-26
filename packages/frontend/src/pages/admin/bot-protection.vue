@@ -81,14 +81,14 @@ let turnstileSecretKey: string | null = $ref(null);
 
 async function init() {
 	const meta = await os.api('admin/meta');
-	hcaptchaSiteKey = meta.hcaptchaSiteKey;
-	hcaptchaSecretKey = meta.hcaptchaSecretKey;
-	recaptchaSiteKey = meta.recaptchaSiteKey;
-	recaptchaSecretKey = meta.recaptchaSecretKey;
-	turnstileSiteKey = meta.turnstileSiteKey;
-	turnstileSecretKey = meta.turnstileSecretKey;
+	hcaptchaSiteKey = meta!.hcaptchaSiteKey;
+	hcaptchaSecretKey = meta!.hcaptchaSecretKey;
+	recaptchaSiteKey = meta!.recaptchaSiteKey;
+	recaptchaSecretKey = meta!.recaptchaSecretKey;
+	turnstileSiteKey = meta!.turnstileSiteKey;
+	turnstileSecretKey = meta!.turnstileSecretKey;
 
-	provider = meta.enableHcaptcha ? 'hcaptcha' : meta.enableRecaptcha ? 'recaptcha' : meta.enableTurnstile ? 'turnstile' : null;
+	provider = meta!.enableHcaptcha ? 'hcaptcha' : meta!.enableRecaptcha ? 'recaptcha' : meta!.enableTurnstile ? 'turnstile' : null;
 }
 
 function save() {
