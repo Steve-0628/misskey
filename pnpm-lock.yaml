@@ -426,8 +426,8 @@ importers:
         specifier: 3.4.1
         version: 3.4.1
       re2:
-        specifier: 1.26.1
-        version: 1.26.1
+        specifier: 1.27.0
+        version: 1.27.0
       redis-lock:
         specifier: 0.1.4
         version: 0.1.4
@@ -6467,8 +6467,8 @@ packages:
   insert-text-at-cursor@0.3.0:
     resolution: {integrity: sha512-/nPtyeX9xPUvxZf+r0518B7uqNKlP+LqNJqSiXFEaa2T71rWIwTVXGH7hB9xO/EVdwa5/pWlFCPwShOW81XIxQ==}
 
-  install-artifact-from-github@1.7.0:
-    resolution: {integrity: sha512-qAb91yAKVF9rFY4rVP21ZtYUyCScxAFt9udwzVWNLBE1pQcdQeB2gd1HlNPcQNYCzCDvJ/QJQPuWQ6aTmSlU8g==}
+  install-artifact-from-github@1.8.1:
+    resolution: {integrity: sha512-lV8dRlR/3i6Tk4X9agaqhMRY6ScVU3YOuKse0VRnP9+rUWfImeCjo1TeAefXEauNVF3a8QgOb6jW3CZJetVopw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -7724,6 +7724,9 @@ packages:
   nan@2.28.0:
     resolution: {integrity: sha512-fTsDz99OTq2sVePhGdp4qQhggZFtKr64ZNVyVajRKtMOkJxYekplBh577PiJB12v/D3s2E5cGtOI45LWp6rnLQ==}
 
+  nan@2.30.0:
+    resolution: {integrity: sha512-P5mokDkSvCGBz6mZDD/2l+w9QoICRXdCyZ9ONGmTePr40oihJg3Kpn0YU3twKd6PJnwSlLBWNQeOT6yWEV2c4A==}
+
   nanoid@3.3.20:
     resolution: {integrity: sha512-uKdg2G3GNCKQn9byYOpxbGqrT2fGO5KRt5J/8b3pok8rT6qxGWF6hxMyJiEYtAf+FVyYuD9hRaDqX5uPFYJ4ZQ==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -7823,8 +7826,8 @@ packages:
     resolution: {integrity: sha512-LA4ZjwlnUblHVgq0oBF3Jl/6h/Nvs5fzBLwdEF4nuxnFdsfajde4WfxtJr3CaiH+F6ewcIB/q4jQ4UzPyid+CQ==}
     hasBin: true
 
-  node-gyp@13.0.1:
-    resolution: {integrity: sha512-piOr0S10qy5THB+q5BdqkoOx65XL/tjTMUAit3vciPNp+snTOBnGunWH1Rz7XZUxf2T9uFrfT/Ty4+aC3yPeyg==}
+  node-gyp@13.1.0:
+    resolution: {integrity: sha512-FpNzOLFACKG0oRBYbZ5WOeWD1EqRTIWX90MaRIWTO18lVYPx8fqIjrdS3pihjnCkSmgop6zVGkSqg1vXZLksuw==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
     hasBin: true
 
@@ -8841,8 +8844,8 @@ packages:
     resolution: {integrity: sha512-fUeWjrkOO0t1rg7B2fdyDTvngj+9RlUyL92vOdiB7c0FPguWVsniIMjEtHH+meLBO9rzkUlUzBVXgWrjI8P9LA==}
     engines: {node: '>=12'}
 
-  re2@1.26.1:
-    resolution: {integrity: sha512-oi79a4h6EO3PAwNsDMWgeCcsRGQEUa52DIgOiFTZGDEZocEXG9h+oXy0qZqndo47huUeJuVWSoOJIEhOupqOcg==}
+  re2@1.27.0:
+    resolution: {integrity: sha512-z5Vascmj7lQbU3YdfYJUDkBGGTnoAObcVW/CSbpI3WbVb1vZQsSzSWcGkfKU0JKrrGfPZwPr8EVHwYXKQKLVXw==}
     engines: {node: ^22.22.2 || ^24.15.0 || >=26.0.0}
 
   react-dom@18.3.1:
@@ -17632,7 +17635,7 @@ snapshots:
 
   insert-text-at-cursor@0.3.0: {}
 
-  install-artifact-from-github@1.7.0: {}
+  install-artifact-from-github@1.8.1: {}
 
   internal-slot@1.1.0:
     dependencies:
@@ -19331,7 +19334,10 @@ snapshots:
       object-assign: 4.1.1
       thenify-all: 1.6.0
 
-  nan@2.28.0: {}
+  nan@2.28.0:
+    optional: true
+
+  nan@2.30.0: {}
 
   nanoid@3.3.20: {}
 
@@ -19423,7 +19429,7 @@ snapshots:
   node-gyp-build@4.8.4:
     optional: true
 
-  node-gyp@13.0.1:
+  node-gyp@13.1.0:
     dependencies:
       env-paths: 2.2.1
       exponential-backoff: 3.1.1
@@ -20429,11 +20435,11 @@ snapshots:
     dependencies:
       setimmediate: 1.0.5
 
-  re2@1.26.1:
+  re2@1.27.0:
     dependencies:
-      install-artifact-from-github: 1.7.0
-      nan: 2.28.0
-      node-gyp: 13.0.1
+      install-artifact-from-github: 1.8.1
+      nan: 2.30.0
+      node-gyp: 13.1.0
 
   react-dom@18.3.1(react@18.3.1):
     dependencies:
