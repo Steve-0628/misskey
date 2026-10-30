@@ -468,8 +468,8 @@ importers:
         specifier: https://github.com/misskey-dev/summaly#d7f6a88aee62510a0d3ba061f515e4688c34ca48
         version: https://codeload.github.com/misskey-dev/summaly/tar.gz/d7f6a88aee62510a0d3ba061f515e4688c34ca48
       systeminformation:
-        specifier: 5.31.7
-        version: 5.31.7
+        specifier: 5.33.19
+        version: 5.33.19
       tinycolor2:
         specifier: 1.6.0
         version: 1.6.0
@@ -9767,9 +9767,9 @@ packages:
     resolution: {integrity: sha512-eNRKgb3z66Yp3D2CixVujOUvXLFUTij/zVnV8KRyvFdQwpz7I5DS8UfRkTeLzb64u+dkzDSdelE24izu+zSSUg==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  systeminformation@5.31.7:
-    resolution: {integrity: sha512-/8NC53e5nP9nmhn42/ncdOkyJnOoue/Vy+tJOyUGd1Yv66G069wK4rrziwhrqDETgk78CudTQupw5z19S5uoZw==}
-    engines: {node: '>=8.0.0'}
+  systeminformation@5.33.19:
+    resolution: {integrity: sha512-Zm7wGeCG7PqfvzegMJIzrxICopWqYCeLATVmvxOOci1isLcNVKgY4Fr0hhYQzvc7cgtK3377jQVChTFAnznOiA==}
+    engines: {node: '>=10.0.0'}
     os: [darwin, linux, win32, freebsd, openbsd, netbsd, sunos, android]
     hasBin: true
 
@@ -21433,7 +21433,7 @@ snapshots:
     dependencies:
       '@pkgr/core': 0.3.6
 
-  systeminformation@5.31.7: {}
+  systeminformation@5.33.19: {}
 
   syuilo-password-strength@0.0.1: {}
 
