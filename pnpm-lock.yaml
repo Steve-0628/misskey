@@ -842,8 +842,8 @@ importers:
         specifier: workspace:*
         version: link:../misskey-js
       photoswipe:
-        specifier: 5.3.8
-        version: 5.3.8
+        specifier: 5.4.4
+        version: 5.4.4
       prismjs:
         specifier: 1.30.0
         version: 1.30.0
@@ -8402,8 +8402,8 @@ packages:
   pgpass@1.0.5:
     resolution: {integrity: sha512-FdW9r/jQZhSeohs1Z3sI1yxFQNFvMcnmfuj4WBMUTxOrAyLMaTcE1aAMBiTlbMNaXvBCQuVi0R7hd8udDSP7ug==}
 
-  photoswipe@5.3.8:
-    resolution: {integrity: sha512-4vTzOQt8GP4Chsm0s+8j2xDtVHAEN252PxrU12A1zXauNn0zD5HRHgjALKO2GKTyBnTnOrJUOxbV8LTrFIMrYw==}
+  photoswipe@5.4.4:
+    resolution: {integrity: sha512-WNFHoKrkZNnvFFhbHL93WDkW3ifwVOXSW3w1UuZZelSmgXpIGiZSNlZJq37rR8YejqME2rHs9EhH9ZvlvFH2NA==}
     engines: {node: '>= 0.12.0'}
 
   picocolors@1.0.0:
@@ -19904,7 +19904,7 @@ snapshots:
     dependencies:
       split2: 4.1.0
 
-  photoswipe@5.3.8: {}
+  photoswipe@5.4.4: {}
 
   picocolors@1.0.0: {}
 
