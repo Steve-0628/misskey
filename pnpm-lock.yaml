@@ -785,8 +785,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(chart.js@4.3.0)(date-fns@2.30.0)
       chartjs-chart-matrix:
-        specifier: 2.0.1
-        version: 2.0.1(chart.js@4.3.0)
+        specifier: 2.1.1
+        version: 2.1.1(chart.js@4.3.0)
       chartjs-plugin-gradient:
         specifier: 0.6.1
         version: 0.6.1(chart.js@4.3.0)
@@ -4646,8 +4646,8 @@ packages:
       chart.js: '>=2.8.0'
       date-fns: '>=2.0.0'
 
-  chartjs-chart-matrix@2.0.1:
-    resolution: {integrity: sha512-BGfeY+/PHnITyDlc7WfnKJ1RyOfgOzIqWp/gxzzl7pUjyoGzHDcw51qd2xJF9gdT9Def7ZwOnOMm8GJUXDxI0w==}
+  chartjs-chart-matrix@2.1.1:
+    resolution: {integrity: sha512-hJ5NKGYqfM37mnkr3XXIJDn9Eij4G7mbNsNxY1zEmtoVLu/k6HO9yL8sL8vFgVnJbhWqAJdlrb+dlTOFKh8xfA==}
     peerDependencies:
       chart.js: '>=3.0.0'
 
@@ -15223,7 +15223,7 @@ snapshots:
       chart.js: 4.3.0
       date-fns: 2.30.0
 
-  chartjs-chart-matrix@2.0.1(chart.js@4.3.0):
+  chartjs-chart-matrix@2.1.1(chart.js@4.3.0):
     dependencies:
       chart.js: 4.3.0
 
