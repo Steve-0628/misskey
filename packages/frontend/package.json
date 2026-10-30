@@ -38,7 +38,7 @@
 		"escape-regexp": "0.0.1",
 		"estree-walker": "^3.0.3",
 		"eventemitter3": "5.0.4",
-		"gsap": "3.12.2",
+		"gsap": "3.15.0",
 		"idb-keyval": "6.3.0",
 		"insert-text-at-cursor": "0.3.0",
 		"is-file-animated": "1.0.2",

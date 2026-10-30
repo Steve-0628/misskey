@@ -815,8 +815,8 @@ importers:
         specifier: 5.0.4
         version: 5.0.4
       gsap:
-        specifier: 3.12.2
-        version: 3.12.2
+        specifier: 3.15.0
+        version: 3.15.0
       idb-keyval:
         specifier: 6.3.0
         version: 6.3.0
@@ -6192,8 +6192,8 @@ packages:
     resolution: {integrity: sha512-DKKrynuQRne0PNpEbzuEdHlYOMksHSUI8Zc9Unei5gTsMNA2/vMpoMz/yKba50pejK56qj98qM0SjYxAKi13gQ==}
     engines: {node: ^12.22.0 || ^14.16.0 || ^16.0.0 || >=17.0.0}
 
-  gsap@3.12.2:
-    resolution: {integrity: sha512-EkYnpG8qHgYBFAwsgsGEqvT1WUidX0tt/ijepx7z8EUJHElykg91RvW1XbkT59T0gZzzszOpjQv7SE41XuIXyQ==}
+  gsap@3.15.0:
+    resolution: {integrity: sha512-dMW4CWBTUK1AEEDeZc1g4xpPGIrSf9fJF960qbTZmN/QwZIWY5wgliS6JWl9/25fpTGJrMRtSjGtOmPnfjZB+A==}
 
   gulp-cli@2.3.0:
     resolution: {integrity: sha512-zzGBl5fHo0EKSXsHzjspp3y5CONegCm8ErO5Qh0UzFzk2y4tMvzLWhoDokADbarfZRL2pGpRp7yt6gfJX4ph7A==}
@@ -17284,7 +17284,7 @@ snapshots:
 
   graphql@16.12.0: {}
 
-  gsap@3.12.2: {}
+  gsap@3.15.0: {}
 
   gulp-cli@2.3.0(supports-color@8.1.1):
     dependencies:
