@@ -33,7 +33,7 @@
 		"chartjs-plugin-zoom": "2.0.1",
 		"chromatic": "6.19.9",
 		"compare-versions": "5.0.3",
-		"cropperjs": "2.0.0-beta.3",
+		"cropperjs": "2.3.1",
 		"date-fns": "2.30.0",
 		"escape-regexp": "0.0.1",
 		"estree-walker": "^3.0.3",
