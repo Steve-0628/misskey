@@ -39,7 +39,7 @@
 		"estree-walker": "^3.0.3",
 		"eventemitter3": "5.0.4",
 		"gsap": "3.12.2",
-		"idb-keyval": "6.2.1",
+		"idb-keyval": "6.3.0",
 		"insert-text-at-cursor": "0.3.0",
 		"is-file-animated": "1.0.2",
 		"json5": "2.2.3",
