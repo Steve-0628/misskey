@@ -770,8 +770,8 @@ importers:
         specifier: 5.5.1
         version: 5.5.1
       browser-image-resizer:
-        specifier: github:misskey-dev/browser-image-resizer#v2.2.1-misskey.3
-        version: https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/0227e860621e55cbed0aabe6dc601096a7748c4a
+        specifier: github:misskey-dev/browser-image-resizer#v2.2.1
+        version: https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/26a5c839f8a23da5ced4b9084ec9b872e04876d8
       buraha:
         specifier: 0.0.1
         version: 0.0.1
@@ -4447,9 +4447,9 @@ packages:
   broadcast-channel@5.5.1:
     resolution: {integrity: sha512-C7LtMmJCIIU07xtJngYE2OxaGTGBsG+wOa0mBSPRpbTF36kqtsXQhpxtCVDTkpe8gpZMn9C6PhH+mZ/js4IabA==}
 
-  browser-image-resizer@https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/0227e860621e55cbed0aabe6dc601096a7748c4a:
-    resolution: {gitHosted: true, integrity: sha512-g/obrtD0QNgDQEYw9R+Pdyw9GtGYCbAh5y6XG/TXyShCHP62o8hzQsSJ+VDRp2/qPLWCxApyJA/IpQ6dOncA2g==, tarball: https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/0227e860621e55cbed0aabe6dc601096a7748c4a}
-    version: 2.2.1-misskey.3
+  browser-image-resizer@https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/26a5c839f8a23da5ced4b9084ec9b872e04876d8:
+    resolution: {gitHosted: true, integrity: sha512-MB5t//wBueJhuetNS9Fq04gtA071rC5vKAPtkwaiHWmfnujx3gCvwgMTPQxaAh6ZlsFfu8+Ax8cd0j/rb14R4w==, tarball: https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/26a5c839f8a23da5ced4b9084ec9b872e04876d8}
+    version: 2.2.1
 
   browserslist@1.7.7:
     resolution: {integrity: sha512-qHJblDE2bXVRYzuDetv/wAeHOJyO97+9wxC1cdCtyzgNuSozOyRCiiLaCR1f71AN66lQdVVBipWm63V+a7bPOw==}
@@ -5643,6 +5643,9 @@ packages:
   executable@4.1.1:
     resolution: {integrity: sha512-8iA79xD3uAch729dUG8xaaBBFGaEa0wdD2VkYLFHwlqosEj/jT66AzcreRDSgV7ehnNLBW2WR5jIXwGKjVdTLg==}
     engines: {node: '>=4'}
+
+  exifreader@3.16.0:
+    resolution: {integrity: sha512-RfdE1LrU3KJm8NFnU3jJG4/1quEancwTz1VgwzItP11fBoVnb3Vp7JL8bQKU8rSgZm+Roa3+BJ7zg4OtoFhTFA==}
 
   exit-x@0.2.2:
     resolution: {integrity: sha512-+I6B/IkJc1o/2tiURyz/ivu/O0nKNEArIUB5O7zBrlDVJr22SCLH3xTeEry428LvFhRzIA1g8izguxJ/gbNcVQ==}
@@ -10680,6 +10683,11 @@ packages:
   xmlchars@2.2.0:
     resolution: {integrity: sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==}
 
+  xmldom@0.1.31:
+    resolution: {integrity: sha512-yS2uJflVQs6n+CyjHoaBmVSqIDevTAWrzMmjG1Gc7h1qQ7uVozNhEPJAwZXWyGQ/Gafo3fCwrcaokezLPupVyQ==}
+    engines: {node: '>=0.1'}
+    deprecated: Deprecated due to CVE-2021-21366 resolved in 0.5.0
+
   xtend@4.0.2:
     resolution: {integrity: sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==}
     engines: {node: '>=0.4'}
@@ -14989,7 +14997,9 @@ snapshots:
       p-queue: 6.6.2
       unload: 2.4.1
 
-  browser-image-resizer@https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/0227e860621e55cbed0aabe6dc601096a7748c4a: {}
+  browser-image-resizer@https://codeload.github.com/misskey-dev/browser-image-resizer/tar.gz/26a5c839f8a23da5ced4b9084ec9b872e04876d8:
+    dependencies:
+      exifreader: 3.16.0
 
   browserslist@1.7.7:
     dependencies:
@@ -16578,6 +16588,10 @@ snapshots:
   executable@4.1.1:
     dependencies:
       pify: 2.3.0
+
+  exifreader@3.16.0:
+    optionalDependencies:
+      xmldom: 0.1.31
 
   exit-x@0.2.2: {}
 
@@ -18724,7 +18738,7 @@ snapshots:
       https-proxy-agent: 5.0.1(supports-color@8.1.1)
       is-potential-custom-element-name: 1.0.1
       nwsapi: 2.2.5
-      parse5: 7.1.2
+      parse5: 7.3.0
       rrweb-cssom: 0.6.0
       saxes: 6.0.0
       symbol-tree: 3.2.4
@@ -18754,7 +18768,7 @@ snapshots:
       https-proxy-agent: 5.0.1(supports-color@5.5.0)
       is-potential-custom-element-name: 1.0.1
       nwsapi: 2.2.5
-      parse5: 7.1.2
+      parse5: 7.3.0
       rrweb-cssom: 0.6.0
       saxes: 6.0.0
       symbol-tree: 3.2.4
@@ -22426,6 +22440,9 @@ snapshots:
   xmlbuilder@11.0.1: {}
 
   xmlchars@2.2.0: {}
+
+  xmldom@0.1.31:
+    optional: true
 
   xtend@4.0.2: {}
 
