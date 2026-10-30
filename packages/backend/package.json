@@ -41,7 +41,7 @@
 		"slacc-darwin-arm64": "0.0.10",
 		"slacc-darwin-universal": "0.0.10",
 		"slacc-darwin-x64": "0.0.10",
-		"slacc-freebsd-x64": "0.0.10",
+		"slacc-freebsd-x64": "0.2.0",
 		"slacc-linux-arm-gnueabihf": "0.0.10",
 		"slacc-linux-arm64-gnu": "0.0.10",
 		"slacc-linux-arm64-musl": "0.0.10",
