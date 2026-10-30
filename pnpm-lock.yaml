@@ -755,8 +755,8 @@ importers:
         specifier: 0.15.0
         version: 0.15.0
       '@tabler/icons-webfont':
-        specifier: 2.25.0
-        version: 2.25.0
+        specifier: 2.47.0
+        version: 2.47.0
       '@vue/compiler-sfc':
         specifier: 3.3.4
         version: 3.3.4
@@ -3094,11 +3094,11 @@ packages:
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
 
-  '@tabler/icons-webfont@2.25.0':
-    resolution: {integrity: sha512-IWYVnYlCwlGC95kvpY5Hdiyn1/amXOUwsfRthtmgEtHCQly4JSLRuaD90xD0O+pQ+wZBXIVNsO3pKdg74zEaBg==}
+  '@tabler/icons-webfont@2.47.0':
+    resolution: {integrity: sha512-yfV9zDal0iYDmyGz4BS9IlhaaMydtLdyOrY2UAZToP65sVWj7AFIi6symNzsoBaX867xAZWVHdKcocah0BfSog==}
 
-  '@tabler/icons@2.25.0':
-    resolution: {integrity: sha512-Z+FtSZoG/CM1TMCgg7elUew2m0+qMdh5gutMhvxiIY77KIIsE6L/6fUBy+rPXWE9v7MV296fsnCvbpfgwpXupQ==}
+  '@tabler/icons@2.47.0':
+    resolution: {integrity: sha512-4w5evLh+7FUUiA1GucvGj2ReX2TvOjEr4ejXdwL/bsjoSkof6r1gQmzqI+VHrE2CpJpB3al7bCTulOkFa/RcyA==}
 
   '@testing-library/dom@9.2.0':
     resolution: {integrity: sha512-xTEnpUKiV/bMyEsE5bT4oYA0x0Z/colMtxzUY8bKyPXBNLn/e0V4ZjBZkEhms0xE4pv9QsPfSRu9AWS4y5wGvA==}
@@ -13293,11 +13293,11 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tabler/icons-webfont@2.25.0':
+  '@tabler/icons-webfont@2.47.0':
     dependencies:
-      '@tabler/icons': 2.25.0
+      '@tabler/icons': 2.47.0
 
-  '@tabler/icons@2.25.0': {}
+  '@tabler/icons@2.47.0': {}
 
   '@testing-library/dom@9.2.0':
     dependencies:
