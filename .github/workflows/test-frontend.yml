@@ -102,7 +102,7 @@ jobs:
     - name: Cypress install
       run: pnpm exec cypress install
     - name: Cypress run
-      uses: cypress-io/github-action@v7.4.7
+      uses: cypress-io/github-action@v7.4.8
       with:
         install: false
         start: pnpm start:test
