@@ -791,8 +791,8 @@ importers:
         specifier: 0.6.1
         version: 0.6.1(chart.js@4.3.0)
       chartjs-plugin-zoom:
-        specifier: 2.0.1
-        version: 2.0.1(chart.js@4.3.0)
+        specifier: 2.2.0
+        version: 2.2.0(chart.js@4.3.0)
       chromatic:
         specifier: 6.19.9
         version: 6.19.9
@@ -3218,6 +3218,9 @@ packages:
   '@types/gulp@4.0.18':
     resolution: {integrity: sha512-IqkYa4sXkwH2uwqO2aXYOoAisJpLX13BPaS6lmEAoG4BbgOay3qqGQFsT9LMSSQVMQlEKU7wTUW0sPV46V0olw==}
 
+  '@types/hammerjs@2.0.46':
+    resolution: {integrity: sha512-ynRvcq6wvqexJ9brDMS4BnBLzmr0e14d6ZJTEShTBWKymQiHwlAyGu0ZPEFI2Fh1U53F7tN9ufClWM5KvqkKOw==}
+
   '@types/http-cache-semantics@4.0.4':
     resolution: {integrity: sha512-1m0bIFVc7eJWyve9S0RnuRgcQqF/Xd5QsUZAZeQFr1Q3/p9JWoQQEqmVy+DPTNpGXwhgIetAoYF8JSc33q29QA==}
 
@@ -4653,8 +4656,8 @@ packages:
     peerDependencies:
       chart.js: '>=2.6.0'
 
-  chartjs-plugin-zoom@2.0.1:
-    resolution: {integrity: sha512-ogOmLu6e+Q7E1XWOCOz9YwybMslz9qNfGV2a+qjfmqJYpsw5ZMoRHZBUyW+NGhkpQ5PwwPA/+rikHpBZb7PZuA==}
+  chartjs-plugin-zoom@2.2.0:
+    resolution: {integrity: sha512-in6kcdiTlP6npIVLMd4zXZ08PDUXC52gZ4FAy5oyjk1zX3gKarXMAof7B9eFiisf9WOC3bh2saHg+J5WtLXZeA==}
     peerDependencies:
       chart.js: '>=3.2.0'
 
@@ -13458,6 +13461,8 @@ snapshots:
       '@types/vinyl-fs': 3.0.7
       chokidar: 3.5.3
 
+  '@types/hammerjs@2.0.46': {}
+
   '@types/http-cache-semantics@4.0.4': {}
 
   '@types/http-cache-semantics@4.2.0': {}
@@ -15226,8 +15231,9 @@ snapshots:
     dependencies:
       chart.js: 4.3.0
 
-  chartjs-plugin-zoom@2.0.1(chart.js@4.3.0):
+  chartjs-plugin-zoom@2.2.0(chart.js@4.3.0):
     dependencies:
+      '@types/hammerjs': 2.0.46
       chart.js: 4.3.0
       hammerjs: 2.0.8
 
