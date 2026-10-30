@@ -480,8 +480,8 @@ importers:
         specifier: 0.3.31
         version: 0.3.31(ioredis@5.3.2(supports-color@8.1.1))(pg@8.16.3)(supports-color@8.1.1)
       ulid:
-        specifier: 2.3.0
-        version: 2.3.0
+        specifier: 2.4.0
+        version: 2.4.0
       unzipper:
         specifier: 0.10.14
         version: 0.10.14
@@ -10168,8 +10168,8 @@ packages:
     resolution: {integrity: sha512-8iAasVS4wUx0gPLjH8Xtz2PeDzTSiy8QiLGu2DT3X5GU+egFEQhpnbtkehbAwjvDcxIERmCYcysiODFmE3Ud0Q==}
     engines: {node: '>=18'}
 
-  ulid@2.3.0:
-    resolution: {integrity: sha512-keqHubrlpvT6G2wH0OEfSW4mquYRcbe/J8NMmveoQOjUqmo+hXtO+ORCpWhdbZ7k72UtY61BL7haGxW6enBnjw==}
+  ulid@2.4.0:
+    resolution: {integrity: sha512-fIRiVTJNcSRmXKPZtGzFQv9WRrZ3M9eoptl/teFJvjOzmpU+/K/JH6HZ8deBfb5vMEpicJcLn7JmvdknlMq7Zg==}
     hasBin: true
 
   unbox-primitive@1.1.0:
@@ -21803,7 +21803,7 @@ snapshots:
 
   uint8array-extras@1.6.0: {}
 
-  ulid@2.3.0: {}
+  ulid@2.4.0: {}
 
   unbox-primitive@1.1.0:
     dependencies:
