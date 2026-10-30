@@ -447,8 +447,8 @@ importers:
         specifier: 2.18.1
         version: 2.18.1
       semver:
-        specifier: 7.5.4
-        version: 7.5.4
+        specifier: 7.8.5
+        version: 7.8.5
       sharp:
         specifier: 0.35.5
         version: 0.35.5(@types/node@24.19.2)
