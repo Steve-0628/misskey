@@ -776,8 +776,8 @@ importers:
         specifier: 0.0.1
         version: 0.0.1
       canvas-confetti:
-        specifier: 1.6.0
-        version: 1.6.0
+        specifier: 1.9.4
+        version: 1.9.4
       chart.js:
         specifier: 4.3.0
         version: 4.3.0
@@ -4582,8 +4582,8 @@ packages:
   canonicalize@1.0.8:
     resolution: {integrity: sha512-0CNTVCLZggSh7bc5VkX5WWPWO+cyZbNd07IHIsSXLia/eAq+r836hgk+8BKoEh7949Mda87VUOitx5OddVj64A==}
 
-  canvas-confetti@1.6.0:
-    resolution: {integrity: sha512-ej+w/m8Jzpv9Z7W7uJZer14Ke8P2ogsjg4ZMGIuq4iqUOqY2Jq8BNW42iGmNfRwREaaEfFIczLuZZiEVSYNHAA==}
+  canvas-confetti@1.9.4:
+    resolution: {integrity: sha512-yxQbJkAVrFXWNbTUjPqjF7G+g6pDotOUHGbkZq2NELZUMDpiJ85rIEazVb8GTaAptNW2miJAXbs1BtioA251Pw==}
 
   caseless@0.12.0:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
@@ -15145,7 +15145,7 @@ snapshots:
 
   canonicalize@1.0.8: {}
 
-  canvas-confetti@1.6.0: {}
+  canvas-confetti@1.9.4: {}
 
   caseless@0.12.0: {}
 
