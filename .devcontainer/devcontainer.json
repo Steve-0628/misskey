@@ -6,7 +6,7 @@
 	"features": {
 		"ghcr.io/devcontainers-extra/features/pnpm:2": {},
 		"ghcr.io/devcontainers/features/node:1": {
-			"version": "24.22.1"
+			"version": "24.22.2"
 		}
 	},
 	"forwardPorts": [3000],
