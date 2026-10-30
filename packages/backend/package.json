@@ -48,7 +48,7 @@
 		"slacc-linux-x64-gnu": "0.0.10",
 		"slacc-linux-x64-musl": "0.0.10",
 		"slacc-win32-arm64-msvc": "0.0.10",
-		"slacc-win32-x64-msvc": "0.0.10"
+		"slacc-win32-x64-msvc": "0.2.0"
 	},
 	"dependencies": {
 		"@aws-sdk/client-s3": "3.367.0",
