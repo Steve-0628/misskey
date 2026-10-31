@@ -75,7 +75,7 @@
 		"@testing-library/jest-dom": "5.17.0",
 		"@testing-library/vue": "7.0.0",
 		"@types/escape-regexp": "0.0.3",
-		"@types/estree": "1.0.9",
+		"@types/estree": "1.0.10",
 		"@types/gulp": "4.0.18",
 		"@types/gulp-rename": "2.0.7",
 		"@types/katex": "0.16.8",
@@ -92,7 +92,7 @@
 		"@types/ws": "8.18.2",
 		"@typescript-eslint/eslint-plugin": "5.62.0",
 		"@typescript-eslint/parser": "5.62.0",
-		"@vitejs/plugin-vue": "4.5.2",
+		"@vitejs/plugin-vue": "4.6.2",
 		"@vitest/coverage-v8": "0.34.6",
 		"@vue-macros/reactivity-transform": "3.1.4",
 		"@vue/runtime-core": "3.5.44",
@@ -116,9 +116,9 @@
 		"vite": "4.5.14",
 		"vite-plugin-turbosnap": "1.0.3",
 		"vitest": "0.33.0",
-		"vitest-fetch-mock": "0.2.2",
+		"vitest-fetch-mock": "0.4.5",
 		"vue-eslint-parser": "9.4.3",
 		"vue-macros": "3.1.4",
-		"vue-tsc": "3.3.13"
+		"vue-tsc": "3.3.14"
 	}
 }
