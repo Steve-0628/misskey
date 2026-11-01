@@ -231,14 +231,14 @@ importers:
         specifier: 3.360.0
         version: 3.360.0
       '@bull-board/api':
-        specifier: 5.6.1
-        version: 5.6.1(@bull-board/ui@5.6.1)
+        specifier: 5.23.0
+        version: 5.23.0(@bull-board/ui@5.23.0)
       '@bull-board/fastify':
-        specifier: 5.6.1
-        version: 5.6.1
+        specifier: 5.23.0
+        version: 5.23.0
       '@bull-board/ui':
-        specifier: 5.6.1
-        version: 5.6.1
+        specifier: 5.23.0
+        version: 5.23.0
       '@discordapp/twemoji':
         specifier: 14.1.2
         version: 14.1.2
@@ -1514,16 +1514,16 @@ packages:
   '@borewit/text-codec@0.2.3':
     resolution: {integrity: sha512-49CycTz1aAZmvFcwkeFyhud1HUmRIB5Tabf7ALV+VA4Iu85MTfz2cUwzPagMFAdVBvrWdkCxG67I30tUwwpKsw==}
 
-  '@bull-board/api@5.6.1':
-    resolution: {integrity: sha512-iq+VpvCt7v2kYCtapDDmgHFyTyHiCbJkSeYbgIDtMIspXfsKxz0ZWKsqaY/VOCRE26jAX2asK17S2XSrANEU0A==}
+  '@bull-board/api@5.23.0':
+    resolution: {integrity: sha512-ZZGsWJ+XBG49GAlNgAL9tTEV6Ms7gMkQnZDbzwUhjGChCKWy62RWuPoZSefNXau9QH9+QzlzHRUeFvt4xr5wiw==}
     peerDependencies:
-      '@bull-board/ui': 5.6.1
+      '@bull-board/ui': 5.23.0
 
-  '@bull-board/fastify@5.6.1':
-    resolution: {integrity: sha512-Gh7dWtGN13nrQ2AL+Hx+cz9hEy9IPlBYUmhP6aIpA5s1eMjQnwhAHSURt0dSaGIyp7rvU7hj1zFx4rcKHeaSXA==}
+  '@bull-board/fastify@5.23.0':
+    resolution: {integrity: sha512-woCnCAav4IByuo05D13MZtETzZp0ej1y0R+6IY33pqLKDRKa6Dor6OMx1l6/nMc/wXeng4SXC5rnrAck7Py70w==}
 
-  '@bull-board/ui@5.6.1':
-    resolution: {integrity: sha512-cy4fEXxOBHR5+3Ez3bfax+Cd2TUTPyuSYRyQWL0WIwd3bivn/3zov9IThcnHu1YmJ8rjmUNoMHz7JIDXwUg8zg==}
+  '@bull-board/ui@5.23.0':
+    resolution: {integrity: sha512-iI/Ssl8T5ZEn9s899Qz67m92M6RU8thf/aqD7cUHB2yHmkCjqbw7s7NaODTsyArAsnyu7DGJMWm7EhbfFXDNgQ==}
 
   '@canvas/image-data@1.1.0':
     resolution: {integrity: sha512-QdObRRjRbcXGmM1tmJ+MrHcaz1MftF2+W7YI+MsphnsCrmtyfS0d5qJbk0MeSbUeyM/jCb0hmnkXPsy026L7dA==}
@@ -1817,8 +1817,8 @@ packages:
   '@fastify/static@6.10.2':
     resolution: {integrity: sha512-UoaMvIHSBLCZBYOVZwFRYqX2ufUhd7FFMYGDeSf0Z+D8jhYtwljjmuQGuanUP8kS4y/ZEV1a8mfLha3zNwsnnQ==}
 
-  '@fastify/view@7.4.1':
-    resolution: {integrity: sha512-ahmRmSbNVM8bIoz0BAFnY0jNigom+xbPQ9Q1ZjmNOtGVVT3nYXCxw2OMkTr9iXwrJ4Le3EtWDHlFkZ2fCQ2hJA==}
+  '@fastify/static@6.12.0':
+    resolution: {integrity: sha512-KK1B84E6QD/FcQWxDI2aiUCwHxMJBI1KeCUzm1BwYpPY1b742+jeKruGHP2uOluuM6OkBPI8CIANrXcCRtC2oQ==}
 
   '@fastify/view@8.2.0':
     resolution: {integrity: sha512-hBSiBofCnJNlPHEMZWpO1SL84eqOaqujJ1hR3jntFyZZCkweH5jMs12DKYyGesjVll7SJFRRxPUBB8kmUmneRQ==}
@@ -11309,22 +11309,22 @@ snapshots:
 
   '@borewit/text-codec@0.2.3': {}
 
-  '@bull-board/api@5.6.1(@bull-board/ui@5.6.1)':
+  '@bull-board/api@5.23.0(@bull-board/ui@5.23.0)':
     dependencies:
-      '@bull-board/ui': 5.6.1
+      '@bull-board/ui': 5.23.0
       redis-info: 3.1.0
 
-  '@bull-board/fastify@5.6.1':
+  '@bull-board/fastify@5.23.0':
     dependencies:
-      '@bull-board/api': 5.6.1(@bull-board/ui@5.6.1)
-      '@bull-board/ui': 5.6.1
-      '@fastify/static': 6.10.2
-      '@fastify/view': 7.4.1
+      '@bull-board/api': 5.23.0(@bull-board/ui@5.23.0)
+      '@bull-board/ui': 5.23.0
+      '@fastify/static': 6.12.0
+      '@fastify/view': 8.2.0
       ejs: 3.1.10
 
-  '@bull-board/ui@5.6.1':
+  '@bull-board/ui@5.23.0':
     dependencies:
-      '@bull-board/api': 5.6.1(@bull-board/ui@5.6.1)
+      '@bull-board/api': 5.23.0(@bull-board/ui@5.23.0)
 
   '@canvas/image-data@1.1.0': {}
 
@@ -11698,10 +11698,14 @@ snapshots:
       p-limit: 3.1.0
       readable-stream: 4.8.0
 
-  '@fastify/view@7.4.1':
+  '@fastify/static@6.12.0':
     dependencies:
+      '@fastify/accept-negotiator': 1.1.0
+      '@fastify/send': 2.1.0
+      content-disposition: 0.5.4
       fastify-plugin: 4.5.1
-      hashlru: 2.3.0
+      glob: 8.1.0
+      p-limit: 3.1.0
 
   '@fastify/view@8.2.0':
     dependencies:
