@@ -348,8 +348,8 @@ importers:
         specifier: 2.5.0
         version: 2.5.0
       is-svg:
-        specifier: 5.0.0
-        version: 5.0.0
+        specifier: 5.1.0
+        version: 5.1.0
       js-yaml:
         specifier: 4.3.2
         version: 4.3.2
@@ -6650,8 +6650,8 @@ packages:
     resolution: {integrity: sha512-Ya1giYJUkcL/94quj0+XGcmts6cETPBW1MiFz1ReJrnDJ680F52qpAEGAEGU0nq96FRGIGPx6Yo1CyPXcOoyGw==}
     engines: {node: '>=0.10.0'}
 
-  is-svg@5.0.0:
-    resolution: {integrity: sha512-sRl7J0oX9yUNamSdc8cwgzh9KBLnQXNzGmW0RVHwg/jEYjGNYHC6UvnYD8+hAeut9WwxRvhG9biK7g/wDGxcMw==}
+  is-svg@5.1.0:
+    resolution: {integrity: sha512-uVg5yifaTxHoefNf5Jcx+i9RZe2OBYd/UStp1umx+EERa4xGRa3LLGXjoEph43qUORC0qkafUgrXZ6zzK89yGA==}
     engines: {node: '>=14.16'}
 
   is-symbol@1.1.1:
@@ -17603,7 +17603,7 @@ snapshots:
     dependencies:
       html-comment-regex: 1.1.2
 
-  is-svg@5.0.0:
+  is-svg@5.1.0:
     dependencies:
       fast-xml-parser: 4.5.7
 
