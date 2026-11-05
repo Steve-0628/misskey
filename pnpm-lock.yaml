@@ -788,8 +788,8 @@ importers:
         specifier: 2.1.1
         version: 2.1.1(chart.js@4.6.1)
       chartjs-plugin-gradient:
-        specifier: 0.6.1
-        version: 0.6.1(chart.js@4.6.1)
+        specifier: 0.8.0
+        version: 0.8.0(chart.js@4.6.1)
       chartjs-plugin-zoom:
         specifier: 2.2.0
         version: 2.2.0(chart.js@4.6.1)
@@ -4589,8 +4589,8 @@ packages:
     peerDependencies:
       chart.js: '>=3.0.0'
 
-  chartjs-plugin-gradient@0.6.1:
-    resolution: {integrity: sha512-TGHNIh8KqQMLdb+UfY80cBHYRyOC47eeokmgkeajRdKGbFt462lJiyiq4ZJ25fiM7BGsmzoBLhmVyEw4B3gQxw==}
+  chartjs-plugin-gradient@0.8.0:
+    resolution: {integrity: sha512-agWyPh8fpwMJi0IGK5o22LWhbtQOahzx1FPOXdb5JXe1e2kUaSLSnKjK+7MDPM5w9TX8yZVJrFLbEyBcefK11Q==}
     peerDependencies:
       chart.js: '>=2.6.0'
 
@@ -14970,7 +14970,7 @@ snapshots:
     dependencies:
       chart.js: 4.6.1
 
-  chartjs-plugin-gradient@0.6.1(chart.js@4.6.1):
+  chartjs-plugin-gradient@0.8.0(chart.js@4.6.1):
     dependencies:
       chart.js: 4.6.1
 
