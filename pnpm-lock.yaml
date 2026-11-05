@@ -722,8 +722,8 @@ importers:
         specifier: 0.0.10
         version: 0.0.10
       slacc-linux-x64-gnu:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       slacc-linux-x64-musl:
         specifier: 0.0.10
         version: 0.0.10
@@ -9237,6 +9237,13 @@ packages:
   slacc-linux-x64-gnu@0.0.10:
     resolution: {integrity: sha512-BxxvylF9zlOLRLCpiyMvKTIUpdLlpetNBJ+DSMDh5+Ggq+AmQz2NUGawmcBJw58F8nMCj9TpWLlGNWc2AuY+JQ==}
     engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  slacc-linux-x64-gnu@0.2.0:
+    resolution: {integrity: sha512-U1y0c08l4o5SmT92xXu5WHUQAK7W4t5MHE1xVba3j9Cl7CL+4AcjTA84NkLX0MmqmYyTyIY7ui5DrDJNmXfNZw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
@@ -20699,6 +20706,9 @@ snapshots:
     optional: true
 
   slacc-linux-x64-gnu@0.0.10:
+    optional: true
+
+  slacc-linux-x64-gnu@0.2.0:
     optional: true
 
   slacc-linux-x64-musl@0.0.10:
