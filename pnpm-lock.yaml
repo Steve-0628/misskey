@@ -875,8 +875,8 @@ importers:
         specifier: 3.1.0
         version: 3.1.0
       three:
-        specifier: 0.154.0
-        version: 0.154.0
+        specifier: 0.187.0
+        version: 0.187.0
       throttle-debounce:
         specifier: 5.0.2
         version: 5.0.2
@@ -9655,8 +9655,8 @@ packages:
     resolution: {integrity: sha512-e2zZ96wSChazBsbENf/Pcm/4swHt2cEKQ92rhUjkL9GCKiTDJIaTBenjE/m9DXi0QBmTMDkFDdOomUy20A1tDQ==}
     engines: {node: '>=20'}
 
-  three@0.154.0:
-    resolution: {integrity: sha512-Uzz8C/5GesJzv8i+Y2prEMYUwodwZySPcNhuJUdsVMH2Yn4Nm8qlbQe6qRN5fOhg55XB0WiLfTPBxVHxpE60ug==}
+  three@0.187.0:
+    resolution: {integrity: sha512-Qiu7R+Cmh8CstZsY1uJOSWnVlfo7ZtNLV7mF8Jltk3LB3AtDu9cRZlcnRKkAk8Y4z6KKw35z7Y7Urd7jWY8etA==}
 
   throttle-debounce@5.0.2:
     resolution: {integrity: sha512-B71/4oyj61iNH0KeCamLuE2rmKuTO5byTOSVwECM5FA7TiAiAW+UqTKZ9ERueC4qvgSttUhdmq1mXC3kJqGX7A==}
@@ -21169,7 +21169,7 @@ snapshots:
       real-require: 1.0.0
     optional: true
 
-  three@0.154.0: {}
+  three@0.187.0: {}
 
   throttle-debounce@5.0.2: {}
 
