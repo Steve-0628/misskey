@@ -710,8 +710,8 @@ importers:
         specifier: 0.0.10
         version: 0.0.10
       slacc-freebsd-x64:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       slacc-linux-arm-gnueabihf:
         specifier: 0.0.10
         version: 0.0.10
@@ -9211,6 +9211,12 @@ packages:
   slacc-freebsd-x64@0.0.10:
     resolution: {integrity: sha512-Jmi5YszELef/aCzYto+LwiNGhCk5mrlJfTJU/pOI91HBbrZlV+aRyIsPCcxAMg5yPsPQuyRljrDouVYrPzNmjw==}
     engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [freebsd]
+
+  slacc-freebsd-x64@0.2.0:
+    resolution: {integrity: sha512-ML4SgGHiWQprrBJ/3fzqsSp4FntOrgY1AtCHqGvtlBRC+SauV61R1pDZmf7go4hHQ5enshefNNpsPTSkCCX8Aw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [x64]
     os: [freebsd]
 
@@ -20687,6 +20693,9 @@ snapshots:
     optional: true
 
   slacc-freebsd-x64@0.0.10:
+    optional: true
+
+  slacc-freebsd-x64@0.2.0:
     optional: true
 
   slacc-linux-arm-gnueabihf@0.0.10:
