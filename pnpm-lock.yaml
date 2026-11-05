@@ -713,8 +713,8 @@ importers:
         specifier: 0.0.10
         version: 0.0.10
       slacc-linux-arm-gnueabihf:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       slacc-linux-arm64-gnu:
         specifier: 0.0.10
         version: 0.0.10
@@ -9217,6 +9217,12 @@ packages:
   slacc-linux-arm-gnueabihf@0.0.10:
     resolution: {integrity: sha512-9lTM3DGtISQlZYSKrMuQyKCiUnHYRcy04mY6HF1ywYcQ2sqfv3bKEnrypVewepIFUtytlIGzkgpiUAk/ghYGoA==}
     engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+
+  slacc-linux-arm-gnueabihf@0.2.0:
+    resolution: {integrity: sha512-2rOs004XPbOOdwidVl24G21Il+cIIG3neEfTjSXSDHVZ/Pw80w5tWVqpFieTLvkOXOuCDvibgIGAfhJjwaHLaw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [arm]
     os: [linux]
 
@@ -20690,6 +20696,9 @@ snapshots:
     optional: true
 
   slacc-linux-arm-gnueabihf@0.0.10:
+    optional: true
+
+  slacc-linux-arm-gnueabihf@0.2.0:
     optional: true
 
   slacc-linux-arm64-gnu@0.0.10:
