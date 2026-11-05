@@ -704,8 +704,8 @@ importers:
         specifier: 0.0.10
         version: 0.0.10
       slacc-darwin-universal:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       slacc-darwin-x64:
         specifier: 0.0.10
         version: 0.0.10
@@ -9200,6 +9200,11 @@ packages:
   slacc-darwin-universal@0.0.10:
     resolution: {integrity: sha512-x5kEqRMTEQTi3NCufPEukWvaWqcOL+7EkP18ZCCiajcWH83jWnT8DOSGOmmLYdrXd0B7ZZcbd8GyLp3i5zu8PA==}
     engines: {node: '>= 10'}
+    os: [darwin]
+
+  slacc-darwin-universal@0.2.0:
+    resolution: {integrity: sha512-aKuiVtGQdgZeGlp79MDUyHOzmweg1PAffFwjO3iQZBUxMoCiZVPUEtShMcF52i5NKk8KBnILxdvQJ04hopFmYw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     os: [darwin]
 
   slacc-darwin-x64@0.0.10:
@@ -20681,6 +20686,9 @@ snapshots:
     optional: true
 
   slacc-darwin-universal@0.0.10:
+    optional: true
+
+  slacc-darwin-universal@0.2.0:
     optional: true
 
   slacc-darwin-x64@0.0.10:
