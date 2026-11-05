@@ -794,8 +794,8 @@ importers:
         specifier: 2.2.0
         version: 2.2.0(chart.js@4.6.1)
       chromatic:
-        specifier: 6.19.9
-        version: 6.19.9
+        specifier: 6.24.1
+        version: 6.24.1
       compare-versions:
         specifier: 5.0.3
         version: 5.0.3
@@ -4635,8 +4635,8 @@ packages:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
     engines: {node: '>=18'}
 
-  chromatic@6.19.9:
-    resolution: {integrity: sha512-UHrPbPoLnJwd063cRSO0U865VhcATykpMiHsAnNFz5EFRsBvM9wefqyS2Z6W8Ti9J7Fjrf4MV4PA+Q5k2lhFfQ==}
+  chromatic@6.24.1:
+    resolution: {integrity: sha512-XbpdWWHvFpEHtcq1Km71UcuQ07effB+8q8L47E1Y7HJmJ4ZCoKCuPd8liNrbnvwEAxqfBZvTcONYU/3BPz2i5w==}
     hasBin: true
 
   chunk-data@0.1.0:
@@ -15057,7 +15057,7 @@ snapshots:
 
   chownr@3.0.0: {}
 
-  chromatic@6.19.9: {}
+  chromatic@6.24.1: {}
 
   chunk-data@0.1.0: {}
 
