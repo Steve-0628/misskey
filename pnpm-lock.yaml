@@ -731,8 +731,8 @@ importers:
         specifier: 0.0.10
         version: 0.0.10
       slacc-win32-x64-msvc:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
 
   packages/frontend:
     dependencies:
@@ -9257,6 +9257,12 @@ packages:
   slacc-win32-x64-msvc@0.0.10:
     resolution: {integrity: sha512-wAXBy5yKCAzfYWjVlyPpu6PscD+j4QhCQEy0wZaVuzNyx60HpXWcTZxxVnMR730Y7tfc7cBxSI8NtRb8RguSgg==}
     engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+
+  slacc-win32-x64-msvc@0.2.0:
+    resolution: {integrity: sha512-F9fjW7bFxdwaga5Dswx1S2hlioG/ISfpRIfdJhEFfnXptjddxCmW2ATP2v3tCS9lHsuuk18WbfQj6muy35EzSg==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [x64]
     os: [win32]
 
@@ -20708,6 +20714,9 @@ snapshots:
     optional: true
 
   slacc-win32-x64-msvc@0.0.10:
+    optional: true
+
+  slacc-win32-x64-msvc@0.2.0:
     optional: true
 
   slacc@0.0.10:
