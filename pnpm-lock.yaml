@@ -695,8 +695,8 @@ importers:
         specifier: ^4.0.9
         version: 4.1.0
       slacc-android-arm-eabi:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       slacc-android-arm64:
         specifier: 0.0.10
         version: 0.0.10
@@ -9182,6 +9182,12 @@ packages:
   slacc-android-arm-eabi@0.0.10:
     resolution: {integrity: sha512-U3dVBuM1m8rT1D/w6S4knJ/uscNwsCR+MKxSQFbgDJEh8Atv+ovuC+FMGuaBT4iOQjpMj5dWSsN3ZPjVeo3hgA==}
     engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [android]
+
+  slacc-android-arm-eabi@0.2.0:
+    resolution: {integrity: sha512-+sa8ANvCKYRJ2rQsHWS/AuEEPB83cG9om25ly1ThwT4NHCAcjFy2XSySSu0I0R2YUkJcNVaaQaNpDQ1eAEuAhg==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [arm]
     os: [android]
 
@@ -20672,6 +20678,9 @@ snapshots:
   sisteransi@1.0.5: {}
 
   slacc-android-arm-eabi@0.0.10:
+    optional: true
+
+  slacc-android-arm-eabi@0.2.0:
     optional: true
 
   slacc-android-arm64@0.0.10:
