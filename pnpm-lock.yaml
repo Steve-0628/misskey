@@ -399,8 +399,8 @@ importers:
         specifier: 7.3.0
         version: 7.3.0
       pg:
-        specifier: 8.16.3
-        version: 8.16.3
+        specifier: 8.23.1
+        version: 8.23.1
       probe-image-size:
         specifier: 7.5.0
         version: 7.5.0(supports-color@8.1.1)
@@ -478,7 +478,7 @@ importers:
         version: 0.2.7
       typeorm:
         specifier: 0.3.31
-        version: 0.3.31(ioredis@5.11.1(supports-color@8.1.1))(pg@8.16.3)(supports-color@8.1.1)
+        version: 0.3.31(ioredis@5.11.1(supports-color@8.1.1))(pg@8.23.1)(supports-color@8.1.1)
       ulid:
         specifier: 2.4.0
         version: 2.4.0
@@ -8224,8 +8224,8 @@ packages:
     resolution: {integrity: sha512-qTAAlrEsl8s4OiEQY69wDvcMIdQN6wdz5ojQiOy6YRMuynxenON0O5oCpJI6lshc6scgAY8qvJ2On/p+CXY0GA==}
     engines: {node: '>=4'}
 
-  pg@8.16.3:
-    resolution: {integrity: sha512-enxc1h0jA/aq5oSDMvqyW3q89ra6XIIDZgCX9vkMrnz5DFTw/Ny3Li2lFQ+pt3L6MCgm/5o2o8HW9hiJji+xvw==}
+  pg@8.23.1:
+    resolution: {integrity: sha512-aL96AHANtWjPLDOLqnhx+ngp9+UK7ETEU8VJrDCGvsSSi/mGLcWYsS6Herg7lmaBJe4uwrfqsa7gTEFaSizDoQ==}
     engines: {node: '>= 16.0.0'}
     peerDependencies:
       pg-native: '>=3.0.1'
@@ -19534,9 +19534,9 @@ snapshots:
 
   pg-int8@1.0.1: {}
 
-  pg-pool@3.14.0(pg@8.16.3):
+  pg-pool@3.14.0(pg@8.23.1):
     dependencies:
-      pg: 8.16.3
+      pg: 8.23.1
 
   pg-protocol@1.16.1: {}
 
@@ -19548,10 +19548,10 @@ snapshots:
       postgres-date: 1.0.7
       postgres-interval: 1.2.0
 
-  pg@8.16.3:
+  pg@8.23.1:
     dependencies:
       pg-connection-string: 2.14.1
-      pg-pool: 3.14.0(pg@8.16.3)
+      pg-pool: 3.14.0(pg@8.23.1)
       pg-protocol: 1.16.1
       pg-types: 2.2.0
       pgpass: 1.0.5
@@ -21438,7 +21438,7 @@ snapshots:
 
   typedarray@0.0.6: {}
 
-  typeorm@0.3.31(ioredis@5.11.1(supports-color@8.1.1))(pg@8.16.3)(supports-color@8.1.1):
+  typeorm@0.3.31(ioredis@5.11.1(supports-color@8.1.1))(pg@8.23.1)(supports-color@8.1.1):
     dependencies:
       '@sqltools/formatter': 1.2.5
       ansis: 4.4.0
@@ -21457,7 +21457,7 @@ snapshots:
       yargs: 17.7.3
     optionalDependencies:
       ioredis: 5.11.1(supports-color@8.1.1)
-      pg: 8.16.3
+      pg: 8.23.1
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
