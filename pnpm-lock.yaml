@@ -456,8 +456,8 @@ importers:
         specifier: https://github.com/misskey-dev/sharp-read-bmp#02d9dc189fa7df0c4bea09330be26741772dac01
         version: https://codeload.github.com/misskey-dev/sharp-read-bmp/tar.gz/02d9dc189fa7df0c4bea09330be26741772dac01
       slacc:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       strict-event-emitter-types:
         specifier: 2.0.0
         version: 2.0.0
@@ -1033,7 +1033,7 @@ importers:
         version: 2.1.5(supports-color@5.5.0)
       summaly:
         specifier: github:misskey-dev/summaly
-        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e'
+        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49'
       vite:
         specifier: 4.5.14
         version: 4.5.14(@types/node@24.19.2)(sass@1.107.0)(terser@5.51.2)
@@ -2246,8 +2246,8 @@ packages:
   '@microsoft/tsdoc@0.17.1':
     resolution: {integrity: sha512-VHyYyyoH63jFoO3shpw9Zfijk5v/9p/VrClW35z0/q6ooK7sSmxpzOkS4iZPxs3vO4XtBW4H38HRAKkAMIK7DA==}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e':
-    resolution: {gitHosted: true, integrity: sha512-qsgSOQjixqaDUDVDPkjs1BPCiSWzouSgd8XrPSSL0rBJSTxbzqd+VmE12Epj2HoJWYaTewDguKOJ6eIfYcGA5Q==, tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e}
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49':
+    resolution: {gitHosted: true, integrity: sha512-++XxAqLpseDfNNJeQQfFAR1mjZim8YmViOn7nqxJ/8g7YdA/g5v6dnbKmor+h3LwyIynBrKZrMVdmrIft5N7mA==, tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49}
     version: 5.5.2
 
   '@mole-inc/bin-wrapper@8.0.1':
@@ -5707,8 +5707,8 @@ packages:
   fastify@4.20.0:
     resolution: {integrity: sha512-zWWi5KGAb1YZ6fyrnFnA1CA1EZHkGM6YuELgB3QpS3l4lLRy14W1cc16b4KGPH/zQ98WCSdS+T41JkHY3eq1oA==}
 
-  fastify@5.12.5:
-    resolution: {integrity: sha512-OB2k1dlxs5/NAABqeKV2FUHkSD2BbENsCak8yULVcymn3fHIPDVa9TI3SDnJSWYSllZmSYuZXy2gTnsT+Sut1A==}
+  fastify@5.12.6:
+    resolution: {integrity: sha512-XeErl1DDsxdbhE9RPRJ05iNnfMhHRHHewVNNAJXaGTOaCY4wHb6rEizphhgzBq5YQe4JyqQWPpGd+hLh2PXXJA==}
 
   fastq@1.20.3:
     resolution: {integrity: sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==}
@@ -9186,9 +9186,21 @@ packages:
     cpu: [arm]
     os: [android]
 
+  slacc-android-arm-eabi@0.2.0:
+    resolution: {integrity: sha512-+sa8ANvCKYRJ2rQsHWS/AuEEPB83cG9om25ly1ThwT4NHCAcjFy2XSySSu0I0R2YUkJcNVaaQaNpDQ1eAEuAhg==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [arm]
+    os: [android]
+
   slacc-android-arm64@0.0.10:
     resolution: {integrity: sha512-guVp88sW+4j1clTSXMzyDJHG8ondVnd8/FMKXIOfzKCEwSwX3uBxsuyHqtGvXkEwyZAGsBUy13Ei/PZAwElwYA==}
     engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [android]
+
+  slacc-android-arm64@0.2.0:
+    resolution: {integrity: sha512-TfxKlf01C2/a7EnWryzSvVUSItam6DPUGE14zwSD+qNHwG7Yj15PkbJXI9TCevg2LKzYVTRVBK+fhJRJvlGcGw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [arm64]
     os: [android]
 
@@ -9198,14 +9210,31 @@ packages:
     cpu: [arm64]
     os: [darwin]
 
+  slacc-darwin-arm64@0.2.0:
+    resolution: {integrity: sha512-yZ7A8CU4P54/SzAM2ZCuNysRlWgtx+KQ9mLVRrwHP1hTEA7f4UpubdvBoSnPCVcEZJWl0CWHmC8Wh5J3Qko+Aw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [arm64]
+    os: [darwin]
+
   slacc-darwin-universal@0.0.10:
     resolution: {integrity: sha512-x5kEqRMTEQTi3NCufPEukWvaWqcOL+7EkP18ZCCiajcWH83jWnT8DOSGOmmLYdrXd0B7ZZcbd8GyLp3i5zu8PA==}
     engines: {node: '>= 10'}
     os: [darwin]
 
+  slacc-darwin-universal@0.2.0:
+    resolution: {integrity: sha512-aKuiVtGQdgZeGlp79MDUyHOzmweg1PAffFwjO3iQZBUxMoCiZVPUEtShMcF52i5NKk8KBnILxdvQJ04hopFmYw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    os: [darwin]
+
   slacc-darwin-x64@0.0.10:
     resolution: {integrity: sha512-5gQYboy/4T6Bj3sVXiCpM3EvF1sK/Zx1Nq5YBMUuYb2GzrIwywghHbCD6bK4JYGvNsLN7r4PC45ZUB4gVkU8yA==}
     engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+
+  slacc-darwin-x64@0.2.0:
+    resolution: {integrity: sha512-RNpkJN5+NGO1kf/JQRA4CCZ4Cws3UC9DGvHAsHBDyjhIkXPmQT97+N3heLiW3p+Bz6Df2p/9xFxwBRzTL8Ivuw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [x64]
     os: [darwin]
 
@@ -9215,15 +9244,34 @@ packages:
     cpu: [x64]
     os: [freebsd]
 
+  slacc-freebsd-x64@0.2.0:
+    resolution: {integrity: sha512-ML4SgGHiWQprrBJ/3fzqsSp4FntOrgY1AtCHqGvtlBRC+SauV61R1pDZmf7go4hHQ5enshefNNpsPTSkCCX8Aw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [x64]
+    os: [freebsd]
+
   slacc-linux-arm-gnueabihf@0.0.10:
     resolution: {integrity: sha512-9lTM3DGtISQlZYSKrMuQyKCiUnHYRcy04mY6HF1ywYcQ2sqfv3bKEnrypVewepIFUtytlIGzkgpiUAk/ghYGoA==}
     engines: {node: '>= 10'}
     cpu: [arm]
     os: [linux]
 
+  slacc-linux-arm-gnueabihf@0.2.0:
+    resolution: {integrity: sha512-2rOs004XPbOOdwidVl24G21Il+cIIG3neEfTjSXSDHVZ/Pw80w5tWVqpFieTLvkOXOuCDvibgIGAfhJjwaHLaw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [arm]
+    os: [linux]
+
   slacc-linux-arm64-gnu@0.0.10:
     resolution: {integrity: sha512-qXrNWSINXOjHRO3c9idGm8DeOAjAjG1xHY8WiplCoHWgsZf3E7V+sPhWqRUaGQEvftsJg40+cFYREBaLQhpAVQ==}
     engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  slacc-linux-arm64-gnu@0.2.0:
+    resolution: {integrity: sha512-lSJ/llGgzATJLAhcHCSFuVZRqTC7J4/Nb3vI9clatWjlFi2HZfkX4HAPvjSlnVmC9XU4SNxefN0qeDl1nCR+VQ==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
@@ -9235,9 +9283,23 @@ packages:
     os: [linux]
     libc: [musl]
 
+  slacc-linux-arm64-musl@0.2.0:
+    resolution: {integrity: sha512-Di04b7f4hB8zT8nlcr76P3f5RXQYiV9PR+Jm89pPP4ATAnirJ3/XnZ3tghpfuwkZv3UMyNiGnqGDUzdrHxVNPw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [musl]
+
   slacc-linux-x64-gnu@0.0.10:
     resolution: {integrity: sha512-BxxvylF9zlOLRLCpiyMvKTIUpdLlpetNBJ+DSMDh5+Ggq+AmQz2NUGawmcBJw58F8nMCj9TpWLlGNWc2AuY+JQ==}
     engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  slacc-linux-x64-gnu@0.2.0:
+    resolution: {integrity: sha512-U1y0c08l4o5SmT92xXu5WHUQAK7W4t5MHE1xVba3j9Cl7CL+4AcjTA84NkLX0MmqmYyTyIY7ui5DrDJNmXfNZw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
@@ -9249,9 +9311,22 @@ packages:
     os: [linux]
     libc: [glibc]
 
+  slacc-linux-x64-musl@0.2.0:
+    resolution: {integrity: sha512-yV5NZTmo5PeRlT8aTnUO7KYertnXGgXCsw3c82iqMAl50anZahZ8tlDZ/ZQrf/MiddlcExB5VsNYOJQiPfe/QA==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [x64]
+    os: [linux]
+    libc: [musl]
+
   slacc-win32-arm64-msvc@0.0.10:
     resolution: {integrity: sha512-1CHPLiDB4exzFyT5ndtJDsRRhBxNg8mGz6I6eJEMjelGkJR2KZPT9LZuby/1bS/bcVOr7zuJvGNfbEGBeHRwPQ==}
     engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+
+  slacc-win32-arm64-msvc@0.2.0:
+    resolution: {integrity: sha512-rj0WbKA6Hs1Tp3vAkWx+j6VPgVK0uoV514Y3O/jdkla5WtAoYvpUyk98bGMkZoZCPNIiSmHx1+yUnmFTJHhB4w==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
     cpu: [arm64]
     os: [win32]
 
@@ -9261,9 +9336,15 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  slacc@0.0.10:
-    resolution: {integrity: sha512-2jgms2/4mLr1AMq4oloAwPdKQK9RQvgmoEpMIxvC+HeHMwCR0XxB7gr/rKo4iLOKJ6gx02mnBU0JHWcTIonpmA==}
-    engines: {node: '>= 10'}
+  slacc-win32-x64-msvc@0.2.0:
+    resolution: {integrity: sha512-F9fjW7bFxdwaga5Dswx1S2hlioG/ISfpRIfdJhEFfnXptjddxCmW2ATP2v3tCS9lHsuuk18WbfQj6muy35EzSg==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [x64]
+    os: [win32]
+
+  slacc@0.2.0:
+    resolution: {integrity: sha512-ZFONGWAl58qjsnRDsqgBV62DctBoZHEjL+e/sA1acYStLUIiBorc2LOBMPnGKrFsZjpxm9ohQabgZ9RG5xxlXQ==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
 
   slash@3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
@@ -12299,7 +12380,7 @@ snapshots:
 
   '@microsoft/tsdoc@0.17.1': {}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e':
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49':
     dependencies:
       chardet: 2.2.0
       cheerio: 1.2.0
@@ -12308,7 +12389,7 @@ snapshots:
       html-entities: 2.6.0
       ipaddr.js: 2.5.0
     optionalDependencies:
-      fastify: 5.12.5
+      fastify: 5.12.6
 
   '@mole-inc/bin-wrapper@8.0.1':
     dependencies:
@@ -16504,7 +16585,7 @@ snapshots:
       semver: 7.8.5
       tiny-lru: 11.4.7
 
-  fastify@5.12.5:
+  fastify@5.12.6:
     dependencies:
       '@fastify/ajv-compiler': 4.0.7
       '@fastify/error': 4.2.1
@@ -20675,57 +20756,96 @@ snapshots:
   slacc-android-arm-eabi@0.0.10:
     optional: true
 
+  slacc-android-arm-eabi@0.2.0:
+    optional: true
+
   slacc-android-arm64@0.0.10:
+    optional: true
+
+  slacc-android-arm64@0.2.0:
     optional: true
 
   slacc-darwin-arm64@0.0.10:
     optional: true
 
+  slacc-darwin-arm64@0.2.0:
+    optional: true
+
   slacc-darwin-universal@0.0.10:
+    optional: true
+
+  slacc-darwin-universal@0.2.0:
     optional: true
 
   slacc-darwin-x64@0.0.10:
     optional: true
 
+  slacc-darwin-x64@0.2.0:
+    optional: true
+
   slacc-freebsd-x64@0.0.10:
+    optional: true
+
+  slacc-freebsd-x64@0.2.0:
     optional: true
 
   slacc-linux-arm-gnueabihf@0.0.10:
     optional: true
 
+  slacc-linux-arm-gnueabihf@0.2.0:
+    optional: true
+
   slacc-linux-arm64-gnu@0.0.10:
+    optional: true
+
+  slacc-linux-arm64-gnu@0.2.0:
     optional: true
 
   slacc-linux-arm64-musl@0.0.10:
     optional: true
 
+  slacc-linux-arm64-musl@0.2.0:
+    optional: true
+
   slacc-linux-x64-gnu@0.0.10:
+    optional: true
+
+  slacc-linux-x64-gnu@0.2.0:
     optional: true
 
   slacc-linux-x64-musl@0.0.10:
     optional: true
 
+  slacc-linux-x64-musl@0.2.0:
+    optional: true
+
   slacc-win32-arm64-msvc@0.0.10:
+    optional: true
+
+  slacc-win32-arm64-msvc@0.2.0:
     optional: true
 
   slacc-win32-x64-msvc@0.0.10:
     optional: true
 
-  slacc@0.0.10:
+  slacc-win32-x64-msvc@0.2.0:
+    optional: true
+
+  slacc@0.2.0:
     optionalDependencies:
-      slacc-android-arm-eabi: 0.0.10
-      slacc-android-arm64: 0.0.10
-      slacc-darwin-arm64: 0.0.10
-      slacc-darwin-universal: 0.0.10
-      slacc-darwin-x64: 0.0.10
-      slacc-freebsd-x64: 0.0.10
-      slacc-linux-arm-gnueabihf: 0.0.10
-      slacc-linux-arm64-gnu: 0.0.10
-      slacc-linux-arm64-musl: 0.0.10
-      slacc-linux-x64-gnu: 0.0.10
-      slacc-linux-x64-musl: 0.0.10
-      slacc-win32-arm64-msvc: 0.0.10
-      slacc-win32-x64-msvc: 0.0.10
+      slacc-android-arm-eabi: 0.2.0
+      slacc-android-arm64: 0.2.0
+      slacc-darwin-arm64: 0.2.0
+      slacc-darwin-universal: 0.2.0
+      slacc-darwin-x64: 0.2.0
+      slacc-freebsd-x64: 0.2.0
+      slacc-linux-arm-gnueabihf: 0.2.0
+      slacc-linux-arm64-gnu: 0.2.0
+      slacc-linux-arm64-musl: 0.2.0
+      slacc-linux-x64-gnu: 0.2.0
+      slacc-linux-x64-musl: 0.2.0
+      slacc-win32-arm64-msvc: 0.2.0
+      slacc-win32-x64-msvc: 0.2.0
 
   slash@3.0.0: {}
 
