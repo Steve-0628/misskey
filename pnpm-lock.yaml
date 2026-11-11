@@ -704,8 +704,8 @@ importers:
         specifier: 0.0.10
         version: 0.0.10
       slacc-darwin-universal:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       slacc-darwin-x64:
         specifier: 0.0.10
         version: 0.0.10
@@ -1033,7 +1033,7 @@ importers:
         version: 2.1.5(supports-color@5.5.0)
       summaly:
         specifier: github:misskey-dev/summaly
-        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e'
+        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49'
       vite:
         specifier: 4.5.14
         version: 4.5.14(@types/node@24.19.2)(sass@1.107.0)(terser@5.51.2)
@@ -2246,8 +2246,8 @@ packages:
   '@microsoft/tsdoc@0.17.1':
     resolution: {integrity: sha512-VHyYyyoH63jFoO3shpw9Zfijk5v/9p/VrClW35z0/q6ooK7sSmxpzOkS4iZPxs3vO4XtBW4H38HRAKkAMIK7DA==}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e':
-    resolution: {gitHosted: true, integrity: sha512-qsgSOQjixqaDUDVDPkjs1BPCiSWzouSgd8XrPSSL0rBJSTxbzqd+VmE12Epj2HoJWYaTewDguKOJ6eIfYcGA5Q==, tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e}
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49':
+    resolution: {gitHosted: true, integrity: sha512-++XxAqLpseDfNNJeQQfFAR1mjZim8YmViOn7nqxJ/8g7YdA/g5v6dnbKmor+h3LwyIynBrKZrMVdmrIft5N7mA==, tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49}
     version: 5.5.2
 
   '@mole-inc/bin-wrapper@8.0.1':
@@ -5707,8 +5707,8 @@ packages:
   fastify@4.20.0:
     resolution: {integrity: sha512-zWWi5KGAb1YZ6fyrnFnA1CA1EZHkGM6YuELgB3QpS3l4lLRy14W1cc16b4KGPH/zQ98WCSdS+T41JkHY3eq1oA==}
 
-  fastify@5.12.5:
-    resolution: {integrity: sha512-OB2k1dlxs5/NAABqeKV2FUHkSD2BbENsCak8yULVcymn3fHIPDVa9TI3SDnJSWYSllZmSYuZXy2gTnsT+Sut1A==}
+  fastify@5.12.6:
+    resolution: {integrity: sha512-XeErl1DDsxdbhE9RPRJ05iNnfMhHRHHewVNNAJXaGTOaCY4wHb6rEizphhgzBq5YQe4JyqQWPpGd+hLh2PXXJA==}
 
   fastq@1.20.3:
     resolution: {integrity: sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==}
@@ -9203,6 +9203,11 @@ packages:
     engines: {node: '>= 10'}
     os: [darwin]
 
+  slacc-darwin-universal@0.2.0:
+    resolution: {integrity: sha512-aKuiVtGQdgZeGlp79MDUyHOzmweg1PAffFwjO3iQZBUxMoCiZVPUEtShMcF52i5NKk8KBnILxdvQJ04hopFmYw==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    os: [darwin]
+
   slacc-darwin-x64@0.0.10:
     resolution: {integrity: sha512-5gQYboy/4T6Bj3sVXiCpM3EvF1sK/Zx1Nq5YBMUuYb2GzrIwywghHbCD6bK4JYGvNsLN7r4PC45ZUB4gVkU8yA==}
     engines: {node: '>= 10'}
@@ -12299,7 +12304,7 @@ snapshots:
 
   '@microsoft/tsdoc@0.17.1': {}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e':
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/d3f1a1a6561eaf00a93b59c6d1b488c698c9db49':
     dependencies:
       chardet: 2.2.0
       cheerio: 1.2.0
@@ -12308,7 +12313,7 @@ snapshots:
       html-entities: 2.6.0
       ipaddr.js: 2.5.0
     optionalDependencies:
-      fastify: 5.12.5
+      fastify: 5.12.6
 
   '@mole-inc/bin-wrapper@8.0.1':
     dependencies:
@@ -16504,7 +16509,7 @@ snapshots:
       semver: 7.8.5
       tiny-lru: 11.4.7
 
-  fastify@5.12.5:
+  fastify@5.12.6:
     dependencies:
       '@fastify/ajv-compiler': 4.0.7
       '@fastify/error': 4.2.1
@@ -20682,6 +20687,9 @@ snapshots:
     optional: true
 
   slacc-darwin-universal@0.0.10:
+    optional: true
+
+  slacc-darwin-universal@0.2.0:
     optional: true
 
   slacc-darwin-x64@0.0.10:
