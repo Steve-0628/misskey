@@ -716,8 +716,8 @@ importers:
         specifier: 0.0.10
         version: 0.0.10
       slacc-linux-arm64-gnu:
-        specifier: 0.0.10
-        version: 0.0.10
+        specifier: 0.2.0
+        version: 0.2.0
       slacc-linux-arm64-musl:
         specifier: 0.0.10
         version: 0.0.10
@@ -1033,7 +1033,7 @@ importers:
         version: 2.1.5(supports-color@5.5.0)
       summaly:
         specifier: github:misskey-dev/summaly
-        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e'
+        version: '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/921dbaf245c6234c14f248477840cdc03cddbd6c'
       vite:
         specifier: 4.5.14
         version: 4.5.14(@types/node@24.19.2)(sass@1.107.0)(terser@5.51.2)
@@ -2246,9 +2246,9 @@ packages:
   '@microsoft/tsdoc@0.17.1':
     resolution: {integrity: sha512-VHyYyyoH63jFoO3shpw9Zfijk5v/9p/VrClW35z0/q6ooK7sSmxpzOkS4iZPxs3vO4XtBW4H38HRAKkAMIK7DA==}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e':
-    resolution: {gitHosted: true, integrity: sha512-qsgSOQjixqaDUDVDPkjs1BPCiSWzouSgd8XrPSSL0rBJSTxbzqd+VmE12Epj2HoJWYaTewDguKOJ6eIfYcGA5Q==, tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e}
-    version: 5.5.2
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/921dbaf245c6234c14f248477840cdc03cddbd6c':
+    resolution: {gitHosted: true, integrity: sha512-zO4/5iTF5xFZ+dgHHmv2iAgEQszIOdksrCO5dwF3DO05cTcXpaH6MCXiotmg1mvmpzxqoSpkrFNt6mpGYgelyQ==, tarball: https://codeload.github.com/misskey-dev/summaly/tar.gz/921dbaf245c6234c14f248477840cdc03cddbd6c}
+    version: 5.6.0
 
   '@mole-inc/bin-wrapper@8.0.1':
     resolution: {integrity: sha512-sTGoeZnjI8N4KS+sW2AN95gDBErhAguvkw/tWdCjeM8bvxpz5lqrnd0vOJABA1A+Ic3zED7PYoLP/RANLgVotA==}
@@ -5707,8 +5707,8 @@ packages:
   fastify@4.20.0:
     resolution: {integrity: sha512-zWWi5KGAb1YZ6fyrnFnA1CA1EZHkGM6YuELgB3QpS3l4lLRy14W1cc16b4KGPH/zQ98WCSdS+T41JkHY3eq1oA==}
 
-  fastify@5.12.5:
-    resolution: {integrity: sha512-OB2k1dlxs5/NAABqeKV2FUHkSD2BbENsCak8yULVcymn3fHIPDVa9TI3SDnJSWYSllZmSYuZXy2gTnsT+Sut1A==}
+  fastify@5.12.8:
+    resolution: {integrity: sha512-moP8exb2sCHLUbJkwp+I6C0padhy4D8lp0SdmzY7HhSdZuqm7O/u3o2aq7u8okaQ//33QDzj3G/u+FsSdB8Qzw==}
 
   fastq@1.20.3:
     resolution: {integrity: sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==}
@@ -6090,8 +6090,8 @@ packages:
     resolution: {integrity: sha512-XfBk1CxOOScDcMr9O1yKkNaQyy865NbYs+F7dr4H0LZMVgCj2Le59k6PqbNHoL5ToeaEQUYh6c6yMfVcc6SJxA==}
     engines: {node: '>=16'}
 
-  got@16.0.0:
-    resolution: {integrity: sha512-UtzSUebtRHHAUaNB/X37X1LQgHvdSrgXUIWGUBDhLu05CYtUr9svjeN6wmG333nzdJASFUjXMOuRBjZLf8oF1w==}
+  got@16.2.0:
+    resolution: {integrity: sha512-aOgWdlVL/pipu3Cqr9okwOdRZPsWwntgTup+eTn2fE1k4vky6oybjVUZxCSdAfOJkSxoyGKcGlgxf2+LcPdgVg==}
     engines: {node: '>=22'}
 
   graceful-fs@4.2.11:
@@ -9228,6 +9228,13 @@ packages:
     os: [linux]
     libc: [glibc]
 
+  slacc-linux-arm64-gnu@0.2.0:
+    resolution: {integrity: sha512-lSJ/llGgzATJLAhcHCSFuVZRqTC7J4/Nb3vI9clatWjlFi2HZfkX4HAPvjSlnVmC9XU4SNxefN0qeDl1nCR+VQ==}
+    engines: {node: '>=24 || ^23.6.0 || ^22.14.0'}
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
   slacc-linux-arm64-musl@0.0.10:
     resolution: {integrity: sha512-3lUX7752f6Okn54aONioaA+9M5TvifqXBAart+u2lNXEdWmmh003cVSU2Vcwg7nJ9lLHtju2DkDmKKfJjFuShA==}
     engines: {node: '>= 10'}
@@ -12299,16 +12306,16 @@ snapshots:
 
   '@microsoft/tsdoc@0.17.1': {}
 
-  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/c5c60df5a748657755ee603bcfc32fe4a3a8517e':
+  '@misskey-dev/summaly@https://codeload.github.com/misskey-dev/summaly/tar.gz/921dbaf245c6234c14f248477840cdc03cddbd6c':
     dependencies:
       chardet: 2.2.0
       cheerio: 1.2.0
       escape-regexp: 0.0.1
-      got: 16.0.0
+      got: 16.2.0
       html-entities: 2.6.0
       ipaddr.js: 2.5.0
     optionalDependencies:
-      fastify: 5.12.5
+      fastify: 5.12.8
 
   '@mole-inc/bin-wrapper@8.0.1':
     dependencies:
@@ -16504,7 +16511,7 @@ snapshots:
       semver: 7.8.5
       tiny-lru: 11.4.7
 
-  fastify@5.12.5:
+  fastify@5.12.8:
     dependencies:
       '@fastify/ajv-compiler': 4.0.7
       '@fastify/error': 4.2.1
@@ -17009,7 +17016,7 @@ snapshots:
       p-cancelable: 3.0.0
       responselike: 3.0.0
 
-  got@16.0.0:
+  got@16.2.0:
     dependencies:
       '@sindresorhus/is': 8.1.0
       byte-counter: 0.1.0
@@ -20694,6 +20701,9 @@ snapshots:
     optional: true
 
   slacc-linux-arm64-gnu@0.0.10:
+    optional: true
+
+  slacc-linux-arm64-gnu@0.2.0:
     optional: true
 
   slacc-linux-arm64-musl@0.0.10:
