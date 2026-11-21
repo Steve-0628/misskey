@@ -1,13 +1,10 @@
 import * as http from 'node:http';
 import * as https from 'node:https';
 import * as net from 'node:net';
-import type { Duplex } from 'node:stream';
-import * as dns from 'node:dns/promises';
 import ipaddr from 'ipaddr.js';
 import CacheableLookup from 'cacheable-lookup';
 import fetch from 'node-fetch';
 import { HttpProxyAgent, HttpsProxyAgent } from 'hpagent';
-import type { HttpProxyAgentOptions, HttpsProxyAgentOptions } from 'hpagent';
 import { Inject, Injectable } from '@nestjs/common';
 import { DI } from '@/di-symbols.js';
 import type { Config } from '@/config.js';
@@ -16,6 +13,8 @@ import { bindThis } from '@/decorators.js';
 import { validateContentTypeSetAsActivityPub } from '@/core/activitypub/misc/validator.js';
 import { assertActivityMatchesUrls } from '@/core/activitypub/misc/check-against-url.js';
 import type { IObject } from '@/core/activitypub/type.js';
+import type { HttpProxyAgentOptions, HttpsProxyAgentOptions } from 'hpagent';
+import type { Duplex } from 'node:stream';
 import type { Response } from 'node-fetch';
 import type { URL } from 'node:url';
 
@@ -25,6 +24,11 @@ export type HttpRequestSendOptions = {
 };
 
 type ProxyRequestOptions = http.ClientRequestArgs & { servername?: string };
+const proxyDnsCache = new CacheableLookup({
+	maxTtl: 60,
+	errorTtl: 1,
+	lookup: false,
+});
 
 declare module 'node:http' {
 	interface Agent {
@@ -49,7 +53,8 @@ async function resolveProxyTarget(config: Config, hostname: string): Promise<str
 	const host = hostname.startsWith('[') && hostname.endsWith(']') ? hostname.slice(1, -1) : hostname;
 	const addresses = ipaddr.isValid(host)
 		? [host]
-		: (await dns.lookup(host, { all: true })).map(result => result.address);
+		: (await proxyDnsCache.lookupAsync(host, { all: true }))
+			.map(result => result.address);
 
 	if (addresses.length === 0 || addresses.some(address => isPrivateIp(config, address))) {
 		throw new Error(`Blocked proxy target: ${hostname}`);
@@ -290,7 +295,7 @@ export class HttpRequestService {
 			validators: [],
 		},
 	): Promise<Response> {
-		const timeout = args.timeout ?? 5000;
+		const timeout = args.timeout ?? 10000;
 
 		const controller = new AbortController();
 		setTimeout(() => {
