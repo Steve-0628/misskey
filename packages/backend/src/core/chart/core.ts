@@ -417,20 +417,25 @@ export default abstract class Chart<T extends Schema> {
 
 			const queryForHour: Record<keyof RawRecord<T>, number | (() => string)> = {} as any;
 			const queryForDay: Record<keyof RawRecord<T>, number | (() => string)> = {} as any;
+
+			const sqlStringEscape = (value: string): string => {
+				// eslint-disable-next-line quotes
+				return `'${value.replaceAll("'", "''")}'`;
+			};
+
 			for (const [k, v] of Object.entries(finalDiffs)) {
 				if (typeof v === 'number') {
 					const name = COLUMN_PREFIX + k.replaceAll('.', COLUMN_DELIMITER) as string & keyof Columns<T>;
-					if (v > 0) queryForHour[name] = () => `"${name}" + ${v}`;
-					if (v < 0) queryForHour[name] = () => `"${name}" - ${Math.abs(v)}`;
-					if (v > 0) queryForDay[name] = () => `"${name}" + ${v}`;
-					if (v < 0) queryForDay[name] = () => `"${name}" - ${Math.abs(v)}`;
+					if (v > 0) queryForHour[name] = (): string => `"${name}" + ${v}`;
+					if (v < 0) queryForHour[name] = (): string => `"${name}" - ${Math.abs(v)}`;
+					if (v > 0) queryForDay[name] = (): string => `"${name}" + ${v}`;
+					if (v < 0) queryForDay[name] = (): string => `"${name}" - ${Math.abs(v)}`;
 				} else if (Array.isArray(v) && v.length > 0) { // ユニークインクリメント
 					const tempColumnName = UNIQUE_TEMP_COLUMN_PREFIX + k.replaceAll('.', COLUMN_DELIMITER) as string & keyof TempColumnsForUnique<T>;
-					// TODO: item をSQLエスケープ
-					const itemsForHour = v.filter(item => !(logHour[tempColumnName] as unknown as string[]).includes(item)).map(item => `"${item}"`);
-					const itemsForDay = v.filter(item => !(logDay[tempColumnName] as unknown as string[]).includes(item)).map(item => `"${item}"`);
-					if (itemsForHour.length > 0) queryForHour[tempColumnName] = () => `array_cat("${tempColumnName}", '{${itemsForHour.join(',')}}'::varchar[])`;
-					if (itemsForDay.length > 0) queryForDay[tempColumnName] = () => `array_cat("${tempColumnName}", '{${itemsForDay.join(',')}}'::varchar[])`;
+					const itemsForHour = v.filter(item => !(logHour[tempColumnName] as unknown as string[]).includes(item)).map(item => sqlStringEscape(item));
+					const itemsForDay = v.filter(item => !(logDay[tempColumnName] as unknown as string[]).includes(item)).map(item => sqlStringEscape(item));
+					if (itemsForHour.length > 0) queryForHour[tempColumnName] = (): string => `array_cat("${tempColumnName}", ARRAY[${itemsForHour.join(',')}]::varchar[])`;
+					if (itemsForDay.length > 0) queryForDay[tempColumnName] = (): string => `array_cat("${tempColumnName}", ARRAY[${itemsForDay.join(',')}]::varchar[])`;
 				}
 			}
 
